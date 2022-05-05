@@ -1,0 +1,30 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+	<PropertyGroup>
+		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
+		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
+		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;monoandroid11.0;uap10.0.19041</TargetFrameworks>
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+		<GenerateLibraryLayout>true</GenerateLibraryLayout>
+		<RootNamespace>Cartography.Core</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Cartography.Core</AssemblyName>
+		<PackageId>Cartography.Core</PackageId>
+		<Description>Cartography.Core</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.19" />
+		<PackageReference Include="System.Reactive" Version="5.0.0" />
+		<PackageReference Include="Uno.UI" Version="3.11.9" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == 'monoandroid'">
+		<PackageReference Include="Xamarin.GooglePlayServices.Base">
+			<Version>117.6.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.GooglePlayServices.Maps" Version="117.0.1" />
+	</ItemGroup>
+
+</Project>
