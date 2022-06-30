@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Nventive.Location.MapService.Provider
+namespace Cartography.MapService.Provider
 {
 	internal static class MapServiceProviderFactory
 	{

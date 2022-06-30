@@ -1,7 +1,7 @@
 ﻿#if __IOS__
 using Foundation;
 
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	/// <summary>
 	/// This contract defines a service provider which supports locations and directions services

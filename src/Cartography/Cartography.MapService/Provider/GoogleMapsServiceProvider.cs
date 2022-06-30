@@ -3,7 +3,7 @@ using Foundation;
 using Uno.Extensions;
 using Uno.Logging;
 
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	/// <summary>
 	/// Service that provide locations and directions commands to Google Maps

@@ -11,7 +11,7 @@ using Uno.Logging;
 using Microsoft.Extensions.Logging;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	internal class MapControlIconItem : IMapControlItem, ISelectable
 	{

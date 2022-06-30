@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeolocatorService;
-using Nventive.Location.Core;
+using Cartography.Core;
 using Uno;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	/// <summary>
 	/// Interface that define the required property for the MapComponent

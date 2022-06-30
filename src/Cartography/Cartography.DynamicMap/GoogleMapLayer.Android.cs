@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Uno.Extensions;
 using Uno.Logging;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	internal class GoogleMapLayer : IMapLayer<Pushpin>
 	{

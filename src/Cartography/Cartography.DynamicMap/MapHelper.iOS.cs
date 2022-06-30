@@ -5,10 +5,10 @@ using System.Text;
 using CoreGraphics;
 using CoreLocation;
 using MapKit;
-using Nventive.Location.Core;
+using Cartography.Core;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public static class MapHelper
 	{

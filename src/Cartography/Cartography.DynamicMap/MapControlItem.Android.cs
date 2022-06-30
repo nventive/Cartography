@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using Android.Gms.Maps.Model;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class MapControlItem : INotifyPropertyChanged, IMapControlItem
 	{

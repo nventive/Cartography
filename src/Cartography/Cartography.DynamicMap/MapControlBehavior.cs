@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Media;
 using Android.Gms.Maps.Model;
 #endif
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public static class MapControlBehavior
 	{

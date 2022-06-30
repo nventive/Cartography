@@ -10,7 +10,7 @@ using CoreGraphics;
 using Foundation;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
-using Nventive.Location.Core;
+using Cartography.Core;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
@@ -18,7 +18,7 @@ using Windows.Devices.Geolocation;
 using Windows.UI;
 using Windows.UI.Xaml;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public partial class MapControlBase
 	{

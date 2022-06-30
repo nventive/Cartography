@@ -1,5 +1,5 @@
 ﻿#if __IOS__
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	/// <summary>
 	/// This class aggregates alert parameters.

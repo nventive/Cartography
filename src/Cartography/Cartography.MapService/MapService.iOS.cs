@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Foundation;
 using Microsoft.Extensions.Logging;
-using Nventive.Location.MapService.Provider;
+using Cartography.MapService.Provider;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
 
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	/// <summary>
 	/// Implementation of <see href="IMapService" />

@@ -7,7 +7,7 @@ using CoreLocation;
 using MapKit;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class MapControlItem : MKAnnotation, INotifyPropertyChanged, IMapControlItem
 	{
