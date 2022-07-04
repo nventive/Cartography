@@ -3,7 +3,7 @@ using GeolocatorService;
 using Uno.Extensions;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class MapViewPortCoordinates : IEquatable<MapViewPortCoordinates>
 	{

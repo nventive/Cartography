@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Cartography.Core;
 using Uno.Disposables;
 using SerialDisposable = Uno.Disposables.SerialDisposable;
 using CompositeDisposable = Uno.Disposables.CompositeDisposable;
 using Uno.Extensions;
 using Uno.Logging;
 using Cartography.StaticMap.Provider;
-using Cartography.Core;
 #if __IOS__
 using UIKit;
 using Uno.UI;

@@ -1,5 +1,5 @@
 ﻿#if __IOS__
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	public enum MapServiceiOSProvider
 	{

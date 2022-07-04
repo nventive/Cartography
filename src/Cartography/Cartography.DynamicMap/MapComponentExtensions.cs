@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using Chinook.DynamicMvvm;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	internal static class MapComponentExtensions
 	{

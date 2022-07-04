@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	/// <summary>
 	/// Represents a geolocated pushpin grouping

@@ -15,18 +15,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Chinook.SectionsNavigation" Version="0.5.0-dev.73" />
+		<PackageReference Include="Chinook.SectionsNavigation.Reactive" Version="0.5.0-dev.73" />
+		<PackageReference Include="Chinook.SectionsNavigation.Uno" Version="0.5.0-dev.73" />
 		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.19" />
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
 		<PackageReference Include="Uno.UI" Version="3.11.9" />
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.3.0-dev.18" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'xamarinios10'">
-		<PackageReference Include="Xamarin.Google.iOS.Maps" Version="3.9.0" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\Cartography.Core\Cartography.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'xamarinios10'">
+		<PackageReference Include="Xamarin.Google.iOS.Maps" Version="3.9.0" />
 	</ItemGroup>
 
 </Project>

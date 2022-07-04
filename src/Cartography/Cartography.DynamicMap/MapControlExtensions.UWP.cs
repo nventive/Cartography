@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	/// <summary>
 	/// Extensions of <see cref="Windows.UI.Xaml.Controls.Maps.MapControl"/>.

@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class MapGroupAnnotation : Pushpin
 	{

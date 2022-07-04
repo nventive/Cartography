@@ -1,7 +1,7 @@
 ﻿
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public partial interface IMapControlItem
 	{

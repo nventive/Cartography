@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls.Maps;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	/// <summary>
 	/// Marker for the User Location

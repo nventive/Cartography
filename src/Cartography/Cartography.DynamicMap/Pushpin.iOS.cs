@@ -1,6 +1,6 @@
 ﻿#if __IOS__
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	[Windows.UI.Xaml.Data.Bindable]
 	public class Pushpin : MapControlItem, ISelectable

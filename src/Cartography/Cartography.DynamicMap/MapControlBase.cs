@@ -18,7 +18,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Windows.Devices.Geolocation;
 using Windows.UI.Core;
-using Nventive.Location.Core;
+using Cartography.Core;
 using GeolocatorService;
 using Microsoft.Extensions.DependencyInjection;
 #if NETFX_CORE
@@ -28,7 +28,7 @@ using Map = Windows.UI.Xaml.Controls.Maps.MapControl;
 using System.Drawing;
 #endif
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	/// <summary>
 	/// The control which display the map component configured on <see cref="ViewModel"/>.

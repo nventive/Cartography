@@ -9,7 +9,7 @@ using Uno.Extensions;
 using Uno.Logging;
 using Windows.System;
 
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	/// <summary>
 	/// Implementation of <see href="IMapService" />

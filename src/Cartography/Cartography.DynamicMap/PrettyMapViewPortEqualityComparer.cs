@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using Nventive.Location.Core;
+using Cartography.Core;
 using Uno.Extensions;
 using Uno.Logging;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class PrettyMapViewPortEqualityComparer : IEqualityComparer<MapViewPort>
 	{

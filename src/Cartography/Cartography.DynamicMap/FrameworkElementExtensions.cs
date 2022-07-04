@@ -18,7 +18,7 @@ using Uno.UI.DataBinding;
 using System.Windows;
 #endif
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	internal static partial class FrameworkElementExtensions
 	{

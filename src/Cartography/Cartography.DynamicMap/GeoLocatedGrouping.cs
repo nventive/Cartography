@@ -5,7 +5,7 @@ using System.Linq;
 using Uno.Extensions;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class GeoLocatedGrouping<T> : IGeoLocatedGrouping<T>
 	{

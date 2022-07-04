@@ -1,6 +1,6 @@
 ﻿using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	/// <summary>
 	/// This class aggregates map parameters.

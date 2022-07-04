@@ -9,7 +9,7 @@ using Android.Util;
 using Android.Views;
 using Size = System.Drawing.Size;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class GoogleMapView : MapView
 	{

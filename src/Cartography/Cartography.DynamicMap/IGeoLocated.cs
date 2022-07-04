@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	/// <summary>
 	/// An item which exposed its location

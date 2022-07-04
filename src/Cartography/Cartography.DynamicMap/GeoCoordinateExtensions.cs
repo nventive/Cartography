@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Windows.Devices.Geolocation;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public static partial class GeoCoordinateExtensions
 	{

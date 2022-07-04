@@ -14,7 +14,7 @@ using CoreLocation;
 using GeolocatorService;
 using Google.Maps;
 using Microsoft.Extensions.Logging;
-using Nventive.Location.Core;
+using Cartography.Core;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
@@ -22,7 +22,7 @@ using Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	/// <summary>
 	/// iOS-only MapControl which uses Google Maps.

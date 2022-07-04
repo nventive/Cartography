@@ -1,7 +1,7 @@
 ﻿#if __IOS__
 using Foundation;
 
-namespace Nventive.Location.MapService
+namespace Cartography.MapService
 {
 	/// <summary>
 	/// This class aggregates maps constants.

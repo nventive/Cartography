@@ -7,7 +7,7 @@ using System.Text;
 using CoreLocation;
 using Google.Maps;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public class GoogleMapControlItem : INotifyPropertyChanged, IMapControlItem
 	{

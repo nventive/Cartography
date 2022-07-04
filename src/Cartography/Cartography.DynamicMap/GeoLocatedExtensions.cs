@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Nventive.Location.DynamicMap
+namespace Cartography.DynamicMap
 {
 	public static class GeoLocatedExtensions
 	{
