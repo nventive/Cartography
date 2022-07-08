@@ -13,22 +13,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.MapService", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.StaticMap", "src\Cartography\Cartography.StaticMap\Cartography.StaticMap.csproj", "{0B1DA980-496D-47C9-ACD5-592C91B20828}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{27DA88E9-E43B-48C1-BA87-8AB80FCD6EA3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{057F7FC6-3201-4671-A9CF-87CFF6EC233E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid", "..\Cartography.Samples\Samples\Samples\Samples.Droid\Samples.Droid.csproj", "{5D877D72-CD00-48D4-8D31-543BB08C04EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid", "Samples\Samples\Samples.Droid\Samples.Droid.csproj", "{5D877D72-CD00-48D4-8D31-543BB08C04EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "..\Cartography.Samples\Samples\Samples\Samples.iOS\Samples.iOS.csproj", "{409F6E1D-0878-43DD-B984-92DF1B13D58E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "Samples\Samples\Samples.iOS\Samples.iOS.csproj", "{409F6E1D-0878-43DD-B984-92DF1B13D58E}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Samples.Shared", "..\Cartography.Samples\Samples\Samples\Samples.Shared\Samples.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Samples.Shared", "Samples\Samples\Samples.Shared\Samples.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.UWP", "..\Cartography.Samples\Samples\Samples\Samples.UWP\Samples.UWP.csproj", "{09933A00-6DD0-4027-8310-29D9ACF07537}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.UWP", "Samples\Samples\Samples.UWP\Samples.UWP.csproj", "{09933A00-6DD0-4027-8310-29D9ACF07537}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\Cartography.Samples\Samples\Samples\Samples.Shared\Samples.Shared.projitems*{09933a00-6dd0-4027-8310-29d9acf07537}*SharedItemsImports = 4
-		..\Cartography.Samples\Samples\Samples\Samples.Shared\Samples.Shared.projitems*{409f6e1d-0878-43dd-b984-92df1b13d58e}*SharedItemsImports = 4
-		..\Cartography.Samples\Samples\Samples\Samples.Shared\Samples.Shared.projitems*{5d877d72-cd00-48d4-8d31-543bb08c04ea}*SharedItemsImports = 4
-		..\Cartography.Samples\Samples\Samples\Samples.Shared\Samples.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{09933a00-6dd0-4027-8310-29d9acf07537}*SharedItemsImports = 4
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{409f6e1d-0878-43dd-b984-92df1b13d58e}*SharedItemsImports = 4
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{5d877d72-cd00-48d4-8d31-543bb08c04ea}*SharedItemsImports = 4
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -518,10 +518,10 @@ Global
 		{6ABE0223-31DE-46A3-9351-00E34FC9B8FF} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
 		{90BD779B-BF4F-4949-B0B1-C31DA35B94F7} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
 		{0B1DA980-496D-47C9-ACD5-592C91B20828} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
-		{5D877D72-CD00-48D4-8D31-543BB08C04EA} = {27DA88E9-E43B-48C1-BA87-8AB80FCD6EA3}
-		{409F6E1D-0878-43DD-B984-92DF1B13D58E} = {27DA88E9-E43B-48C1-BA87-8AB80FCD6EA3}
-		{6279C845-92F8-4333-AB99-3D213163593C} = {27DA88E9-E43B-48C1-BA87-8AB80FCD6EA3}
-		{09933A00-6DD0-4027-8310-29D9ACF07537} = {27DA88E9-E43B-48C1-BA87-8AB80FCD6EA3}
+		{5D877D72-CD00-48D4-8D31-543BB08C04EA} = {057F7FC6-3201-4671-A9CF-87CFF6EC233E}
+		{409F6E1D-0878-43DD-B984-92DF1B13D58E} = {057F7FC6-3201-4671-A9CF-87CFF6EC233E}
+		{6279C845-92F8-4333-AB99-3D213163593C} = {057F7FC6-3201-4671-A9CF-87CFF6EC233E}
+		{09933A00-6DD0-4027-8310-29D9ACF07537} = {057F7FC6-3201-4671-A9CF-87CFF6EC233E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7CE3663-C71E-406C-B397-2EC8038C9771}
