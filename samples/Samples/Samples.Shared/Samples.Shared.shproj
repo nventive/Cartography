@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>6279c845-92f8-4333-ab99-3d213163593c</ProjectGuid>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.Default.props" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.props" />
+  <PropertyGroup />
+  <Import Project="Samples.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
+  <ItemGroup>
+    <_Globbed_Compile Remove="BlankPage1.xaml.cs" />
+    <_Globbed_Compile Remove="Constants.cs" />
+    <_Globbed_Compile Remove="DynamicMapPage.xaml.cs" />
+    <_Globbed_Compile Remove="DynamicPageService.xaml.cs" />
+    <_Globbed_Compile Remove="LocationPage.xaml.cs" />
+    <_Globbed_Compile Remove="MapService.xaml.cs" />
+    <_Globbed_Compile Remove="MapServicePage.cs" />
+    <_Globbed_Compile Remove="Presentation\StaticMapPageViewModel.cs" />
+    <_Globbed_Compile Remove="Presentation\StaticPageViewModel.cs" />
+    <_Globbed_Compile Remove="StaticMapPage.xaml.cs" />
+    <_Globbed_Compile Remove="ViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModel\DynamicMapViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModel\PermissionViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModel\StaticMapPageViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <_Globbled_Page Remove="BlankPage1.xaml" />
+    <_Globbled_Page Remove="DynamicMapPage.xaml" />
+    <_Globbled_Page Remove="DynamicPageService.xaml" />
+    <_Globbled_Page Remove="LocationPage.xaml" />
+    <_Globbled_Page Remove="StaticMapPage.xaml" />
+  </ItemGroup>
+</Project>

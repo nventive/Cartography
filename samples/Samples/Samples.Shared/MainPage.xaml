@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="Samples.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Samples"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" >
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+
+            <Button x:Name="MapServiceButton"
+                    Click="GotoMapService">
+                <TextBlock Text="Map Service"
+                             HorizontalAlignment="Center"/>
+            </Button>
+            <Button x:Name="LocationButton"
+                    Click="GotoLocation">
+                <TextBlock Text="Location Service"
+                             HorizontalAlignment="Center"/>
+            </Button>
+            <Button x:Name="DynamicMapButton"
+                    Click="GotoDynamicMap">
+                <TextBlock Text="Dynamic Map"
+                             HorizontalAlignment="Center"/>
+            </Button>
+            <Button x:Name="staticMapButton"
+                    Click="GotoStaticMap">
+                <TextBlock Text="Static Map"
+                             HorizontalAlignment="Center"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

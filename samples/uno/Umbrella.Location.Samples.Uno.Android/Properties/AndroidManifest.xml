@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.nventive.umbrella.location.uno.samples" android:versionCode="1" android:versionName="1.0">
-	<uses-sdk android:minSdkVersion="26" android:targetSdkVersion="31" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<application android:label="Umbrella.Location.Samples.Uno.Android" android:theme="@style/AppBaseTheme">
-		<uses-library android:name="org.apache.http.legacy" android:required="false" />
-		<uses-library android:name="com.google.android.maps" />
-	</application>
-</manifest>
