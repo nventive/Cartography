@@ -1,0 +1,92 @@
+﻿<Page x:Class="Umbrella.Location.Samples.Uno.LocationServicePage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:Umbrella.Location.Samples.Uno.Shared"
+	  xmlns:toolkit="using:Uno.UI.Toolkit"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="">
+
+	<Grid Background="White"
+		  toolkit:VisibleBoundsPadding.PaddingMask="All">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!-- CommandBar -->
+		<CommandBar Content="LocationService"
+					Grid.Row="0" />
+
+		<StackPanel VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Margin="20,20,20,0"
+					Width="300"
+					Grid.Row="1">
+
+			<!-- Current Location label -->
+			<TextBlock Text="Current Location"
+					   FontSize="20"/>
+
+			<!-- Latitude -->
+			<TextBlock Margin="0,5,0,0">
+				<Run Text="Latitude:"
+					 FontWeight="Bold"/>
+				<Run Text="{Binding [CurrentLocation].Location.Latitude, FallbackValue=000}" />
+			</TextBlock>
+
+			<!-- Longitude -->
+			<TextBlock>
+				<Run Text="Longitude:"
+					 FontWeight="Bold" />
+				<Run Text="{Binding [CurrentLocation].Location.Longitude, FallbackValue=000}" />
+			</TextBlock>
+
+			<!-- Get location button -->
+			<Button Content="Get location"
+					Command="{Binding [GetLocation]}"
+					HorizontalAlignment="Stretch"
+					Margin="0,10,0,0" />
+
+			<!-- Observe Location -->
+			<TextBlock Text="Observe Location"
+					   FontSize="20"
+					   Margin="0,20,0,5"/>
+
+			<!-- Status -->
+			<TextBlock>
+				<Run Text="Status:"
+					 FontWeight="Bold" />
+				<Run Text="{Binding [Status]}" />
+			</TextBlock>
+
+			<!-- IsValid -->
+			<TextBlock>
+				<Run Text="IsValid:"
+					 FontWeight="Bold" />
+				<Run Text="{Binding [CurrentLocationAndStatus].IsValid}" />
+			</TextBlock>
+
+			<!-- Status -->
+			<TextBlock>
+				<Run Text="Status:"
+					 FontWeight="Bold" />
+				<Run Text="{Binding [CurrentLocationAndStatus].Status}" />
+			</TextBlock>
+			
+			<!-- Latitude -->
+			<TextBlock>
+				<Run Text="Latitude:"
+					 FontWeight="Bold" />
+				<Run Text="{Binding [CurrentLocationAndStatus].Location.Location.Latitude, FallbackValue=000}" />
+			</TextBlock>
+
+			<!-- Longitude -->
+			<TextBlock>
+				<Run Text="Longitude:"
+					 FontWeight="Bold" />
+				<Run Text="{Binding [CurrentLocationAndStatus].Location.Location.Longitude, FallbackValue=000}" />
+			</TextBlock>
+
+		</StackPanel>
+	</Grid>
+</Page>

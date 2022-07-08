@@ -1,0 +1,58 @@
+﻿<Page x:Class="Umbrella.Location.Samples.Uno.MainPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:ios="http://nventive.com/ios"
+	  xmlns:android="http://nventive.com/android"
+	  xmlns:native="http://nventive.com/android"
+	  xmlns:uloc="http://nventive.com/android"
+	  xmlns:xamarin="http://nventive.com/xamarin"
+	  xmlns:toolkit="using:Uno.UI.Toolkit"
+	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:not_ios="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  mc:Ignorable="android ios xamarin uloc native">
+
+	<Grid Background="White"
+		  toolkit:VisibleBoundsPadding.PaddingMask="All">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!-- CommandBar -->
+		<CommandBar Content="Umbrella.Location"
+					Grid.Row="0"/>
+
+		<ScrollViewer Grid.Row="1">
+			<StackPanel VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Margin="20"
+						Grid.Row="1">
+
+				<!-- MapService button -->
+				<Button Content="Show MapService"
+						Command="{Binding [NavigateToMapServicePage]}"
+						HorizontalAlignment="Stretch"
+						Margin="0,15" />
+
+				<!-- LocationService button -->
+				<Button Content="Show LocationService"
+						Command="{Binding [NavigateToLocationServicePage]}"
+						HorizontalAlignment="Stretch"
+						Margin="0,15" />
+
+				<!-- DynamicMap button -->
+				<Button Content="Show DynamicMap"
+						Command="{Binding [NavigateToDynamicMapPage]}"
+						HorizontalAlignment="Stretch"
+						Margin="0,15" />
+
+				<!-- StaticMap button -->
+				<Button Content="Show StaticMap"
+						Command="{Binding [NavigateToStaticMapPage]}"
+						HorizontalAlignment="Stretch"
+						Margin="0,15" />
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Page>

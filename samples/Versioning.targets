@@ -1,0 +1,73 @@
+<Project>
+  <Target Name="SetApplicationVersion"
+		  BeforeTargets="PrepareForBuild"
+		  Condition="'$(BuildingInsideVisualStudio)'=='' and '$(GITVERSION_MAJORMINORPATCH)'!=''">
+
+	<PropertyGroup>
+		<ApplicationVersion>$(GITVERSION_MAJORMINORPATCH)</ApplicationVersion>
+		<ApplicationBuildNumber>1</ApplicationBuildNumber>
+		<_AssemblyInfoPath>.\Properties\AssemblyInfo.cs</_AssemblyInfoPath>
+		<_ManifestPath>.\Properties\AndroidManifest.xml</_ManifestPath>
+		<_PlistFilePath>.\Info.plist</_PlistFilePath>
+		<_AppxManifestPath>.\Package.appxmanifest</_AppxManifestPath>
+		<_AndroidNamespace>
+		  <Namespace Prefix="android" Uri="http://schemas.android.com/apk/res/android" />
+		</_AndroidNamespace>
+		<_WindowsNamespace>
+		  <Namespace Prefix="x" Uri="http://schemas.microsoft.com/appx/manifest/foundation/windows10" />
+		</_WindowsNamespace>
+	</PropertyGroup>
+
+	<Exec Command="git rev-list --count HEAD"
+				ConsoleToMSBuild="true">
+		<Output TaskParameter="ConsoleOutput"
+				PropertyName="ApplicationBuildNumber" />
+	</Exec>
+
+	<Message Text="Application version: $(ApplicationVersion)" />
+	<Message Text="Application build number: $(ApplicationBuildNumber)" />
+
+	<!-- Android -->
+	<XmlPoke Condition="Exists('$(_ManifestPath)')"
+					 XmlInputPath="$(_ManifestPath)"
+					 Query="/manifest/@android:versionName"
+					 Value="$(ApplicationVersion)"
+					 Namespaces="$(_AndroidNamespace)" />
+
+	<XmlPoke Condition="Exists('$(_ManifestPath)')"
+					 XmlInputPath="$(_ManifestPath)"
+					 Query="/manifest/@android:versionCode"
+					 Value="$(ApplicationBuildNumber)"
+					 Namespaces="$(_AndroidNamespace)" />
+
+	<!-- iOS -->
+	<XmlPoke Condition="Exists('$(_PlistFilePath)')"
+					 XmlInputPath="$(_PlistFilePath)"
+					 Query="//plist/dict/key[text() = 'CFBundleShortVersionString']/following-sibling::string[1]"
+					 Value="$(ApplicationVersion)" />
+
+	<XmlPoke Condition="Exists('$(_PlistFilePath)')"
+					 XmlInputPath="$(_PlistFilePath)"
+					 Query="//plist/dict/key[text() = 'CFBundleVersion']/following-sibling::string[1]"
+					 Value="$(ApplicationBuildNumber)" />
+
+	<!-- UWP -->
+	<ItemGroup Condition="Exists('$(_AppxManifestPath)')">
+	  <_Major Include="$(ApplicationVersion.Split('.')[0])" />
+	  <_Minor Include="$(ApplicationVersion.Split('.')[1])" />
+	  <_Revision Include="$(ApplicationVersion.Split('.')[2])" />
+	</ItemGroup>
+
+	<!-- Forcing the inclusion of the build number in UWP as the standard format is Major.Minor.Build.Revision -->
+	<!-- Not doing this makes it impossible to update a package unless the version is updated -->
+	<PropertyGroup Condition="Exists('$(_AppxManifestPath)')">
+	  <_UWPVersion>@(_Major).@(_Minor).$(ApplicationBuildNumber).@(_Revision)</_UWPVersion>
+	</PropertyGroup>
+
+	<XmlPoke Condition="Exists('$(_AppxManifestPath)')"
+		     XmlInputPath="$(_AppxManifestPath)"
+		     Query="/x:Package/x:Identity/@Version"
+		     Value="$(_UWPVersion)"
+		     Namespaces="$(_WindowsNamespace)" />
+  </Target>
+</Project>

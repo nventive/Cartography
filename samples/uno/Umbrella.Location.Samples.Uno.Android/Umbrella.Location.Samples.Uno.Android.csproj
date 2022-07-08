@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F4F7E3A8-4ACE-43D2-A4BC-B44D9FC59BF7}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Umbrella.Location.Samples.Uno.Droid</RootNamespace>
+    <AssemblyName>Umbrella.Location.Samples.Uno.Android</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidApplication>true</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <AndroidUseIntermediateDesignerFile>True</AndroidUseIntermediateDesignerFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
+    <AndroidSupportedAbis />
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$(RootBuildDirectory)\build\nventive.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$(RootBuildDirectory)\build\stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Filter" />
+    <PackageReference Include="UniversalImageLoader" />
+    <PackageReference Include="Uno.MonoAnalyzers" />
+    <PackageReference Include="Uno.UI" />
+    <PackageReference Include="Umbrella.Presentation.UWP" />
+    <PackageReference Include="Umbrella.Feeds.Presentation" />
+    <PackageReference Include="Umbrella.Presentation" />
+    <PackageReference Include="Umbrella.View" />
+    <PackageReference Include="Umbrella.Environment.Permissions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Umbrella.Location.Core\Umbrella.Location.Core.csproj">
+      <Project>{F3FDFEF1-A985-4CF4-AA01-C3DB360A30D9}</Project>
+      <Name>Umbrella.Location.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Umbrella.Location.StaticMap\Umbrella.Location.StaticMap.csproj">
+      <Project>{5993B225-C15A-4E44-ABC7-1B307E916C80}</Project>
+      <Name>Umbrella.Location.StaticMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Umbrella.Location.MapService\Umbrella.Location.MapService.csproj">
+      <Project>{B8FB25D6-71F4-4180-BA70-D75D50BDC201}</Project>
+      <Name>Umbrella.Location.MapService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Umbrella.Location.LocationService\Umbrella.Location.LocationService.csproj">
+      <Project>{0F77D654-76F2-446E-840B-98A67708F678}</Project>
+      <Name>Umbrella.Location.LocationService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Umbrella.Location.DynamicMap\Umbrella.Location.DynamicMap.csproj">
+      <Project>{DC9E2E7E-336F-4608-91EB-C985A334A1D5}</Project>
+      <Name>Umbrella.Location.DynamicMap</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\Umbrella.Location.Samples.Uno.Shared\Umbrella.Location.Samples.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\Umbrella.Location.Samples.Uno.Shared\Umbrella.Location.Samples.Uno.Shared.projitems')" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- This will force the generation of the APK when not buildig inside visual studio -->
+  <Target Name="GenerateBuild" DependsOnTargets="SignAndroidPackage" AfterTargets="Build" Condition="'$(BuildingInsideVisualStudio)'==''" />
+  <Import Project="..\..\Versioning.targets" />
+  <Import Project="..\..\Packaging.targets" />
+</Project>

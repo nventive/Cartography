@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6279c845-92f8-4333-ab99-3d213163593c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Umbrella.Location.Samples.Uno.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_ZoomPoiPage_Google.xaml.cs">
+      <DependentUpon>DynamicMap_ZoomPoiPage_Google.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_ZoomPoiPage.xaml.cs">
+      <DependentUpon>DynamicMap_ZoomPoiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromMoveSearchPushpinListToString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_FeaturesPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_MoveSearchPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_SelectedFlipViewPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_ZoomPoiPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocationServiceHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pretty_PushpinSelectionPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pretty_PushpinSelectionPage_Google.xaml.cs">
+      <DependentUpon>Pretty_PushpinSelectionPage_Google.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapPage_Uwp.xaml.cs">
+      <DependentUpon>DynamicMapPage_Uwp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapPage_Apple.xaml.cs">
+      <DependentUpon>DynamicMapPage_Apple.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ImplementationSelectionPage.xaml.cs">
+      <DependentUpon>ImplementationSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_SelectedFlipViewPage_Google.xaml.cs">
+      <DependentUpon>DynamicMap_SelectedFlipViewPage_Google.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_MoveSearchPage_Google.xaml.cs">
+      <DependentUpon>DynamicMap_MoveSearchPage_Google.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_MoveSearchPage.xaml.cs">
+      <DependentUpon>DynamicMap_MoveSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ConverterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_FeaturesPage_Google.xaml.cs">
+      <DependentUpon>DynamicMap_FeaturesPage_Google.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromPushpinEntityToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_FeaturesPage.xaml.cs">
+      <DependentUpon>DynamicMap_FeaturesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_SelectedFlipViewPage.xaml.cs">
+      <DependentUpon>DynamicMap_SelectedFlipViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PushpinEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocationServicePage.xaml.cs">
+      <DependentUpon>LocationServicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MapServicePage.xaml.cs">
+      <DependentUpon>MapServicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pretty_PushpinSelectionPage.xaml.cs">
+      <DependentUpon>Pretty_PushpinSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapPage.xaml.cs">
+      <DependentUpon>StaticMapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapPage_Google.xaml.cs">
+      <DependentUpon>DynamicMapPage_Google.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)toolkit\ConsoleLoggerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)toolkit\PageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)toolkit\ViewModelInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_ZoomPoiPage_Google.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_ZoomPoiPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Pretty_PushpinSelectionPage_Google.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMapPage_Uwp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMapPage_Apple.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)ImplementationSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_SelectedFlipViewPage_Google.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_MoveSearchPage_Google.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_MoveSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_FeaturesPage_Google.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_FeaturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_SelectedFlipViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)LocationServicePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)MapServicePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Pretty_PushpinSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Application\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Application\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Application\LayoutConstants.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Application\_Application.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Controls\AppBarButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Controls\CommandBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Controls\_Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Controls\StaticMapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)StaticMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DynamicMapPage_Google.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\DynamicMapStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_bleu_normal_base.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_bleu_normal_base.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_bleu_normal_base.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_bleu_normal_choisi.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_bleu_normal_choisi.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_bleu_normal_choisi.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_red_selection_base.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_red_selection_base.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DynamicMap\pin_red_selection_base.scale-300.png" />
+  </ItemGroup>
+</Project>

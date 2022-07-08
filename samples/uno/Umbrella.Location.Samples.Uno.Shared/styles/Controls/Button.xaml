@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+
+	<!-- 
+		Find the latest styles here:
+		C:\Program Files (x86)\Windows Kits\10\DesignTime\CommonConfiguration\Neutral\UAP\10.0.14393.0\Generic\generic.xaml
+		
+		Find the latest supported styles here:
+		https://nventive.visualstudio.com/Umbrella/_git/Uno.UI?path=/Uno/Uno.UI.Shared.Xamarin/UI/Xaml/Style/Generic/Generic.xaml&version=GBstable&_a=contents
+	-->
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="..\Application\Colors.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style x:Key="SimpleButtonStyle"
+		   TargetType="Button">
+		<Setter Property="HorizontalContentAlignment"
+				Value="Left" />
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="Foreground"
+				Value="Black" />
+		<Setter Property="Height"
+				Value="48" />
+	</Style>
+
+</ResourceDictionary>
