@@ -14,7 +14,6 @@
                 <TextBlock Text="Return to main menu"
                              HorizontalAlignment="Center"/>
             </Button>
-            <TextBlock Text="Location Service Page" />
         </StackPanel>
         <StackPanel VerticalAlignment="Center"
 					HorizontalAlignment="Center"
@@ -22,6 +21,9 @@
 					Width="300"
 					Grid.Row="1">
 
+            <!-- See https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android-->
+            <TextBlock Text="Somes values can be unavailable depending on the phone model. ex: Altitude and Speed."
+                       TextWrapping="Wrap"/>
             <!-- Get location button -->
             <Button Content="Get location"
                     x:Name="btnLocation"

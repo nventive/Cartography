@@ -31,9 +31,9 @@ namespace Samples
 
         public LocationPage()
         {
-            this.InitializeComponent();
             _geolocatorService = new GeolocatorService.GeolocatorService();
             _geolocatorService.RequestPermission(CancellationToken.None);
+            this.InitializeComponent();
         }
 
 

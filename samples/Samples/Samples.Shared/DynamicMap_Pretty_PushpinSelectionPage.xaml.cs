@@ -1,5 +1,4 @@
-﻿using Samples.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,20 +20,16 @@ namespace Samples
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class StaticMapPage : Page
+    public sealed partial class DynamicMap_Pretty_PushpinSelectionPage : Page
     {
-        private StaticMapPageViewModel staticMapViewModel;
-        public StaticMapPage()
+        public DynamicMap_Pretty_PushpinSelectionPage()
         {
-            staticMapViewModel = new StaticMapPageViewModel(Dispatcher);
-            DataContext = staticMapViewModel;
-      
             this.InitializeComponent();
         }
 
-        private void StaticToMenu(object sender, RoutedEventArgs e)
+        private void PushpinToDynamicMapMenu(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(DynamicMapMenuPage));
         }
     }
 }

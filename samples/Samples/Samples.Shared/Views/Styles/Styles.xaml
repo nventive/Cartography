@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:xamarin="http://nventive.com/xamarin"
+					xmlns:ios="http://nventive.com/ios"
+					mc:Ignorable="xamarin ios">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="StaticMapControl.xaml" />
+        <!--<ResourceDictionary Source="DynamicMapStyle.xaml" />-->
+		<ResourceDictionary Source="MapControl.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+	
+</ResourceDictionary>

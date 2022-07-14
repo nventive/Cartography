@@ -38,7 +38,7 @@ namespace Samples
         }
         private void GotoDynamicMap(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DynamicMapPage));
+            Frame.Navigate(typeof(DynamicMapMenuPage));
         }
 
         private void GotoStaticMap(object sender, RoutedEventArgs e)

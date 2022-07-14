@@ -96,7 +96,10 @@
       <Version>0.2.0-dev.19</Version>
     </PackageReference>
     <PackageReference Include="Uno.Core">
-      <Version>1.18.0</Version>
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.Core.Extensions">
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Uno.Injectable">
       <Version>1.34.0</Version>

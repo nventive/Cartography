@@ -10,62 +10,79 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
+using Windows.UI.Core;
 
 namespace Samples.ViewModel
 {
     class StaticMapPageViewModel : ViewModel
     {
-        private static IDispatcherScheduler DispatcherScheduler = DispatcherScheduler.ToDispatcherScheduler();       
-        public StaticMapPageViewModel()
-        {
+        private static IDispatcherScheduler DispatcherScheduler;
+        private MapViewPort mapViewPort;
+        private string latitude;
+        private string longitude;
+        private double zoomLevel;
+        private Size mapSize;
+        private string height;
+        private string width;
 
+        public StaticMapPageViewModel(CoreDispatcher dispatcher)
+        {
+            MapViewPort = GetMapViewPort();
+            Latitude = "45.504071";
+            Longitude = "- 73.558709";
+            zoomLevel = 2.0;
+            MapSize = new Size(300, 300);
+            Height = "300";
+            Width = "300";
+
+            DispatcherScheduler = new MainDispatcherScheduler(dispatcher, CoreDispatcherPriority.Normal);
 #if WINDOWS_UWP
             StaticMapInitializer.Initialize(DispatcherScheduler, Constants.BingMaps.ApiKey);
 #elif __ANDROID__ || __IOS__
-            StaticMapInitializer.Initialize(this.GetService<IDispatcherScheduler>(), string.Empty);
+            StaticMapInitializer.Initialize(DispatcherScheduler, string.Empty);
 #endif
         }
 
         public MapViewPort MapViewPort
         {
-            get => this.Get<MapViewPort>(initialValue: GetMapViewPort());
-            set => this.Set(value);
+            get { return mapViewPort; }
+            set { mapViewPort = value; }
         }
 
         public string Latitude
         {
-            get => this.Get<string>(initialValue: "45.504071");
-            set => this.Set(value);
+            get { return latitude; }
+            set { latitude = value; }
         }
 
         public string Longitude
         {
-            get => this.Get<string>(initialValue: "- 73.558709");
-            set => this.Set(value);
+            get { return longitude; }
+            set { longitude = value; }
         }
 
         public double ZoomLevel
         {
-            get => this.Get<double>(initialValue: 12.0);
-            set => this.Set(value);
+            get { return zoomLevel; }
+            set { zoomLevel = value; }
         }
 
         public Size MapSize
         {
-            get => this.Get<Size>(initialValue: new Size(300, 300));
-            set => this.Set(value);
+            get { return mapSize; }
+            set { mapSize = value; }
         }
 
         public string Height
         {
-            get => this.Get<string>(initialValue: "300");
-            set => this.Set(value);
+            get { return height; }
+            set { height = value; }
         }
 
         public string Width
         {
-            get => this.Get<string>(initialValue: "300");
-            set => this.Set(value);
+            get { return width; }
+            set { width = value; }
         }
 
         private MapViewPort GetMapViewPort()
@@ -74,7 +91,6 @@ namespace Samples.ViewModel
 
             var mapViewPort = new MapViewPort(coordinate);
             mapViewPort.ZoomLevel = ZoomLevels.District;
-            mapViewPort.Center = coordinate;
 
             return mapViewPort;
         }
@@ -88,6 +104,7 @@ namespace Samples.ViewModel
             };
         }
 
+#if __Mobile__
         public IDynamicCommand ShowStaticMap => this.GetCommand(() =>
         {
             double latitude = double.Parse(Latitude, NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -103,5 +120,6 @@ namespace Samples.ViewModel
 
             MapViewPort = (mapViewPort);
         });
+#endif
     }
 }
