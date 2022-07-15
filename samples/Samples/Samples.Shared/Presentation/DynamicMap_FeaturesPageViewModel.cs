@@ -20,9 +20,11 @@ namespace Samples.ViewModel
 {
 	public class DynamicMap_FeaturesPageViewModel : ViewModelBase, IMapComponent
 	{
+		private IDynamicPropertyFactory _dynamicPropertyFactory = new DynamicPropertyFactory();
+
 		private bool isLocationEnabled;
 		private bool isTooFar;
-		private readonly IGeolocatorService _geolocatorService;
+		private IGeolocatorService _geolocatorService;
 		private IGeoLocated[] pushpins;
 		private IGeoLocated[] selectedPushpins;
 		private IGeoLocatedGrouping<IGeoLocated[]> groups;
@@ -37,10 +39,10 @@ namespace Samples.ViewModel
 		private MapViewPort viewPort;
 		private int? animationDurationSecond;
 		
-		private DynamicMap_FeaturesPageViewModel()
+		public DynamicMap_FeaturesPageViewModel()
 		{
 			ViewPort = new MapViewPort( GetStartingCoordinates());
-            Pushpins = (IGeoLocated[])GetInitialPushpins();
+            Pushpins = GetInitialPushpins();
 			IsTooFar = false;
 			_geolocatorService = new GeolocatorService.GeolocatorService();
 			OnLoaded();
@@ -58,41 +60,50 @@ namespace Samples.ViewModel
 			IsLocationEnabled = await _geolocatorService.GetIsPermissionGranted(CancellationToken.None);
 		}
 
-		public bool IsLocationEnabled { 
+		public bool IsLocationEnabled 
+		{ 
 			get { return isLocationEnabled; } 
 			set { isLocationEnabled = value; } 
 		}
 
-		public bool IsTooFar { 
+		public bool IsTooFar 
+		{ 
 			get { return isTooFar; } 
 			set { isTooFar = value; } 
 		}
 
-		public IGeoLocated[] Pushpins {
-			get  { return pushpins; } 
-			set { pushpins = value; }
+		public IGeoLocated[] Pushpins 
+		{
+			get => this.Get(initialValue: GetInitialPushpins());
+			set => this.Set(value);
 		}
-        public IGeoLocated[] SelectedPushpins { 
+        public IGeoLocated[] SelectedPushpins 
+		{ 
 			get { return selectedPushpins; } 
 			set { selectedPushpins = value; } 
 		}
-        public IGeoLocatedGrouping<IGeoLocated[]> Groups { 
+        public IGeoLocatedGrouping<IGeoLocated[]> Groups 
+		{ 
 			get { return groups; } 
 			set { groups = value; } 
 		}
-        public TimeSpan ViewPortUpdateMinDelay { 
+        public TimeSpan ViewPortUpdateMinDelay 
+		{ 
 			get { return viewPortUpdateMinDelay; } 
 			set { viewPortUpdateMinDelay = value; }
 		}
-        public IEqualityComparer<MapViewPort> ViewPortUpdateFilter { get 
+        public IEqualityComparer<MapViewPort> ViewPortUpdateFilter 
+		{ get 
 			{ return viewPortUpdateFilter; } 
 			set { viewPortUpdateFilter = value; } 
 		}
-        public ActionAsync<Geocoordinate> OnMapTapped { 
+        public ActionAsync<Geocoordinate> OnMapTapped 
+		{ 
 			get { return onMapTapped; } 
 			set {onMapTapped = value; }
 		}
-        public bool IsUserTrackingCurrentlyEnabled {
+        public bool IsUserTrackingCurrentlyEnabled 
+		{
 			get { return isUserTrackingCurrentlyEnabled; }
 			set { isUserTrackingCurrentlyEnabled = value; } 
 		}
@@ -101,19 +112,23 @@ namespace Samples.ViewModel
 			get { return isUserDragging; }
 			set { isUserDragging = value; }
 		}
-        public LocationResult UserLocation { 
+        public LocationResult UserLocation 
+		{ 
 			get { return userLocation; } 
 			set { userLocation = value; } 
 		}
-        public MapViewPortCoordinates ViewPortCoordinates { 
+        public MapViewPortCoordinates ViewPortCoordinates 
+		{ 
 			get { return viewPortCoordinates; } 
 			set { viewPortCoordinates = value; } 
 		}
-        public bool SkipAnimations { 
+        public bool SkipAnimations 
+		{ 
 			get { return skipAnimations; } 
 			set { skipAnimations = value; } 
 		}
-        public MapViewPort ViewPort { 
+        public MapViewPort ViewPort 
+		{ 
 			get { return viewPort; } 
 			set { viewPort = value; } }
         public int? AnimationDurationSeconds
@@ -148,7 +163,7 @@ namespace Samples.ViewModel
 
 		private IDisposable ObserveSelectedPushpin()
 		{
-			return this.GetProperty(x => SelectedPushpins).GetAndObserve().Subscribe();
+			return this.GetProperty(x => x.SelectedPushpins).GetAndObserve().Subscribe();
 		}
 
 		private Geopoint GetStartingCoordinates()

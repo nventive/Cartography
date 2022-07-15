@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Samples.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,8 +23,11 @@ namespace Samples
     /// </summary>
     public sealed partial class DynamicMap_FeaturesPage : Page
     {
+        private DynamicMap_FeaturesPageViewModel DynamicMap_FeaturesPageViewModel;
         public DynamicMap_FeaturesPage()
         {
+            DynamicMap_FeaturesPageViewModel = new DynamicMap_FeaturesPageViewModel();
+            DataContext = DynamicMap_FeaturesPageViewModel;
             this.InitializeComponent();
         }
 

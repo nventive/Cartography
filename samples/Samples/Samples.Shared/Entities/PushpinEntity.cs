@@ -4,10 +4,11 @@ using System.ComponentModel;
 using GeolocatorService;
 using System.Text;
 using Windows.Devices.Geolocation;
+using Cartography.DynamicMap;
 
 namespace Samples.Entities
 {
-	public class PushpinEntity
+	public class PushpinEntity : IGeoLocated
 	{
 		public Geopoint Coordinates { get; set; }
 
