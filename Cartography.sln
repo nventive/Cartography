@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cartography", "Cartography", "{6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A1B728EF-594D-44F6-897B-7FFC7E37FD56}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.Core", "src\Cartography\Cartography.Core\Cartography.Core.csproj", "{ED9113F7-F908-4336-A077-FEC35A582B78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.DynamicMap", "src\Cartography\Cartography.DynamicMap\Cartography.DynamicMap.csproj", "{6ABE0223-31DE-46A3-9351-00E34FC9B8FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.MapService", "src\Cartography\Cartography.MapService\Cartography.MapService.csproj", "{90BD779B-BF4F-4949-B0B1-C31DA35B94F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.StaticMap", "src\Cartography\Cartography.StaticMap\Cartography.StaticMap.csproj", "{0B1DA980-496D-47C9-ACD5-592C91B20828}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED9113F7-F908-4336-A077-FEC35A582B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED9113F7-F908-4336-A077-FEC35A582B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED9113F7-F908-4336-A077-FEC35A582B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED9113F7-F908-4336-A077-FEC35A582B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ABE0223-31DE-46A3-9351-00E34FC9B8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABE0223-31DE-46A3-9351-00E34FC9B8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABE0223-31DE-46A3-9351-00E34FC9B8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABE0223-31DE-46A3-9351-00E34FC9B8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90BD779B-BF4F-4949-B0B1-C31DA35B94F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90BD779B-BF4F-4949-B0B1-C31DA35B94F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90BD779B-BF4F-4949-B0B1-C31DA35B94F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90BD779B-BF4F-4949-B0B1-C31DA35B94F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B1DA980-496D-47C9-ACD5-592C91B20828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B1DA980-496D-47C9-ACD5-592C91B20828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B1DA980-496D-47C9-ACD5-592C91B20828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B1DA980-496D-47C9-ACD5-592C91B20828}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED9113F7-F908-4336-A077-FEC35A582B78} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+		{6ABE0223-31DE-46A3-9351-00E34FC9B8FF} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+		{90BD779B-BF4F-4949-B0B1-C31DA35B94F7} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+		{0B1DA980-496D-47C9-ACD5-592C91B20828} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7CE3663-C71E-406C-B397-2EC8038C9771}
+	EndGlobalSection
+EndGlobal
