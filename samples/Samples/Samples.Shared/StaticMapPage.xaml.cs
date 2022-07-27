@@ -1,4 +1,4 @@
-﻿using Samples.ViewModel;
+﻿using Samples.Presentation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,18 +23,9 @@ namespace Samples
     /// </summary>
     public sealed partial class StaticMapPage : Page
     {
-        private StaticMapPageViewModel staticMapViewModel;
         public StaticMapPage()
-        {
-            staticMapViewModel = new StaticMapPageViewModel(Dispatcher);
-            DataContext = staticMapViewModel;
-      
+        {      
             this.InitializeComponent();
-        }
-
-        private void StaticToMenu(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MainPage));
         }
     }
 }

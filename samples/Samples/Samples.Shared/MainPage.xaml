@@ -7,31 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
 
-    <Grid>
+    <Grid Background="White">
         <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-
-
             <Button x:Name="MapServiceButton"
-                    Click="GotoMapService">
-                <TextBlock Text="Map Service"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Command="{Binding NavigateToMapService}"
+                    Content="Map Service"/>
             <Button x:Name="LocationButton"
-                    Click="GotoLocation">
-                <TextBlock Text="Location Service"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Command="{Binding NavigateToLocation}"
+                    Content="Location Service"/>
             <Button x:Name="DynamicMapButton"
-                    Click="GotoDynamicMap">
-                <TextBlock Text="Dynamic Map"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Command="{Binding NavigateToDynamicMap}"
+                    Content="Dynamic Map"/>
             <Button x:Name="staticMapButton"
-                    Click="GotoStaticMap">
-                <TextBlock Text="Static Map"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Command="{Binding NavigateToStaticMap}"
+                    Content="Static Map"/>
         </StackPanel>
     </Grid>
 </Page>

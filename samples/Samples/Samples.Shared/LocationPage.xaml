@@ -10,10 +10,8 @@
     <Grid>
         <StackPanel >
             <Button x:Name="ReturnToMenu"
-                    Click="LocationToMenu">
-                <TextBlock Text="Return to main menu"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Command="{Binding NavigateToMenu}"
+                    Content="Return to main menu"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Center"
 					HorizontalAlignment="Center"
@@ -27,44 +25,50 @@
             <!-- Get location button -->
             <Button Content="Get location"
                     x:Name="btnLocation"
-					Click="GetLocation"
+					Command="{Binding GetLocation}"
 					HorizontalAlignment="Stretch"
 					Margin="0,10,0,0" />
 
             <!-- Accuracy -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Accuracy: " FontWeight="Bold" />
-                <TextBlock x:Name="txtAccuracy" />
+                <TextBlock x:Name="txtAccuracy"
+                           Text="{Binding CurrentLocation.Accuracy}"/>
             </StackPanel>
 
             <!-- Altitude -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Altitude: " FontWeight="Bold" />
-                <TextBlock x:Name="txtAltitude" />
+                <TextBlock x:Name="txtAltitude"
+                           Text="{Binding CurrentLocation.Altitude}"/>
             </StackPanel>
 
             <!-- Latitude -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Latitude: " FontWeight="Bold" />
-                <TextBlock x:Name="txtLatitude" />
+                <TextBlock x:Name="txtLatitude"
+                           Text="{Binding CurrentLocation.Latitude}"/>
             </StackPanel>
 
             <!-- Longitude -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Longitude: " FontWeight="Bold" />
-                <TextBlock x:Name="txtLongitude" />
+                <TextBlock x:Name="txtLongitude"
+                           Text="{Binding CurrentLocation.Longitude}"/>
             </StackPanel>
 
             <!-- Speed -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Speed: " FontWeight="Bold" />
-                <TextBlock x:Name="txtSpeed" />
+                <TextBlock x:Name="txtSpeed"
+                           Text="{Binding CurrentLocation.Speed}"/>
             </StackPanel>
 
             <!-- Heading -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Heading: " FontWeight="Bold" />
-                <TextBlock x:Name="txtHeading" />
+                <TextBlock x:Name="txtHeading"
+                           Text="{Binding CurrentLocation.Heading}"/>
             </StackPanel>
 
         </StackPanel>

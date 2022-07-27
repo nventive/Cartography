@@ -1,5 +1,4 @@
 ﻿using Chinook.DynamicMvvm;
-using Chinook.StackNavigation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,24 +27,5 @@ namespace Samples
         {
             this.InitializeComponent();
         }
-        private void GotoMapService(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MapServicePage));
-        }
-        private void GotoLocation(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(LocationPage));
-        }
-        private void GotoDynamicMap(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(DynamicMapMenuPage));
-        }
-
-        private void GotoStaticMap(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(StaticMapPage));
-        }
-
-
     }
 }

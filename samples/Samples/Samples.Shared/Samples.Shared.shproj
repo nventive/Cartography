@@ -23,7 +23,11 @@
     <_Globbed_Compile Remove="LocationPage.xaml.cs" />
     <_Globbed_Compile Remove="MapService.xaml.cs" />
     <_Globbed_Compile Remove="MapServicePage.cs" />
+    <_Globbed_Compile Remove="Presentation\DynamicMapMenuViewModel.cs" />
     <_Globbed_Compile Remove="Presentation\LocationPushpin.cs" />
+    <_Globbed_Compile Remove="Presentation\LocationViewModel.cs" />
+    <_Globbed_Compile Remove="Presentation\MainPageViewModel.cs" />
+    <_Globbed_Compile Remove="Presentation\MapServiceViewModel.cs" />
     <_Globbed_Compile Remove="Presentation\StaticMapPageViewModel.cs" />
     <_Globbed_Compile Remove="Presentation\StaticPageViewModel.cs" />
     <_Globbed_Compile Remove="StaticMapPage.xaml.cs" />
@@ -42,6 +46,7 @@
     <_Globbled_Page Remove="DynamicPageService.xaml" />
     <_Globbled_Page Remove="LocationPage.xaml" />
     <_Globbled_Page Remove="StaticMapPage.xaml" />
+    <_Globbled_Page Remove="Views\Styles\StaticMapControl.xaml" />
     <_Globbled_Page Remove="Views\Style\MapControl.xaml" />
     <_Globbled_Page Remove="Views\Style\StaticMapControl.xaml" />
     <_Globbled_Page Remove="Views\Style\Styles.xaml" />

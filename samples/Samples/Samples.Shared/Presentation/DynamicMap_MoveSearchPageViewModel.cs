@@ -13,11 +13,15 @@ using Samples.Entities;
 using Uno;
 using Windows.Devices.Geolocation;
 
-namespace Umbrella.Location.Samples.Uno
+namespace Samples.Presentation
 {
-	public class DynamicMap_MoveSearchPageViewModel /*: ViewModelBase, IMapComponent*/
+	public class DynamicMap_MoveSearchPageViewModel : ViewModel
     {
 
+        public DynamicMap_MoveSearchPageViewModel()
+        {
+
+        }
         //private IGeolocatorService _geolocatorService;
 
         //private MapViewPort mapViewPort;

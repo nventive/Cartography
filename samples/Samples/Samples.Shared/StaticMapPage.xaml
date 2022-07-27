@@ -9,7 +9,7 @@
     xmlns:toolkit="using:Uno.UI.Toolkit"
     mc:Ignorable="d" >
 
-    <Grid>
+    <Grid Background="White">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,10 +20,8 @@
 
         <StackPanel Grid.Row="0">
             <Button x:Name="ReturnToMenu"
-                    Click="StaticToMenu">
-                <TextBlock Text="Return to main menu"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Content="Return to main menu"
+                    Command="{Binding StaticToMenu}"/>
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -32,7 +30,6 @@
             <!-- In order to show the map in Windows, you must set a default MapControl style. Otherwise, nothing will be displayed -->
             <staticmap:StaticMapControl MapViewPort="{Binding MapViewPort}"
                                         MapSize="{Binding MapSize}"
-                                        Pushpin="Pushpin"
 										Height="300"
 										Width="300"
 										VerticalAlignment="Stretch"
@@ -62,7 +59,7 @@
                 <TextBlock Text="Zoom Level" />
 
                 <!-- Zoom Level value -->
-                <Slider Value="{Binding ZoomLevel}"
+                <Slider Value="{Binding ZoomLevel, Mode=TwoWay}"
 							Minimum="1"
 							Maximum="20"
 							Margin="0"
@@ -76,7 +73,7 @@
 						   FontSize="16" />
 
                 <!-- Latitude value -->
-                <TextBox Text="{Binding Latitude}"
+                <TextBox Text="{Binding Latitude, Mode=TwoWay}"
 						 FontSize="16" />
 
                 <!-- Longitude label -->
@@ -85,7 +82,7 @@
 						   Margin="0,10,0,0" />
 
                 <!-- Longitude value -->
-                <TextBox Text="{Binding Longitude}"
+                <TextBox Text="{Binding Longitude, Mode=TwoWay}"
 						 FontSize="16" />
             </StackPanel>
 
@@ -96,7 +93,7 @@
 						   FontSize="16" />
 
                 <!-- Height value -->
-                <TextBox Text="{Binding Height}"
+                <TextBox Text="{Binding Height, Mode=TwoWay}"
 						 FontSize="16" />
 
                 <!-- Width label -->
@@ -105,7 +102,7 @@
 						   Margin="0,10,0,0"/>
 
                 <!-- Width value -->
-                <TextBox Text="{Binding Width}"
+                <TextBox Text="{Binding Width, Mode=TwoWay}"
 						 FontSize="16" />
             </StackPanel>
         </Grid>

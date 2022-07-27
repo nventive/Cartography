@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 using Cartography.Core;
 using Cartography.DynamicMap;
 
-namespace Umbrella.Location.Samples.Uno
+namespace Samples.Presentation
 {
-	public class DynamicMap_ZoomPoiPageViewModel
+	public class DynamicMap_ZoomPoiPageViewModel : ViewModel
 	{
+
+        public DynamicMap_ZoomPoiPageViewModel()
+        {
+
+        }
 		//private ILocationServiceEx _locationService;
 
 		//public DynamicMap_ZoomPoiPageViewModel(ILocationServiceEx locationService)

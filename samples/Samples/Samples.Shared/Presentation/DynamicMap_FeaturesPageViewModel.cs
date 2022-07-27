@@ -15,39 +15,23 @@ using Samples.Entities;
 using System.Collections.Generic;
 using Uno;
 using Windows.Devices.Geolocation;
+using Chinook.SectionsNavigation;
 
-namespace Samples.ViewModel
+namespace Samples.Presentation
 {
-	public class DynamicMap_FeaturesPageViewModel : ViewModelBase, IMapComponent
+	public class DynamicMap_FeaturesPageViewModel : ViewModel, IMapComponent
 	{
-		private IDynamicPropertyFactory _dynamicPropertyFactory = new DynamicPropertyFactory();
-
-		private bool isLocationEnabled;
-		private bool isTooFar;
 		private IGeolocatorService _geolocatorService;
-		private IGeoLocated[] pushpins;
-		private IGeoLocated[] selectedPushpins;
-		private IGeoLocatedGrouping<IGeoLocated[]> groups;
-		private TimeSpan viewPortUpdateMinDelay;
-		private IEqualityComparer<MapViewPort> viewPortUpdateFilter;
-		private ActionAsync<Geocoordinate> onMapTapped;
-		private bool isUserTrackingCurrentlyEnabled;
-		private bool isUserDragging;
-		private LocationResult userLocation;
-		private MapViewPortCoordinates viewPortCoordinates;
-		private bool skipAnimations;
-		private MapViewPort viewPort;
-		private int? animationDurationSecond;
+		private ISectionsNavigator _sectionsNavigator;
 		
 		public DynamicMap_FeaturesPageViewModel()
 		{
-			ViewPort = new MapViewPort( GetStartingCoordinates());
-            Pushpins = GetInitialPushpins();
-			IsTooFar = false;
-			_geolocatorService = new GeolocatorService.GeolocatorService();
+			_geolocatorService = this.GetService<IGeolocatorService>();
+			_sectionsNavigator = this.GetService<ISectionsNavigator>();
+			ViewPort = GetStartingCoordinates();
 			OnLoaded();
 
-			AddDisposable(ObservePushpins());
+			AddDisposable(ObserveViewPort());
 			if (IsLocationEnabled)
 			{
 				AddDisposable(ObserveUserLocation());
@@ -58,91 +42,125 @@ namespace Samples.ViewModel
 		async private void OnLoaded()
 		{
 			IsLocationEnabled = await _geolocatorService.GetIsPermissionGranted(CancellationToken.None);
+            if (!IsLocationEnabled)
+            {
+				IsLocationEnabled = await _geolocatorService.RequestPermission(CancellationToken.None);
+            }
 		}
 
-		public bool IsLocationEnabled 
-		{ 
-			get { return isLocationEnabled; } 
-			set { isLocationEnabled = value; } 
+        #region Page-Property
+        public bool IsLocationEnabled 
+		{
+			get => this.Get<bool>();
+			set => this.Set(value);
 		}
 
 		public bool IsTooFar 
-		{ 
-			get { return isTooFar; } 
-			set { isTooFar = value; } 
+		{
+			get => this.Get<bool>(initialValue: false);
+			set => this.Set(value);
 		}
 
-		public IGeoLocated[] Pushpins 
+		public string MessageErrorLocateMe
+        {
+			get => this.Get<string>(initialValue: "");
+			set => this.Set(value);
+        }
+
+		public string ViewPortLongitude
+        {
+			get => this.Get<string>(initialValue: "0");
+			set => this.Set(value);
+		}
+
+		public string ViewPortLatitude
+        {
+			get => this.Get<string>(initialValue: "0");
+			set => this.Set(value);
+		}
+
+		public PushpinEntity SelectedPushpin
+        {
+			get => this.Get<PushpinEntity>();
+			set => this.Set(value);
+        }
+
+		public string MapViewPortCustomString
+        {
+			get => this.Get<string>();
+			set => this.Set(value);
+        }
+        #endregion
+
+        #region Map-Property
+        public IGeoLocated[] Pushpins 
 		{
-			get => this.Get(initialValue: GetInitialPushpins());
+			get => this.Get(initialValue: Array.Empty<IGeoLocated>());
 			set => this.Set(value);
 		}
         public IGeoLocated[] SelectedPushpins 
 		{ 
-			get { return selectedPushpins; } 
-			set { selectedPushpins = value; } 
+			get => this.Get(initialValue: Array.Empty<IGeoLocated>());
+			set => this.Set(value);
 		}
         public IGeoLocatedGrouping<IGeoLocated[]> Groups 
 		{ 
-			get { return groups; } 
-			set { groups = value; } 
+			get => this.Get<IGeoLocatedGrouping<IGeoLocated[]>>();
+			set => this.Set(value);
 		}
         public TimeSpan ViewPortUpdateMinDelay 
 		{ 
-			get { return viewPortUpdateMinDelay; } 
-			set { viewPortUpdateMinDelay = value; }
+			get => this.Get<TimeSpan>(initialValue: TimeSpan.FromMilliseconds(250));
+			set => this.Set(value);
 		}
         public IEqualityComparer<MapViewPort> ViewPortUpdateFilter 
-		{ get 
-			{ return viewPortUpdateFilter; } 
-			set { viewPortUpdateFilter = value; } 
+		{ 
+			get => this.Get<IEqualityComparer<MapViewPort>>();
+			set => this.Set(value);
 		}
         public ActionAsync<Geocoordinate> OnMapTapped 
 		{ 
-			get { return onMapTapped; } 
-			set {onMapTapped = value; }
+			get => this.Get<ActionAsync<Geocoordinate>>();
+			set => this.Set(value);
 		}
         public bool IsUserTrackingCurrentlyEnabled 
 		{
-			get { return isUserTrackingCurrentlyEnabled; }
-			set { isUserTrackingCurrentlyEnabled = value; } 
+			get => this.Get<bool>(initialValue: false);
+			set => this.Set(value);
 		}
         public bool IsUserDragging
 		{
-			get { return isUserDragging; }
-			set { isUserDragging = value; }
+			get => this.Get<bool>(initialValue: false);
+			set => this.Set(value);
 		}
         public LocationResult UserLocation 
-		{ 
-			get { return userLocation; } 
-			set { userLocation = value; } 
+		{
+			get => this.Get<LocationResult>();
+			set => this.Set(value);
 		}
         public MapViewPortCoordinates ViewPortCoordinates 
-		{ 
-			get { return viewPortCoordinates; } 
-			set { viewPortCoordinates = value; } 
+		{
+			get => this.Get<MapViewPortCoordinates>();
+			set => this.Set(value);
 		}
         public bool SkipAnimations 
-		{ 
-			get { return skipAnimations; } 
-			set { skipAnimations = value; } 
-		}
-        public MapViewPort ViewPort 
-		{ 
-			get { return viewPort; } 
-			set { viewPort = value; } }
-        public int? AnimationDurationSeconds
 		{
-			get { return animationDurationSecond; }
-			set { animationDurationSecond = value; }
+			get => this.Get<bool>();
+			set => this.Set(value);
 		}
-
-		private IDisposable ObservePushpins()
+        public MapViewPort ViewPort
 		{
-			return this.GetProperty(x => x.Pushpins).GetAndObserve().Subscribe();
+			get => this.Get<MapViewPort>(initialValue: new MapViewPort(GetStartingCoordinates()));
+			set => this.Set(value);
 		}
+		public int? AnimationDurationSeconds
+		{
+			get => this.Get<int?>();
+			set => this.Set(value);
+		}
+        #endregion
 
-		private IDisposable ObserveUserLocation()
+        private IDisposable ObserveUserLocation()
 		{
 			var obs = Observable.CombineLatest(
 				_geolocatorService.GetAndObserveLocationOrDefault(),
@@ -163,13 +181,50 @@ namespace Samples.ViewModel
 
 		private IDisposable ObserveSelectedPushpin()
 		{
-			return this.GetProperty(x => x.SelectedPushpins).GetAndObserve().Subscribe();
+			return this.GetProperty(x => x.SelectedPushpins).GetAndObserve().Subscribe(UpdateSelectedPushpin);
+
+			void UpdateSelectedPushpin(IGeoLocated[] selectedPushpins)
+			{
+				if (selectedPushpins != null && selectedPushpins.Length > 0 )
+                {
+					SelectedPushpin = new PushpinEntity
+					{
+						Name = "Selected Pushpin",
+						Coordinates = selectedPushpins[0].Coordinates
+					};
+                }
+                else
+                {
+					SelectedPushpin = new PushpinEntity
+					{
+						Name = "No Pushpin Selected",
+						Coordinates = new Geopoint(new BasicGeoposition { Latitude = 0, Longitude = 0 })
+					};
+				}
+            }
 		}
 
-		private Geopoint GetStartingCoordinates()
-		{
-			return new Geopoint(new BasicGeoposition { Latitude = 45.5016889, Longitude = -73.56725599999999 });
+		private IDisposable ObserveViewPort()
+        {
+			return this.GetProperty(x => x.ViewPort).GetAndObserve().Subscribe(getMapViewPortCustomString);
+		
+			void getMapViewPortCustomString(MapViewPort viewPort)
+        {
+			MapViewPortCustomString = "[MapViewPort] Center: lat: {0}, lon: {1}, Zoom: {2}, POIs: {3}".InvariantCultureFormat(
+				viewPort.Center.Position.Latitude,
+				viewPort.Center.Position.Longitude,
+				viewPort.ZoomLevel,
+				string.Join(",", viewPort.PointsOfInterest.Safe()));
 		}
+        }
+
+
+		private MapViewPort GetStartingCoordinates()
+		{
+			var mapViewPort = new MapViewPort(new Geopoint(new BasicGeoposition { Latitude = 0, Longitude = 0 }));
+            mapViewPort.ZoomLevel = ZoomLevels.District;
+			return mapViewPort;
+        }
 
 		private PushpinEntity[] GetInitialPushpins()
 		{
@@ -193,6 +248,77 @@ namespace Samples.ViewModel
 				};
 		}
 
+		public IDynamicCommand LocateMe => this.GetCommandFromTask(async ct =>
+		{
+			if (IsLocationEnabled)
+			{
+				try
+				{
+					var currentLocation = (await _geolocatorService.GetLocation(ct)).Point;
+
+					await OnLocateMeSuccess(ct, currentLocation);
+				}
+				catch
+				{
+					OnLocateMeError(ct);
+				}
+
+			}
+			else
+			{
+				OnLocateMeError(ct);
+			}
+		});
+
+		private async Task OnLocateMeSuccess(CancellationToken ct, Geopoint location)
+		{
+			ClearSelectedPushpin();
+			MessageErrorLocateMe = "";
+
+			ViewPort = await ComputeMapViewPort(ct, location);
+		}
+
+		private void OnLocateMeError(CancellationToken ct)
+		{
+			MessageErrorLocateMe = "Cannot get your location this time.";
+		}
+
+		private void ClearSelectedPushpin()
+		{
+			SelectedPushpins = null;
+		}
+
+		private async Task<MapViewPort> ComputeMapViewPort(CancellationToken ct, Geopoint mapCenter = null)
+		{
+			var zoomLevel = ZoomLevels.District;
+
+			if (mapCenter == default(Geopoint))
+			{
+				var userLocation = await GetUserCoordinates(ct);
+				mapCenter = userLocation.Geopoint;
+				zoomLevel = userLocation.ZoomLevel;
+			}
+
+			var viewPort = new MapViewPort(mapCenter);
+			viewPort.ZoomLevel = zoomLevel;
+
+			return viewPort;
+		}
+
+		private async Task<GeoViewPort> GetUserCoordinates(CancellationToken ct)
+		{
+			var defaultGeoPoint = new Geopoint(new BasicGeoposition { Latitude = 45.504071, Longitude = -73.558709});
+			try
+			{
+				return new GeoViewPort((await _geolocatorService.GetLocationOrDefault(ct))?.Point ?? defaultGeoPoint, ZoomLevels.District);
+			}
+			catch
+			{
+				this.Log().Debug(() => "Couldn't get a valid location. Country zoom level will be applied.");
+				return new GeoViewPort(defaultGeoPoint, ZoomLevels.District);
+			}
+		}
+
 		public IDynamicCommand AddPushpin => this.GetCommandFromTask(async ct =>
 		{
 			var pushpins = Pushpins;
@@ -203,6 +329,11 @@ namespace Samples.ViewModel
 			list.Add((IGeoLocated)newPushpin);
 
 			Pushpins = list.ToArray();
+		});
+
+		public IDynamicCommand FeatureToDynamicMapMenu => this.GetCommandFromTask(async ct =>
+		{
+			await _sectionsNavigator.Navigate(ct, () => new DynamicMapMenuViewModel());
 		});
 
 		private async Task<PushpinEntity> CreatePushpinAtCenter(CancellationToken ct)
@@ -220,6 +351,13 @@ namespace Samples.ViewModel
 
 		public IDynamicCommand RemoveSelectedPushpin => this.GetCommandFromTask(async ct =>
 		{
+			PushpinEntity selectedPushpin = SelectedPushpin;
+			IGeoLocated[] pushpins = Pushpins;
+
+			List<IGeoLocated> pushpinslist = pushpins.ToList();
+			pushpinslist.RemoveAll(pin => pin.Coordinates == selectedPushpin.Coordinates);
+
+			Pushpins = pushpinslist.ToArray();
 			ClearSelectedPushpin(ct);
 		});
 
@@ -228,32 +366,28 @@ namespace Samples.ViewModel
             SelectedPushpins = null;
         }
 
-  //      private async Task OnError(CancellationToken ct)
-		//{
-		//	IsLocateMeOnError.Value.OnNext(true);
-		//}
+		public IDynamicCommand UpdateViewPort => this.GetCommand(() =>
+		{
+			var latitudeString = ViewPortLatitude;
+			var longitudeString = ViewPortLongitude;
+			if (double.TryParse(latitudeString, out var latitude)
+				&& double.TryParse(longitudeString, out var longitude)
+				&& latitude >= -90
+				&& latitude <= 90
+				&& longitude >= -180
+				&& longitude <= 180)
+			{
+				var center = new Geopoint(new BasicGeoposition { Latitude = latitude, Longitude = longitude });
+				var zoomLevel = ZoomLevels.City;
+				ViewPort = new MapViewPort(center);
+				ViewPort.ZoomLevel = zoomLevel;
+			}
+			else
+			{
+				throw new InvalidOperationException("Both latitude and longitude must be valid");
+			}
+		});
 
-		//private async Task UpdateViewPort(CancellationToken ct)
-		//{
-		//	var latitudeString = await ViewPortLatitude;
-		//	var longitudeString = await ViewPortLongitude;
-		//	if (double.TryParse(latitudeString, out var latitude)
-		//		&& double.TryParse(longitudeString, out var longitude)
-		//		&& latitude >= -90
-		//		&& latitude <= 90
-		//		&& longitude >= -180
-		//		&& longitude <= 180)
-		//	{
-		//		var viewport = await MapViewPort;
-		//		viewport.Center.Latitude = latitude;
-		//		viewport.Center.Longitude = longitude;
-		//		MapViewPort.Value.OnNext(viewport);
-		//	}
-		//	else
-		//	{
-		//		throw new InvalidOperationException("Both latitude and longitude must be valid");
-		//	}
-		//}
 
 		//private async Task CenterOnPOI(CancellationToken ct)
 		//{

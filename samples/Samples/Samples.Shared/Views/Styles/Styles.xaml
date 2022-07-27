@@ -8,8 +8,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="StaticMapControl.xaml" />
-        <!--<ResourceDictionary Source="DynamicMapStyle.xaml" />-->
-		<ResourceDictionary Source="MapControl.xaml" />
+        <ResourceDictionary Source="MapControl.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 	
 </ResourceDictionary>

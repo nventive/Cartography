@@ -9,11 +9,10 @@
 	
 	<DataTemplate x:Key="ErrorTemplate">
 		<Border IsHitTestVisible="False"
-				Background="{StaticResource OverlayColorBrush}"
+				Background="Transparent"
 				Padding="12"
 				Margin="12">
 			<TextBlock Text="{Binding}"
-					   Style="{StaticResource Typo02}"
 					   TextWrapping="Wrap" />
 		</Border>
 	</DataTemplate>

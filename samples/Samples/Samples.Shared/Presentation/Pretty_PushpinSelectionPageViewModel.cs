@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Cartography.Core;
 using Cartography.DynamicMap;
 
-namespace Umbrella.Location.Samples.Uno
+namespace Samples.Presentation
 {
 	public class Pretty_PushpinSelectionPageViewModel
 	{

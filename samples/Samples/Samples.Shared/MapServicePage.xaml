@@ -14,10 +14,8 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
             <Button x:Name="ReturnToMenu"
-                    Click="MapServiceToMenu">
-                <TextBlock Text="Return to main menu"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Content="Return to main menu"
+                    Command="{Binding MapServiceToMenu}"/>
             <TextBlock Text="Map service" />
         </StackPanel>
         <ScrollViewer Grid.Row="1">

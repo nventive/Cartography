@@ -1,4 +1,4 @@
-﻿using Samples.ViewModel;
+﻿using Samples.Presentation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,11 +8,16 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Microsoft.Extensions.Hosting;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Extensions.DependencyInjection;
+using Chinook.DynamicMvvm;
+using System.Diagnostics;
+using Samples.Views;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,17 +28,9 @@ namespace Samples
     /// </summary>
     public sealed partial class DynamicMap_FeaturesPage : Page
     {
-        private DynamicMap_FeaturesPageViewModel DynamicMap_FeaturesPageViewModel;
         public DynamicMap_FeaturesPage()
         {
-            DynamicMap_FeaturesPageViewModel = new DynamicMap_FeaturesPageViewModel();
-            DataContext = DynamicMap_FeaturesPageViewModel;
             this.InitializeComponent();
-        }
-
-        private void FeatureToDynamicMapMenu(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(DynamicMapMenuPage));
         }
     }
 }

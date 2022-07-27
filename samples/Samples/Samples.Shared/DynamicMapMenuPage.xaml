@@ -9,7 +9,7 @@
     xmlns:xamarin="http://nventive.com/xamarin"
     mc:Ignorable="d xamarin" >
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -17,10 +17,8 @@
         
         <StackPanel Grid.Row="0">
             <Button x:Name="ReturnToMenu"
-                    Click="DynamicToMenu">
-                <TextBlock Text="Return to main menu"
-                             HorizontalAlignment="Center"/>
-            </Button>
+                    Command="{Binding DynamicMenuToMainMenu}"
+                    Content="Return to main menu" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="1">
@@ -30,31 +28,31 @@
 
                 <!-- Show DynamicMap_PushpinsPage button -->
                 <Button Content="Show overview of DynamicMap features"
-						Click="GotoDynamicMap_FeaturesPage"
+						Command="{Binding GotoDynamicMap_FeaturesPage}"
 						HorizontalAlignment="Stretch"
 						Margin="0,20" />
 
                 <!--Show NavigateToDynamicMap_MoveSearchPage button-->
                 <Button Content="Show Move &amp; Search sample"
-						Click="GotoDynamicMap_MoveSearchPage"
+						Command="{Binding GotoDynamicMap_MoveSearchPage}"
 						HorizontalAlignment="Stretch"
 						Margin="0,20"/>
 
                 <!-- Show DynamicMap_SelectedFlipViewPage button -->
                 <Button Content="Show Selected FlipView DynamicMap Sample"
-						Click="GotoDynamicMap_SelectedFlipViewPage"
+						Command="{Binding GotoDynamicMap_SelectedFlipViewPage}"
 						HorizontalAlignment="Stretch"
 						Margin="0,20" />
 
                 <!-- Show DynamicMap_ZoomPoiPage button -->
                 <Button Content="Show feature of zooming on points of interest automatically"
-						Click="GotoDynamicMap_ZoomPoiPage"
+						Command="{Binding GotoDynamicMap_ZoomPoiPage}"
 						HorizontalAlignment="Stretch"
 						Margin="0,20" />
 
                 <!-- Show Pretty_PushpinSelectionPage button -->
                 <Button Content="Show Pretty Pushpin Selection Sample"
-						Click="GotoPretty_PushpinSelectionPage"
+						Command="{Binding GotoPretty_PushpinSelectionPage}"
 						HorizontalAlignment="Stretch"
 						Margin="0,20" />
             </StackPanel>

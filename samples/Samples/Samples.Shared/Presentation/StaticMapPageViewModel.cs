@@ -1,6 +1,7 @@
 ﻿  using Cartography.Core;
 using Cartography.StaticMap;
 using Chinook.DynamicMvvm;
+using Chinook.SectionsNavigation;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,78 +13,72 @@ using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.UI.Core;
 
-namespace Samples.ViewModel
+namespace Samples.Presentation
 {
-    class StaticMapPageViewModel : ViewModel
+    public partial class StaticMapPageViewModel : ViewModel
     {
-        private static IDispatcherScheduler DispatcherScheduler;
-        private MapViewPort mapViewPort;
-        private string latitude;
-        private string longitude;
-        private double zoomLevel;
-        private Size mapSize;
-        private string height;
-        private string width;
+        private ISectionsNavigator _sectionsNavigator;
+        private readonly IDispatcherScheduler _dispatcherScheduler;
 
-        public StaticMapPageViewModel(CoreDispatcher dispatcher)
+        public StaticMapPageViewModel()
         {
-            MapViewPort = GetMapViewPort();
-            Latitude = "45.504071";
-            Longitude = "- 73.558709";
-            zoomLevel = 2.0;
-            MapSize = new Size(300, 300);
-            Height = "300";
-            Width = "300";
+            _sectionsNavigator = this.GetService<ISectionsNavigator>();
+            _dispatcherScheduler = this.GetService<IDispatcherScheduler>();
 
-            DispatcherScheduler = new MainDispatcherScheduler(dispatcher, CoreDispatcherPriority.Normal);
+
 #if WINDOWS_UWP
-            StaticMapInitializer.Initialize(DispatcherScheduler, Constants.BingMaps.ApiKey);
+            StaticMapInitializer.Initialize(_dispatcherScheduler, Constants.BingMaps.ApiKey);
 #elif __ANDROID__ || __IOS__
-            StaticMapInitializer.Initialize(DispatcherScheduler, string.Empty);
+            StaticMapInitializer.Initialize(_dispatcherScheduler, string.Empty);
 #endif
         }
 
         public MapViewPort MapViewPort
         {
-            get { return mapViewPort; }
-            set { mapViewPort = value; }
+            get => this.Get<MapViewPort>( initialValue: GetMapViewPort());
+            set => this.Set(value);
         }
 
         public string Latitude
         {
-            get { return latitude; }
-            set { latitude = value; }
+            get => this.Get<string>(initialValue: "45.504071");
+            set => this.Set(value);
         }
 
         public string Longitude
         {
-            get { return longitude; }
-            set { longitude = value; }
+            get => this.Get<string>(initialValue: "-73.558709");
+            set => this.Set(value);
         }
 
         public double ZoomLevel
         {
-            get { return zoomLevel; }
-            set { zoomLevel = value; }
+            get => this.Get<double>(initialValue: 12.0);
+            set => this.Set(value);
         }
 
         public Size MapSize
         {
-            get { return mapSize; }
-            set { mapSize = value; }
+            get => this.Get<Size>(initialValue: new Size(300, 300));
+            set => this.Set(value);
         }
 
         public string Height
         {
-            get { return height; }
-            set { height = value; }
+            get => this.Get<string>(initialValue: "300");
+            set => this.Set(value);
         }
 
         public string Width
         {
-            get { return width; }
-            set { width = value; }
+            get => this.Get<string>(initialValue: "300");
+            set => this.Set(value);
         }
+
+        public IDynamicCommand StaticToMenu => this.GetCommandFromTask(async ct =>
+        {
+            await _sectionsNavigator.Navigate(ct, () => new MainPageViewModel());
+        });
 
         private MapViewPort GetMapViewPort()
         {
@@ -103,8 +98,6 @@ namespace Samples.ViewModel
                 Longitude = longitude
             };
         }
-
-#if __Mobile__
         public IDynamicCommand ShowStaticMap => this.GetCommand(() =>
         {
             double latitude = double.Parse(Latitude, NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -120,6 +113,5 @@ namespace Samples.ViewModel
 
             MapViewPort = (mapViewPort);
         });
-#endif
     }
 }

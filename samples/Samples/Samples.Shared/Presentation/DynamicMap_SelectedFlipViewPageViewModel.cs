@@ -13,10 +13,14 @@ using System.Threading.Tasks;
 using Cartography.Core;
 using Cartography.DynamicMap;
 
-namespace Umbrella.Location.Samples.Uno
+namespace Samples.Presentation
 {
-	public partial class DynamicMap_SelectedFlipViewPageViewModel
+	public partial class DynamicMap_SelectedFlipViewPageViewModel : ViewModel
 	{
+        public DynamicMap_SelectedFlipViewPageViewModel()
+        {
+
+        }
 		//private static Feeds<DynamicMap_SelectedFlipViewPageViewModel> _feeds;
 
 		//private readonly double _minimumLatitude = 45.475;
