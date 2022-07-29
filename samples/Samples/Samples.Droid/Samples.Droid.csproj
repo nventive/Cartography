@@ -39,6 +39,9 @@
     <AndroidUseAssemblyStore>false</AndroidUseAssemblyStore>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <BundleAssemblies>false</BundleAssemblies>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>

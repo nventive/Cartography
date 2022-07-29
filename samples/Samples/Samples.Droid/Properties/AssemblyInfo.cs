@@ -23,8 +23,8 @@ using Samples;
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 [assembly: UsesPermission(Android.Manifest.Permission.AccessBackgroundLocation)]
 
-[assembly: UsesPermission("com.nventive.cartography.samples.permission.MAPS_RECEIVE")]
-[assembly: Permission(Name = "com.nventive.cartography.samples.permission.MAPS_RECEIVE", ProtectionLevel = Android.Content.PM.Protection.Signature)]
+[assembly: UsesPermission("Samples.permission.MAPS_RECEIVE")]
+[assembly: Permission(Name = "Samples.permission.MAPS_RECEIVE", ProtectionLevel = Android.Content.PM.Protection.Signature)]
 
 [assembly: UsesPermission("com.google.android.providers.gsf.permission.READ_GSERVICES")]
 

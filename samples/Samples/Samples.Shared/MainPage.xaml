@@ -12,16 +12,24 @@
                         VerticalAlignment="Center">
             <Button x:Name="MapServiceButton"
                     Command="{Binding NavigateToMapService}"
-                    Content="Map Service"/>
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Map Service"
+                    Margin="10"/>
             <Button x:Name="LocationButton"
                     Command="{Binding NavigateToLocation}"
-                    Content="Location Service"/>
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Location Service"
+                    Margin="10"/>
             <Button x:Name="DynamicMapButton"
                     Command="{Binding NavigateToDynamicMap}"
-                    Content="Dynamic Map"/>
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Dynamic Map"
+                    Margin="10"/>
             <Button x:Name="staticMapButton"
                     Command="{Binding NavigateToStaticMap}"
-                    Content="Static Map"/>
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Static Map"
+                    Margin="10"/>
         </StackPanel>
     </Grid>
 </Page>

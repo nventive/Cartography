@@ -7,11 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
 
-    <Grid>
+    <Grid Background="White">
         <StackPanel >
             <Button x:Name="ReturnToMenu"
                     Command="{Binding NavigateToMenu}"
-                    Content="Return to main menu"/>
+                    Content="Return to main menu"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Margin="0,40,0,0"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Center"
 					HorizontalAlignment="Center"
@@ -19,56 +21,74 @@
 					Width="300"
 					Grid.Row="1">
 
+            <TextBlock Text="Location service is now manage by GeolocatorService"
+                       TextWrapping="Wrap"
+                       Style="{StaticResource Typo03}"
+                       Margin="0,0,0,5"/>
             <!-- See https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android-->
-            <TextBlock Text="Somes values can be unavailable depending on the phone model. ex: Altitude and Speed."
-                       TextWrapping="Wrap"/>
+            <TextBlock Text="Somes values can be unavailable depending on the phone model. ex: Altitude, Speed and Heading."
+                       TextWrapping="Wrap"
+                       Style="{StaticResource Typo03}"/>
             <!-- Get location button -->
             <Button Content="Get location"
                     x:Name="btnLocation"
 					Command="{Binding GetLocation}"
+                    Style="{StaticResource BasicButtonStyle}"
 					HorizontalAlignment="Stretch"
 					Margin="0,10,0,0" />
 
             <!-- Accuracy -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Accuracy: " FontWeight="Bold" />
+                <TextBlock Text="Accuracy: " FontWeight="Bold" 
+                           Style="{StaticResource Typo01}"/>
                 <TextBlock x:Name="txtAccuracy"
-                           Text="{Binding CurrentLocation.Accuracy}"/>
+                           Text="{Binding CurrentLocation.Accuracy}"
+                           Style="{StaticResource Typo03}"/>
             </StackPanel>
 
             <!-- Altitude -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Altitude: " FontWeight="Bold" />
+                <TextBlock Text="Altitude: " FontWeight="Bold"
+                           Style="{StaticResource Typo01}"/>
                 <TextBlock x:Name="txtAltitude"
-                           Text="{Binding CurrentLocation.Altitude}"/>
+                           Text="{Binding CurrentLocation.Altitude}"
+                           Style="{StaticResource Typo03}"/>
             </StackPanel>
 
             <!-- Latitude -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Latitude: " FontWeight="Bold" />
+                <TextBlock Text="Latitude: " FontWeight="Bold"
+                           Style="{StaticResource Typo01}"/>
                 <TextBlock x:Name="txtLatitude"
-                           Text="{Binding CurrentLocation.Latitude}"/>
+                           Text="{Binding CurrentLocation.Latitude}"
+                           Style="{StaticResource Typo03}"/>
             </StackPanel>
 
             <!-- Longitude -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Longitude: " FontWeight="Bold" />
+                <TextBlock Text="Longitude: " FontWeight="Bold"
+                           Style="{StaticResource Typo01}"/>
                 <TextBlock x:Name="txtLongitude"
-                           Text="{Binding CurrentLocation.Longitude}"/>
+                           Text="{Binding CurrentLocation.Longitude}"
+                           Style="{StaticResource Typo03}"/>
             </StackPanel>
 
             <!-- Speed -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Speed: " FontWeight="Bold" />
+                <TextBlock Text="Speed: " FontWeight="Bold"
+                           Style="{StaticResource Typo01}"/>
                 <TextBlock x:Name="txtSpeed"
-                           Text="{Binding CurrentLocation.Speed}"/>
+                           Text="{Binding CurrentLocation.Speed}"
+                           Style="{StaticResource Typo03}"/>
             </StackPanel>
 
             <!-- Heading -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Heading: " FontWeight="Bold" />
+                <TextBlock Text="Heading: " FontWeight="Bold"
+                           Style="{StaticResource Typo01}"/>
                 <TextBlock x:Name="txtHeading"
-                           Text="{Binding CurrentLocation.Heading}"/>
+                           Text="{Binding CurrentLocation.Heading}"
+                           Style="{StaticResource Typo03}"/>
             </StackPanel>
 
         </StackPanel>

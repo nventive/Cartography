@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\_Configuration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\_ViewConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromMoveSearchPushpinListToString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromPushpinEntityToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoreStartup.cs" />
@@ -40,15 +41,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_MoveSearchPage.xaml.cs">
       <DependentUpon>DynamicMap_MoveSearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_Pretty_PushpinSelectionPage.xaml.cs">
-      <DependentUpon>DynamicMap_Pretty_PushpinSelectionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_SelectedFlipViewPage.xaml.cs">
-      <DependentUpon>DynamicMap_SelectedFlipViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMap_ZoomPoiPage.xaml.cs">
-      <DependentUpon>DynamicMap_ZoomPoiPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Entities\GeoViewPort.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\PushpinEntity.cs" />
@@ -94,18 +86,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)DynamicMap_MoveSearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_Pretty_PushpinSelectionPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_SelectedFlipViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DynamicMap_ZoomPoiPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

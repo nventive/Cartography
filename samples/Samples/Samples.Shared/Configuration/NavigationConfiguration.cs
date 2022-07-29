@@ -31,9 +31,6 @@ namespace Samples.Views
             { typeof(LocationViewModel), typeof(LocationPage) },
             { typeof(DynamicMap_FeaturesPageViewModel), typeof(DynamicMap_FeaturesPage) },
             { typeof(DynamicMap_MoveSearchPageViewModel), typeof(DynamicMap_MoveSearchPage) },
-            { typeof(DynamicMap_SelectedFlipViewPageViewModel), typeof(DynamicMap_SelectedFlipViewPage) },
-            { typeof(Pretty_PushpinSelectionPageViewModel), typeof(DynamicMap_Pretty_PushpinSelectionPage) },
-            { typeof(DynamicMap_ZoomPoiPageViewModel), typeof(DynamicMap_ZoomPoiPage) },
             { typeof(MapServiceViewModel), typeof(MapServicePage) },
         };
 

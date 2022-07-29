@@ -18,7 +18,9 @@
         <StackPanel Grid.Row="0">
             <Button x:Name="ReturnToMenu"
                     Command="{Binding DynamicMenuToMainMenu}"
-                    Content="Return to main menu" />
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Return to main menu"
+                    Margin="0,40,0,0"/>
         </StackPanel>
 
         <ScrollViewer Grid.Row="1">
@@ -29,32 +31,17 @@
                 <!-- Show DynamicMap_PushpinsPage button -->
                 <Button Content="Show overview of DynamicMap features"
 						Command="{Binding GotoDynamicMap_FeaturesPage}"
+                        Style="{StaticResource BasicButtonStyle}"
 						HorizontalAlignment="Stretch"
 						Margin="0,20" />
 
                 <!--Show NavigateToDynamicMap_MoveSearchPage button-->
                 <Button Content="Show Move &amp; Search sample"
 						Command="{Binding GotoDynamicMap_MoveSearchPage}"
+                        Style="{StaticResource BasicButtonStyle}"
 						HorizontalAlignment="Stretch"
 						Margin="0,20"/>
-
-                <!-- Show DynamicMap_SelectedFlipViewPage button -->
-                <Button Content="Show Selected FlipView DynamicMap Sample"
-						Command="{Binding GotoDynamicMap_SelectedFlipViewPage}"
-						HorizontalAlignment="Stretch"
-						Margin="0,20" />
-
-                <!-- Show DynamicMap_ZoomPoiPage button -->
-                <Button Content="Show feature of zooming on points of interest automatically"
-						Command="{Binding GotoDynamicMap_ZoomPoiPage}"
-						HorizontalAlignment="Stretch"
-						Margin="0,20" />
-
-                <!-- Show Pretty_PushpinSelectionPage button -->
-                <Button Content="Show Pretty Pushpin Selection Sample"
-						Command="{Binding GotoPretty_PushpinSelectionPage}"
-						HorizontalAlignment="Stretch"
-						Margin="0,20" />
+                
             </StackPanel>
         </ScrollViewer>
 

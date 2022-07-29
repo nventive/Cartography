@@ -21,7 +21,9 @@
         <StackPanel Grid.Row="0">
             <Button x:Name="ReturnToMenu"
                     Content="Return to main menu"
-                    Command="{Binding StaticToMenu}"/>
+                    Command="{Binding StaticToMenu}"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Margin="0,40,0,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -56,7 +58,8 @@
             <StackPanel Margin="0,0,0,0" Grid.ColumnSpan="3" Grid.Row="0">
 
                 <!-- Zoom Level label -->
-                <TextBlock Text="Zoom Level" />
+                <TextBlock Text="Zoom Level"
+                           Style="{StaticResource Typo01}"/>
 
                 <!-- Zoom Level value -->
                 <Slider Value="{Binding ZoomLevel, Mode=TwoWay}"
@@ -70,19 +73,23 @@
 
                 <!-- Latitude label -->
                 <TextBlock Text="Latitude"
-						   FontSize="16" />
+						   FontSize="16"
+                           Style="{StaticResource Typo01}"/>
 
                 <!-- Latitude value -->
                 <TextBox Text="{Binding Latitude, Mode=TwoWay}"
+                         Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
 
                 <!-- Longitude label -->
                 <TextBlock Text="Longitude"
 						   FontSize="16"
-						   Margin="0,10,0,0" />
+						   Margin="0,10,0,0"
+                           Style="{StaticResource Typo01}"/>
 
                 <!-- Longitude value -->
                 <TextBox Text="{Binding Longitude, Mode=TwoWay}"
+                         Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
             </StackPanel>
 
@@ -90,19 +97,23 @@
 
                 <!-- Height label -->
                 <TextBlock Text="Height"
-						   FontSize="16" />
+						   FontSize="16"
+                           Style="{StaticResource Typo01}"/>
 
                 <!-- Height value -->
                 <TextBox Text="{Binding Height, Mode=TwoWay}"
+                         Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
 
                 <!-- Width label -->
                 <TextBlock Text="Width"
 						   FontSize="16" 
-						   Margin="0,10,0,0"/>
+						   Margin="0,10,0,0"
+                           Style="{StaticResource Typo01}"/>
 
                 <!-- Width value -->
                 <TextBox Text="{Binding Width, Mode=TwoWay}"
+                         Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
             </StackPanel>
         </Grid>
@@ -110,6 +121,9 @@
         <!-- ShowStaticMap -->
         <Button x:Name="ShowStaticMap"
                 Content="Update Static Map"
+                FontSize="18"
+                Padding="8"
+                Foreground="Black"
                 Background="Beige"
 				Command="{Binding ShowStaticMap}"
 				HorizontalAlignment="Stretch"

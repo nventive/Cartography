@@ -9,6 +9,9 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="StaticMapControl.xaml" />
         <ResourceDictionary Source="MapControl.xaml" />
+        <ResourceDictionary Source="Button.xaml" />
+        <ResourceDictionary Source="TextBlock.xaml" />
+        <ResourceDictionary Source="TextBox.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 	
 </ResourceDictionary>

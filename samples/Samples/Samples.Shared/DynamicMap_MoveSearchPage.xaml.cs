@@ -26,10 +26,5 @@ namespace Samples
         {
             this.InitializeComponent();
         }
-
-        private void SearchToDynamicMapMenu(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(DynamicMapMenuPage));
-        }
     }
 }
