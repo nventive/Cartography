@@ -103,7 +103,11 @@ namespace Samples.Presentation
             double latitude = double.Parse(Latitude, NumberStyles.Any, CultureInfo.InvariantCulture);
             double longitude = double.Parse(Longitude, NumberStyles.Any, CultureInfo.InvariantCulture);
             double height = double.Parse(Height, NumberStyles.Any, CultureInfo.InvariantCulture);
+            height = Math.Min(height, 400);
+            Height = height.ToString();
             double width = double.Parse(Width, NumberStyles.Any, CultureInfo.InvariantCulture);
+            width = Math.Min(width, 400);
+            Width = width.ToString();
             double zoomLevel = ZoomLevel;
 
             MapViewPort mapViewPort = new MapViewPort(new Geopoint(CreateGeoposition(latitude, longitude)));

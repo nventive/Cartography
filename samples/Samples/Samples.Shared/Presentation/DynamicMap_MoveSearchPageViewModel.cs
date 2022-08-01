@@ -18,7 +18,10 @@ namespace Samples.Presentation
 {
 	public class DynamicMap_MoveSearchPageViewModel : ViewModel, IMapComponent
     {
-
+        /* See FeaturePageViewmodel for implementation of the map.
+         * ---
+         * This sample only show only the pushpins that are contain within the ViewPortCoordinates (what is show on the screen)
+         */
         private IGeolocatorService _geolocatorService;
         private ISectionsNavigator _sectionsNavigator;
 
@@ -116,6 +119,7 @@ namespace Samples.Presentation
         {
             return this.GetProperty(x => x.ViewPort).GetAndObserve().Subscribe(UpdatePushpins);
 
+            // When Viewport change load new set of Pushpin.
             void UpdatePushpins(MapViewPort viewPort){
                 Pushpins = GetPushpins(ViewPortCoordinates);
             }

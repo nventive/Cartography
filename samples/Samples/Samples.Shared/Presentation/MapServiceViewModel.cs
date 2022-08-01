@@ -25,6 +25,7 @@ namespace Samples.Presentation
             await _sectionsNavigator.Navigate(ct, () => new MainPageViewModel());
         });
 
+        // Open the phone map application on the device. Show the location.
         public IDynamicCommand ShowLocation => this.GetCommandFromTask(async ct =>
         {
             await _mapService.ShowLocation(ct, new MapRequest(
@@ -37,6 +38,7 @@ namespace Samples.Presentation
                 ));
         });
 
+        // Open the phone map application on the device. Create direction from user position to the location.
         public IDynamicCommand ShowDirections => this.GetCommandFromTask(async ct =>
         {
             await _mapService.ShowDirections(ct, new MapRequest(

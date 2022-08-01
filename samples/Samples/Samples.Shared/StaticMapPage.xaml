@@ -17,8 +17,15 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="1" />
+            <ColumnDefinition Width="auto" MaxWidth="400"/>
+            <ColumnDefinition Width="*" MinWidth="1" />
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3">
             <Button x:Name="ReturnToMenu"
                     Content="Return to main menu"
                     Command="{Binding StaticToMenu}"
@@ -26,25 +33,28 @@
                     Margin="0,40,0,0"/>
         </StackPanel>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              Grid.Column="1">
 
             <!-- Static map -->
             <!-- In order to show the map in Windows, you must set a default MapControl style. Otherwise, nothing will be displayed -->
+            <!-- See Views/Styles/StaticMapControl -->
+            <!-- MapSize vs Height and Width : MapSize is content inside Height and Width. This can distort the map look-->
             <staticmap:StaticMapControl MapViewPort="{Binding MapViewPort}"
                                         MapSize="{Binding MapSize}"
-										Height="300"
-										Width="300"
-										VerticalAlignment="Stretch"
-                                        HorizontalAlignment="Stretch"
+                                        Height="{Binding MapSize.Height}"
+                                        Width="{Binding Mapsize.Width}"
+                                        HorizontalAlignment="Center"
                                         BorderBrush="Black"
-                                        BorderThickness="2"/>
-
+                                        BorderThickness="2" />
         </Grid>
         <Grid Background="White"
 			  HorizontalAlignment="Stretch"
 			  VerticalAlignment="Bottom"
 			  Padding="10"
-			  Grid.Row="2">
+			  Grid.Row="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
@@ -96,7 +106,7 @@
             <StackPanel MinWidth="150" Grid.Column="2" Grid.Row="1">
 
                 <!-- Height label -->
-                <TextBlock Text="Height"
+                <TextBlock Text="Height (max 400)"
 						   FontSize="16"
                            Style="{StaticResource Typo01}"/>
 
@@ -106,7 +116,7 @@
 						 FontSize="16" />
 
                 <!-- Width label -->
-                <TextBlock Text="Width"
+                <TextBlock Text="Width (max 400)"
 						   FontSize="16" 
 						   Margin="0,10,0,0"
                            Style="{StaticResource Typo01}"/>
@@ -127,7 +137,9 @@
                 Background="Beige"
 				Command="{Binding ShowStaticMap}"
 				HorizontalAlignment="Stretch"
-				Grid.Row="3" />
+				Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"/>
     </Grid>
 </Page>
 

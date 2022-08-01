@@ -19,6 +19,13 @@ using Chinook.SectionsNavigation;
 
 namespace Samples.Presentation
 {
+
+    /* IMPORTANT. This Sample implement DynamicProperties, DynamicCommands and ViewModelNavigation.
+     * Go see Startup and StartupCore to see how to implement it.
+     * This is done for reading purpose.
+     * For adding a property without it you need to use INotifyPropertyChanged and add PropertyChangedEventHandler.
+     * Cartography is using ViewModel
+     */
     public class DynamicMap_FeaturesPageViewModel : ViewModel, IMapComponent
     {
         private IGeolocatorService _geolocatorService;
@@ -33,9 +40,11 @@ namespace Samples.Presentation
 
         async private void OnLoaded()
         {
+            // check if permission is granted.
             IsLocationEnabled = await _geolocatorService.GetIsPermissionGranted(CancellationToken.None);
             if (!IsLocationEnabled)
             {
+                // Ask for Permission
                 IsLocationEnabled = await _geolocatorService.RequestPermission(CancellationToken.None);
             }
 
@@ -44,23 +53,36 @@ namespace Samples.Presentation
 
         private void BuildMap()
         {
-
             AddDisposable(ObserveViewPort());
             if (IsLocationEnabled)
             {
+                // Track Userlocation if permission is granted.
                 AddDisposable(ObserveUserLocation());
             }
             AddDisposable(ObserveSelectedPushpin());
+
             Pushpins = GetInitialPushpins();
         }
 
+        //These properties are not mandatory but some very usefull.
         #region Page-Property
+
+        // Store if the location is granted by GeolocatorService.
         public bool IsLocationEnabled
         {
             get => this.Get<bool>();
             set => this.Set(value);
         }
 
+        // Store if we follow the user
+        public bool IsMapFollowTheUser
+        {
+            get => this.Get<bool>(initialValue: false);
+            set => this.Set(value);
+        }
+
+
+        // All next properties of this region are only for UI purpose
         public string MessageErrorLocateMe
         {
             get => this.Get<string>(initialValue: "");
@@ -92,67 +114,85 @@ namespace Samples.Presentation
         }
         #endregion
 
+        // These properties are mandatory and depend from IMapComponent.
         #region Map-Property
+        
+        // These Pushpins will be show as inactive.
         public IGeoLocated[] Pushpins
         {
             get => this.Get<IGeoLocated[]>();
             set => this.Set(value);
         }
+
+        // These are your active pushpins
         public IGeoLocated[] SelectedPushpins
         {
             get => this.Get(initialValue: Array.Empty<IGeoLocated>());
             set => this.Set(value);
         }
+
         public IGeoLocatedGrouping<IGeoLocated[]> Groups
         {
             get => this.Get<IGeoLocatedGrouping<IGeoLocated[]>>();
             set => this.Set(value);
         }
+
         public TimeSpan ViewPortUpdateMinDelay
         {
             get => this.Get<TimeSpan>(initialValue: TimeSpan.FromMilliseconds(250));
             set => this.Set(value);
         }
+
         public IEqualityComparer<MapViewPort> ViewPortUpdateFilter
         {
             get => this.Get<IEqualityComparer<MapViewPort>>();
             set => this.Set(value);
         }
+
         public ActionAsync<Geocoordinate> OnMapTapped
         {
             get => this.Get<ActionAsync<Geocoordinate>>();
             set => this.Set(value);
         }
+
         public bool IsUserTrackingCurrentlyEnabled
         {
             get => this.Get<bool>(initialValue: false);
             set => this.Set(value);
         }
+
         public bool IsUserDragging
         {
             get => this.Get<bool>(initialValue: false);
             set => this.Set(value);
         }
+
         public LocationResult UserLocation
         {
             get => this.Get<LocationResult>();
             set => this.Set(value);
         }
+
+        // This calculating the borders of your map.
         public MapViewPortCoordinates ViewPortCoordinates
         {
             get => this.Get<MapViewPortCoordinates>();
             set => this.Set(value);
         }
+
         public bool SkipAnimations
         {
             get => this.Get<bool>();
             set => this.Set(value);
         }
+
+        // IMPORTANT !!! Must be set. This is where you want to go on the map.
         public MapViewPort ViewPort
         {
             get => this.Get<MapViewPort>(initialValue: GetStartingCoordinates());
             set => this.Set(value);
         }
+
         public int? AnimationDurationSeconds
         {
             get => this.Get<int?>();
@@ -161,6 +201,7 @@ namespace Samples.Presentation
         #endregion
 
         #region Disposable
+        // Observe userlocation change.
         private IDisposable ObserveUserLocation()
         {
             var obs = Observable.CombineLatest(
@@ -168,29 +209,36 @@ namespace Samples.Presentation
                 this.GetProperty(x => IsLocationEnabled).GetAndObserve(),
                 (location, isEnabled) => (location, isEnabled));
 
-            void UpdateLocationState((Geocoordinate location, bool isLocationEnabled) result)
+            async void UpdateLocationState((Geocoordinate location, bool isLocationEnabled) result)
             {
-                if (!result.isLocationEnabled)
+                if (result.isLocationEnabled)
                 {
-                    return;
+                    UserLocation = new LocationResult(true, result.location);
+                    // Center ViewPort on User.
+                    if (IsMapFollowTheUser)
+                    {
+                        var mapViewPort = await ComputeMapViewPort(CancellationToken.None, result.location.Point);
+                        ViewPort = mapViewPort;
+                    }
                 }
-
-                UserLocation = new LocationResult(true, result.location);
             }
+
             return obs.Subscribe(UpdateLocationState);
         }
 
+        //Observe any change on the selectedPushpin.
         private IDisposable ObserveSelectedPushpin()
         {
             return this.GetProperty(x => x.SelectedPushpins).GetAndObserve().Subscribe(UpdateSelectedPushpin);
 
             void UpdateSelectedPushpin(IGeoLocated[] selectedPushpins)
             {
+                // Here we only change text output. PushpinEntity generated a string.
                 if (selectedPushpins != null && selectedPushpins.Length > 0)
                 {
                     SelectedPushpin = new PushpinEntity
                     {
-                        Name = "Selected Pushpin",
+                        Name = "Selected Pushpin : ",
                         Coordinates = selectedPushpins[0].Coordinates
                     };
                 }
@@ -198,19 +246,21 @@ namespace Samples.Presentation
                 {
                     SelectedPushpin = new PushpinEntity
                     {
-                        Name = "No Pushpin Selected",
+                        Name = "No Pushpin Selected : ",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 0, Longitude = 0 })
                     };
                 }
             }
         }
 
+        // Observe Change on Viewport.
         private IDisposable ObserveViewPort()
         {
             return this.GetProperty(x => x.ViewPort).GetAndObserve().Subscribe(getMapViewPortCustomString);
 
             void getMapViewPortCustomString(MapViewPort viewPort)
             {
+                // Generate string to show.
                 MapViewPortCustomString = "[MapViewPort] Center: lat: {0}, lon: {1}, Zoom: {2}, POIs: {3}".InvariantCultureFormat(
                     viewPort.Center.Position.Latitude,
                     viewPort.Center.Position.Longitude,
@@ -259,6 +309,7 @@ namespace Samples.Presentation
                     var currentLocation = (await _geolocatorService.GetLocation(ct)).Point;
 
                     await OnLocateMeSuccess(ct, currentLocation);
+                    IsLocationEnabled = true;
                 }
                 catch
                 {
@@ -351,7 +402,7 @@ namespace Samples.Presentation
             };
         }
 
-        public IDynamicCommand RemoveSelectedPushpin => this.GetCommandFromTask(async ct =>
+        public IDynamicCommand RemoveSelectedPushpin => this.GetCommand(() =>
         {
             PushpinEntity selectedPushpin = SelectedPushpin;
             IGeoLocated[] pushpins = Pushpins;
@@ -360,13 +411,8 @@ namespace Samples.Presentation
             pushpinslist.RemoveAll(pin => pin.Coordinates == selectedPushpin.Coordinates);
 
             Pushpins = pushpinslist.ToArray();
-            ClearSelectedPushpin(ct);
+            ClearSelectedPushpin();
         });
-
-        private void ClearSelectedPushpin(CancellationToken ct)
-        {
-            SelectedPushpins = null;
-        }
 
         public IDynamicCommand UpdateViewPort => this.GetCommand(() =>
         {

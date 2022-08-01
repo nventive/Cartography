@@ -30,16 +30,5 @@ namespace Samples.Presentation
         {
             await _sectionsNavigator.Navigate(ct, () => new DynamicMap_MoveSearchPageViewModel());
         });
-
-        public IDynamicCommand GotoDynamicMap_ZoomPoiPage => this.GetCommandFromTask(async ct =>
-        {
-            await _sectionsNavigator.Navigate(ct, () => new DynamicMap_ZoomPoiPageViewModel());
-        });
-
-        public IDynamicCommand GotoPretty_PushpinSelectionPage => this.GetCommandFromTask(async ct =>
-        {
-            await _sectionsNavigator.Navigate(ct, () => new MainPageViewModel());
-        });
-
     }
 }

@@ -10,6 +10,8 @@
     xmlns:xamarin="http://nventive.com/xamarin"
     mc:Ignorable="d xamarin">
 
+    <!-- For the Map implementation go to dynamicMap:MapControl around line 100 --> 
+    
     <Page.Resources>
         <ResourceDictionary>
             <!--To make sure this works on iOS, these assets must exist not only with normal scale, but also 200 and 300 scale.-->
@@ -23,6 +25,7 @@
 															  VisibilityIfTrue="Collapsed" />
         </ResourceDictionary>
     </Page.Resources>
+    
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -88,6 +91,7 @@
         <Grid Grid.Row="2">
 
             <!-- Dynamic map -->
+            <!--See Views/Style/MapControl.xaml for the implementation-->
             <win:Grid>
                 <dynamicMap:MapControl ViewModel="{Binding}"
 									   SelectionMode="Single"
@@ -101,6 +105,7 @@
             <xamarin:Grid>
                 <!--SelectedIconHeight and SelectedIconWidth are only needed on iOS.
 				They must have the exact same dimensions as the normal-scale asset (here, pin_red_selection_base.png)-->
+                <!--See Views/Style/MapControl.xaml for the implementation-->
                 <dynamicMap:MapControl ViewModel="{Binding}"
 									   SelectionMode="Single"
 									   AutolocateButtonVisibility="Collapsed"
@@ -158,11 +163,18 @@
                 <Button Content="Locate me"
 						Command="{Binding LocateMe}"
                         Style="{StaticResource MapButton}"
+                        Padding="3"
 						Margin="4,0"/>
                 <Button Content="Update Viewport"
 						Command="{Binding UpdateViewPort}"
                         Style="{StaticResource MapButton}"
+                        Padding="3"
 						Margin="4,0"/>
+                <CheckBox IsChecked="{Binding IsMapFollowTheUser, Mode=TwoWay}"
+                          Margin="4,0" >
+                    <TextBlock Text="Follow me"
+                               Style="{StaticResource Typo01}"/>
+                </CheckBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Latitude:"
@@ -178,32 +190,6 @@
                 <TextBox Text="{Binding ViewPortLongitude, Mode=TwoWay}"
                          Style="{StaticResource TextBoxStyle}"/>
             </StackPanel>
-            <!--This is only supported on iOS--><!--
-            <ios:CheckBox Content="Show points of interest"
-						  IsChecked="{Binding IsPointOfInterestShown, Mode=TwoWay}" />
-            --><!--To demo showing/hiding points of interest. Press this and check the checkbox on and off to see the difference--><!--
-            <Button Content="Center on point of interest"
-					Command="{Binding CenterOnPOI}"/>-->
         </StackPanel>
-
-        <!-- Too far banner -->
-        <Grid x:Name="TooFarBanner"
-			  Grid.Row="4"
-			  Visibility="{Binding IsTooFar, Converter={StaticResource IsTrueToVisible}, FallbackValue=Collapsed}"
-			  VerticalAlignment="Bottom"
-			  Padding="16,0"
-			  Height="72"
-			  Background="PaleVioletRed">
-
-            <StackPanel VerticalAlignment="Center"
-						HorizontalAlignment="Left">
-                <TextBlock MaxLines="1"
-						   Text="You're too far!"
-                           Style="{StaticResource Typo01}"/>
-
-                <TextBlock Text="We cannot display your pushpins."
-                           Style="{StaticResource Typo01}"/>
-            </StackPanel>
-        </Grid>
     </Grid>
 </Page>

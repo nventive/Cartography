@@ -15,6 +15,10 @@ namespace Samples.Presentation
         private readonly ISectionsNavigator _sectionsNavigator;
         private IGeolocatorService _geolocatorService;
 
+        /*This is only to show available data in GeoLocatorService.
+         * Depending on your phone, you may encounter deferents results.
+         * Latitude and Longitude are the only stable data from phone to phone.
+         */
         public LocationViewModel()
         {
             _sectionsNavigator = this.GetService<ISectionsNavigator>();
