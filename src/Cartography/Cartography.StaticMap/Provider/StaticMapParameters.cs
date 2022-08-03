@@ -26,6 +26,6 @@
 		/// <summary>
 		/// Gets or sets the viewport of the map.
 		/// </summary>
-		public MapViewPort ViewPort { get; set; }
+		public StaticMapViewPort ViewPort { get; set; }
 	}
 }

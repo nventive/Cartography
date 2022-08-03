@@ -27,10 +27,6 @@
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.3.0-dev.18" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Cartography.Core\Cartography.Core.csproj" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'xamarinios10'">
 		<PackageReference Include="Uno.Extensions.Logging.OSLog">
 		  <Version>1.4.0</Version>

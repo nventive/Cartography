@@ -38,7 +38,7 @@ namespace Cartography.StaticMap
 		/// Dependency property to the MapViewPort.
 		/// </summary>
 		public static readonly DependencyProperty MapViewPortProperty =
-			DependencyProperty.Register("MapViewPort", typeof(MapViewPort), typeof(StaticMapControl), new PropertyMetadata(default(MapViewPort), ParameterChanged));
+			DependencyProperty.Register("MapViewPort", typeof(StaticMapViewPort), typeof(StaticMapControl), new PropertyMetadata(default(StaticMapViewPort), ParameterChanged));
 
 		/// <summary>
 		/// Dependency property to the MapSize.
@@ -98,9 +98,9 @@ namespace Cartography.StaticMap
 		/// <summary>
 		/// Gets or sets the viewport of the map.
 		/// </summary>
-		public MapViewPort MapViewPort
+		public StaticMapViewPort MapViewPort
 		{
-			get { return (MapViewPort)this.GetValue(MapViewPortProperty); }
+			get { return (StaticMapViewPort)this.GetValue(MapViewPortProperty); }
 			set { this.SetValue(MapViewPortProperty, value); }
 		}
 

@@ -16,7 +16,6 @@ using Android.Graphics;
 using Android.Views;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using Uno.Extensions;
 using Uno.Logging;
 using Windows.Devices.Geolocation;

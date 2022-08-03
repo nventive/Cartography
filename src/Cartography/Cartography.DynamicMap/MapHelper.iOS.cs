@@ -5,7 +5,6 @@ using System.Text;
 using CoreGraphics;
 using CoreLocation;
 using MapKit;
-using Cartography.Core;
 using Windows.Devices.Geolocation;
 
 namespace Cartography.DynamicMap

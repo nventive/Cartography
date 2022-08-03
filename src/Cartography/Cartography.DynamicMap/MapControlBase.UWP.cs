@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using Uno.Extensions;
 using Windows.Devices.Geolocation;
 using Windows.Storage;

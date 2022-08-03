@@ -9,7 +9,7 @@ namespace Cartography.StaticMap
 	/// <summary>
 	/// Represents all information about the view port of a map.
 	/// </summary>
-	public class MapViewPort
+	public class StaticMapViewPort
 	{
 		private const int MAXIMUM_LONGITUDE = 90;
 		private const int MINIMUM_LONGITUDE = -90;
@@ -18,7 +18,7 @@ namespace Cartography.StaticMap
 		/// <summary>
 		/// Default ctor
 		/// </summary>
-		public MapViewPort()
+		public StaticMapViewPort()
 		{
 		}
 
@@ -26,7 +26,7 @@ namespace Cartography.StaticMap
 		/// Instanciate a MapViewPort with its center
 		/// </summary>
 		/// <param name="center">The center</param>
-		public MapViewPort(Geopoint center)
+		public StaticMapViewPort(Geopoint center)
 		{
 			Center = center;
 		}
@@ -35,12 +35,10 @@ namespace Cartography.StaticMap
 		/// Copy constructor
 		/// </summary>
 		/// <param name="source"></param>
-		public MapViewPort(MapViewPort source)
+		public StaticMapViewPort(StaticMapViewPort source)
 		{
 			Center = source.Center;
 			ZoomLevel = source.ZoomLevel;
-			Heading = source.Heading;
-			Pitch = source.Pitch;
 		}
 
 		/// <summary>
@@ -55,37 +53,9 @@ namespace Cartography.StaticMap
 		public ZoomLevel? ZoomLevel { get; set; }
 
 		/// <summary>
-		/// DO NOT USE - Stud field only used to support deserialization since ZoomLevel is a struct.
-		/// </summary>
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		[Obsolete("Do not use this property, use ZoomLevel instead, this one is simply to support deserialization.", error: true)]
-		public double? ZoomLevelValue
-		{
-			get { return (double?)ZoomLevel; }
-			set { ZoomLevel = (ZoomLevel?)value; }
-		}
-
-		/// <summary>
 		/// Defines an optional list of Points of Interest to be used by the MapControl to change the displayed map viewport ( auto zoom ).
 		/// </summary>
 		public Geopoint[] PointsOfInterest { get; set; }
-
-
-		/// <summary>
-		/// Gets or sets the heading.
-		/// </summary>
-		public double? Heading { get; set; }
-
-		/// <summary>
-		/// Gets or sets the pitch
-		/// </summary>
-		public double? Pitch { get; set; }
-
-		/// <summary>
-		/// Disables any animation that the platform map control offers when changing viewport
-		/// </summary>
-		public bool IsAnimationDisabled { get; set; }
-
 
 		/// <inherit />
 		//According to original dev, there was a problem in using the EqualityExtension. But there is no
@@ -94,9 +64,7 @@ namespace Cartography.StaticMap
 		{
 			return Center.GetHashCode()
 				^ ZoomLevel.GetHashCode()
-				^ this.Equality().GetHashCode(PointsOfInterest.Safe())
-				^ Heading.GetHashCode()
-				^ Pitch.GetHashCode();
+				^ this.Equality().GetHashCode(PointsOfInterest.Safe());
 		}
 
 		/// <inherit />
@@ -104,14 +72,12 @@ namespace Cartography.StaticMap
 		//traces why, and he can't recall.
 		public override bool Equals(object obj)
 		{
-			var other = obj as MapViewPort;
+			var other = obj as StaticMapViewPort;
 
 			return other != null
 				&& Center.Equals(other.Center)
 				&& ZoomLevel.GetValueOrDefault((ZoomLevel)double.NaN).Equals(other.ZoomLevel.GetValueOrDefault((ZoomLevel)double.NaN))
-				&& PointsOfInterest.SafeSequenceEqual(other.PointsOfInterest)
-				&& Heading.GetValueOrDefault(double.NaN).Equals(other.Heading.GetValueOrDefault(double.NaN))
-				&& Pitch.GetValueOrDefault(double.NaN).Equals(other.Pitch.GetValueOrDefault(double.NaN));
+				&& PointsOfInterest.SafeSequenceEqual(other.PointsOfInterest);
 		}
 
 		public override string ToString()

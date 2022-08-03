@@ -18,7 +18,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Windows.Devices.Geolocation;
 using Windows.UI.Core;
-using Cartography.Core;
 using GeolocatorService;
 using Microsoft.Extensions.DependencyInjection;
 #if NETFX_CORE

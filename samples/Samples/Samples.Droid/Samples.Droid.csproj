@@ -147,10 +147,6 @@
     <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.Core\Cartography.Core.csproj">
-      <Project>{ed9113f7-f908-4336-a077-fec35a582b78}</Project>
-      <Name>Cartography.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.DynamicMap\Cartography.DynamicMap.csproj">
       <Project>{6abe0223-31de-46a3-9351-00e34fc9b8ff}</Project>
       <Name>Cartography.DynamicMap</Name>

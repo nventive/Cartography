@@ -16,7 +16,6 @@ using Foundation;
 using GeolocatorService;
 using MapKit;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;

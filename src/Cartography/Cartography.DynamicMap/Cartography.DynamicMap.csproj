@@ -50,8 +50,4 @@
 	  <SourceGeneratorInput Remove="ObservableExtension.cs" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Cartography.Core\Cartography.Core.csproj" />
-	</ItemGroup>
-
 </Project>

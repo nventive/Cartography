@@ -5,7 +5,6 @@ using System.Reactive.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-using Cartography.Core;
 using Cartography.DynamicMap;
 using Chinook.DynamicMvvm;
 using Chinook.SectionsNavigation;
