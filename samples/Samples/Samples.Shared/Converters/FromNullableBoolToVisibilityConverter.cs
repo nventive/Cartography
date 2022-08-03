@@ -13,7 +13,6 @@ using Visibility = Windows.UI.Xaml.Visibility;
 using System.Windows;
 #endif
 
-
 namespace Samples.Views
 {
     public class FromNullableBoolToVisibilityConverter : ConverterBase

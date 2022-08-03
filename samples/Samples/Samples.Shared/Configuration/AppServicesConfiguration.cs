@@ -25,7 +25,6 @@ namespace Samples
                 .AddSingleton<IBackgroundScheduler>(s => TaskPoolScheduler.Default.ToBackgroundScheduler());
         }
 
-
         private static IServiceCollection AddGeolocatorService(this IServiceCollection services)
         {
             return services.AddSingleton<IGeolocatorService>(new GeolocatorService.GeolocatorService());
