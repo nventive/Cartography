@@ -1,6 +1,4 @@
-﻿using Cartography.Core;
-
-namespace Cartography.StaticMap.Provider
+﻿namespace Cartography.StaticMap.Provider
 {
 	/// <summary>
 	/// Parameters to get a map from a StaticMapProvider.

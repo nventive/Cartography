@@ -1,5 +1,4 @@
-﻿  using Cartography.Core;
-using Cartography.StaticMap;
+﻿using Cartography.StaticMap;
 using Chinook.DynamicMvvm;
 using Chinook.SectionsNavigation;
 using System;

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CoreGraphics;
 using MapKit;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
