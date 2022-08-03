@@ -34,4 +34,13 @@
 		<PackageReference Include="Xamarin.Google.iOS.Maps" Version="3.9.0" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'monoandroid11.0'">
+	  <PackageReference Include="Xamarin.GooglePlayServices.Base">
+	    <Version>117.6.0.3</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.GooglePlayServices.Maps">
+	    <Version>117.0.1</Version>
+	  </PackageReference>
+	</ItemGroup>
+
 </Project>
