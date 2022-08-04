@@ -181,7 +181,7 @@ namespace Samples.Presentation
         private PushpinEntity[] GetPushpins(MapViewPortCoordinates boundaries)
         {
             return _allPushpins
-                .Where(p => boundaries?.IsSurrounding(new Geocoordinate(p.Coordinates.Position.Latitude, p.Coordinates.Position.Longitude, 0, new DateTimeOffset(), p.Coordinates)) ?? false)
+                .Where(p => boundaries?.IsSurrounding(p.Coordinates) ?? false)
                 .ToArray();
         }
     }

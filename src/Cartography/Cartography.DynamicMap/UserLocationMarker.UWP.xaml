@@ -4,19 +4,19 @@
 
 	<Style TargetType="local:UserLocationMarker">
 		<Setter Property="Background"
-				Value="Red" />
-		<Setter Property="MinWidth"
+				Value="blue" />
+		<Setter Property="Width"
 				Value="12" />
-		<Setter Property="MinHeight"
+		<Setter Property="Height"
 				Value="12" />
 		<Setter Property="PositionOrigin"
 				Value=".5,.5" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:UserLocationMarker">
-					<Rectangle Fill="{TemplateBinding Background}"
-							   MinWidth="{TemplateBinding MinWidth}"
-							   MinHeight="{TemplateBinding MinHeight}" />
+					<Ellipse Fill="{TemplateBinding Background}"
+							   Width="{TemplateBinding Width}"
+							   Height="{TemplateBinding Height}" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

@@ -53,27 +53,18 @@
 					<Grid x:Name="RootGrid"
 						  Background="{TemplateBinding Background}">
 						<VisualStateManager.VisualStateGroups>
-							<VisualStateGroup x:Name="CommonStates">
-								<VisualState x:Name="Disabled">
-									<VisualState.Setters>
-										<Setter Target="RootGrid.Opacity"
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Opacity"
 												Value="0.5" />
-									</VisualState.Setters>
-								</VisualState>
-								<VisualState x:Name="Normal" />
-								<VisualState x:Name="PointerOver" />
-								<VisualState x:Name="Focused" />
-							</VisualStateGroup>
-							<VisualStateGroup x:Name="ButtonStates">
-								<VisualState x:Name="ButtonVisible">
-									<VisualState.Setters>
-										<Setter Target="DeleteButton.Visibility"
-												Value="Visible" />
-									</VisualState.Setters>
-								</VisualState>
-								<VisualState x:Name="ButtonCollapsed" />
-							</VisualStateGroup>
-						</VisualStateManager.VisualStateGroups>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver" />
+                                <VisualState x:Name="Focused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
 
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />
@@ -90,8 +81,8 @@
 								Grid.ColumnSpan="2"
 								Margin="0,0,20,0" />
 
-						<Grid Grid.Row="1">
-							<ScrollViewer x:Name="ContentElement"
+                        <Grid Grid.Row="1">
+                            <ScrollViewer x:Name="ContentElement"
 										  HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
 										  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
 										  VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
@@ -105,7 +96,7 @@
 										  AutomationProperties.AccessibilityView="Raw"
 										  ZoomMode="Disabled" />
 
-							<ContentControl x:Name="PlaceholderTextContentPresenter"
+                            <ContentControl x:Name="PlaceholderTextContentPresenter"
 											Content="{TemplateBinding PlaceholderText}"
 											Foreground="{TemplateBinding PlaceholderForeground}"
 											FontWeight="Normal"
@@ -114,20 +105,8 @@
 											IsTabStop="False"
 											IsHitTestVisible="False"
 											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-						</Grid>
-
-						<!-- Workaround for iOS in order to be able to delete the content if a IsEnabled property is set on the TextBox -->
-						<!-- Task #113012 : Need to be removed when userecho is fixed : https://feedback.nventive.com/communities/1/topics/2387-ios-textbox-cleartext-button-is-always-disabled -->
-						<Button x:Name="DeleteButton"
-								Style="{StaticResource DeleteOrRevealButtonStyle}"
-								IsEnabled="{TemplateBinding IsEnabled}"
-								HorizontalContentAlignment="Right"
-								IsTabStop="False"
-								Visibility="Collapsed"
-								Padding="0,0,20,0"
-								Grid.Row="1"
-								Grid.Column="1" />
-					</Grid>
+                        </Grid>
+                    </Grid>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

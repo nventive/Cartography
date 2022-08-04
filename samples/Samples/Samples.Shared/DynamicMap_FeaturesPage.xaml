@@ -93,11 +93,11 @@
             <!-- Dynamic map -->
             <!--See Views/Style/MapControl.xaml for the implementation-->
             <win:Grid>
-                <dynamicMap:MapControl ViewModel="{Binding}"
+                <dynamicMap:MapControl ViewModel="{Binding }"
 									   SelectionMode="Single"
 									   PushpinIconsPositionOrigin="0.5,1"
-									   PushpinIcon="ms-appx:///Assets/DynamicMap/pin_bleu_normal_base.png"
-									   SelectedPushpinIcon="ms-appx:///Assets/DynamicMap/pin_red_selection_base.png"
+									   PushpinIcon="ms-appx:///Assets/Pushpin/inactive.png"
+									   SelectedPushpinIcon="ms-appx:///Assets/Pushpin/active.png"
 									   AutolocateButtonVisibility="Collapsed" />
             </win:Grid>
 

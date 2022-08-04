@@ -45,22 +45,26 @@ namespace Cartography.DynamicMap
 
 		public override string ToString()
 		{
-			return "[MapRegion] NW: {0}, NE: {1}, SW: {2}, SE: {3}".InvariantCultureFormat(
-				NorthWest,
-				NorthEast,
-				SouthWest,
-				SouthEast);
+			return "[MapRegion] NW: {0}; {1}, NE: {2}; {3}, SW: {4}; {5}, SE: {6}; {7}".InvariantCultureFormat(
+				Math.Round(NorthWest.Latitude, 4),
+				Math.Round(NorthWest.Longitude, 4),
+				Math.Round(NorthEast.Latitude, 4),
+				Math.Round(NorthEast.Longitude, 4),
+				Math.Round(SouthWest.Latitude, 4),
+				Math.Round(SouthWest.Longitude, 4),
+				Math.Round(SouthEast.Latitude, 4),
+				Math.Round(SouthEast.Longitude, 4));
 		}
 
 		/// <summary>
 		/// Returns true when the coordinates surround (inclusively) the given coordinate
 		/// </summary>
-		public bool IsSurrounding(Geocoordinate coordinate)
+		public bool IsSurrounding(Geopoint coordinate)
 		{
-			return coordinate.Latitude >= SouthEast.Latitude
-				&& coordinate.Latitude <= NorthEast.Latitude
-				&& coordinate.Longitude >= SouthWest.Longitude
-				&& coordinate.Longitude <= SouthEast.Longitude;
+			return coordinate.Position.Latitude >= SouthEast.Latitude
+				&& coordinate.Position.Latitude <= NorthEast.Latitude
+				&& coordinate.Position.Longitude >= SouthWest.Longitude
+				&& coordinate.Position.Longitude <= SouthEast.Longitude;
 		}
 	}
 }

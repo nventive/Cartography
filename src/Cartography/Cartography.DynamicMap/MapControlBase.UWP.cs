@@ -146,7 +146,7 @@ namespace Cartography.DynamicMap
 
 		private async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
 		{
-			if (viewPort.PointsOfInterest.Any() && viewPort.Center != default(Geopoint))
+			if (viewPort.PointsOfInterest != null && viewPort.PointsOfInterest.Any() && viewPort.Center != default(Geopoint))
 			{
 				var bounds = AddPushpinPaddingToBounds(viewPort);
 
