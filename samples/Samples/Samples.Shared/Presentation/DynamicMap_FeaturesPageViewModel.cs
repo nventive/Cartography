@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using Uno;
 using Windows.Devices.Geolocation;
 using Chinook.SectionsNavigation;
+using System.Reactive.Concurrency;
 
 namespace Samples.Presentation
 {
@@ -23,31 +24,35 @@ namespace Samples.Presentation
      * Go see Startup and StartupCore to see how to implement it.
      * This is done for reading purpose.
      * For adding a property without it you need to use INotifyPropertyChanged and add PropertyChangedEventHandler.
-     * Cartography is using ViewModel
+     * Cartography is using the ViewModel.
      */
     public class DynamicMap_FeaturesPageViewModel : ViewModel, IMapComponent
     {
         private IGeolocatorService _geolocatorService;
         private ISectionsNavigator _sectionsNavigator;
+        private readonly IDispatcherScheduler _dispatcherScheduler;
 
         public DynamicMap_FeaturesPageViewModel()
         {
             _geolocatorService = this.GetService<IGeolocatorService>();
             _sectionsNavigator = this.GetService<ISectionsNavigator>();
+            _dispatcherScheduler = this.GetService<IDispatcherScheduler>();
             OnLoaded();
         }
 
-        async private void OnLoaded()
+        private void OnLoaded()
         {
             // check if permission is granted.
-            IsLocationEnabled = await _geolocatorService.GetIsPermissionGranted(CancellationToken.None);
-            if (!IsLocationEnabled)
-            {
-                // Ask for Permission
-                IsLocationEnabled = await _geolocatorService.RequestPermission(CancellationToken.None);
-            }
-
-            BuildMap();
+            _dispatcherScheduler.ScheduleTask(async (ct2, dispatcher) =>
+                {
+                    IsLocationEnabled = await _geolocatorService.GetIsPermissionGranted(ct2);
+                    if (!IsLocationEnabled)
+                    {
+                        // Ask for Permission
+                        IsLocationEnabled = await _geolocatorService.RequestPermission(ct2);
+                    }
+                    BuildMap();
+                });
         }
 
         private void BuildMap()
@@ -73,15 +78,21 @@ namespace Samples.Presentation
             set => this.Set(value);
         }
 
-        // Store if we follow the user
+        // Store if we follow the user.
         public bool IsMapFollowTheUser
         {
             get => this.Get<bool>(initialValue: false);
             set => this.Set(value);
         }
 
+        //The Animation Setting is include in the Viewport object. Must be add when setting viewport. See ComputeMapViewPort.
+        public bool IsViewPortAnimationDisabled
+        {
+            get => this.Get<bool>(initialValue:false);
+            set => this.Set(value);
+        }
 
-        // All next properties of this region are only for UI purpose
+        // All next properties of this region are only for UI purpose.
         public string MessageErrorLocateMe
         {
             get => this.Get<string>(initialValue: "");
@@ -123,7 +134,7 @@ namespace Samples.Presentation
             set => this.Set(value);
         }
 
-        // These are your active pushpins
+        // These are your active pushpins.
         public IGeoLocated[] SelectedPushpins
         {
             get => this.Get(initialValue: Array.Empty<IGeoLocated>());
@@ -136,15 +147,17 @@ namespace Samples.Presentation
             set => this.Set(value);
         }
 
+        // 250 ms is a good starting point.
         public TimeSpan ViewPortUpdateMinDelay
         {
-            get => this.Get<TimeSpan>(initialValue: TimeSpan.FromMilliseconds(250));
+            get => this.Get<TimeSpan>(initialValue: MapComponentDefaultValue.DefaultViewPortUpdateMinDelay);
             set => this.Set(value);
         }
 
+        // This is de default Filter. Reject map drifting. Can be not enough precise for some kind of application. ex: Your pushpin might be of center when you place it.
         public IEqualityComparer<MapViewPort> ViewPortUpdateFilter
         {
-            get => this.Get<IEqualityComparer<MapViewPort>>();
+            get => this.Get<IEqualityComparer<MapViewPort>>(initialValue: MapComponentDefaultValue.DefaultViewPortUpdateFilter);
             set => this.Set(value);
         }
 
@@ -274,6 +287,7 @@ namespace Samples.Presentation
         {
             var mapViewPort = new MapViewPort(new Geopoint(new BasicGeoposition { Latitude = 45.504071, Longitude = -73.558709 }));
             mapViewPort.ZoomLevel = ZoomLevels.District;
+            mapViewPort.IsAnimationDisabled = IsViewPortAnimationDisabled;
             return mapViewPort;
         }
 
@@ -353,6 +367,7 @@ namespace Samples.Presentation
 
             var viewPort = new MapViewPort(mapCenter);
             viewPort.ZoomLevel = zoomLevel;
+            viewPort.IsAnimationDisabled = IsViewPortAnimationDisabled;
 
             return viewPort;
         }
@@ -428,6 +443,7 @@ namespace Samples.Presentation
                 var zoomLevel = ZoomLevels.City;
                 ViewPort = new MapViewPort(center);
                 ViewPort.ZoomLevel = zoomLevel;
+                ViewPort.IsAnimationDisabled = IsViewPortAnimationDisabled;
             }
             else
             {

@@ -37,12 +37,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="UserLocationMarker.UWP.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <SourceGeneratorInput Remove="PrettyMapViewPortEqualityComparer.cs" />
 	</ItemGroup>
 
@@ -57,6 +51,12 @@
 	  <PackageReference Include="Xamarin.GooglePlayServices.Maps">
 	    <Version>117.0.1</Version>
 	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="UserLocationMarker.UWP.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	</ItemGroup>
 
 </Project>

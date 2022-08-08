@@ -14,10 +14,10 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:UserLocationMarker">
-					<Ellipse Fill="{TemplateBinding Background}"
+                    <Rectangle Fill="{TemplateBinding Background}"
 							   Width="{TemplateBinding Width}"
 							   Height="{TemplateBinding Height}" />
-				</ControlTemplate>
+                </ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
