@@ -1,5 +1,4 @@
-﻿  using Cartography.Core;
-using Cartography.StaticMap;
+﻿using Cartography.StaticMap;
 using Chinook.DynamicMvvm;
 using Chinook.SectionsNavigation;
 using System;
@@ -33,9 +32,9 @@ namespace Samples.Presentation
 #endif
         }
 
-        public MapViewPort MapViewPort
+        public StaticMapViewPort MapViewPort
         {
-            get => this.Get<MapViewPort>( initialValue: GetMapViewPort());
+            get => this.Get<StaticMapViewPort>( initialValue: GetMapViewPort());
             set => this.Set(value);
         }
 
@@ -80,11 +79,11 @@ namespace Samples.Presentation
             await _sectionsNavigator.Navigate(ct, () => new MainPageViewModel());
         });
 
-        private MapViewPort GetMapViewPort()
+        private StaticMapViewPort GetMapViewPort()
         {
             var coordinate = new Geopoint(CreateGeoposition());
 
-            var mapViewPort = new MapViewPort(coordinate);
+            var mapViewPort = new StaticMapViewPort(coordinate);
             mapViewPort.ZoomLevel = ZoomLevels.District;
 
             return mapViewPort;
@@ -110,7 +109,7 @@ namespace Samples.Presentation
             Width = width.ToString();
             double zoomLevel = ZoomLevel;
 
-            MapViewPort mapViewPort = new MapViewPort(new Geopoint(CreateGeoposition(latitude, longitude)));
+            StaticMapViewPort mapViewPort = new StaticMapViewPort(new Geopoint(CreateGeoposition(latitude, longitude)));
             mapViewPort.ZoomLevel = new ZoomLevel(Math.Round(zoomLevel));
 
             MapSize = new Size(width, height);

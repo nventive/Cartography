@@ -14,7 +14,6 @@ using CoreLocation;
 using GeolocatorService;
 using Google.Maps;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;

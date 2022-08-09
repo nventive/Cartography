@@ -66,21 +66,24 @@
 
                     <!-- Selected pushpin value -->
                     <TextBlock Text="{Binding SelectedPushpin}"
+                               HorizontalAlignment="Left"
 							   Grid.Column="1"
                                TextWrapping="Wrap"
                                Style="{StaticResource Typo02}"/>
                 </Grid>
                 <TextBlock Text="The location service is in error"
 						   VerticalAlignment="Top"
-						   HorizontalAlignment="Right"
+						   HorizontalAlignment="Left"
                            Style="{StaticResource Typo02}"
 						   Visibility="{Binding IsLocationEnabled, Converter={StaticResource IsTrueToCollapsed}}" />
                 <TextBlock Text="This sample includes auto-zoom to the pushpins"
 						   Foreground="White"
-                           Style="{StaticResource Typo02}"/>
+                           Style="{StaticResource Typo02}"
+                           HorizontalAlignment="Left"/>
                 <TextBlock Text="{Binding MapViewPortCustomString}"
                            TextWrapping="Wrap"
-                           Style="{StaticResource Typo02}"/>
+                           Style="{StaticResource Typo02}"
+                           HorizontalAlignment="Left"/>
                 <TextBlock Text="{Binding MessageErrorLocateMe}"
                            Style="{StaticResource Typo02}"
                            Visibility="{Binding IsLocationEnabled, Converter={StaticResource IsTrueToCollapsed}}"/>
@@ -93,11 +96,11 @@
             <!-- Dynamic map -->
             <!--See Views/Style/MapControl.xaml for the implementation-->
             <win:Grid>
-                <dynamicMap:MapControl ViewModel="{Binding}"
+                <dynamicMap:MapControl ViewModel="{Binding }"
 									   SelectionMode="Single"
 									   PushpinIconsPositionOrigin="0.5,1"
-									   PushpinIcon="ms-appx:///Assets/DynamicMap/pin_bleu_normal_base.png"
-									   SelectedPushpinIcon="ms-appx:///Assets/DynamicMap/pin_red_selection_base.png"
+									   PushpinIcon="ms-appx:///Assets/Pushpin/inactive.png"
+									   SelectedPushpinIcon="ms-appx:///Assets/Pushpin/active.png"
 									   AutolocateButtonVisibility="Collapsed" />
             </win:Grid>
 
@@ -136,8 +139,7 @@
 			  Grid.Row="2">
 
             <StackPanel Margin="0,0,10,0"
-						HorizontalAlignment="Left"
-						Visibility="{Binding IsTooFar, Converter={StaticResource IsTrueToCollapsed}, FallbackValue=Visible}">
+						HorizontalAlignment="Left">
                 <!-- Add Pushpin button -->
                 <Button Content="Add Pushpin"
 						Command="{Binding AddPushpin}"
@@ -181,14 +183,16 @@
 						   Margin="0,0,20,0"
                            Style="{StaticResource Typo01}" />
                 <TextBox Text="{Binding ViewPortLatitude, Mode=TwoWay}"
-                         Style="{StaticResource TextBoxStyle}"/>
+                         Style="{StaticResource TextBoxStyle}"
+                         Width="90"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Longitude:"
 						   Margin="0,0,20,0"
                            Style="{StaticResource Typo01}"/>
                 <TextBox Text="{Binding ViewPortLongitude, Mode=TwoWay}"
-                         Style="{StaticResource TextBoxStyle}"/>
+                         Style="{StaticResource TextBoxStyle}"
+                         Width="90"/>
             </StackPanel>
         </StackPanel>
     </Grid>

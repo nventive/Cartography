@@ -10,7 +10,6 @@ using CoreGraphics;
 using Foundation;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;

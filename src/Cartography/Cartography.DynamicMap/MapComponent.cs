@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeolocatorService;
-using Cartography.Core;
 using Uno;
 using Windows.Devices.Geolocation;
 

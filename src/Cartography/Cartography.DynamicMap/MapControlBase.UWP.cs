@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using Uno.Extensions;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
@@ -127,10 +126,10 @@ namespace Cartography.DynamicMap
 
 		private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers(bool skipAnimations)
 		{
-			yield return _map.ObserveCenterChanged().Where(_ => !skipAnimations || !_isAnimating);
-			yield return _map.ObserveHeadingChanged().Where(_ => !skipAnimations || !_isAnimating);
-			yield return _map.ObservePitchChanged().Where(_ => !skipAnimations || !_isAnimating);
-			yield return _map.ObserveZoomLevelChanged().Where(_ => !skipAnimations || !_isAnimating);
+			yield return _map.ObserveCenterChanged().Where(_ => skipAnimations || !_isAnimating);
+			yield return _map.ObserveHeadingChanged().Where(_ => skipAnimations || !_isAnimating);
+			yield return _map.ObservePitchChanged().Where(_ => skipAnimations || !_isAnimating);
+			yield return _map.ObserveZoomLevelChanged().Where(_ => skipAnimations || !_isAnimating);
 		}
 
 		private MapViewPort GetViewPort()
@@ -147,7 +146,7 @@ namespace Cartography.DynamicMap
 
 		private async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
 		{
-			if (viewPort.PointsOfInterest.Any() && viewPort.Center != default(Geopoint))
+			if (viewPort.PointsOfInterest != null && viewPort.PointsOfInterest.Any() && viewPort.Center != default(Geopoint))
 			{
 				var bounds = AddPushpinPaddingToBounds(viewPort);
 

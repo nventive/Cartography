@@ -18,7 +18,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Uno;
 using Uno.Extensions;
-using Cartography.Core;
 using Windows.Devices.Geolocation;
 using Samples.Presentation;
 

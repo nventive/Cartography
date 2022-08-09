@@ -56,12 +56,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\DynamicMapMenuViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\DynamicMap_FeaturesPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\DynamicMap_MoveSearchPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Presentation\DynamicMap_SelectedFlipViewPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Presentation\DynamicMap_ZoomPoiPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\LocationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\MapServiceViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Presentation\Pretty_PushpinSelectionPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>

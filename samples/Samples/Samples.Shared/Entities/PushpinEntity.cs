@@ -82,7 +82,7 @@ namespace Samples.Entities
 
 		public override string ToString()
 		{
-			return $"{Name}: {Coordinates.Position.Latitude}, {Coordinates.Position.Longitude}";
+			return $"{Coordinates.Position.Latitude}, {Coordinates.Position.Longitude}";
 		}
 	}
 }

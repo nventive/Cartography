@@ -7,18 +7,18 @@ using CoreLocation;
 using MapKit;
 using Windows.Devices.Geolocation;
 
-namespace Cartography.DynamicMap
+namespace Cartography.StaticMap
 {
 	public static class MapHelper
 	{
 		private const double MercatorRadius = 85445659.44705395;
 		private const double MercatorOffset = 268435456;
 
-		public static MKCoordinateRegion CreateRegion(BasicGeoposition centerCoordinate, ZoomLevel zoomLevel, CGSize size)
+		public static MKCoordinateRegion CreateRegion(Geopoint centerCoordinate, ZoomLevel zoomLevel, CGSize size)
 		{
 			// convert center coordiate to pixel space 
-			double centerPixelX = LongitudeToPixelSpaceX(centerCoordinate.Longitude);
-			double centerPixelY = LatitudeToPixelSpaceY(centerCoordinate.Latitude);
+			double centerPixelX = LongitudeToPixelSpaceX(centerCoordinate.Position.Longitude);
+			double centerPixelY = LatitudeToPixelSpaceY(centerCoordinate.Position.Latitude);
 
 			// determine the scale value from the zoom level 
 			var zoomExponent = 20 - zoomLevel.Value;
@@ -45,10 +45,7 @@ namespace Cartography.DynamicMap
 
 			// create and return the lat/lng span 
 			var span = new MKCoordinateSpan(latitudeDelta, longitudeDelta);
-			var center = new CLLocationCoordinate2D();
-			center.Latitude = centerCoordinate.Latitude;
-			center.Longitude = centerCoordinate.Longitude;
-			var region = new MKCoordinateRegion(center, span);
+			var region = new MKCoordinateRegion(CreateCenterPoint(centerCoordinate), span);
 
 			return region;
 		}
@@ -82,6 +79,11 @@ namespace Cartography.DynamicMap
 			{
 				return Math.Round(MercatorOffset - MercatorRadius * Math.Log((1 + Math.Sin(latitude * Math.PI / 180.0)) / (1 - Math.Sin(latitude * Math.PI / 180.0))) / 2.0);
 			}
+		}
+
+		private static CLLocationCoordinate2D CreateCenterPoint(Geopoint point)
+		{
+			return new CLLocationCoordinate2D(point.Position.Latitude, point.Position.Longitude);
 		}
 	}
 }

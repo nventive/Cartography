@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Cartography.Core;
+using Cartography.DynamicMap;
 using Windows.Devices.Geolocation;
 
 namespace Samples.Entities

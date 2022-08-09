@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using Cartography.Core;
 using Uno.Extensions;
 using Uno.Logging;
 
