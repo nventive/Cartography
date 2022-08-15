@@ -153,7 +153,7 @@ namespace Cartography.DynamicMap
 
 #region ViewPort
 
-		private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers(bool skipAnimations)
+		private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
 		{
 			var map = _map;
 
@@ -161,7 +161,7 @@ namespace Cartography.DynamicMap
 				.FromEventPattern<GoogleMap.CameraChangeEventArgs>(
 					h => map.CameraChange += h,
 					h => map.CameraChange -= h)
-				.Where(_ => !skipAnimations || !_isAnimating)
+				.Where(_ => !_isAnimating)
 				.Select(_ => Unit.Default);
 		}
 

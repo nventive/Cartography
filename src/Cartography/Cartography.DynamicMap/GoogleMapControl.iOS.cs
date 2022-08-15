@@ -98,13 +98,13 @@ namespace Cartography.DynamicMap
 			);
 		}
 
-		protected override IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers(bool skipAnimations)
+		protected override IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
 		{
 			yield return System.Reactive.Linq.Observable
 				.FromEventPattern<GMSCameraEventArgs>(
 					h => _internalMapView.CameraPositionChanged += h,
 					h => _internalMapView.CameraPositionChanged -= h)
-				.Where(_ => !skipAnimations || !IsAnimating)
+				.Where(_ => !IsAnimating)
 				.Select(_ => Unit.Default);
 		}
 
