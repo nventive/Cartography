@@ -39,7 +39,7 @@ namespace Cartography.DynamicMap
 
 		protected abstract void UpdateMapUserLocation(LocationResult locationAndStatus);
 
-		protected abstract IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers(bool skipAnimations);
+		protected abstract IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers();
 
 		protected abstract Geopoint GetCenter();
 

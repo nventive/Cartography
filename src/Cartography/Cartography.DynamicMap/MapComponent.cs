@@ -62,12 +62,6 @@ namespace Cartography.DynamicMap
 		MapViewPortCoordinates ViewPortCoordinates { get; set; }
 
 		/// <summary>
-		/// Determines if viewport changes from animations are skipped when pushing back the current MapViewPort
-		/// to the view-model.
-		/// </summary>
-		bool SkipAnimations { get; set; }
-
-		/// <summary>
 		/// ViewPort of the map - READ / WRITE - First viewport MUST be provided by VM
 		/// </summary>
 		MapViewPort ViewPort { get; set; }

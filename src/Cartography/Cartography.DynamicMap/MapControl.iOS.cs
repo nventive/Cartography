@@ -182,14 +182,14 @@ namespace Cartography.DynamicMap
 #region ViewPort
 
 
-		protected override IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers(bool skipAnimations)
+		protected override IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
 		{
 			yield return Observable
 				.FromEventPattern<MKMapViewChangeEventArgs>(
 					h => _internalMapView.RegionChanged += h,
 					h => _internalMapView.RegionChanged -= h
 				)
-				.Where(ep => !skipAnimations || (!ep.EventArgs.Animated && !IsAnimating))
+				.Where(ep => (!ep.EventArgs.Animated && !IsAnimating))
 				.Select(_ => Unit.Default)
 				.Do(_ =>
 				{

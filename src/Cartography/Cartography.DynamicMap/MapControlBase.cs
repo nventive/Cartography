@@ -416,7 +416,7 @@ namespace Cartography.DynamicMap
 					.Take(1);
 
 			// View to ViewModel
-			return GetViewPortChangedTriggers(component.SkipAnimations)
+			return GetViewPortChangedTriggers()
 				.Merge()
 				.SkipWhile(_ => !GetInitializationStatus())
 				.SkipUntil(aViewPortWasProvidedBySource?.Do(_ => GoToReadyState()))

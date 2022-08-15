@@ -86,11 +86,7 @@ namespace Samples.Presentation
             get => this.Get<MapViewPortCoordinates>();
             set => this.Set(value);
         }
-        public bool SkipAnimations
-        {
-            get => this.Get<bool>();
-            set => this.Set(value);
-        }
+
         public MapViewPort ViewPort
         {
             get => this.Get<MapViewPort>();

@@ -192,12 +192,6 @@ namespace Samples.Presentation
             set => this.Set(value);
         }
 
-        public bool SkipAnimations
-        {
-            get => this.Get<bool>();
-            set => this.Set(value);
-        }
-
         // IMPORTANT !!! Must be set. This is where you want to go on the map.
         public MapViewPort ViewPort
         {

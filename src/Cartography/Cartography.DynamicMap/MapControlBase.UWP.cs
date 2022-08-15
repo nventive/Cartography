@@ -124,12 +124,12 @@ namespace Cartography.DynamicMap
 
 		#region View port
 
-		private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers(bool skipAnimations)
+		private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
 		{
-			yield return _map.ObserveCenterChanged().Where(_ => skipAnimations || !_isAnimating);
-			yield return _map.ObserveHeadingChanged().Where(_ => skipAnimations || !_isAnimating);
-			yield return _map.ObservePitchChanged().Where(_ => skipAnimations || !_isAnimating);
-			yield return _map.ObserveZoomLevelChanged().Where(_ => skipAnimations || !_isAnimating);
+			yield return _map.ObserveCenterChanged().Where(_ => !_isAnimating);
+			yield return _map.ObserveHeadingChanged().Where(_ => !_isAnimating);
+			yield return _map.ObservePitchChanged().Where(_ => !_isAnimating);
+			yield return _map.ObserveZoomLevelChanged().Where(_ => !_isAnimating);
 		}
 
 		private MapViewPort GetViewPort()
