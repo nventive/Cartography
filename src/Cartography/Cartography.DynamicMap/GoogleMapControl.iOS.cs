@@ -14,8 +14,8 @@ using CoreLocation;
 using GeolocatorService;
 using Google.Maps;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
-using Uno.Extensions;
 using Uno.Logging;
 using Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
@@ -28,6 +28,7 @@ namespace Cartography.DynamicMap
 	/// </summary>
 	public partial class GoogleMapControl : MapControlBase
 	{
+		private readonly ILogger<GoogleMapControl> _logger;
 		private MapView _internalMapView;
 		private IMapLayer<GooglePushpin> _pushpinsLayer;
 		private readonly List<Overlay> _polygons = new List<Overlay>();
@@ -37,8 +38,9 @@ namespace Cartography.DynamicMap
 
 		private bool _isViewPortInitialized;
 
-		public GoogleMapControl()
+		public GoogleMapControl(ILogger<GoogleMapControl> logger = null)
 		{
+
 			_internalMapView = new MapView();
 			AddDragGestureRecognizer(_internalMapView);
 
@@ -48,6 +50,7 @@ namespace Cartography.DynamicMap
 
 			_internalMapView.TappedMarker = TappedMarker;
 			_internalMapView.CoordinateTapped += OnMapViewCoordinateTapped;
+			_logger = logger ?? NullLogger<GoogleMapControl>.Instance;
 		}
 
 		/// <summary>
@@ -179,10 +182,7 @@ namespace Cartography.DynamicMap
 		{
 			if (_icon != null)
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Pushpins icons cannot be changed.");
-				}
+				_logger.Error("Pushpins icons cannot be changed.");
 
 				throw new InvalidOperationException("Pushpins icons cannot be changed.");
 			}
@@ -236,10 +236,7 @@ namespace Cartography.DynamicMap
 		{
 			if (_selectedIcon != null)
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Pushpins icons cannot be changed.");
-				}
+				_logger.Error("Pushpins icons cannot be changed.");
 
 				throw new InvalidOperationException("Pushpins icons cannot be changed.");
 			}
@@ -286,19 +283,11 @@ namespace Cartography.DynamicMap
 
 		private void UnselectAllPushpins()
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Unselecting all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
-			}
+			_logger.Debug($" Unselecting all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
 
 			foreach (var pushpin in _pushpinsLayer.Items)
 			{
 				pushpin.IsSelected = false;
-			}
-
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Unselected all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
 			}
 		}
 
@@ -323,10 +312,7 @@ namespace Cartography.DynamicMap
 
 		private void PushpinIconsMarkerUpdater(GooglePushpin pushpin, Marker marker)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Updating the pushpin.");
-			}
+			_logger.Debug("Updating the pushpin.");
 
 			var icon = pushpin.IsSelected
 				? _selectedIcon
@@ -338,11 +324,6 @@ namespace Cartography.DynamicMap
 			}
 
 			UpdateMarker(pushpin, marker);
-
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Updated the pushpins.");
-			}
 		}
 	}
 }

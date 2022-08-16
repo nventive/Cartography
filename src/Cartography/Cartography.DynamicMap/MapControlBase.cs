@@ -47,6 +47,7 @@ namespace Cartography.DynamicMap
 		private const string _initializingStateName = "Initializing";
 		private const string _readyStateName = "Ready";
 		private const string _errorStateName = "Error";
+		private ILogger<MapControlBase> _logger;
 
 #region ViewModel (dp)
 		/// <summary>
@@ -254,13 +255,17 @@ namespace Cartography.DynamicMap
 			TryStart(ViewModel);
 		}
 
-		public MapControlBase()
+		/// <summary>
+		/// creation of MapControlBase
+		/// </summary>
+		/// <param name="logger">logger</param>
+		public MapControlBase(ILogger<MapControlBase> logger = null)
 		{
 			this.DefaultStyleKey = typeof(MapControlBase);
-			PartialConstructor();
+			PartialConstructor(logger);
 		}
 
-		partial void PartialConstructor();
+		partial void PartialConstructor(ILogger<MapControlBase> logger = null);
 
 		private void TryStart(ViewModelBase viewModel)
 		{
@@ -397,7 +402,7 @@ namespace Cartography.DynamicMap
 			return userLocation
 				.ObserveOn(GetDispatcherScheduler())
 				.Do(UpdateMapUserLocation)
-				.Subscribe(_ => { }, e => this.Log().Error(() => "SyncUserLocationFrom", e));
+				.Subscribe(_ => { }, e => _logger.Error(() => "SyncUserLocationFrom", e));
 		}
 #endregion
 
@@ -431,11 +436,8 @@ namespace Cartography.DynamicMap
 				.ObserveOn(GetBackgroundScheduler())
 				.Do(l =>
 				{
-					if (this.Log().IsEnabled(LogLevel.Information))
-					{
-						this.Log().DebugFormat("MapControl.SyncViewPortTo({0})", l.ViewPort);
-						this.Log().Info($"Moved the view port (zoom level: '{l.ViewPort.ZoomLevel}', points of interest: '{l.ViewPort.PointsOfInterest}').");
-					}
+					_logger.DebugFormat("MapControl.SyncViewPortTo({0})", l.ViewPort);
+					_logger.Info($"Moved the view port (zoom level: '{l.ViewPort.ZoomLevel}', points of interest: '{l.ViewPort.PointsOfInterest}').");
 
 					if (!_isAnimating)
 					{
@@ -444,7 +446,7 @@ namespace Cartography.DynamicMap
 					component.ViewPortCoordinates = l.Coordinates;
 					component.ViewPort = l.ViewPort;
 				})
-				.Subscribe(_ => { }, e => this.Log().Error(() => $"There was an error syncing the view port to '{component}'", e));
+				.Subscribe(_ => { }, e => _logger.Error(() => $"There was an error syncing the view port to '{component}'", e));
 		}
 
 		private MapViewPort GetEffectiveViewPort(MapViewPort original, MapViewPort current, IEqualityComparer<MapViewPort> filter)
@@ -474,7 +476,7 @@ namespace Cartography.DynamicMap
 						await TrySetViewPort(ct, component.ViewPort);
 					},
 					GetDispatcherScheduler())
-				.Subscribe(_ => { }, e => (this).Log().Error(() => $"There was an issue syncing the view port from '{component}'", e));
+				.Subscribe(_ => { }, e => _logger.Error(() => $"There was an issue syncing the view port from '{component}'", e));
 		}
 
 		/// <summary>
@@ -494,11 +496,7 @@ namespace Cartography.DynamicMap
 			}
 			catch (Exception ex)
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Error due to the selection of many view ports. Disposed the previous one.", ex);
-				}
-
+				_logger.Error("Error due to the selection of many view ports. Disposed the previous one.", ex);
 			}
 		}
 #endregion
@@ -534,7 +532,7 @@ namespace Cartography.DynamicMap
 						.Do(newlySelected => UpdateMapSelectedPushpins(newlySelected)),
 					(values, newlySelected) => newlySelected
 				)
-				.Subscribe(_ => { }, e => this.Log().Error(() => "Items sync failed", e));
+				.Subscribe(_ => { }, e => _logger.Error(() => "Items sync failed", e));
 		}
 #endregion
 
@@ -554,7 +552,7 @@ namespace Cartography.DynamicMap
 				.ObserveOn(GetBackgroundScheduler())
 				.Do(items =>
 					component.SelectedPushpins = FlattenGroupings(items))
-				.Subscribe(_ => { }, e => this.Log().Info(() => "SyncSelectedPushpinsTo", e));
+				.Subscribe(_ => { }, e => _logger.Info(() => "SyncSelectedPushpinsTo", e));
 		}
 
 		private IGeoLocated[] FlattenGroupings(IGeoLocated[] items)
@@ -590,7 +588,7 @@ namespace Cartography.DynamicMap
 			return _isUserDragging
 				.DistinctUntilChanged()
 				.ObserveOn(GetBackgroundScheduler())
-				.Subscribe(isDragging => component.IsUserDragging = isDragging, e => e.Log().Error(() => "SyncIsUserDragging", e));
+				.Subscribe(isDragging => component.IsUserDragging = isDragging, e => _logger.Error(() => "SyncIsUserDragging", e));
 		}
 #endregion
 

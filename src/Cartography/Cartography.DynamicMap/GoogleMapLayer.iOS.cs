@@ -5,6 +5,7 @@ using System.Text;
 using CoreLocation;
 using Google.Maps;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
 using Uno.Logging;
 
@@ -14,28 +15,24 @@ namespace Cartography.DynamicMap
 	{
 		private readonly List<GooglePushpin> _pushpins = new List<GooglePushpin>();
 		private readonly MapView _map;
+		private readonly ILogger _logger;
 
-		public GoogleMapLayer(MapView map)
+		public GoogleMapLayer(MapView map, ILogger logger = null)
 		{
 			_map = map;
+			_logger = logger ?? NullLogger.Instance;
 		}
 
 		public IEnumerable<GooglePushpin> Items => _pushpins;
 
 		public void Add(GooglePushpin item)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Adding a pushpin.");
-			}
+			_logger.Debug("Adding a pushpin.");
 
 			SetMap(item.Marker);
 			_pushpins.Add(item);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Added a pushpin.");
-			}
+			_logger.Info("Added a pushpin.");
 		}
 
 		public void Clear()
@@ -55,36 +52,25 @@ namespace Cartography.DynamicMap
 
 		public void Insert(int index, GooglePushpin item)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Inserting a pushpin.");
-			}
+
+			_logger.Debug("Inserting a pushpin.");
 
 			SetMap(item.Marker);
 			_pushpins.Insert(index, item);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Inserted a pushpin.");
-			}
+			_logger.Info("Inserted a pushpin.");
 		}
 
 		public bool Remove(GooglePushpin item)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Removing a pushpin.");
-			}
+			_logger.Debug("Removing a pushpin.");
 
 			if (_pushpins.Contains(item))
 			{
 				item.Marker.Map = null;
 				_pushpins.Remove(item);
 
-				if (this.Log().IsEnabled(LogLevel.Information))
-				{
-					this.Log().Info("Removed a pushpin.");
-				}
+				_logger.Info("Removed a pushpin.");
 
 				return true;
 			}
@@ -93,19 +79,13 @@ namespace Cartography.DynamicMap
 
 		public void RemoveAt(int index)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Removing the pushpin at the index '{index}'.");
-			}
+			_logger.Debug($"Removing the pushpin at the index '{index}'.");
 
 			var item = _pushpins[index];
 			item.Marker.Map = null;
 			_pushpins.RemoveAt(index);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Removed the pushpin at the index '{index}'.");
-			}
+			_logger.Info($"Removed the pushpin at the index '{index}'.");
 		}
 
 		private void SetMap(Marker marker)
