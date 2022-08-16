@@ -22,10 +22,6 @@
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.3.0-dev.18" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'xamarinios10'">
-		<PackageReference Include="Xamarin.Google.iOS.Maps" Version="3.9.0" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <SourceGeneratorInput Remove="PrettyMapViewPortEqualityComparer.cs" />
 	</ItemGroup>

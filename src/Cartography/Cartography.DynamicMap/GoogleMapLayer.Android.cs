@@ -64,7 +64,6 @@ namespace Cartography.DynamicMap
 
 		public bool Remove(Pushpin item)
 		{
-			
 			_logger.Debug("Removing a pushpin.");
 			
 			var marker = _inner.GetValueOrDefaultAndRemove(item);

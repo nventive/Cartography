@@ -19,8 +19,5 @@
 		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.19" />
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.3.0-dev.18" />
 	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'xamarinios10'">
-	</ItemGroup>
 	
 </Project>

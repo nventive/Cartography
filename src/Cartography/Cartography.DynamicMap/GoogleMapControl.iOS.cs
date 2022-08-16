@@ -289,6 +289,8 @@ namespace Cartography.DynamicMap
 			{
 				pushpin.IsSelected = false;
 			}
+
+			_logger.Info($"Unselected all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
 		}
 
 		private IGeoLocated[] GetSelectedAnnotationsContent()
@@ -324,6 +326,8 @@ namespace Cartography.DynamicMap
 			}
 
 			UpdateMarker(pushpin, marker);
+
+			_logger.Info("Updated the pushpins.");
 		}
 	}
 }

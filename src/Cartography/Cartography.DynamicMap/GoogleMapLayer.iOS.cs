@@ -52,7 +52,6 @@ namespace Cartography.DynamicMap
 
 		public void Insert(int index, GooglePushpin item)
 		{
-
 			_logger.Debug("Inserting a pushpin.");
 
 			SetMap(item.Marker);
