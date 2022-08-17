@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
 using Uno.Logging;
 using Windows.UI.Xaml;
@@ -193,6 +194,7 @@ namespace Cartography.DynamicMap
 		// Converter is defined here as it is required by the behavior and we don't reference Umbrella.View
 		private class FromBoolToVisibility : IValueConverter
 		{
+			private readonly ILogger _logger = NullLogger.Instance;
 			public VisibilityIfTrue VisibilityIfTrue { get; set; }
 
 			public object Convert(object value, Type targetType, object parameter, string language)
@@ -208,10 +210,7 @@ namespace Cartography.DynamicMap
 
 			public object ConvertBack(object value, Type targetType, object parameter, string language)
 			{
-				if (this.Log().IsEnabled(LogLevel.Warning))
-				{
-					this.Log().Warn("The ConvertBack method is not implemented.");
-				}
+				_logger.Warn("The ConvertBack method is not implemented.");
 
 				throw new NotImplementedException();
 			}

@@ -10,6 +10,7 @@ using Cartography.MapService.Provider;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Cartography.MapService
 {
@@ -21,30 +22,32 @@ namespace Cartography.MapService
 		private readonly IDispatcherScheduler _dispatcherScheduler;
 		private readonly IMapServiceProvider[] _mapServiceProviders;
 		private readonly MapServiceTextProvider _mapServiceTextProvider;
+		private readonly ILogger _logger;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MapServiceiOS"/> class.
 		/// </summary>
 		/// <param name="dispatcherScheduler">Dispatcher scheduler</param>
 		/// <param name="mapServiceTextProvider">Text provider, if null the default ios providor will be use</param>
 		/// <param name="mapServiceProviders">MapServiceProvides for iOS</param>
+		/// /// <param name="logger">logger</param>
 		public MapServiceiOS(
 			IDispatcherScheduler dispatcherScheduler,
 			MapServiceTextProvider mapServiceTextProvider = null,
-			MapServiceiOSProvider[] mapServiceProviders = null
+			MapServiceiOSProvider[] mapServiceProviders = null,
+			ILogger logger = null
 		)
 		{
 			_dispatcherScheduler = dispatcherScheduler;
 			_mapServiceTextProvider = mapServiceTextProvider;
 			_mapServiceProviders = MapServiceProviderFactory.Create(mapServiceProviders);
+			_logger = logger ?? NullLogger.Instance;
 		}
 
 		/// <inheritdoc/>
 		public async Task ShowDirections(CancellationToken ct, MapRequest request)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Showing directions.");
-			}
+				_logger.Debug("Showing directions.");
 
 			if (request.IsCoordinatesSet)
 			{
@@ -56,27 +59,18 @@ namespace Cartography.MapService
 			}
 			else
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Directions not shown because the coordinates or the location's name are null.");
-				}
+				_logger.Error("Directions not shown because the coordinates or the location's name are null.");
 
 				return;
 			}
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Directions shown.");
-			}
+			_logger.Info("Directions shown.");
 		}
 
 		/// <inheritdoc/>
 		public async Task ShowLocation(CancellationToken ct, MapRequest request)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Showing location.");
-			}
+			_logger.Debug("Showing location.");
 
 			if (request.IsCoordinatesSet)
 			{
@@ -88,18 +82,12 @@ namespace Cartography.MapService
 			}
 			else
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Location not shown because the coordinates or the location's name are null.");
-				}
+				_logger.Error("Location not shown because the coordinates or the location's name are null.");
 
 				return;
 			}
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Location shown.");
-			}
+			_logger.Info("Location shown.");
 		}
 
 
@@ -119,9 +107,9 @@ namespace Cartography.MapService
 				}
 				else
 				{
-					if (this.Log().IsEnabled(LogLevel.Error))
+					if (_logger.IsEnabled(LogLevel.Error))
 					{
-						this.Log().Error("Maps is not supported on this device.");
+						_logger.Error("Maps is not supported on this device.");
 					}
 				}
 			}
@@ -162,10 +150,7 @@ namespace Cartography.MapService
 			{
 				UIApplication.SharedApplication.OpenUrl(installedNavigationApps.First().Value);
 
-				if (this.Log().IsEnabled(LogLevel.Information))
-				{
-					this.Log().Info($"Opening {installedNavigationApps.First().Key} with following query : '{installedNavigationApps.First().Value}'");
-				}
+				_logger.Info($"Opening {installedNavigationApps.First().Key} with following query : '{installedNavigationApps.First().Value}'");
 
 				return;
 			}
@@ -182,10 +167,7 @@ namespace Cartography.MapService
 				{
 					UIApplication.SharedApplication.OpenUrl(app.Value);
 
-					if (this.Log().IsEnabled(LogLevel.Information))
-					{
-						this.Log().Info($"Opened {app.Key} with following query : '{app.Value}'");
-					}
+					_logger.Info($"Opened {app.Key} with following query : '{app.Value}'");
 				});
 
 				alert.AddAction(button);

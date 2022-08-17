@@ -10,6 +10,7 @@ using CoreGraphics;
 using Foundation;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
@@ -23,9 +24,10 @@ namespace Cartography.DynamicMap
 	{
 		private UIPanGestureRecognizer _gestureRecognizer;
 
-		partial void PartialConstructor()
+		partial void PartialConstructor(ILogger<MapControlBase> logger = null)
 		{
 			_isReady = true;
+			_logger = logger ?? NullLogger<MapControlBase>.Instance;
 		}
 
 		public ZoomLevel ZoomLevel => GetZoomLevel();
@@ -78,32 +80,20 @@ namespace Cartography.DynamicMap
 
 		partial void UpdateCompassButtonVisibility(Visibility compassButtonVisibility)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Updating the compass button's visibility.");
-			}
+			_logger.Debug("Updating the compass button's visibility.");
 
 			UpdateCompassButtonVisibilityInner(compassButtonVisibility);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Updated the compass button's visibility.");
-			}
+			_logger.Info("Updated the compass button's visibility.");
 		}
 
 		partial void UpdateIsRotateGestureEnabled(bool isRotateGestureEnabled)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"{(IsRotateGestureEnabled ? "Enabling" : "Disabling")} the rotation gesture.");
-			}
+			_logger.Debug($"{(IsRotateGestureEnabled ? "Enabling" : "Disabling")} the rotation gesture.");
 
 			UpdateIsRotateGestureEnabledInner(isRotateGestureEnabled);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"{(IsRotateGestureEnabled ? "Enabled" : "Disabled")} the rotation gesture.");
-			}
+			_logger.Info($"{(IsRotateGestureEnabled ? "Enabled" : "Disabled")} the rotation gesture.");
 		}
 
 		protected void AddDragGestureRecognizer(UIView mapView)
@@ -148,10 +138,7 @@ namespace Cartography.DynamicMap
 
 			if (icon == null)
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error($"Failed to convert '{value}' to a PushpinIcon");
-				}
+				_logger.Error($"Failed to convert '{value}' to a PushpinIcon");
 			}
 		}
 

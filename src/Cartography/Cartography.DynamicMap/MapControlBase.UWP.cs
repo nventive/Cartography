@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
@@ -48,8 +49,9 @@ namespace Cartography.DynamicMap
 		/// <summary>
 		/// ctor.
 		/// </summary>
-		partial void PartialConstructor()
+		partial void PartialConstructor(ILogger<MapControlBase> logger = null)
 		{
+			_logger = logger ?? NullLogger<MapControlBase>.Instance;
 			DefaultStyleKey = typeof(MapControlBase);
 
 			Loaded += (snd, e) => TryStart();

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
 using Uno.Logging;
 using Windows.System;
@@ -18,25 +19,25 @@ namespace Cartography.MapService
 	{
 		private readonly IGeolocatorService _locationService;
 		private readonly IDispatcherScheduler _dispatcherScheduler;
+		private readonly ILogger _logger;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MapServiceUWP"/> class.
 		/// </summary>
 		/// <param name="dispatcherScheduler">Dispatcher</param>
 		/// <param name="locationService">Location service</param>
-		public MapServiceUWP(IDispatcherScheduler dispatcherScheduler, IGeolocatorService locationService)
+		/// <param name="logger">logger</param>
+		public MapServiceUWP(IDispatcherScheduler dispatcherScheduler, IGeolocatorService locationService, ILogger logger = null)
 		{
 			_dispatcherScheduler = dispatcherScheduler;
 			_locationService = locationService;
+			_logger = logger ?? NullLogger.Instance;
 		}
 
 		/// <inheritdoc/>
 		public async Task ShowDirections(CancellationToken ct, MapRequest request)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Showing directions.");
-			}
+			_logger.Debug("Showing directions.");
 
 			if (request.IsCoordinatesSet)
 			{
@@ -51,27 +52,18 @@ namespace Cartography.MapService
 
 				await _dispatcherScheduler.Run(async _ => await Launcher.LaunchUriAsync(new Uri(url)), ct);
 
-				if (this.Log().IsEnabled(LogLevel.Information))
-				{
-					this.Log().Info("Directions shown.");
-				}
+				_logger.Info("Directions shown.");
 			}
 			else
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Directions not shown because the coordinates are null.");
-				}
+				_logger.Error("Directions not shown because the coordinates are null.");
 			}
 		}
 
 		/// <inheritdoc/>
 		public async Task ShowLocation(CancellationToken ct, MapRequest request)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Showing location.");
-			}
+			_logger.Debug("Showing location.");
 
 			if (request.IsCoordinatesSet)
 			{
@@ -82,17 +74,11 @@ namespace Cartography.MapService
 
 				await _dispatcherScheduler.Run(async _ => await Launcher.LaunchUriAsync(new Uri(url)), ct);
 
-				if (this.Log().IsEnabled(LogLevel.Information))
-				{
-					this.Log().Info("The location is shown.");
-				}
+				_logger.Info("The location is shown.");
 			}
 			else
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Location not shown because the coordinates are null.");
-				}
+				_logger.Error("Location not shown because the coordinates are null.");
 			}
 		}
 	}

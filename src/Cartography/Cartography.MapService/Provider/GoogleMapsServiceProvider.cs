@@ -1,6 +1,7 @@
 ﻿#if __IOS__
 using Foundation;
-using Uno.Extensions;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Logging;
 
 namespace Cartography.MapService
@@ -10,9 +11,10 @@ namespace Cartography.MapService
 	/// </summary>
 	internal class GoogleMapsServiceProvider : IMapServiceProvider
 	{
+		private readonly ILogger _logger = NullLogger.Instance;
+
 		/// <inheritdoc />
 		public string Name => NavigationAppConstants.NavigationAppName.GoogleMaps;
-
 
 		/// <inheritdoc />
 		public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.GoogleMapsUrl;
@@ -21,7 +23,7 @@ namespace Cartography.MapService
 		/// <inheritdoc />
 		public NSUrl GetDirectionsUrl(MapRequest mapRequest)
 		{
-			this.Log().Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
+			_logger.Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
 
 			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
 			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
@@ -37,7 +39,7 @@ namespace Cartography.MapService
 		/// <inheritdoc />
 		public NSUrl GetLocationUrl(MapRequest mapRequest)
 		{
-			this.Log().Debug(() => $"Showing location using {nameof(GoogleMapsServiceProvider)}.");
+			_logger.Debug(() => $"Showing location using {nameof(GoogleMapsServiceProvider)}.");
 
 			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
 			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");

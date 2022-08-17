@@ -10,6 +10,7 @@ using Uno.Extensions;
 using Uno.Logging;
 using Microsoft.Extensions.Logging;
 using Windows.Devices.Geolocation;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Cartography.DynamicMap
 {
@@ -155,6 +156,7 @@ namespace Cartography.DynamicMap
 		private readonly List<MapControlIconItem> _items = new List<MapControlIconItem>();
 		private readonly List<MapControlIconItem> _selectedItems = new List<MapControlIconItem>();
 		private readonly ISubject<IGeoLocated[]> _observeSelected = new Subject<IGeoLocated[]>();
+		private readonly ILogger<MapIconLayer> _logger;
 
 		private readonly Windows.UI.Xaml.Controls.Maps.MapControl _map;
 		private readonly MapSelectionMode _selectionMode;
@@ -174,7 +176,8 @@ namespace Cartography.DynamicMap
 			Point iconOrigin,
 			IRandomAccessStreamReference icon,
 			IRandomAccessStreamReference selectedIcon,
-			MapSelectionMode selectionMode)
+			MapSelectionMode selectionMode,
+			ILogger<MapIconLayer> logger = null)
 		{
 			_map = map;
 			IconOrigin = iconOrigin;
@@ -187,6 +190,8 @@ namespace Cartography.DynamicMap
 			{
 				_map.MapElementClick += OnElementClick;
 			}
+
+			_logger = logger ?? NullLogger<MapIconLayer>.Instance;
 		}
 
 		public IObservable<IGeoLocated[]> ObserveSelected()
@@ -208,10 +213,7 @@ namespace Cartography.DynamicMap
 				{
 					if (!_selectedItems.Remove(item))
 					{
-						if (this.Log().IsEnabled(LogLevel.Error))
-						{
-							this.Log().Error("Unselect an item which should not be selected !!");
-						}						
+						_logger.Error("Unselect an item which should not be selected !!");					
 					}
 				}
 				else

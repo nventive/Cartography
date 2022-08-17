@@ -16,6 +16,7 @@ using Foundation;
 using GeolocatorService;
 using MapKit;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
@@ -38,6 +39,7 @@ namespace Cartography.DynamicMap
 
 		private readonly List<UIView> _pushPins = new List<UIView>();
 		private IMapLayer<Pushpin> _pushpinsLayer;
+		private readonly ILogger<MapControl> _logger = NullLogger<MapControl>.Instance;
 
 		private readonly Dictionary<IMKOverlay, MKOverlayRenderer> _overlayRenderers = new Dictionary<IMKOverlay, MKOverlayRenderer>();
 
@@ -156,10 +158,7 @@ namespace Cartography.DynamicMap
 			if (locationAndStatus == null)
 				return;
 
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Updating the user's location on the map (status: '{locationAndStatus?.IsSuccessful}').");
-			}
+			_logger.Debug($"Updating the user's location on the map (status: '{locationAndStatus?.IsSuccessful}').");
 
 			if (_isLoaded)
 			{
@@ -171,11 +170,7 @@ namespace Cartography.DynamicMap
 				_lastShowLocation = locationAndStatus.IsSuccessful;
 			}
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Updated the user's location on the map (status: '{locationAndStatus?.IsSuccessful}').");
-			}
-
+			_logger.Info($"Updated the user's location on the map (status: '{locationAndStatus?.IsSuccessful}').");
 		}
 #endregion
 
@@ -193,10 +188,7 @@ namespace Cartography.DynamicMap
 				.Select(_ => Unit.Default)
 				.Do(_ =>
 				{
-					if (this.Log().IsEnabled(LogLevel.Information))
-					{
-						this.Log().Info("The view port changed.");
-					}
+					_logger.Info("The view port changed.");
 				});
 
 			yield return Observable.Return(Unit.Default);
@@ -222,10 +214,7 @@ namespace Cartography.DynamicMap
 
 		protected override async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Setting viewport with '{viewPort?.PointsOfInterest}' POIs and a zoom level of '{viewPort?.ZoomLevel}'.");
-			}
+			_logger.Debug($"Setting viewport with '{viewPort?.PointsOfInterest}' POIs and a zoom level of '{viewPort?.ZoomLevel}'.");
 
 			if (viewPort.PointsOfInterest != null && viewPort.PointsOfInterest.Length > 0)
 			{
@@ -238,10 +227,7 @@ namespace Cartography.DynamicMap
 				SetViewport(viewPort.Center.Position, viewPort.Heading, viewPort.Pitch, viewPort.ZoomLevel ?? ZoomLevel, preventAnimations: viewPort.IsAnimationDisabled);
 			}
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Viewport set with '{viewPort?.PointsOfInterest}' and a zoom level of '{viewPort?.ZoomLevel}'.");
-			}
+			_logger.Info($"Viewport set with '{viewPort?.PointsOfInterest}' and a zoom level of '{viewPort?.ZoomLevel}'.");
 
 			_isViewPortInitialized = true;
 		}
@@ -302,17 +288,11 @@ namespace Cartography.DynamicMap
 #region Pushpins
 		protected override void UpdateMapPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Updating the '{items.Safe().Count()}' map pushpins (number of selected items: '{selectedItems?.Length}').");
-			}
+			_logger.Debug($"Updating the '{items.Safe().Count()}' map pushpins (number of selected items: '{selectedItems?.Length}').");
 
 			_pushpinsLayer.Update(items, selectedItems, CreatePushpin);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Updated the '{items.Safe().Count()}' map pushpins (number of selected items: '{selectedItems?.Length}').");
-			}
+			_logger.Info($"Updated the '{items.Safe().Count()}' map pushpins (number of selected items: '{selectedItems?.Length}').");
 		}
 
 		private Pushpin CreatePushpin(IGeoLocated item)
@@ -354,15 +334,9 @@ namespace Cartography.DynamicMap
 							PushpinIconsPositionOrigin.Y * annotationView.Frame.Height);
 					}
 
-					if (this.Log().IsEnabled(LogLevel.Warning))
+					if (annotationView.Frame.Width == 0 || annotationView.Frame.Height == 0)
 					{
-						if (annotationView.Frame.Width == 0 || annotationView.Frame.Height == 0)
-						{
-							if (this.Log().IsEnabled(LogLevel.Debug))
-							{
-								this.Log().Debug($"The frame for '{annotationView.Subviews[0]}' is '{annotationView.Frame}', which is too narrow. Set the frame for the Pin UIView.");
-							}
-						}
+						_logger.Debug($"The frame for '{annotationView.Subviews[0]}' is '{annotationView.Frame}', which is too narrow. Set the frame for the Pin UIView.");
 					}
 				}
 
@@ -394,10 +368,7 @@ namespace Cartography.DynamicMap
 		{
 			if (_icon != null)
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error($"Pushpins icons cannot be changed (_icon: '{_icon}')");
-				}
+				_logger.Error($"Pushpins icons cannot be changed (_icon: '{_icon}')");
 
 				throw new InvalidOperationException($"Pushpins icons cannot be changed (_icon: '{_icon}').");
 			}
@@ -417,10 +388,7 @@ namespace Cartography.DynamicMap
 		{
 			if (_selectedIcon != null)
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error($"Pushpins icons cannot be changed (_selectedIcon: '{_selectedIcon}')");
-				}
+				_logger.Error($"Pushpins icons cannot be changed (_selectedIcon: '{_selectedIcon}')");
 
 				throw new InvalidOperationException("Pushpins icons cannot be changed.");
 			}
@@ -453,10 +421,7 @@ namespace Cartography.DynamicMap
 #region SelectedPushpins
 		private void MapControl_DidSelectAnnotationView(object sender, MKAnnotationViewEventArgs e)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Selecting the pushpins on the map.");
-			}
+			_logger.Debug("Selecting the pushpins on the map.");
 
 			GetDispatcherScheduler().Schedule(() =>
 			{
@@ -483,20 +448,14 @@ namespace Cartography.DynamicMap
 
 					OnPushpinsSelected(selectedContent);
 
-					if (this.Log().IsEnabled(LogLevel.Information))
-					{
-						this.Log().Info("Selected the pushpins on the map.");
-					}
+					_logger.Info("Selected the pushpins on the map.");
 				}
 			});
 		}
 
 		private void MapControl_DidDeselectAnnotationView(object sender, MKAnnotationViewEventArgs e)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Deselecting the pushpins on the map.");
-			}
+			_logger.Debug("Deselecting the pushpins on the map.");
 
 			GetDispatcherScheduler().Schedule(() =>
 			{
@@ -516,10 +475,7 @@ namespace Cartography.DynamicMap
 
 					OnPushpinsSelected(selectedContent);
 
-					if (this.Log().IsEnabled(LogLevel.Information))
-					{
-						this.Log().Info("Deselected the pushpins on the map.");
-					}
+					_logger.Info("Deselected the pushpins on the map.");
 				}
 			});
 		}
@@ -568,10 +524,7 @@ namespace Cartography.DynamicMap
 				{
 					//OnPushpinsSelected(GetSelectedAnnotationsContent());
 
-					if (this.Log().IsEnabled(LogLevel.Information))
-					{
-						this.Log().Info("The region changed.");
-					}
+					_logger.Info("The region changed.");
 				});
 		}
 

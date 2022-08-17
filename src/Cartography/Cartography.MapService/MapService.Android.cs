@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
 using Uno.Logging;
 
@@ -19,23 +20,23 @@ namespace Cartography.MapService
 		private const string LocationNameUrlFormat = "geo:0,0?q={0}";
 
 		private readonly Android.Content.Context _contextProvider;
+		private readonly ILogger _logger;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MapServiceAndroid"/> class.
 		/// </summary>
 		/// <param name="contextProvider">Android context provider</param>
-		public MapServiceAndroid(Android.Content.Context contextProvider)
+		/// <param name="logger">Logger</param>
+		public MapServiceAndroid(Android.Content.Context contextProvider, ILogger logger = null)
 		{
 			_contextProvider = contextProvider.Validation().NotNull("contextProvider");
+			_logger = logger ?? NullLogger.Instance;
 		}
 
 		/// <inheritdoc/>
 		public async Task ShowDirections(CancellationToken ct, MapRequest request)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Showing directions.");
-			}
+			_logger.Debug("Showing directions.");
 
 			string url = null;
 
@@ -51,29 +52,20 @@ namespace Cartography.MapService
 			}
 			else
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error("Directions not shown because the coordinates or the location's name are null.");
-				}
+				_logger.Error("Directions not shown because the coordinates or the location's name are null.");
 
 				return;
 			}
 
 			await LaunchIntent(ct, url);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Directions shown.");
-			}
+			_logger.Info("Directions shown.");
 		}
 
 		/// <inheritdoc/>
 		public async Task ShowLocation(CancellationToken ct, MapRequest request)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug("Showing location.");
-			}
+			_logger.Debug("Showing location.");
 
 			string url = null;
 
@@ -94,20 +86,14 @@ namespace Cartography.MapService
 			}
 			else
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().Error($"Location not shown because the coordinates or the location's name are null.");
-				}
+				_logger.Error($"Location not shown because the coordinates or the location's name are null.");
 
 				return;
 			}
 
 			await LaunchIntent(ct, url);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info("Location shown.");
-			}
+			_logger.Info("Location shown.");
 		}
 
 		private async Task LaunchIntent(CancellationToken ct, string url)
