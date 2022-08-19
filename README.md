@@ -22,20 +22,22 @@ The following is the template for the final README.md file:
 
 # Project Title
 
-{Project tag line}
+Cartography Refactor
 
-{Small description of the purpose of the project}
+Doing a complete refactor of cartography module.  
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ## Getting Started
 
-{Instructions to quickly get started using the project: pre-requisites, packages
-to install, sample code, etc.}
+- Clone project.
+- For seeing sample, build and install app with VS on the desire device (Android, IOS, or UWP)
 
 ## Features
 
-{More details/listing of features of the project}
+- DynamicMap is an interactive map for Android, IOS or UWP.
+- StaticMap just show a map.
+- Map Service open the default user map service and show a place or show the direction from user current location.
 
 ## Changelog
 
@@ -53,8 +55,3 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for
 contributing to this project.
 
 Be mindful of our [Code of Conduct](CODE_OF_CONDUCT.md).
-
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
