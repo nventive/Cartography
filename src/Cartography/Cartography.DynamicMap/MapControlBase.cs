@@ -279,7 +279,7 @@ namespace Cartography.DynamicMap
 					return;
 				}
 
-				if (!(viewModel is IMapComponent))
+				if (!(viewModel is IDynamicMapComponent))
 				{
 					throw new Exception("The ViewModel must use inheritance of IMapCompoment");
 				}
@@ -324,7 +324,7 @@ namespace Cartography.DynamicMap
 		{
 			return GetDispatcherScheduler().ScheduleAsync(viewModel, async (_, vm, ct) =>
 			{
-				var mc = (IMapComponent)vm;
+				var mc = (IDynamicMapComponent)vm;
 				_onMapTapped = mc.OnMapTapped;
 
 				SetAnimationDuration(mc.AnimationDurationSeconds);
@@ -396,7 +396,7 @@ namespace Cartography.DynamicMap
 #region UserLocation
 		private IDisposable SyncUserLocationFrom(ViewModelBase vm)
 		{
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 			var userLocation = vm.GetProperty<LocationResult>(nameof(component.UserLocation)).GetAndObserve();
 
 			return userLocation
@@ -414,7 +414,7 @@ namespace Cartography.DynamicMap
 
 		private IDisposable SyncViewPortTo(ViewModelBase vm)
 		{
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 			//// Do not publish viewPort to VM until it provides it initial position
 			var aViewPortWasProvidedBySource = vm.GetProperty<MapViewPort>(nameof(component.ViewPort)).GetAndObserve()
 					.Do(_ => _isViewPortInitialized = true)
@@ -464,7 +464,7 @@ namespace Cartography.DynamicMap
 		private IDisposable SyncViewPortFrom(ViewModelBase vm)
 		{
 
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 			var viewPort = vm.GetProperty<MapViewPort>(nameof(component.ViewPort)).GetAndObserve();
 
 			// Source to View
@@ -542,7 +542,7 @@ namespace Cartography.DynamicMap
 		private IDisposable SyncSelectedPushpinsTo(ViewModelBase vm)
 		{
 
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 #if NETFX_CORE
 			return (_pushpinIcons != null ? _pushpinIcons.ObserveSelected() : _selectedPushpins)
 #else
@@ -584,7 +584,7 @@ namespace Cartography.DynamicMap
 
 		private IDisposable SyncIsUserDragging(ViewModelBase vm)
 		{
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 			return _isUserDragging
 				.DistinctUntilChanged()
 				.ObserveOn(GetBackgroundScheduler())

@@ -9,7 +9,7 @@ namespace Cartography.DynamicMap
 	/// <summary>
 	/// Interface that define the required property for the MapComponent
 	/// </summary>
-	public interface IMapComponent
+	public interface IDynamicMapComponent
 	{
 		/// <summary>
 		/// Pushpins to display on map

@@ -15,7 +15,7 @@ using Windows.Devices.Geolocation;
 
 namespace Samples.Presentation
 {
-	public class DynamicMap_MoveSearchPageViewModel : ViewModel, IMapComponent
+	public class DynamicMap_MoveSearchPageViewModel : ViewModel, IDynamicMapComponent
     {
         /* See FeaturePageViewmodel for implementation of the map.
          * ---

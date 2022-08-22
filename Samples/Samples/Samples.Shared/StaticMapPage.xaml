@@ -39,7 +39,7 @@
             <!-- MapSize vs Height and Width : MapSize is content inside Height and Width. This can distort the map look-->
             <Grid Grid.Column="1"
                   HorizontalAlignment="Center">
-                <staticmap:StaticMapControl MapViewPort="{Binding MapViewPort}"
+                <staticmap:StaticMapControl MapViewPort="{Binding ViewPort}"
                                         MapSize="{Binding MapSize}"
                                         Width="{Binding Width}"
                                         Height="{Binding Height}"
