@@ -1,6 +1,4 @@
-﻿# Project Title
-
-Cartography Refactor
+﻿# Cartography Refactor
 
 Doing a complete refactor of cartography module.  
 
@@ -24,7 +22,7 @@ using Cartography.DynamicMap
 #### UWP
 ```
 <win:Grid>
-   <dynamicMap:MapControl ViewModel="{Binding }" />
+   <dynamicMap:MapControl ViewModel="{Binding}" />
 </win:Grid>
 ```
 #### Android / IOS
@@ -43,7 +41,7 @@ using Cartography.StaticMap
 ```
 - Implement IStaticMapComponent to your ViewModel
 - Set Initial Value to your ViewPort and MapSize.
-- Add in your Page
+- Add in your Page 
 ```
 <staticmap:StaticMapControl MapViewPort="{Binding MapViewPort}"
                                         MapSize="{Binding MapSize}"
@@ -89,58 +87,47 @@ OR
 ## Features
 
 ### DynamicMap
-1.	#### Show Map
-   1.1.	Google Map
-      1.1.1.	Android
-      1.1.2.	IOS
-      1.1.3.	UWP
-   1.2.	IOS Map
-      1.2.1.	IOS only
-   1.3.	Bing Map
-      1.3.1.	UWP only
+1. `Show Map` : Show a interactive map on screen
+   1.1.	`Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
+   1.2.	`IOS Map` : Show "Apple" Map on screen available only on IOS(native)
+   1.3.	`Bing Map` : Show Bing Map on screen available only on UWP(native)
 
-2.	#### Show user location
+2. `Show user location` : Show the user location on the map.
 
-3.	#### Show Pushpin
-   3.1.	Filter Pushpin
-   3.2.	Add Pushpin
-   3.3.	Remove Pushpin
-   3.4.	Customize pushpin
-   3.5.	Group pushpin
+3. `Show Pushpin` : Show Pushpin (marker) on the map.
+   3.1.	`Filter Pushpin`
+   3.2.	`Add Pushpin`
+   3.3.	`Remove Pushpin`
+   3.4.	`Customize pushpin` : Change apperance of pushpin.
+   3.5.	`Group pushpin` : Group multiple pushpins together, show only one pushpin.
 
-4.	#### Map interaction
-   4.1.	Drag
-   4.2.	Zoom
-   4.3.	Rotate
-   4.4.	Select pushpin
-   4.5.	Deselect pushpin
-   4.6.	Zoom on pushpin
-   4.7.	Add Pushpin
-   4.8.	Remove Pushpin
-   4.9.	Stop animation
-   4.10.	Zoom on user
-   4.11.	Show POI
+4. `Map interaction`
+   4.1.	`Drag` : Move the map.
+   4.2.	`Zoom` : Two finger zooming.
+   4.3.	`Rotate` : Two finger rotating, can be disable.
+   4.4.	`Select pushpin` : Pushpin selected. Can be single or multiple.
+   4.5.	`Deselect pushpin` : Pushpin deselection. Can be single or global.
+   4.6.	`Zoom on pushpin` : At the start or after an action.
+   4.7.	`Add Pushpin` : User can add pushpin.
+   4.8.	`Remove Pushpin` : User can remove pushpin.
+   4.9.	`Stop animation` : User can stop animation to somewhere.
+   4.10.	`Zoom on user` : Center the map to user location.
+   4.11.	`Show POI` : IOS only: show Point Of Interest. eg: Tour Eiffel.
 
-5.	#### Follow User
-   5.1.	Start follow user
-   5.2.	Stop follow user
+5. `Follow User`
+   5.1.	`Start follow user`
+   5.2.	`Stop follow user` : Can detect if dragging or on button press.
    
 ### StaticMap
-1.	#### Show Map
-   1.1.	Google Map
-      1.1.1.	Android
-      1.1.2.	IOS
-      1.1.3.	UWP
-   1.2.	IOS Map
-      1.2.1.	IOS only
-   1.3.	Bing Map
-      1.3.1.	UWP only
-2.	#### Show user location
-3.	#### Show Pushpin
+1. `Show Map`: Show a map on screen without interraction possible.
+   1.1.	`Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
+   1.2.	`IOS Map` : Show "Apple" Map on screen available only on IOS(native)
+   1.3.	`Bing Map` : Show Bing Map on screen available only on UWP(native)
+3. `Show Pushpin` : Show one pushpin on map (if place in bound)
 
 ### MapService
-1.	#### Open user default map service and show location.
-2.	#### Open user default map service and show direction.
+1.	`Location` : Open user default map service and show a location.
+2.	`Direction` : Open user default map service and show direction from User location to somewhere.
 
 
 ## Changelog
