@@ -35,9 +35,60 @@ Doing a complete refactor of cartography module.
 
 ## Features
 
-- DynamicMap is an interactive map for Android, IOS or UWP.
-- StaticMap just show a map.
-- Map Service open the default user map service and show a place or show the direction from user current location.
+DynamicMap
+1.	Show Map
+   1.1.	Google Map
+      1.1.1.	Android
+      1.1.2.	IOS
+      1.1.3.	UWP
+   1.2.	IOS Map
+      1.2.1.	IOS only
+   1.3.	Bing Map
+      1.3.1.	UWP only
+
+2.	Show user location
+
+3.	Show Pushpin
+   3.1.	Filter Pushpin
+   3.2.	Add Pushpin
+   3.3.	Remove Pushpin
+   3.4.	Customize pushpin
+   3.5.	Group pushpin
+
+4.	Map interaction
+   4.1.	Drag
+   4.2.	Zoom
+   4.3.	Rotate
+   4.4.	Select pushpin
+   4.5.	Deselect pushpin
+   4.6.	Zoom on pushpin
+   4.7.	Add Pushpin
+   4.8.	Remove Pushpin
+   4.9.	Stop animation
+   4.10.	Zoom on user
+   4.11.	Show POI
+
+5.	Follow User
+   5.1.	Start follow user
+   5.2.	Stop follow user
+   
+StaticMap
+   1.	Show Map
+      1.1.	Google Map
+         1.1.1.	Android
+         1.1.2.	IOS
+         1.1.3.	UWP
+      1.2.	IOS Map
+         1.2.1.	IOS only
+      1.3.	Bing Map
+         1.3.1.	UWP only
+   2.	Show user location
+   3.	Show Pushpin
+
+MapService
+1.	Open user default map service and show location.
+2.	Open user default map service and show direction.
+
 
 ## Changelog
 
