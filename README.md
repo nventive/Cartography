@@ -73,17 +73,17 @@ DynamicMap
    5.2.	Stop follow user
    
 StaticMap
-   1.	Show Map
-      1.1.	Google Map
-         1.1.1.	Android
-         1.1.2.	IOS
-         1.1.3.	UWP
-      1.2.	IOS Map
-         1.2.1.	IOS only
-      1.3.	Bing Map
-         1.3.1.	UWP only
-   2.	Show user location
-   3.	Show Pushpin
+1.	Show Map
+   1.1.	Google Map
+      1.1.1.	Android
+      1.1.2.	IOS
+      1.1.3.	UWP
+   1.2.	IOS Map
+      1.2.1.	IOS only
+   1.3.	Bing Map
+      1.3.1.	UWP only
+2.	Show user location
+3.	Show Pushpin
 
 MapService
 1.	Open user default map service and show location.
