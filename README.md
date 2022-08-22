@@ -88,42 +88,42 @@ OR
 
 ### DynamicMap
 1. `Show Map` : Show a interactive map on screen
-   1.1.	`Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
-   1.2.	`IOS Map` : Show "Apple" Map on screen available only on IOS(native)
-   1.3.	`Bing Map` : Show Bing Map on screen available only on UWP(native)
+   - `Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
+   - `IOS Map` : Show "Apple" Map on screen available only on IOS(native)
+   - `Bing Map` : Show Bing Map on screen available only on UWP(native)
 
 2. `Show user location` : Show the user location on the map.
 
 3. `Show Pushpin` : Show Pushpin (marker) on the map.
-   3.1.	`Filter Pushpin`
-   3.2.	`Add Pushpin`
-   3.3.	`Remove Pushpin`
-   3.4.	`Customize pushpin` : Change apperance of pushpin.
-   3.5.	`Group pushpin` : Group multiple pushpins together, show only one pushpin.
+   - `Filter Pushpin`
+   - `Add Pushpin`
+   - `Remove Pushpin`
+   - `Customize pushpin` : Change apperance of pushpin.
+   - `Group pushpin` : Group multiple pushpins together, show only one pushpin.
 
 4. `Map interaction`
-   4.1.	`Drag` : Move the map.
-   4.2.	`Zoom` : Two finger zooming.
-   4.3.	`Rotate` : Two finger rotating, can be disable.
-   4.4.	`Select pushpin` : Pushpin selected. Can be single or multiple.
-   4.5.	`Deselect pushpin` : Pushpin deselection. Can be single or global.
-   4.6.	`Zoom on pushpin` : At the start or after an action.
-   4.7.	`Add Pushpin` : User can add pushpin.
-   4.8.	`Remove Pushpin` : User can remove pushpin.
-   4.9.	`Stop animation` : User can stop animation to somewhere.
-   4.10.	`Zoom on user` : Center the map to user location.
-   4.11.	`Show POI` : IOS only: show Point Of Interest. eg: Tour Eiffel.
+   - `Drag` : Move the map.
+   - `Zoom` : Two finger zooming.
+   - `Rotate` : Two finger rotating, can be disable.
+   - `Select pushpin` : Pushpin selected. Can be single or multiple.
+   - `Deselect pushpin` : Pushpin deselection. Can be single or global.
+   - `Zoom on pushpin` : At the start or after an action.
+   - `Add Pushpin` : User can add pushpin.
+   - `Remove Pushpin` : User can remove pushpin.
+   - `Stop animation` : User can stop animation to somewhere.
+   - `Zoom on user` : Center the map to user location.
+   - `Show POI` : IOS only: show Point Of Interest. eg: Tour Eiffel.
 
 5. `Follow User`
-   5.1.	`Start follow user`
-   5.2.	`Stop follow user` : Can detect if dragging or on button press.
+   - `Start follow user`
+   - `Stop follow user` : Can detect if dragging or on button press.
    
 ### StaticMap
 1. `Show Map`: Show a map on screen without interraction possible.
-   1.1.	`Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
-   1.2.	`IOS Map` : Show "Apple" Map on screen available only on IOS(native)
-   1.3.	`Bing Map` : Show Bing Map on screen available only on UWP(native)
-3. `Show Pushpin` : Show one pushpin on map (if place in bound)
+   - `Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
+   - `IOS Map` : Show "Apple" Map on screen available only on IOS(native)
+   - `Bing Map` : Show Bing Map on screen available only on UWP(native)
+2. `Show Pushpin` : Show one pushpin on map (if place in bound)
 
 ### MapService
 1.	`Location` : Open user default map service and show a location.
