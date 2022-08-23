@@ -11,7 +11,7 @@ namespace Cartography.DynamicMap
 	{
 		public static IObservable<IGeoLocated[]> GetAndObservePushpins(this ViewModelBase vm, object filterOutChangesFromSource)
 		{
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 			var valueChanged = vm.GetProperty<IGeoLocated[]>(nameof(component.Pushpins)).GetAndObserve();
 
 			return (IObservable<IGeoLocated[]>)valueChanged
@@ -22,7 +22,7 @@ namespace Cartography.DynamicMap
 
 		public static IObservable<IGeoLocated[]> GetAndObserveGroups(this ViewModelBase vm, object filterOutChangesFromSource)
 		{
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 			var valueChanged = vm.GetProperty<IGeoLocatedGrouping<IGeoLocated[]>>(nameof(component.Groups)).GetAndObserve();
 
 			return valueChanged
@@ -33,7 +33,7 @@ namespace Cartography.DynamicMap
 
 		public static IObservable<IGeoLocated[]> GetAndObserveSelectedPushpins(this ViewModelBase vm, object filterOutChangesFromSource = null)
 		{
-			var component = (IMapComponent)vm;
+			var component = (IDynamicMapComponent)vm;
 			var valueChanged = vm.GetProperty<IGeoLocated[]>(nameof(component.SelectedPushpins)).GetAndObserve();
 
 
