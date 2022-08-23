@@ -1,6 +1,6 @@
-﻿# Cartography Refactor
+﻿# Cartography
 
-Doing a complete refactor of cartography module.  
+Nventive solution for mobile app map.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
@@ -98,7 +98,7 @@ OR
    - `Filter Pushpin`
    - `Add Pushpin`
    - `Remove Pushpin`
-   - `Customize pushpin` : Change apperance of pushpin.
+   - `Customize pushpin` : Change appearance of pushpin.
    - `Group pushpin` : Group multiple pushpins together, show only one pushpin.
 
 4. `Map interaction`
