@@ -89,7 +89,7 @@ OR
 ### DynamicMap
 1. `Show Map` : Show a interactive map on screen
    - `Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
-   - `IOS Map` : Show "Apple" Map on screen available only on IOS(native)
+   - `IOS Map` : Show Apple Map on screen available only on IOS(native)
    - `Bing Map` : Show Bing Map on screen available only on UWP(native)
 
 2. `Show user location` : Show the user location on the map.
@@ -121,7 +121,7 @@ OR
 ### StaticMap
 1. `Show Map`: Show a map on screen without interraction possible.
    - `Google Map` : Show Google Map on screen available for UWP, IOS, Android(native)
-   - `IOS Map` : Show "Apple" Map on screen available only on IOS(native)
+   - `IOS Map` : Show Apple Map on screen available only on IOS(native)
    - `Bing Map` : Show Bing Map on screen available only on UWP(native)
 2. `Show Pushpin` : Show one pushpin on map (if place in bound)
 
