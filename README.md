@@ -43,7 +43,7 @@ using Cartography.StaticMap
 - Set Initial Value to your ViewPort and MapSize.
 - Add in your Page 
 ```
-<staticmap:StaticMapControl MapViewPort="{Binding MapViewPort}"
+<staticmap:StaticMapControl MapViewPort="{Binding ViewPort}"
                                         MapSize="{Binding MapSize}"
                                         Width="*YourChoice*"
                                         Height="*YourChoice*" />
