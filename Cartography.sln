@@ -67,6 +67,9 @@ Global
 		Release|iPhoneSimulator = Release|iPhoneSimulator
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		Debug|NuGet = Debug|NuGet
+		Release|Any CPU = Release|Any CPU
+		Release|NuGet = Release|NuGet
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6ABE0223-31DE-46A3-9351-00E34FC9B8FF}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
