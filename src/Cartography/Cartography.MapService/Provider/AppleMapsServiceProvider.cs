@@ -25,6 +25,7 @@ namespace Cartography.MapService
 		public NSUrl GetDirectionsUrl(MapRequest mapRequest)
 		{
 			_logger.Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
+			var test = mapRequest.IsUserLocationSet;
 
 			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
 			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");

@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Cartography.MapService.Provider;
 using UIKit;
 using Uno.Extensions;
-using Uno.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Cartography.MapService
@@ -47,7 +46,7 @@ namespace Cartography.MapService
 		/// <inheritdoc/>
 		public async Task ShowDirections(CancellationToken ct, MapRequest request)
 		{
-				_logger.Debug("Showing directions.");
+				_logger.LogDebug("Showing directions.");
 
 			if (request.IsCoordinatesSet)
 			{
@@ -59,18 +58,18 @@ namespace Cartography.MapService
 			}
 			else
 			{
-				_logger.Error("Directions not shown because the coordinates or the location's name are null.");
+				_logger.LogError("Directions not shown because the coordinates or the location's name are null.");
 
 				return;
 			}
 
-			_logger.Info("Directions shown.");
+			_logger.LogInformation("Directions shown.");
 		}
 
 		/// <inheritdoc/>
 		public async Task ShowLocation(CancellationToken ct, MapRequest request)
 		{
-			_logger.Debug("Showing location.");
+			_logger.LogDebug("Showing location.");
 
 			if (request.IsCoordinatesSet)
 			{
@@ -82,16 +81,16 @@ namespace Cartography.MapService
 			}
 			else
 			{
-				_logger.Error("Location not shown because the coordinates or the location's name are null.");
+				_logger.LogError("Location not shown because the coordinates or the location's name are null.");
 
 				return;
 			}
 
-			_logger.Info("Location shown.");
+			_logger.LogInformation("Location shown.");
 		}
 
 
-		#region Open Maps
+#region Open Maps
 
 		private void OpenMaps(MapRequest request, bool withDirections = false)
 		{
@@ -109,7 +108,7 @@ namespace Cartography.MapService
 				{
 					if (_logger.IsEnabled(LogLevel.Error))
 					{
-						_logger.Error("Maps is not supported on this device.");
+						_logger.LogError("Maps is not supported on this device.");
 					}
 				}
 			}
@@ -150,7 +149,7 @@ namespace Cartography.MapService
 			{
 				UIApplication.SharedApplication.OpenUrl(installedNavigationApps.First().Value);
 
-				_logger.Info($"Opening {installedNavigationApps.First().Key} with following query : '{installedNavigationApps.First().Value}'");
+				_logger.LogInformation($"Opening {installedNavigationApps.First().Key} with following query : '{installedNavigationApps.First().Value}'");
 
 				return;
 			}
@@ -167,7 +166,7 @@ namespace Cartography.MapService
 				{
 					UIApplication.SharedApplication.OpenUrl(app.Value);
 
-					_logger.Info($"Opened {app.Key} with following query : '{app.Value}'");
+					_logger.LogInformation($"Opened {app.Key} with following query : '{app.Value}'");
 				});
 
 				alert.AddAction(button);
@@ -180,7 +179,7 @@ namespace Cartography.MapService
 			viewController.PresentViewController(alert, true, null);
 		}
 
-		#endregion
+#endregion
 	}
 }
 #endif

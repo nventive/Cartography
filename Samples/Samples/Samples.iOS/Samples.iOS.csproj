@@ -219,6 +219,10 @@
       <Project>{0b1da980-496d-47c9-acd5-592c91b20828}</Project>
       <Name>Cartography.StaticMap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Cartography\Cartography.MapService.Abstraction\Cartography.MapService.Abstraction.csproj">
+      <Project>{d3df207a-08f4-43f6-932d-99159e9acc2b}</Project>
+      <Name>Cartography.MapService.Abstraction</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Samples.Shared\Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

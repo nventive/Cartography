@@ -67,8 +67,8 @@
     <AssemblyName>Samples</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -180,6 +180,10 @@
     <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.StaticMap\Cartography.StaticMap.csproj">
       <Project>{0b1da980-496d-47c9-acd5-592c91b20828}</Project>
       <Name>Cartography.StaticMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Cartography\Cartography.MapService.Abstraction\Cartography.MapService.Abstraction.csproj">
+      <Project>{D3DF207A-08F4-43F6-932D-99159E9ACC2B}</Project>
+      <Name>Cartography.MapService.Abstraction</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

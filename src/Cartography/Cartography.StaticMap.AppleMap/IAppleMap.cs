@@ -2,7 +2,7 @@
 
 namespace Cartography.StaticMap
 {
-    public class IAppleMap
+    public interface IAppleMap
     {
 
     }

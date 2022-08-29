@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
 		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
-		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;monoandroid11.0;uap10.0.19041</TargetFrameworks>
+		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;monoandroid11.0;uap10.0.18362</TargetFrameworks>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Cartography.MapService</RootNamespace>
@@ -15,9 +15,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GeolocatorService" Version="0.2.0-dev.19" />
-		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.19" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.3.0-dev.18" />
+		<PackageReference Include="Uno.Core" Version="3.0.2" />
+		<PackageReference Include="Uno.UI" Version="3.11.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Cartography.MapService.Abstraction\Cartography.MapService.Abstraction.csproj" />
 	</ItemGroup>
 	
 </Project>

@@ -40,7 +40,14 @@ namespace Cartography.MapService
 
 			string url = null;
 
-			if (request.IsCoordinatesSet)
+            var url2 = "bingmaps:?rtp=pos.{0}_{1}~pos.{2}_{3}_{4}".InvariantCultureFormat(
+                    request.UserLocation.Latitude,
+                    request.UserLocation.Longitude,
+                    request.Coordinates.Latitude,
+                    request.Coordinates.Longitude,
+                    request.Label);
+
+            if (request.IsCoordinatesSet)
 			{
 				// Label is not supported for GeoCoordinates in Android see : https://developers.google.com/maps/documentation/urls/guide#directions-action
 				// And https://developers.google.com/maps/documentation/urls/android-intents

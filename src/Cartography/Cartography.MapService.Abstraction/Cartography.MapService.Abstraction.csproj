@@ -1,7 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	  <RootNamespace>Cartography.MapService</RootNamespace>
+	  <Authors>nventive</Authors>
+	  <Company>nventive</Company>
+	  <AssemblyName>Cartography.MapService.Abstractions</AssemblyName>
+	  <PackageId>Cartography.MapService.Abstractions</PackageId>
+	  <Description>Cartography.MapService.Abstractions</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="GeolocatorService" Version="0.2.0-dev.19" />
+	  <PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.19" />
+  </ItemGroup>
 
 </Project>

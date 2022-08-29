@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cartography.MapService.Uno
+namespace Cartography.MapService
 {
     public class Class1
     {
