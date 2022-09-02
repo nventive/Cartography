@@ -8,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Samples.Presentation;
-using Uno.Disposables;
 using Windows.UI.Core;
+using Samples.Helpers;
 
 namespace Samples
 {

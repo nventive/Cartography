@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using Cartography.DynamicMap.Helpers;
 using System.Linq;
-using Uno.Extensions;
 using Windows.Devices.Geolocation;
 
 namespace Cartography.DynamicMap

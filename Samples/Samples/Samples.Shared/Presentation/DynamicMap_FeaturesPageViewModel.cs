@@ -1,21 +1,19 @@
 ﻿using Chinook.DynamicMvvm;
-using Uno.Extensions;
 using System;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using Cartography.DynamicMap;
+using Cartography.DynamicMap.Helpers;
+using Samples.Helpers;
 using GeolocatorService;
-using Uno.Logging;
 using Samples.Entities;
 using System.Collections.Generic;
-using Uno;
 using Windows.Devices.Geolocation;
 using Chinook.SectionsNavigation;
 using System.Reactive.Concurrency;
+using Microsoft.Extensions.Logging;
 
 namespace Samples.Presentation
 {
@@ -31,6 +29,7 @@ namespace Samples.Presentation
         private IGeolocatorService _geolocatorService;
         private ISectionsNavigator _sectionsNavigator;
         private readonly IDispatcherScheduler _dispatcherScheduler;
+        private ILogger<DynamicMap_FeaturesPageViewModel> _logger;
 
         public DynamicMap_FeaturesPageViewModel()
         {
@@ -161,9 +160,9 @@ namespace Samples.Presentation
             set => this.Set(value);
         }
 
-        public ActionAsync<Geocoordinate> OnMapTapped
+        public Cartography.DynamicMap.Helpers.ActionAsync<Geocoordinate> OnMapTapped
         {
-            get => this.Get<ActionAsync<Geocoordinate>>();
+            get => this.Get<Cartography.DynamicMap.Helpers.ActionAsync<Geocoordinate>>();
             set => this.Set(value);
         }
 
@@ -292,7 +291,7 @@ namespace Samples.Presentation
                     new PushpinEntity
                     {
                         Name = "Pushpin 1",
-                        Coordinates = new Geopoint(new BasicGeoposition{Latitude = 46.3938717, Longitude = -72.0921769})
+                        Coordinates = new Geopoint(new BasicGeoposition { Latitude = 46.3938717, Longitude = -72.0921769 })
                     },
                     new PushpinEntity
                     {
@@ -375,7 +374,7 @@ namespace Samples.Presentation
             }
             catch
             {
-                this.Log().Debug(() => "Couldn't get a valid location. Country zoom level will be applied.");
+                _logger.LogError("Couldn't get a valid location. Country zoom level will be applied.");
                 return new GeoViewPort(defaultGeoPoint, ZoomLevels.District);
             }
         }
@@ -444,5 +443,7 @@ namespace Samples.Presentation
                 throw new InvalidOperationException("Both latitude and longitude must be valid");
             }
         });
+
+        Cartography.DynamicMap.Helpers.ActionAsync<Geocoordinate> IDynamicMapComponent.OnMapTapped { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

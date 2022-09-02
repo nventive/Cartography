@@ -45,7 +45,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\GeoViewPort.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\PushpinEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\CompositeDisposable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocationPage.xaml.cs">
       <DependentUpon>LocationPage.xaml</DependentUpon>
     </Compile>

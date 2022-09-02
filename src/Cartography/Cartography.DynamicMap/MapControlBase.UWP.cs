@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Uno.Extensions;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
+using Cartography.DynamicMap.Helpers;
 
 namespace Cartography.DynamicMap
 {
@@ -355,7 +354,7 @@ namespace Cartography.DynamicMap
 						.Items
 						.Where(c => c.IsSelected)
 						.Select(c => c.Item)
-						.Concat(pushpin.Item)
+						.Concat((IEnumerable<IGeoLocated>)pushpin.Item)
 						.ToArray();
 					break;
 			}

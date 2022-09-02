@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using Uno.Extensions;
 using Windows.Devices.Geolocation;
+using Cartography.StaticMap.Helpers;
+
 
 namespace Cartography.StaticMap
 {

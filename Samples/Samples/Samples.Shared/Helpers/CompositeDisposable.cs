@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive.Disposables;
 
 //Import from uno.Disposable
-namespace Samples.helpers
+namespace Samples.Helpers
 {
     /// <summary>
     /// Represents a group of disposable resources that are disposed together.
