@@ -13,10 +13,14 @@
 		<Description>Cartography.MapService</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Include="..\Shared\Helpers\ValidationExtensionsBase.cs" Link="ValidationExtensionsBase.cs" />
+	  <Compile Include="..\Shared\Helpers\ValidationExtensionsHelpers.cs" Link="ValidationExtensionsHelpers.cs" />
+	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GeolocatorService" Version="0.2.0-dev.19" />
-		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.19" />
+		<PackageReference Include="GeolocatorService" Version="0.2.0-dev.29" />
+		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.29" />
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.3.0-dev.18" />
 	</ItemGroup>
 	

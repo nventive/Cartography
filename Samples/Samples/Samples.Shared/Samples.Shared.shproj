@@ -20,6 +20,7 @@
     <_Globbed_Compile Remove="DynamicMap_SelectedFlipViewPage.xaml.cs" />
     <_Globbed_Compile Remove="DynamicMap_ZoomPoiPage.xaml.cs" />
     <_Globbed_Compile Remove="DynamicPageService.xaml.cs" />
+    <_Globbed_Compile Remove="Helpers\EnumerableExtensions.cs" />
     <_Globbed_Compile Remove="LocationPage.xaml.cs" />
     <_Globbed_Compile Remove="MapService.xaml.cs" />
     <_Globbed_Compile Remove="MapServicePage.cs" />

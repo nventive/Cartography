@@ -3,7 +3,7 @@ using Foundation;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
-using Uno.Logging;
+using Cartography.shared.Helpers;
 
 namespace Cartography.MapService
 {
