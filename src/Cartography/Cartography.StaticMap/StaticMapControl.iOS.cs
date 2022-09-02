@@ -3,8 +3,6 @@ using System;
 using Google.Maps;
 using Microsoft.Extensions.Logging;
 using Cartography.StaticMap.Provider;
-using Uno.Extensions;
-using Uno.Logging;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -18,6 +16,7 @@ namespace Cartography.StaticMap
 		private const string InnerMapElementName = "PART_InnerMapContentControl";
 		private Image _image;
 		private ContentPresenter _innerMap;
+		private ILogger _logger;
 
 		/// <inheritdoc/>
 		protected override void OnApplyTemplate()
@@ -38,17 +37,11 @@ namespace Cartography.StaticMap
 
 		private void SetMap(object map, StaticMapParameters parameters = null)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Setting map (map: '{map?.GetType()}', height: '{parameters?.Height}', width: '{parameters?.Width}', scale: '{parameters?.Scale}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}').");
-			}
+			_logger.LogDebug($"Setting map (map: '{map?.GetType()}', height: '{parameters?.Height}', width: '{parameters?.Width}', scale: '{parameters?.Scale}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}').");
 
 			if (map == null)
 			{
-				if (this.Log().IsEnabled(LogLevel.Information))
-				{
-					this.Log().Info("Map not set because it is null.");
-				}
+				_logger.LogInformation("Map not set because it is null.");
 
 				return;
 			}
@@ -71,10 +64,7 @@ namespace Cartography.StaticMap
 				_innerMap.Content = map;
 			}
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Set map (map: '{map.GetType()}', height: '{parameters?.Height}', width: '{parameters?.Width}', scale: '{parameters?.Scale}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}' ).");
-			}
+			_logger.LogInformation($"Set map (map: '{map.GetType()}', height: '{parameters?.Height}', width: '{parameters?.Width}', scale: '{parameters?.Scale}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}' ).");
 		}
 	}
 }

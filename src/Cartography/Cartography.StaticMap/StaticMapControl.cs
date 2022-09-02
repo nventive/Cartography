@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Uno.Disposables;
 using SerialDisposable = Uno.Disposables.SerialDisposable;
 using CompositeDisposable = Uno.Disposables.CompositeDisposable;
-using Uno.Extensions;
-using Uno.Logging;
+using Microsoft.Extensions.Logging;
 using Cartography.StaticMap.Provider;
 #if __IOS__
 using UIKit;
@@ -78,6 +76,7 @@ namespace Cartography.StaticMap
 		private bool _isLoadingNewMap = false;
 		private bool _viewReady;
 		private StaticMapParameters _lastUsedParameters;
+		private readonly ILogger logger;
 
 		/// <summary>
 		/// Create a new instance of the <see cref="StaticMapControl"/> class. For initializing the StaticMapControl <see cref="StaticMapInitializer"/>.
@@ -188,7 +187,7 @@ namespace Cartography.StaticMap
 			_updateSubject
 				.Throttle(UpdateThrottle, StaticMapInitializer.DispatcherScheduler)
 				.Do(_ => Update())
-				.Subscribe(_ => { }, e => this.Log().Error("Error in Update subscription of StaticMapControl"))
+				.Subscribe(_ => { }, e => logger.LogError("Error in Update subscription of StaticMapControl"))
 				.DisposeWith(_subscriptions);
 		}
 

@@ -4,8 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Uno.Extensions;
-using Uno.Logging;
+using Cartography.StaticMap.Helpers;
 #if NETFX_CORE
 using Windows.UI.Xaml.Media.Imaging;
 #endif
@@ -26,6 +25,8 @@ namespace Cartography.StaticMap.Provider
 
 		private readonly string _apiKey;
 
+		private readonly ILogger _logger;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BingStaticMapProvider"/> class.
 		/// </summary>
@@ -43,10 +44,7 @@ namespace Cartography.StaticMap.Provider
 		/// <returns>The map as a image url.</returns>
 		public async Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Getting a Bing map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogDebug($"Getting a Bing map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 			var b = new StringBuilder(ApiUrl);
 
@@ -72,10 +70,7 @@ namespace Cartography.StaticMap.Provider
 
 			var uri = new Uri(b.ToString(), UriKind.Absolute);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Return a Bing map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogInformation($"Return a Bing map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 #if NETFX_CORE
 			return new BitmapImage(uri);

@@ -7,8 +7,6 @@ using CoreGraphics;
 using MapKit;
 using Microsoft.Extensions.Logging;
 using UIKit;
-using Uno.Extensions;
-using Uno.Logging;
 using Windows.UI.Xaml.Media;
 
 namespace Cartography.StaticMap.Provider
@@ -20,6 +18,7 @@ namespace Cartography.StaticMap.Provider
 	internal class AppleStaticMapProvider : IStaticMapProvider
 	{
 		private readonly IDispatcherScheduler _dispatcherScheduler;
+		private readonly ILogger _logger;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppleStaticMapProvider"/> class.
@@ -38,19 +37,13 @@ namespace Cartography.StaticMap.Provider
 		/// <returns>The map as a UIImage.</returns>
 		public async Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Getting an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogDebug($"Getting an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 			return await await _dispatcherScheduler.Run(() =>
 			{
 				var options = CreateOptions(parameters);
 
-				if (this.Log().IsEnabled(LogLevel.Information))
-				{
-					this.Log().Info($"Return an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}').");
-				}
+				_logger.LogInformation($"Return an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}').");
 
 				return CreateMapImage(ct, options);
 			}, ct);

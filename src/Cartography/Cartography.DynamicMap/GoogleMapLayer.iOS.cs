@@ -6,8 +6,6 @@ using CoreLocation;
 using Google.Maps;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Uno.Extensions;
-using Uno.Logging;
 
 namespace Cartography.DynamicMap
 {
@@ -27,12 +25,12 @@ namespace Cartography.DynamicMap
 
 		public void Add(GooglePushpin item)
 		{
-			_logger.Debug("Adding a pushpin.");
+			_logger.LogDebug("Adding a pushpin.");
 
 			SetMap(item.Marker);
 			_pushpins.Add(item);
 
-			_logger.Info("Added a pushpin.");
+			_logger.LogInformation("Added a pushpin.");
 		}
 
 		public void Clear()
@@ -52,24 +50,24 @@ namespace Cartography.DynamicMap
 
 		public void Insert(int index, GooglePushpin item)
 		{
-			_logger.Debug("Inserting a pushpin.");
+			_logger.LogDebug("Inserting a pushpin.");
 
 			SetMap(item.Marker);
 			_pushpins.Insert(index, item);
 
-			_logger.Info("Inserted a pushpin.");
+			_logger.LogInformation("Inserted a pushpin.");
 		}
 
 		public bool Remove(GooglePushpin item)
 		{
-			_logger.Debug("Removing a pushpin.");
+			_logger.LogDebug("Removing a pushpin.");
 
 			if (_pushpins.Contains(item))
 			{
 				item.Marker.Map = null;
 				_pushpins.Remove(item);
 
-				_logger.Info("Removed a pushpin.");
+				_logger.LogInformation("Removed a pushpin.");
 
 				return true;
 			}
@@ -78,13 +76,13 @@ namespace Cartography.DynamicMap
 
 		public void RemoveAt(int index)
 		{
-			_logger.Debug($"Removing the pushpin at the index '{index}'.");
+			_logger.LogDebug($"Removing the pushpin at the index '{index}'.");
 
 			var item = _pushpins[index];
 			item.Marker.Map = null;
 			_pushpins.RemoveAt(index);
 
-			_logger.Info($"Removed the pushpin at the index '{index}'.");
+			_logger.LogInformation($"Removed the pushpin at the index '{index}'.");
 		}
 
 		private void SetMap(Marker marker)

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Uno.Extensions;
-using Uno.Logging;
 
 namespace Cartography.DynamicMap
 {
@@ -45,7 +43,7 @@ namespace Cartography.DynamicMap
 			ILogger _logger = NullLogger.Instance;
 			if (!x.ZoomLevel.HasValue || !y.ZoomLevel.HasValue)
 			{
-				_logger.Warn("PrettyMapViewPortEqualityComparer supports only comparaison of MapViewPort which has ZoomLevel.");
+				_logger.LogWarning("PrettyMapViewPortEqualityComparer supports only comparaison of MapViewPort which has ZoomLevel.");
 
 				throw new NotSupportedException("PrettyMapViewPortEqualityComparer supports only comparaison of MapViewPort which has ZoomLevel.");
 			}

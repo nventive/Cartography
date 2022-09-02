@@ -7,8 +7,6 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Views;
 using Microsoft.Extensions.Logging;
-using Uno.Extensions;
-using Uno.Logging;
 using static Android.Gms.Maps.GoogleMap;
 
 namespace Cartography.StaticMap.Provider
@@ -21,6 +19,7 @@ namespace Cartography.StaticMap.Provider
 	{
 		private MapView _internalMapView;
 		private GoogleMap _map;
+		private readonly ILogger _logger;
 
 		/// <summary>
 		/// Get a map with the specified parameters.
@@ -30,10 +29,7 @@ namespace Cartography.StaticMap.Provider
 		/// <returns>The map as a MapView</returns>
 		public async Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Getting a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogDebug($"Getting a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 			GoogleMapOptions options = new GoogleMapOptions().InvokeLiteMode(true);
 			_internalMapView = new MapView(Android.App.Application.Context, options);
@@ -48,10 +44,7 @@ namespace Cartography.StaticMap.Provider
 
 			_internalMapView.Measure(parameters.Width, parameters.Height);
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Return a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogInformation($"Return a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 			return _internalMapView;
 		}

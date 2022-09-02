@@ -3,8 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Google.Maps;
 using Microsoft.Extensions.Logging;
-using Uno.Extensions;
-using Uno.Logging;
 
 namespace Cartography.StaticMap.Provider
 {
@@ -15,6 +13,7 @@ namespace Cartography.StaticMap.Provider
 	internal class GoogleSdkStaticMapProvider : IStaticMapProvider
 	{
 		private MapView _mapView;
+		private readonly ILogger _logger;
 
 		/// <summary>
 		/// Get a map with the specified parameters.
@@ -24,10 +23,7 @@ namespace Cartography.StaticMap.Provider
 		/// <returns>The map as a MapView</returns>
 		public async Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Getting a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogDebug($"Getting a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 			var camera = CameraPosition.FromCamera(
 				parameters.ViewPort.Center.Position.Latitude,
@@ -38,10 +34,7 @@ namespace Cartography.StaticMap.Provider
 
 			_mapView.UserInteractionEnabled = false;
 
-			if (this.Log().IsEnabled(LogLevel.Information))
-			{
-				this.Log().Info($"Return a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogInformation($"Return a Google Sdk map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 			return _mapView;
 		}

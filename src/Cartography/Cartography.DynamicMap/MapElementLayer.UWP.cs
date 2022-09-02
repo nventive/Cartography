@@ -6,11 +6,10 @@ using System.Reactive.Subjects;
 using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
-using Uno.Extensions;
-using Uno.Logging;
 using Microsoft.Extensions.Logging;
 using Windows.Devices.Geolocation;
 using Microsoft.Extensions.Logging.Abstractions;
+using Cartography.DynamicMap.Helpers;
 
 namespace Cartography.DynamicMap
 {
@@ -213,7 +212,7 @@ namespace Cartography.DynamicMap
 				{
 					if (!_selectedItems.Remove(item))
 					{
-						_logger.Error("Unselect an item which should not be selected !!");					
+						_logger.LogError("Unselect an item which should not be selected !!");					
 					}
 				}
 				else

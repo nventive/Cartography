@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reflection;
-using Uno.Extensions;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Cartography.DynamicMap.Helpers;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;

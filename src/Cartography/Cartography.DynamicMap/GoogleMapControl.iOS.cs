@@ -16,7 +16,6 @@ using Google.Maps;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
-using Uno.Logging;
 using Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -182,7 +181,7 @@ namespace Cartography.DynamicMap
 		{
 			if (_icon != null)
 			{
-				_logger.Error("Pushpins icons cannot be changed.");
+				_logger.LogError("Pushpins icons cannot be changed.");
 
 				throw new InvalidOperationException("Pushpins icons cannot be changed.");
 			}
@@ -236,7 +235,7 @@ namespace Cartography.DynamicMap
 		{
 			if (_selectedIcon != null)
 			{
-				_logger.Error("Pushpins icons cannot be changed.");
+				_logger.LogError("Pushpins icons cannot be changed.");
 
 				throw new InvalidOperationException("Pushpins icons cannot be changed.");
 			}
@@ -283,14 +282,14 @@ namespace Cartography.DynamicMap
 
 		private void UnselectAllPushpins()
 		{
-			_logger.Debug($" Unselecting all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
+			_logger.LogDebug($" Unselecting all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
 
 			foreach (var pushpin in _pushpinsLayer.Items)
 			{
 				pushpin.IsSelected = false;
 			}
 
-			_logger.Info($"Unselected all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
+			_logger.LogInformation($"Unselected all the '{_pushpinsLayer?.Items?.Count()}' pushpins.");
 		}
 
 		private IGeoLocated[] GetSelectedAnnotationsContent()
@@ -314,7 +313,7 @@ namespace Cartography.DynamicMap
 
 		private void PushpinIconsMarkerUpdater(GooglePushpin pushpin, Marker marker)
 		{
-			_logger.Debug("Updating the pushpin.");
+			_logger.LogDebug("Updating the pushpin.");
 
 			var icon = pushpin.IsSelected
 				? _selectedIcon
@@ -327,7 +326,7 @@ namespace Cartography.DynamicMap
 
 			UpdateMarker(pushpin, marker);
 
-			_logger.Info("Updated the pushpins.");
+			_logger.LogInformation("Updated the pushpins.");
 		}
 	}
 }

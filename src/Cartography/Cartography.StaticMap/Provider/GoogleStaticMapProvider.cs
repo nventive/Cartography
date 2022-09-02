@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Uno.Extensions;
-using Uno.Logging;
 using Windows.UI.Xaml.Media;
 #if NETFX_CORE
 using Windows.UI.Xaml.Media.Imaging;
@@ -27,6 +25,8 @@ namespace Cartography.StaticMap.Provider
 		private readonly string _apiKey;
 		private readonly string _urlSigningSecretKey;
 
+		private ILogger _logger;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GoogleStaticMapProvider"/> class.
 		/// </summary>
@@ -46,10 +46,7 @@ namespace Cartography.StaticMap.Provider
 		/// <returns>The image's url.</returns>
 		public async Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters)
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Getting a Google map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogDebug($"Getting a Google map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 			var b = new StringBuilder(ApiUrl);
 
@@ -80,10 +77,7 @@ namespace Cartography.StaticMap.Provider
 				UriKind.Absolute
 			);
 
-			if (this.Log().IsEnabled(LogLevel.Debug))
-			{
-				this.Log().Debug($"Return a Google map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
-			}
+			_logger.LogDebug($"Return a Google map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 
 #if NETFX_CORE
 			return new BitmapImage(signedUri);
