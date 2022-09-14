@@ -161,9 +161,9 @@ namespace Samples.Presentation
             set => this.Set(value);
         }
 
-        public ActionAsync<Geocoordinate> OnMapTapped
+        public Action<Geocoordinate> OnMapTapped
         {
-            get => this.Get<ActionAsync<Geocoordinate>>();
+            get => this.Get<Action<Geocoordinate>>();
             set => this.Set(value);
         }
 

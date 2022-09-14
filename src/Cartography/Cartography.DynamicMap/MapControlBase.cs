@@ -236,7 +236,7 @@ namespace Cartography.DynamicMap
 		private readonly SerialDisposable _configuredSourceSubscriptions = new SerialDisposable();
 		private ViewModelBase _configuredViewModel;
 
-		private ActionAsync<Geocoordinate> _onMapTapped;
+		private Action<Geocoordinate> _onMapTapped;
 
 		private bool _isReady;
 
@@ -348,7 +348,7 @@ namespace Cartography.DynamicMap
 			if (onMapTapped != null)
 			{
 				GetDispatcherScheduler()
-					.ScheduleAsync((ct, scheduler) => onMapTapped(CancellationToken.None, coordinate))
+					.ScheduleAsync(async (ct, scheduler) => onMapTapped(coordinate))
 					.Dispose();
 			}
 		}
