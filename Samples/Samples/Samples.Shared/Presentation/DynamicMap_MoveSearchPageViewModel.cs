@@ -61,9 +61,9 @@ namespace Samples.Presentation
             get => this.Get<IEqualityComparer<MapViewPort>>(initialValue: MapComponentDefaultValue.DefaultViewPortUpdateFilter);
             set => this.Set(value);
         }
-        public ActionAsync<Geocoordinate> OnMapTapped
+        public Action<Geocoordinate> OnMapTapped
         {
-            get => this.Get<ActionAsync<Geocoordinate>>(initialValue: (ActionAsync<Geocoordinate>)null);
+            get => this.Get<Action<Geocoordinate>>(initialValue: (Action<Geocoordinate>)null);
             set => this.Set(value);
         }
         public bool IsUserTrackingCurrentlyEnabled
