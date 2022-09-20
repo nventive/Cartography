@@ -30,7 +30,7 @@ steps:
     restoreNugetPackages: true
     logProjectEvents: false
     createLogFile: false
-    msbuildArguments: /t:restore /p:PackageVersion=$(GitVersion.SemVer) # Set the version of the packages, will have no effect on application projects (Heads).
+    msbuildArguments: /t:restore,build /p:PackageVersion=$(GitVersion.SemVer) # Set the version of the packages, will have no effect on application projects (Heads).
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifact $(ApplicationConfiguration)'
