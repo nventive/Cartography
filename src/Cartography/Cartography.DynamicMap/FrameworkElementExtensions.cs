@@ -7,7 +7,7 @@ using System.Reactive;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
-#if NETFX_CORE
+#if WINDOWS_UWP
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 #elif __ANDROID__ || __IOS__ || __WASM__
@@ -57,7 +57,7 @@ namespace Cartography.DynamicMap
 			Action<THandler> removeHandler,
 			DependencyObject element,
 			UiEventSubscriptionsOptions options)
-#if !NETFX_CORE && !__ANDROID__ && !__IOS__ && !__WASM__
+#if !WINDOWS_UWP && !__ANDROID__ && !__IOS__ && !__WASM__
 			where TArgs : EventArgs 
 #endif
 		{
@@ -99,7 +99,7 @@ namespace Cartography.DynamicMap
 
 		public static T Binding<T>(this T element, string property, BindingBase binding) where T : DependencyObject
 		{
-#if NETFX_CORE
+#if WINDOWS_UWP
 			var dependencyProperty = GetDependencyProperty(element, property);
 
 			element.SetBinding(dependencyProperty, binding);

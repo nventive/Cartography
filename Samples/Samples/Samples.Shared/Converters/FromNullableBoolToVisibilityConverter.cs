@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 using Nventive.View.Converters;
 
-#if NETFX_CORE
+#if WINDOWS_UWP
 using Windows.UI.Xaml;
 #elif __ANDROID__ || __IOS__
 using Visibility = Windows.UI.Xaml.Visibility;

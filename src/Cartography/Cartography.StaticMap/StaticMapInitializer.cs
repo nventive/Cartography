@@ -1,4 +1,4 @@
-﻿#if NETFX_CORE || __IOS__ || __ANDROID__
+﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__
 using System.Reactive.Concurrency;
 using Cartography.StaticMap.Provider;
 

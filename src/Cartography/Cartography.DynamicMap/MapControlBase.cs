@@ -1,4 +1,4 @@
-﻿#if __IOS__ || __ANDROID__ || NETFX_CORE
+﻿#if __IOS__ || __ANDROID__ || WINDOWS_UWP
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ using Windows.Devices.Geolocation;
 using Windows.UI.Core;
 using GeolocatorService;
 using Microsoft.Extensions.DependencyInjection;
-#if NETFX_CORE
+#if WINDOWS_UWP
 using Windows.Foundation;
 using Map = Windows.UI.Xaml.Controls.Maps.MapControl;
 #else
@@ -32,7 +32,7 @@ namespace Cartography.DynamicMap
 	/// <summary>
 	/// The control which display the map component configured on <see cref="ViewModel"/>.
 	/// </summary>
-#if NETFX_CORE
+#if WINDOWS_UWP
 	[TemplatePart(Name = _mapPartName, Type = typeof(Map))]
 	[TemplatePart(Name = _errorPresenterPartName, Type = typeof(ContentPresenter))]
 	[TemplateVisualState(GroupName = "ControlStates", Name = _initializingStateName)]
@@ -171,7 +171,7 @@ namespace Cartography.DynamicMap
 		partial void UpdateIsRotateGestureEnabled(bool isRotateGestureEnabled);
 #endregion
 
-#if NETFX_CORE
+#if WINDOWS_UWP
 #region PushpinItemTemplate (dp)
 		/// <summary>
 		/// Identifies the <see cref="PushpinItemTemplate"/> dependency property.
@@ -543,7 +543,7 @@ namespace Cartography.DynamicMap
 		{
 
 			var component = (IDynamicMapComponent)vm;
-#if NETFX_CORE
+#if WINDOWS_UWP
 			return (_pushpinIcons != null ? _pushpinIcons.ObserveSelected() : _selectedPushpins)
 #else
 			return _selectedPushpins
