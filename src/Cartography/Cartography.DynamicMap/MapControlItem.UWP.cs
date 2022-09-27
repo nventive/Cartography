@@ -1,4 +1,4 @@
-﻿#if NETFX_CORE
+﻿#if WINDOWS_UWP
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.UI.Xaml;

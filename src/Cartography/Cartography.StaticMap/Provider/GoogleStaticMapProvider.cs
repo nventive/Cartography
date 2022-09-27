@@ -1,4 +1,4 @@
-﻿#if NETFX_CORE || __IOS__ || __ANDROID__
+﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Uno.Extensions;
 using Uno.Logging;
 using Windows.UI.Xaml.Media;
-#if NETFX_CORE
+#if WINDOWS_UWP
 using Windows.UI.Xaml.Media.Imaging;
 #endif
 
@@ -85,7 +85,7 @@ namespace Cartography.StaticMap.Provider
 				this.Log().Debug($"Return a Google map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 			}
 
-#if NETFX_CORE
+#if WINDOWS_UWP
 			return new BitmapImage(signedUri);
 #else
 			return signedUri;
