@@ -1,4 +1,4 @@
-﻿#if __IOS__ || __ANDROID__ || NETFX_CORE
+﻿#if __IOS__ || __ANDROID__ || WINDOWS_UWP
 using System;
 using System.Collections.Generic;
 using System.Linq;

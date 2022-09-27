@@ -1,4 +1,4 @@
-﻿#if NETFX_CORE || __IOS__ || __ANDROID__
+﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__
 using System;
 using System.Text;
 using System.Threading;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Uno.Extensions;
 using Uno.Logging;
-#if NETFX_CORE
+#if WINDOWS_UWP
 using Windows.UI.Xaml.Media.Imaging;
 #endif
 
@@ -77,7 +77,7 @@ namespace Cartography.StaticMap.Provider
 				this.Log().Info($"Return a Bing map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 			}
 
-#if NETFX_CORE
+#if WINDOWS_UWP
 			return new BitmapImage(uri);
 #else
 			return uri;
