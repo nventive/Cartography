@@ -21,5 +21,7 @@
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.5.0-feature.dotnet6.38" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
 	</ItemGroup>
+
+	<Import Project="..\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems" Label="Shared" />
 	
 </Project>

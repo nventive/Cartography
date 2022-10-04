@@ -34,17 +34,10 @@ namespace Samples.Presentation
             await this.GetService<IDispatcherScheduler>().Run(ct2 => action(ct2), ct);
         }
 
-        public void RunOnDispatcher(Action action)
-        {
-            _ = View?.ExecuteOnDispatcher(CancellationToken, action);
-        }
-
         void INavigableViewModel.SetView(object view)
         {
-#if WINDOWS_UWP || __IOS__ || __ANDROID__ || __WASM__
-            var frameworkElement = view as Windows.UI.Xaml.FrameworkElement;
-            View = new ViewModelView(frameworkElement);
-#endif
+            var factory = this.GetService<IDispatcherFactory>();
+            Dispatcher = factory.Create(view);
         }
     }
 }

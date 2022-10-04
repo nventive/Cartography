@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>76013d8e-0c47-4056-9d53-cdb9acb322be</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cartography.MapService.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)IMapService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapService.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapService.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapService.UWP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapServiceiOSProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapServiceTextProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NavigationAppConstants.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\AppleMapsServiceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleMapsServiceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\IMapServiceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\MapServiceProviderFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\WazeServiceProvider.cs" />
+  </ItemGroup>
+</Project>

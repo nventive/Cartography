@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Concurrency;
+using Chinook.DynamicMvvm;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Core;
 
@@ -17,7 +18,8 @@ namespace Samples.Views
 				.AddSingleton<IDispatcherScheduler>(s => new MainDispatcherScheduler(
 					s.GetRequiredService<CoreDispatcher>(),
 					CoreDispatcherPriority.Normal
-				));
+				))
+				.AddSingleton<IDispatcherFactory, DispatcherFactory>();
 		}
 
 	}

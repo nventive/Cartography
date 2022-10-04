@@ -1,5 +1,4 @@
-﻿using Nventive.View.Converters;
-using Samples.Entities;
+﻿using Samples.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

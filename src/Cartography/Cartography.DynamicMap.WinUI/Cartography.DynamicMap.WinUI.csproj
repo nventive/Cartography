@@ -1,0 +1,83 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
+  <PropertyGroup>
+    <!-- Add net6.0-maccatalyst when Xamarin.Google.iOS.Maps supports it -->
+    <!-- Add net6.0-windows10.0.18362 when Windows.UI.Xaml.Controls supports MapControl -->
+    <TargetFrameworks>net6.0-ios;net6.0-macos;net6.0-android;netstandard2.0;</TargetFrameworks>
+    <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <RootNamespace>Cartography.DynamicMap</RootNamespace>
+    <Authors>nventive</Authors>
+    <Company>nventive</Company>
+    <AssemblyName>Cartography.DynamicMap.WinUI</AssemblyName>
+    <PackageId>Cartography.DynamicMap.WinUI</PackageId>
+    <Description>Cartography.MapService</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageTags>cartography;dynamicmap;mvvm;maui;winui;ios;android</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+
+    <!--Needed for Source Link support -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Chinook.DynamicMvvm" Version="1.1.0-feature.dotnet6.7" />
+    <PackageReference Include="Chinook.DynamicMvvm.Reactive" Version="1.1.0-feature.dotnet6.7" />
+    <PackageReference Include="GeolocatorService.Uno.WinUI" Version="0.2.0-dev.dotnet6.33" />
+    <PackageReference Include="GeolocatorService.Reactive.Uno.WinUI" Version="0.2.0-dev.dotnet6.33" />
+    <PackageReference Include="Reactive.Annex.Uno.WinUI" Version="0.5.0-feature.dotnet6.38" />
+    <PackageReference Include="Uno.Core" Version="4.0.1" />
+    <!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net6.0-windows10.0.18362'">
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.5" />
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22000.24" />
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22000.24" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
+    <PackageReference Include="Xamarin.Google.iOS.Maps" Version="6.0.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="PrettyMapViewPortEqualityComparer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="ObservableExtension.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <PackageReference Include="Xamarin.GooglePlayServices.Base">
+      <Version>117.6.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Maps">
+      <Version>117.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'!='net6.0-windows10.0.18362'">
+    <Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="UserLocationMarker.UWP.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <Import Project="..\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems" Label="Shared" />
+</Project>
