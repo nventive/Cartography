@@ -1,6 +1,5 @@
 ﻿using System;
 using Samples.Entities;
-using Nventive.View.Converters;
 using Uno.Extensions;
 
 namespace Samples.Views
