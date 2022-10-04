@@ -21,9 +21,17 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Samples.Shared", "Samples\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.UWP", "Samples\Samples\Samples.UWP\Samples.UWP.csproj", "{09933A00-6DD0-4027-8310-29D9ACF07537}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartography.MapService.Uno.WinUI", "src\Cartography\Cartography.MapService.Uno.WinUI\Cartography.MapService.Uno.WinUI.csproj", "{59385958-20F7-4478-9E3A-BB7935A83F5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.MapService.WinUI", "src\Cartography\Cartography.MapService.WinUI\Cartography.MapService.WinUI.csproj", "{59385958-20F7-4478-9E3A-BB7935A83F5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartography.DynamicMap.Uno.WinUI", "src\Cartography\Cartography.DynamicMap.Uno.WinUI\Cartography.DynamicMap.Uno.WinUI.csproj", "{EE71AB45-399C-417C-8D54-BE12566014C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.DynamicMap.WinUI", "src\Cartography\Cartography.DynamicMap.WinUI\Cartography.DynamicMap.WinUI.csproj", "{EE71AB45-399C-417C-8D54-BE12566014C7}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cartography.DynamicMap.Shared", "src\Cartography\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.shproj", "{6121615B-AA46-4035-BD88-967F2662137D}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cartography.MapService.Shared", "src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.shproj", "{76013D8E-0C47-4056-9D53-CDB9ACB322BE}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cartography.StaticMap.Shared", "src\Cartography\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.shproj", "{3D7B5A9E-5B8F-4E83-9564-8CCD331B7400}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartography.StaticMap.WinUI", "src\Cartography\Cartography.StaticMap.WinUI\Cartography.StaticMap.WinUI.csproj", "{A75D9F8D-881B-4AC0-8756-57893E791C8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -618,6 +626,70 @@ Global
 		{EE71AB45-399C-417C-8D54-BE12566014C7}.Release|x64.Build.0 = Release|Any CPU
 		{EE71AB45-399C-417C-8D54-BE12566014C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{EE71AB45-399C-417C-8D54-BE12566014C7}.Release|x86.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|ARM.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|ARM.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|ARM64.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|ARM64.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|NuGet.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|NuGet.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|x64.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|ARM.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|ARM.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|ARM64.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|ARM64.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|NuGet.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|NuGet.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|x64.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|x64.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|x86.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.AppStore|x86.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|NuGet.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|NuGet.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|x64.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Debug|x86.Build.0 = Debug|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|ARM.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|ARM64.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|iPhone.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|NuGet.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|NuGet.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|x64.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|x64.Build.0 = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|x86.ActiveCfg = Release|Any CPU
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -632,14 +704,27 @@ Global
 		{09933A00-6DD0-4027-8310-29D9ACF07537} = {057F7FC6-3201-4671-A9CF-87CFF6EC233E}
 		{59385958-20F7-4478-9E3A-BB7935A83F5B} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
 		{EE71AB45-399C-417C-8D54-BE12566014C7} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+		{6121615B-AA46-4035-BD88-967F2662137D} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+		{76013D8E-0C47-4056-9D53-CDB9ACB322BE} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+		{3D7B5A9E-5B8F-4E83-9564-8CCD331B7400} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
+		{A75D9F8D-881B-4AC0-8756-57893E791C8B} = {6643A3E0-7CD4-4BCE-84BD-0B24B1720DC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7CE3663-C71E-406C-B397-2EC8038C9771}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{09933a00-6dd0-4027-8310-29d9acf07537}*SharedItemsImports = 4
+		src\Cartography\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems*{0b1da980-496d-47c9-acd5-592c91b20828}*SharedItemsImports = 5
+		src\Cartography\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems*{3d7b5a9e-5b8f-4e83-9564-8ccd331b7400}*SharedItemsImports = 13
 		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{409f6e1d-0878-43dd-b984-92df1b13d58e}*SharedItemsImports = 4
+		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{59385958-20f7-4478-9e3a-bb7935a83f5b}*SharedItemsImports = 5
 		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{5d877d72-cd00-48d4-8d31-543bb08c04ea}*SharedItemsImports = 4
+		src\Cartography\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems*{6121615b-aa46-4035-bd88-967f2662137d}*SharedItemsImports = 13
 		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
+		src\Cartography\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems*{6abe0223-31de-46a3-9351-00e34fc9b8ff}*SharedItemsImports = 5
+		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{76013d8e-0c47-4056-9d53-cdb9acb322be}*SharedItemsImports = 13
+		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{90bd779b-bf4f-4949-b0b1-c31da35b94f7}*SharedItemsImports = 5
+		src\Cartography\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems*{a75d9f8d-881b-4ac0-8756-57893e791c8b}*SharedItemsImports = 5
+		src\Cartography\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems*{ee71ab45-399c-417c-8d54-be12566014c7}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

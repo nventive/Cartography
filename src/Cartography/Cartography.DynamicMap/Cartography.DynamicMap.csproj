@@ -14,6 +14,10 @@
 		<Description>Cartography.DynamicMap</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="MapControlItem.UWP.xaml" />
+	  <None Remove="UserLocationMarker.UWP.xaml" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Chinook.DynamicMvvm" Version="1.1.0-feature.dotnet6.7" />
@@ -31,7 +35,7 @@
 	<ItemGroup>
 	  <SourceGeneratorInput Remove="PrettyMapViewPortEqualityComparer.cs" />
 	</ItemGroup>
-
+  
 	<ItemGroup>
 	  <SourceGeneratorInput Remove="ObservableExtension.cs" />
 	</ItemGroup>
@@ -46,9 +50,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="UserLocationMarker.UWP.xaml">
+	  <Page Include="MapControlItem.UWP.xaml">
+	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
-	  </None>
+	  </Page>
+	  <Page Include="UserLocationMarker.UWP.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	    <SubType>Designer</SubType>
+	  </Page>
 	</ItemGroup>
+  
+	<Import Project="..\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems" Label="Shared" />
 
 </Project>

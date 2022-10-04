@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3d7b5a9e-5b8f-4e83-9564-8ccd331b7400</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cartography.StaticMap.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)IStaticMapComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\AppleStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\BingStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleSdkStaticMapProvider.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleSdkStaticMapProvider.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\IStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\StaticMapParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.UWP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\MapHelper.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\MapViewPort.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\ZoomLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\ZoomLevels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapInitializer.cs" />
+  </ItemGroup>
+</Project>

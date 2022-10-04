@@ -1,10 +1,12 @@
-﻿#if WINDOWS_UWP
+﻿#if WINDOWS_UWP || WINDOWS
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if !WINUI
 using Windows.UI.Xaml.Controls.Maps;
+#endif
 
 namespace Cartography.DynamicMap
 {

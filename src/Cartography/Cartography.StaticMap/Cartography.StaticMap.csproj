@@ -38,4 +38,6 @@
 	  </PackageReference>
 	</ItemGroup>
 
+	<Import Project="..\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems" Label="Shared" />
+
 </Project>
