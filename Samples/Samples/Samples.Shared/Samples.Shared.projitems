@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\_Configuration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\_ViewConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ConverterBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromMoveSearchPushpinListToString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromPushpinEntityToStringConverter.cs" />
