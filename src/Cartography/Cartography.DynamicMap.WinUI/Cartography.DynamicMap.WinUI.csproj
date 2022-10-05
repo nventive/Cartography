@@ -1,8 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
   <PropertyGroup>
     <!-- Add net6.0-maccatalyst when Xamarin.Google.iOS.Maps supports it -->
-    <!-- Add net6.0-windows10.0.18362 when Windows.UI.Xaml.Controls supports MapControl -->
-    <TargetFrameworks>net6.0-ios;net6.0-macos;net6.0-android;netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>net6.0-ios;net6.0-macos;net6.0-android;netstandard2.0;net6.0-windows10.0.18362;</TargetFrameworks>
     <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
     <RootNamespace>Cartography.DynamicMap</RootNamespace>
