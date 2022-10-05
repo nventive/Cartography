@@ -1,13 +1,8 @@
-﻿#if WINDOWS_UWP || WINDOWS
+﻿#if WINDOWS_UWP
 using System;
 using System.Linq;
-#if WINUI
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
-#else
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
-#endif
 
 namespace Cartography.DynamicMap
 {

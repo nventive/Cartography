@@ -15,14 +15,9 @@ using Uno.Extensions;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.Storage.Streams;
-#if WINUI
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-#else
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
-#endif
 
 namespace Cartography.DynamicMap
 {

@@ -1,13 +1,8 @@
 ﻿#if WINDOWS_UWP
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
-#if WINUI
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-#else
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-#endif
 
 namespace Cartography.DynamicMap
 {
