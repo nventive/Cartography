@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP || WINDOWS
+﻿#if WINDOWS_UWP
 using System;
 using System.Reactive.Concurrency;
 using System.Threading;
