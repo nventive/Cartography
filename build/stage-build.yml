@@ -1,14 +1,19 @@
 steps:
-- task: gitversion/setup@0
+## Install .netcore runtime required by GitVersion@5
+- task: GitVersion/setup@0
   inputs:
     versionSpec: '5.10.1'
   displayName: 'Install GitVersion'
 
-- task: gitversion/execute@0
+- task: GitVersion/execute@0
   inputs:
     useConfigFile: true
     configFilePath: $(Build.SourcesDirectory)/build/gitversion.yml
   displayName: 'Calculate version'
+  
+- task: NuGetAuthenticate@1
+  inputs:
+    forceReinstallCredentialProvider: true
   
 - task: DotNetCoreCLI@2
   displayName: 'Install dotnet 6 workloads'
