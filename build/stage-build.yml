@@ -24,15 +24,22 @@ steps:
     versionSpec: $(NUGET_VERSION)
     checkLatest: false
 
-- task: NuGetCommand@2
+- task: MSBuild@1
   displayName: 'Restore solution packages'
   inputs:
-    command: restore
     solution: $(Build.SourcesDirectory)/$(SolutionFileName)
-    selectOrConfig: select
-    includeNuGetOrg: true
-    verbosityRestore: Normal
-    noCache: true
+    msbuildLocationMethod: version
+    msbuildVersion: latest
+    msbuildArchitecture: x86
+    msbuildArguments: >
+      /t:restore
+    configuration: $(ApplicationConfiguration)
+    platform: $(ApplicationPlatform)
+    clean: false
+    maximumCpuCount: true
+    restoreNugetPackages: false
+    logProjectEvents: false
+    createLogFile: false
 
 - task: MSBuild@1
   displayName: 'Build solution in $(ApplicationConfiguration) | $(ApplicationPlatform)'
