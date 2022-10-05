@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.UWP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapControl.Win.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\MapHelper.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\MapViewPort.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\ZoomLevel.cs" />

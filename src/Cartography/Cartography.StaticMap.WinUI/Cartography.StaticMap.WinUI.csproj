@@ -12,13 +12,13 @@
     <PackageId>Cartography.StaticMap.WinUI</PackageId>
     <Description>Cartography.StaticMap</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 
     <!--Needed for Source Link support -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
   </PropertyGroup>
   
   <ItemGroup>

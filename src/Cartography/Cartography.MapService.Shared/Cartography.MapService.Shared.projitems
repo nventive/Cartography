@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)IMapService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapService.Win.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapService.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapService.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapService.UWP.cs" />

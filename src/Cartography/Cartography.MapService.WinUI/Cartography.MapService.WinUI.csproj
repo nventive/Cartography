@@ -13,13 +13,13 @@
     <PackageTags>cartography;mapservice;mvvm;maui;winui;ios;android</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+    <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 
     <!--Needed for Source Link support -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="GeolocatorService.Uno.WinUI" Version="0.2.0-dev.dotnet6.33" />
