@@ -13,6 +13,15 @@
 		<PackageId>Cartography.MapService</PackageId>
 		<Description>Cartography.MapService</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cartography;mapservice;map;mvvm;uwp;xamarin;ios;android</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+
+		<!--Needed for Source Link support -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,6 +29,11 @@
 		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.41" />
 		<PackageReference Include="Reactive.Annex.Uno" Version="0.5.0-dev.46" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<Import Project="..\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems" Label="Shared" />

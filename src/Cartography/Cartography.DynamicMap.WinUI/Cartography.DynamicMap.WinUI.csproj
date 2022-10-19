@@ -11,9 +11,9 @@
     <PackageId>Cartography.DynamicMap.WinUI</PackageId>
     <Description>Cartography.MapService</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageTags>cartography;dynamicmap;mvvm;maui;winui;ios;android</PackageTags>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+    <PackageTags>cartography;mapservice;map;mvvm;maui;winui;ios;android</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
     <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 
     <!--Needed for Source Link support -->
@@ -30,6 +30,9 @@
     <PackageReference Include="GeolocatorService.Reactive.Uno.WinUI" Version="0.2.0-dev.41" />
     <PackageReference Include="Reactive.Annex.Uno.WinUI" Version="0.5.0-dev.46" />
     <PackageReference Include="Uno.Core" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
