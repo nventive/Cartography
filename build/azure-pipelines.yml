@@ -3,11 +3,6 @@ trigger:
     include:
     - master
 
-resources:
-   containers:
-     - container: windows
-       image: nventive/vs_build-tools:17.1.1
-
 variables:
 - name: NUGET_VERSION
   value: 6.2.0
@@ -30,7 +25,7 @@ variables:
 - name:  InternalKeystore
   value: com.nventive.internal.applicationtemplate.jks
 - name: windowsPoolName
-  value: 'windows 2022'
+  value: 'windows-2022'
 
 stages:
 - stage: Build
@@ -45,7 +40,7 @@ stages:
           GeneratePackageOnBuild: true
 
     pool:
-      name: $(windowsPoolName)
+      vmImage: 'windows-2022'
 
     variables:
     - name: PackageOutputPath # Path where nuget packages will be copied to.
@@ -73,7 +68,7 @@ stages:
   - job: Publish_NuGet_External
 
     pool:
-      name: $(windowsPoolName)
+      vmImage: 'windows-2022'
 
     workspace:
       clean: all # Cleanup the workspace before starting
