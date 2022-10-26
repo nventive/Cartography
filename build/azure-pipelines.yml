@@ -49,8 +49,6 @@ stages:
     workspace:
       clean: all # Cleanup the workspace before starting
 
-    container: windows
-
     steps:
     - template: stage-build.yml
       parameters:
