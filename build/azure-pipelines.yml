@@ -41,7 +41,8 @@ stages:
           GeneratePackageOnBuild: true
 
     pool:
-      vmImage: 'windows-2022'
+      vmImage: 'windows-latest'
+        
 
     variables:
     - name: PackageOutputPath # Path where nuget packages will be copied to.
