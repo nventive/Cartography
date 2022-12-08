@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
-using Nventive.View.Converters;
 
 #if WINDOWS_UWP
 using Windows.UI.Xaml;

@@ -13,6 +13,7 @@
   <ItemGroup>
     <_Globbed_Compile Remove="BlankPage1.xaml.cs" />
     <_Globbed_Compile Remove="Constants.cs" />
+    <_Globbed_Compile Remove="Converters\ConverterBase.cs" />
     <_Globbed_Compile Remove="DynamicMapPage.xaml.cs" />
     <_Globbed_Compile Remove="DynamicMap_FeaturesPage.xaml.cs" />
     <_Globbed_Compile Remove="DynamicMap_MoveSearchPage.xaml.cs" />
