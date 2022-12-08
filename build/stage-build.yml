@@ -14,7 +14,24 @@ steps:
   displayName: 'Install NuGet $(NUGET_VERSION)'
   inputs:
     versionSpec: $(NUGET_VERSION)
-    checkLatest: false
+    checkLatest: 
+    
+- task: MSBuild@1
+  displayName: 'Restore solution packages'
+  inputs:
+    solution: $(Build.SourcesDirectory)/$(SolutionFileName)
+    msbuildLocationMethod: version
+    msbuildVersion: latest
+    msbuildArchitecture: x86
+    msbuildArguments: >
+      /t:restore
+    configuration: $(ApplicationConfiguration)
+    platform: $(ApplicationPlatform)
+    clean: false
+    maximumCpuCount: true
+    restoreNugetPackages: false
+    logProjectEvents: false
+    createLogFile: false
 
 - task: MSBuild@1
   displayName: 'Build solution in $(ApplicationConfiguration) | $(ApplicationPlatform)'
@@ -27,10 +44,10 @@ steps:
     platform: $(ApplicationPlatform)
     clean: false
     maximumCpuCount: true
-    restoreNugetPackages: true
+    restoreNugetPackages: false
     logProjectEvents: false
     createLogFile: false
-    msbuildArguments: /t:restore,build /p:PackageVersion=$(GitVersion.SemVer) # Set the version of the packages, will have no effect on application projects (Heads).
+    msbuildArguments: /p:PackageVersion=$(GitVersion.SemVer) # Set the version of the packages, will have no effect on application projects (Heads).
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifact $(ApplicationConfiguration)'

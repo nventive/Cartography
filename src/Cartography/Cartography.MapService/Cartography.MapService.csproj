@@ -16,11 +16,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GeolocatorService" Version="0.2.0-dev.29" />
-		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.29" />
+		<PackageReference Include="GeolocatorService.Reactive" Version="0.2.0-dev.41" />
 		<PackageReference Include="Reactive.Annex" Version="0.5.0-dev.46" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
-		<PackageReference Include="Xamarin.Build.Download" Version="0.11.0" />
+		<PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
 	</ItemGroup>
 	
 </Project>
