@@ -113,28 +113,25 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Chinook.DynamicMvvm">
-      <Version>0.7.0-dev.77</Version>
+      <Version>0.13.1</Version>
     </PackageReference>
     <PackageReference Include="Chinook.DynamicMvvm.Reactive">
-      <Version>0.7.0-dev.77</Version>
+      <Version>0.13.1</Version>
     </PackageReference>
     <PackageReference Include="Chinook.DynamicMvvm.Uno">
-      <Version>0.7.0-dev.77</Version>
+      <Version>0.13.1</Version>
     </PackageReference>
     <PackageReference Include="Chinook.SectionsNavigation">
-      <Version>0.5.0-dev.73</Version>
+      <Version>0.7.0</Version>
     </PackageReference>
     <PackageReference Include="Chinook.SectionsNavigation.Reactive">
-      <Version>0.5.0-dev.73</Version>
+      <Version>0.7.0</Version>
     </PackageReference>
     <PackageReference Include="Chinook.SectionsNavigation.Uno">
-      <Version>0.5.0-dev.73</Version>
-    </PackageReference>
-    <PackageReference Include="GeolocatorService">
-      <Version>0.2.0-dev.19</Version>
+      <Version>0.7.0</Version>
     </PackageReference>
     <PackageReference Include="GeolocatorService.Reactive">
-      <Version>0.2.0-dev.19</Version>
+      <Version>0.2.0-dev.41</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting">
       <Version>3.1.0</Version>
@@ -157,6 +154,9 @@
     <PackageReference Include="Uno.UI" Version="4.2.6" />
     <PackageReference Include="Uno.UI.RemoteControl" Version="4.2.6" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Uno.Extensions.Logging.OSLog " Version="1.4.0" />
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.11.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Essentials.Interfaces">
       <Version>1.5.3.2</Version>
     </PackageReference>

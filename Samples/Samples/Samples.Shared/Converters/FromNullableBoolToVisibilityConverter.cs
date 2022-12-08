@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 
-#if NETFX_CORE
+#if WINDOWS_UWP
 using Windows.UI.Xaml;
 #elif __ANDROID__ || __IOS__
 using Visibility = Windows.UI.Xaml.Visibility;

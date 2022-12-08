@@ -1,4 +1,4 @@
-﻿#if NETFX_CORE || __IOS__ || __ANDROID__
+﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__
 using System;
 using System.Reactive;
 using System.Reactive.Concurrency;
@@ -20,7 +20,7 @@ using UIKit;
 using Uno.UI;
 #elif __ANDROID__
 using Uno.UI;
-#elif NETFX_CORE
+#elif WINDOWS_UWP
 using System.Windows;
 using Windows.Graphics.Display;
 #endif
@@ -257,7 +257,7 @@ namespace Cartography.StaticMap
 						Scale = ViewHelper.Scale,
 #elif __IOS__
 				Scale = ViewHelper.MainScreenScale,
-#elif NETFX_CORE
+#elif WINDOWS_UWP
 						Scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel,
 #endif
 				Width = (int)mapSize.Width,

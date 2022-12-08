@@ -1,4 +1,4 @@
-﻿#if NETFX_CORE || __ANDROID__ || __IOS__
+﻿#if WINDOWS_UWP || __ANDROID__ || __IOS__
 using System;
 using System.Collections.Generic;
 using System.Globalization;
