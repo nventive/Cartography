@@ -3,6 +3,11 @@ trigger:
     include:
     - master
 
+resources:
+   containers:
+     - container: windows
+       image: nventive/vs_build-tools:17.2.5
+
 variables:
 - name: NUGET_VERSION
   value: 6.2.0
@@ -40,7 +45,7 @@ stages:
           GeneratePackageOnBuild: true
 
     pool:
-      vmImage: 'windows-latest'
+      name: $(windowsPoolName)
         
 
     variables:
@@ -67,7 +72,7 @@ stages:
   - job: Publish_NuGet_External
 
     pool:
-      vmImage: 'windows-2022'
+      name: $(windowsPoolName)
 
     workspace:
       clean: all # Cleanup the workspace before starting
