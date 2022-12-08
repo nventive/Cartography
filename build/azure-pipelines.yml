@@ -30,7 +30,7 @@ variables:
 - name:  InternalKeystore
   value: com.nventive.internal.applicationtemplate.jks
 - name: windowsPoolName
-  value: 'windows-2022'
+  value: 'Windows 2022'
 
 stages:
 - stage: Build
