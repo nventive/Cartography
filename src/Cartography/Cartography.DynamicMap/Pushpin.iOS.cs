@@ -1,5 +1,7 @@
 ﻿#if __IOS__
 
+using System.ComponentModel;
+
 namespace Cartography.DynamicMap
 {
 	[Windows.UI.Xaml.Data.Bindable]
@@ -40,7 +42,11 @@ namespace Cartography.DynamicMap
 		/// is already handled and shouldn't trigger
 		/// additional selection/deselection events (avoid infinite loops).
 		/// </summary>
-		public bool IsSelectionChangeAlreadyHandled { get; set; }
+		[DefaultValue (false)]
+		public bool IsSelectionChangeAlreadyHandled { 
+			get;
+			set; 
+		}
 	}
 }
 #endif
