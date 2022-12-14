@@ -449,8 +449,26 @@ namespace Cartography.DynamicMap
 					OnPushpinsSelected(selectedContent);
 
 					_logger.Info("Selected the pushpins on the map.");
+
+					return;
 				}
-			});
+
+                if (mapAnnotation != null && mapAnnotation.IsSelected && !mapAnnotation.IsSelectionChangeAlreadyHandled)
+                {
+                    // Avoid infinite loops caused by this selection causing the native control to deselect again
+                    mapAnnotation.IsSelectionChangeAlreadyHandled = true;
+
+                    mapAnnotation.IsSelected = false;
+
+                    mapAnnotation.IsSelectionChangeAlreadyHandled = false;
+
+                    var selectedContent = GetSelectedAnnotationsContent();
+
+                    OnPushpinsSelected(selectedContent);
+
+                    _logger.Info("Deselected the pushpins on the map.");
+                }
+            });
 		}
 
 		private void MapControl_DidDeselectAnnotationView(object sender, MKAnnotationViewEventArgs e)
