@@ -8,6 +8,7 @@ using Chinook.DynamicMvvm;
 using Chinook.StackNavigation;
 using Microsoft.Extensions.DependencyInjection;
 using Uno;
+using Windows.UI.Xaml.Controls;
 
 namespace Samples.Presentation
 {
@@ -34,11 +35,15 @@ namespace Samples.Presentation
             await this.GetService<IDispatcherScheduler>().Run(ct2 => action(ct2), ct);
         }
 
+        public void RunOnDispatcher(Action action)
+        {
+            _ = Dispatcher?.ExecuteOnDispatcher(CancellationToken, action);
+        }
+
         void INavigableViewModel.SetView(object view)
         {
 #if WINDOWS_UWP || __IOS__ || __ANDROID__ || __WASM__
-            var frameworkElement = view as Windows.UI.Xaml.FrameworkElement;
-			Dispatcher = new BatchingCoreDispatcherDispatcher(frameworkElement);
+            Dispatcher = new CoreDispatcherDispatcher((Page)view);
 #endif
         }
     }

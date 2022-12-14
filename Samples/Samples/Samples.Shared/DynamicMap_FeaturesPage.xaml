@@ -67,9 +67,28 @@
                     <!-- Selected pushpin value -->
                     <TextBlock Text="{Binding SelectedPushpin}"
                                HorizontalAlignment="Left"
-							   Grid.Column="1"
+                               Grid.Column="1"
                                TextWrapping="Wrap"
-                               Style="{StaticResource Typo02}"/>
+                               Style="{StaticResource Typo02}" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="closest pushpin:"
+                               Margin="0,0,10,0"
+                               Grid.Column="0"
+                               Style="{StaticResource Typo02}" />
+
+                    <!-- Selected pushpin value -->
+                    <TextBlock Text="{Binding Pushpins.Length}"
+                               HorizontalAlignment="Left"
+                               Grid.Column="1"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource Typo02}" />
+                    
                 </Grid>
                 <TextBlock Text="The location service is in error"
 						   VerticalAlignment="Top"
@@ -86,7 +105,7 @@
                            HorizontalAlignment="Left"/>
                 <TextBlock Text="{Binding MessageErrorLocateMe}"
                            Style="{StaticResource Typo02}"
-                           Visibility="{Binding IsLocationEnabled, Converter={StaticResource IsTrueToCollapsed}}"/>
+                           Visibility="{Binding IsLocationEnabled, Converter={StaticResource IsTrueToCollapsed}}" />
             </StackPanel>
 
         </Grid>
@@ -167,6 +186,11 @@
                         Style="{StaticResource MapButton}"
                         Padding="3"
 						Margin="4,0"/>
+                <Button Content="Locate me with Poi"
+                        Command="{Binding LocateMeWithPOI}"
+                        Style="{StaticResource MapButton}"
+                        Padding="3"
+                        Margin="4,0" />
                 <Button Content="Update Viewport"
 						Command="{Binding UpdateViewPort}"
                         Style="{StaticResource MapButton}"

@@ -206,6 +206,12 @@ namespace Samples.Presentation
         }
         #endregion
 
+        public IGeoLocated nearestPushpin
+        {
+            get => this.Get<IGeoLocated>();
+            set => this.Set(value);
+        }
+
         #region Disposable
         // Observe userlocation change.
         private IDisposable ObserveUserLocation()
@@ -330,12 +336,35 @@ namespace Samples.Presentation
             }
         });
 
-        private async Task OnLocateMeSuccess(CancellationToken ct, Geopoint location)
+        public IDynamicCommand LocateMeWithPOI => this.GetCommandFromTask(async ct =>
+        {
+            if (IsLocationEnabled)
+            {
+                try
+                {
+                    var currentLocation = (await _geolocatorService.GetLocation(ct)).Point;
+
+                    await OnLocateMeSuccess(ct, currentLocation, true);
+                    IsLocationEnabled = true;
+                }
+                catch
+                {
+                    OnLocateMeError(ct);
+                }
+
+            }
+            else
+            {
+                OnLocateMeError(ct);
+            }
+        });
+
+        private async Task OnLocateMeSuccess(CancellationToken ct, Geopoint location, bool IsPoiEnabled = false)
         {
             ClearSelectedPushpin();
             MessageErrorLocateMe = "";
 
-            ViewPort = await ComputeMapViewPort(ct, location);
+            ViewPort = await ComputeMapViewPort(ct, location, IsPoiEnabled);
         }
 
         private void OnLocateMeError(CancellationToken ct)
@@ -348,7 +377,7 @@ namespace Samples.Presentation
             SelectedPushpins = null;
         }
 
-        private async Task<MapViewPort> ComputeMapViewPort(CancellationToken ct, Geopoint mapCenter = null)
+        private async Task<MapViewPort> ComputeMapViewPort(CancellationToken ct, Geopoint mapCenter = null, bool LocateMeWithPOI = false)
         {
             var zoomLevel = ZoomLevels.District;
 
@@ -359,11 +388,30 @@ namespace Samples.Presentation
                 zoomLevel = userLocation.ZoomLevel;
             }
 
+            var pushpins = Pushpins;
             var viewPort = new MapViewPort(mapCenter);
+            if (pushpins.Safe().Any() && LocateMeWithPOI)
+            {
+                var closestPushpin = FindClosestPushpin(pushpins, mapCenter);
+                nearestPushpin= closestPushpin;
+                viewPort.PointsOfInterest = new[] { closestPushpin.Coordinates };
+                viewPort.PointsOfInterestPadding = new ViewPortPadding(2, 2);
+            }
+
             viewPort.ZoomLevel = zoomLevel;
             viewPort.IsAnimationDisabled = IsViewPortAnimationDisabled;
 
             return viewPort;
+        }
+
+        private IGeoLocated FindClosestPushpin(IGeoLocated[] pushpins, Geopoint userCoordinates)
+        {
+            var locatedPushping = (IGeoLocated[])pushpins;
+            var closestPushpin = locatedPushping
+                    .OrderBy(pushpin => userCoordinates.Position.GetDistanceTo(pushpin.Coordinates.Position))
+                    .FirstOrDefault();
+
+            return closestPushpin;
         }
 
         private async Task<GeoViewPort> GetUserCoordinates(CancellationToken ct)
