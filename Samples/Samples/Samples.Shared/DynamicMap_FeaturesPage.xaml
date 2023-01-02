@@ -35,6 +35,48 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" Grid.RowSpan="5">
+
+            <!-- Dynamic map -->
+            <!--See Views/Style/MapControl.xaml for the implementation-->
+            <win:Grid>
+                <dynamicMap:MapControl ViewModel="{Binding }"
+									   SelectionMode="Single"
+									   PushpinIconsPositionOrigin="0.5,1"
+									   PushpinIcon="ms-appx:///Assets/Pushpin/inactive.png"
+									   SelectedPushpinIcon="ms-appx:///Assets/Pushpin/active.png"
+									   AutolocateButtonVisibility="Collapsed" />
+            </win:Grid>
+
+            <!--Android || iOS-->
+            <xamarin:Grid>
+                <!--SelectedIconHeight and SelectedIconWidth are only needed on iOS.
+				They must have the exact same dimensions as the normal-scale asset (here, pin_red_selection_base.png)-->
+                <!--See Views/Style/MapControl.xaml for the implementation-->
+                <dynamicMap:MapControl ViewModel="{Binding}"
+									   SelectionMode="Single"
+									   AutolocateButtonVisibility="Collapsed"
+									   dynamicMap:MapControlBehavior.DisableRotation="True"
+									   dynamicMap:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"
+									   dynamicMap:MapControlBehavior.SelectedIconWidth="32"
+									   dynamicMap:MapControlBehavior.SelectedIconHeight="50" />
+            </xamarin:Grid>
+
+            <!--Reticle-->
+            <Rectangle Width="50"
+					   Height="2"
+					   Fill="Black"
+					   IsHitTestVisible="False"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center" />
+            <Rectangle Width="2"
+					   Height="50"
+					   Fill="Black"
+					   IsHitTestVisible="False"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center" />
+        </Grid>
+        
         <StackPanel Grid.Row="0">
             <Button x:Name="ReturnToDynamicMapMenu"
                     Command="{Binding FeatureToDynamicMapMenu}"
@@ -93,47 +135,6 @@
 
         </Grid>
 
-        <Grid Grid.Row="0" Grid.RowSpan="5">
-
-            <!-- Dynamic map -->
-            <!--See Views/Style/MapControl.xaml for the implementation-->
-            <win:Grid>
-                <dynamicMap:MapControl ViewModel="{Binding }"
-									   SelectionMode="Single"
-									   PushpinIconsPositionOrigin="0.5,1"
-									   PushpinIcon="ms-appx:///Assets/Pushpin/inactive.png"
-									   SelectedPushpinIcon="ms-appx:///Assets/Pushpin/active.png"
-									   AutolocateButtonVisibility="Collapsed" />
-            </win:Grid>
-
-            <!--Android || iOS-->
-            <xamarin:Grid>
-                <!--SelectedIconHeight and SelectedIconWidth are only needed on iOS.
-				They must have the exact same dimensions as the normal-scale asset (here, pin_red_selection_base.png)-->
-                <!--See Views/Style/MapControl.xaml for the implementation-->
-                <dynamicMap:MapControl ViewModel="{Binding}"
-									   SelectionMode="Single"
-									   AutolocateButtonVisibility="Collapsed"
-									   dynamicMap:MapControlBehavior.DisableRotation="True"
-									   dynamicMap:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"
-									   dynamicMap:MapControlBehavior.SelectedIconWidth="32"
-									   dynamicMap:MapControlBehavior.SelectedIconHeight="50" />
-            </xamarin:Grid>
-
-            <!--Reticle-->
-            <Rectangle Width="50"
-					   Height="2"
-					   Fill="Black"
-					   IsHitTestVisible="False"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center" />
-            <Rectangle Width="2"
-					   Height="50"
-					   Fill="Black"
-					   IsHitTestVisible="False"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center" />
-        </Grid>
 
         <Grid VerticalAlignment="Bottom"
 			  HorizontalAlignment="Stretch"
