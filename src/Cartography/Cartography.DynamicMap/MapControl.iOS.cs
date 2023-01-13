@@ -197,31 +197,40 @@ namespace Cartography.DynamicMap
 
 		protected override ZoomLevel GetZoomLevel()
 		{
-            MKCoordinateRegion region = _internalMapView.Region;
+   //         MKCoordinateRegion region = _internalMapView.Region;
 
-            double longitudeDelta = region.Span.LongitudeDelta;
-            double mapWidthInPixels = Bounds.Size.Width;
-            double zoomScale = longitudeDelta * MERCATOR_RADIUS * Math.PI / (180.0 * mapWidthInPixels);
-            double zoomer = MAX_GOOGLE_LEVELS - Math.Log(zoomScale, 2.0);
-            if (zoomer < 0) zoomer = 0;
-            //  zoomer = round(zoomer);
-            return new ZoomLevel(zoomer);
+   //         double longitudeDelta = region.Span.LongitudeDelta;
+   //         double mapWidthInPixels = Bounds.Size.Width;
+   //         double zoomScale = longitudeDelta * MERCATOR_RADIUS * Math.PI / (180.0 * mapWidthInPixels);
 
-            //// https://github.com/jdp-global/MKMapViewZoom/blob/master/MKMapView%2BZoomLevel.m
+   //         double zoomExponent = Math.Log(zoomScale, 2);
+   //         double zoomLevel = MAX_GOOGLE_LEVELS - zoomExponent;
+   //         if (zoomLevel < 0)
+   //             zoomLevel = 0;
+			//else
+   //             zoomLevel = Math.Round(zoomLevel, 1);
+   //         return new ZoomLevel(zoomLevel);
 
-            //MKCoordinateRegion region = _internalMapView.Region;
+			//// https://github.com/jdp-global/MKMapViewZoom/blob/master/MKMapView%2BZoomLevel.m
 
-            //double centerPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude);
-            //double topLeftPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude - region.Span.LongitudeDelta / 2);
+			MKCoordinateRegion region = _internalMapView.Region;
 
-            //double scaledMapWidth = (centerPixelX - topLeftPixelX) * 2;
-            //var mapSizeInPixels = Bounds.Size;
-            //double zoomScale = scaledMapWidth / mapSizeInPixels.Width;
-            //double zoomExponent = Math.Log(zoomScale) / Math.Log(2);
-            //double zoomLevel = 20 - zoomExponent;
+			double centerPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude);
+			double topLeftPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude - region.Span.LongitudeDelta / 2);
 
-            //return new ZoomLevel(zoomLevel);
-        }
+			double scaledMapWidth = (centerPixelX - topLeftPixelX) * 2;
+			var mapSizeInPixels = Bounds.Size;
+			double zoomScale = scaledMapWidth / mapSizeInPixels.Width;
+			double zoomExponent = Math.Log(zoomScale) / Math.Log(2);
+			double zoomLevel = 20 - zoomExponent;
+
+            if (zoomLevel < 0)
+                zoomLevel = 0;
+            else
+                zoomLevel = Math.Round(zoomLevel, 1);
+
+            return new ZoomLevel(zoomLevel);
+		}
 
 		protected override async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
 		{
