@@ -1,16 +1,14 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
-		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
-		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;monoandroid12.0;uap10.0.19041</TargetFrameworks>
-		<LangVersion>10</LangVersion>
+		<TargetFrameworks>net6.0-windows10.0.18362;netstandard2.0;net6.0-ios;net6.0-macos;net6.0-maccatalyst;net6.0-android</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Cartography.MapService</RootNamespace>
 		<Authors>nventive</Authors>
 		<Company>nventive</Company>
-		<AssemblyName>Cartography.MapService</AssemblyName>
-		<PackageId>Cartography.MapService</PackageId>
+		<AssemblyName>Cartography.MapService.Uno.WinUI</AssemblyName>
+		<PackageId>Cartography.MapService.Uno.WinUI</PackageId>
 		<Description>Cartography.MapService</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
@@ -33,6 +31,6 @@
 		<!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
-	
+
 	<Import Project="..\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems" Label="Shared" />
 </Project>
