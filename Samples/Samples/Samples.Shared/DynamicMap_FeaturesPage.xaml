@@ -16,8 +16,8 @@
         <ResourceDictionary>
             <!--To make sure this works on iOS, these assets must exist not only with normal scale, but also 200 and 300 scale.-->
             <converters:FromPushpinEntityToStringConverter x:Key="PushpinEntityToMapPin"
-													   UnselectedValue="ms-appx:///Assets/Pushpin/inactive.png"
-													   SelectedValue="ms-appx:///Assets/Pushpin/active.png"/>
+                                                           UnselectedValue="ms-appx:///Assets/Pushpin/inactive.png"
+                                                           SelectedValue="ms-appx:///Assets/Pushpin/active.png"/>
 
             <converters:FromNullableBoolToVisibilityConverter x:Key="IsTrueToVisible" />
 
@@ -114,8 +114,10 @@
 									   AutolocateButtonVisibility="Collapsed"
 									   dynamicMap:MapControlBehavior.DisableRotation="True"
 									   dynamicMap:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"
-									   dynamicMap:MapControlBehavior.SelectedIconWidth="32"
-									   dynamicMap:MapControlBehavior.SelectedIconHeight="50" />
+                                       dynamicMap:MapControlBehavior.IconWidth="36"
+                                       dynamicMap:MapControlBehavior.IconHeight="40"
+                                       dynamicMap:MapControlBehavior.SelectedIconWidth="72"
+									   dynamicMap:MapControlBehavior.SelectedIconHeight="80" />
             </xamarin:Grid>
 
             <!--Reticle-->
