@@ -60,6 +60,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\LocationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\MapServiceViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\UnoSample\BrokenMapPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\UnoSample\WorkingMapPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
@@ -71,6 +73,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)StaticMapPage.xaml.cs">
       <DependentUpon>StaticMapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UnoSample\BrokenMapPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnoSample\WorkingMapPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\StaticMapPageViewModel.cs" />
   </ItemGroup>
@@ -104,6 +108,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)StaticMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UnoSample\BrokenMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UnoSample\WorkingMapPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

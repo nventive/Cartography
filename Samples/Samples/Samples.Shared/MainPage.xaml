@@ -30,6 +30,16 @@
                     Style="{StaticResource BasicButtonStyle}"
                     Content="Static Map"
                     Margin="10"/>
+            <Button x:Name="WorkingMap"
+                    Command="{Binding NavigationToWorkingMap}"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Working Map"
+                    Margin="10" />
+            <Button x:Name="BrokenMap"
+                    Command="{Binding NavigationToBrokenMap}"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Broken Map"
+                    Margin="10" />
         </StackPanel>
     </Grid>
 </Page>

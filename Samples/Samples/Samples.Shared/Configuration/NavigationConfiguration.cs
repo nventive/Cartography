@@ -32,6 +32,8 @@ namespace Samples.Views
             { typeof(DynamicMap_FeaturesPageViewModel), typeof(DynamicMap_FeaturesPage) },
             { typeof(DynamicMap_MoveSearchPageViewModel), typeof(DynamicMap_MoveSearchPage) },
             { typeof(MapServiceViewModel), typeof(MapServicePage) },
+            { typeof(BrokenMapPageViewModel), typeof(BrokenMapPage) },
+            { typeof(WorkingMapPageViewModel), typeof(WorkingMapPage) },
         };
 
         private static void DisableAnimations(FrameSectionsNavigator frameSectionsNavigator)

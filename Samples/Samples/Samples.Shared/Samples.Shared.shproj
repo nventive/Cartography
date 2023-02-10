@@ -31,7 +31,11 @@
     <_Globbed_Compile Remove="Presentation\MapServiceViewModel.cs" />
     <_Globbed_Compile Remove="Presentation\StaticMapPageViewModel.cs" />
     <_Globbed_Compile Remove="Presentation\StaticPageViewModel.cs" />
+    <_Globbed_Compile Remove="Presentation\UnoSample\BrokenMapPageViewModel.cs" />
+    <_Globbed_Compile Remove="Presentation\UnoSample\WorkingMapPageViewModel.cs" />
     <_Globbed_Compile Remove="StaticMapPage.xaml.cs" />
+    <_Globbed_Compile Remove="UnoSample\BrokenMapPage.xaml.cs" />
+    <_Globbed_Compile Remove="UnoSample\WorkingMapPage.xaml.cs" />
     <_Globbed_Compile Remove="ViewModel.cs" />
     <_Globbed_Compile Remove="ViewModel\DynamicMapViewModel.cs" />
     <_Globbed_Compile Remove="ViewModel\PermissionViewModel.cs" />
@@ -47,6 +51,8 @@
     <_Globbled_Page Remove="DynamicPageService.xaml" />
     <_Globbled_Page Remove="LocationPage.xaml" />
     <_Globbled_Page Remove="StaticMapPage.xaml" />
+    <_Globbled_Page Remove="UnoSample\BrokenMapPage.xaml" />
+    <_Globbled_Page Remove="UnoSample\WorkingMapPage.xaml" />
     <_Globbled_Page Remove="Views\Styles\StaticMapControl.xaml" />
     <_Globbled_Page Remove="Views\Style\MapControl.xaml" />
     <_Globbled_Page Remove="Views\Style\StaticMapControl.xaml" />

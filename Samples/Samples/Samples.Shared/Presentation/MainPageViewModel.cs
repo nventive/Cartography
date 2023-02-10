@@ -36,5 +36,15 @@ namespace Samples.Presentation
         {
             await _sectionsNavigator.NavigateAndClear(ct, () => new StaticMapPageViewModel());
         });
+
+        public IDynamicCommand NavigationToWorkingMap => this.GetCommandFromTask(async ct =>
+        {
+            await _sectionsNavigator.NavigateAndClear(ct, () => new WorkingMapPageViewModel());
+        });
+
+        public IDynamicCommand NavigationToBrokenMap => this.GetCommandFromTask(async ct =>
+        {
+            await _sectionsNavigator.NavigateAndClear(ct, () => new BrokenMapPageViewModel());
+        });
     }
 }

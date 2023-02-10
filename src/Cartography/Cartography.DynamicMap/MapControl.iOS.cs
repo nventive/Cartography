@@ -14,6 +14,7 @@ using CoreGraphics;
 using CoreLocation;
 using Foundation;
 using GeolocatorService;
+using Google.Maps;
 using MapKit;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -197,31 +198,40 @@ namespace Cartography.DynamicMap
 
 		protected override ZoomLevel GetZoomLevel()
 		{
-            MKCoordinateRegion region = _internalMapView.Region;
+			var statusbar = (int)UIApplication.SharedApplication.StatusBarFrame.Height;
+			MKCoordinateRegion region = _internalMapView.Region;
 
-            double longitudeDelta = region.Span.LongitudeDelta;
-            double mapWidthInPixels = Bounds.Size.Width;
-            double zoomScale = longitudeDelta * MERCATOR_RADIUS * Math.PI / (180.0 * mapWidthInPixels);
-            double zoomer = MAX_GOOGLE_LEVELS - Math.Log(zoomScale, 2.0);
-            if (zoomer < 0) zoomer = 0;
-            //  zoomer = round(zoomer);
-            return new ZoomLevel(zoomer);
+			//double longitudeDelta = region.Span.LongitudeDelta;
+			double centerPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude);
+			double leftPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude - region.Span.LongitudeDelta / 2);
 
-            //// https://github.com/jdp-global/MKMapViewZoom/blob/master/MKMapView%2BZoomLevel.m
+			double scaledMapWidth = (centerPixelX - leftPixelX) * 2;
+			double mapWidthInPixels = Bounds.Size.Width;
+			double zoomScale = scaledMapWidth / mapWidthInPixels;
+			double zoomExponent = Math.Log(zoomScale, 2.0);
+			double zoomer = MAX_GOOGLE_LEVELS - zoomExponent;
+			return new ZoomLevel(zoomer);
 
-            //MKCoordinateRegion region = _internalMapView.Region;
-
-            //double centerPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude);
-            //double topLeftPixelX = MapHelper.LongitudeToPixelSpaceX(region.Center.Longitude - region.Span.LongitudeDelta / 2);
-
-            //double scaledMapWidth = (centerPixelX - topLeftPixelX) * 2;
-            //var mapSizeInPixels = Bounds.Size;
-            //double zoomScale = scaledMapWidth / mapSizeInPixels.Width;
-            //double zoomExponent = Math.Log(zoomScale) / Math.Log(2);
-            //double zoomLevel = 20 - zoomExponent;
-
-            //return new ZoomLevel(zoomLevel);
-        }
+			//INTERNET IMPLANTATION OF ZOOMLEVEL IMPLEMENTATION WITH ROTATION ENABLED
+			// function returns current zoom of the map
+			//var angleCamera = _internalMapView.Camera.Heading;
+			//if (angleCamera > 270) {
+			//	angleCamera = 360 - angleCamera;
+			//}
+			//         else if (angleCamera > 90) {
+			//	angleCamera = Math.Abs(angleCamera - 180);
+			//}
+			//var angleRad = Math.PI * angleCamera / 180; // map rotation in radians
+			//var width = _internalMapView.Frame.Size.Width;
+			//var height = _internalMapView.Frame.Size.Height;
+			//var heightOffset = statusbar;
+			//// the offset (status bar height) which is taken by MapKit 
+			//// into consideration to calculate visible area height.
+			//// calculating Longitude span corresponding to normal 
+			//// (non-rotated) width
+			//var spanStraight = width * _internalMapView.Region.Span.LongitudeDelta / (width * Math.Cos(angleRad) + (height + heightOffset) * Math.Sin(angleRad));
+			//return new ZoomLevel(Math.Log((360 * ((width / 128) / spanStraight)), 2));
+		}
 
 		protected override async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
 		{
