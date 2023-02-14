@@ -159,6 +159,7 @@ namespace Cartography.DynamicMap
                         // Moves the image up, so that the bottom of the pins points to the correct position.
                         var yAxisPoint = (biggerHeight / 2);
                         view.CenterOffset = new System.Drawing.PointF(0, -yAxisPoint);
+                        var parameterString = selectedIconWidth + "&" + iconWidth + "|" + selectedIconHeight + "&" + iconHeight;
 
 
                         // This fixes an issue that causes the image of recycled pins to not be updated properly.
@@ -189,8 +190,10 @@ namespace Cartography.DynamicMap
                                     Margin = new Thickness(0, iconMargin, 0,0),
                                 }.Binding("Visibility", new Binding { Path = "IsSelected", Converter = TrueToCollapsed}),
                             }
-                        };
+                        }.Binding("Frame", new Binding { Path = "IsSelected", Converter = new PinFrameValueConverter(), ConverterParameter = parameterString });
                     };
+
+
                 }
 #endif
             }
@@ -221,6 +224,29 @@ namespace Cartography.DynamicMap
             {
                 _logger.Warn("The ConvertBack method is not implemented.");
 
+                throw new NotImplementedException();
+            }
+        }
+
+        public class PinFrameValueConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, string language)
+            {
+                var isSelected = (bool)value;
+                var parameterString = parameter as string;
+                var parameterSize = parameterString.Split('|');
+                var selectedWidth = int.Parse(parameterSize[0].Split('&')[0]);
+                var iconWidth = int.Parse(parameterSize[0].Split('&')[1]);
+                var selectedHeight = int.Parse(parameterSize[1].Split('&')[0]);
+                var iconHeight = int.Parse(parameterSize[1].Split('&')[1]);
+
+                return isSelected
+                    ? new System.Drawing.RectangleF(0, 0, selectedWidth, selectedHeight)
+                    : new System.Drawing.RectangleF(0, 0, iconWidth, iconHeight);
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, string language)
+            {
                 throw new NotImplementedException();
             }
         }
