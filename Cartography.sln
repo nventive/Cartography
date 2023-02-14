@@ -611,8 +611,12 @@ Global
 		SolutionGuid = {A7CE3663-C71E-406C-B397-2EC8038C9771}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{09933a00-6dd0-4027-8310-29d9acf07537}*SharedItemsImports = 4
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{409f6e1d-0878-43dd-b984-92df1b13d58e}*SharedItemsImports = 4
 		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{4db7fcc7-e1f7-472a-bc13-71f02cf9da60}*SharedItemsImports = 13
 		src\Cartography\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems*{5271758b-f2f6-4cdd-9124-a97c2631b54c}*SharedItemsImports = 13
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{5d877d72-cd00-48d4-8d31-543bb08c04ea}*SharedItemsImports = 4
+		Samples\Samples\Samples.Shared\Samples.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
 		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{8b87f06e-c6c5-4d01-a329-a0f91664474b}*SharedItemsImports = 5
 		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{90bd779b-bf4f-4949-b0b1-c31da35b94f7}*SharedItemsImports = 5
 		src\Cartography\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems*{dc40799a-6439-4115-87e3-9ca885e5c299}*SharedItemsImports = 13
