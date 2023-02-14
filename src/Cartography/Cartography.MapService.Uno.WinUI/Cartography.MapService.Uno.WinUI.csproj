@@ -10,6 +10,7 @@
 		<AssemblyName>Cartography.MapService.Uno.WinUI</AssemblyName>
 		<PackageId>Cartography.MapService.Uno.WinUI</PackageId>
 		<Description>Cartography.MapService</Description>
+		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
 
