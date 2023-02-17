@@ -168,6 +168,8 @@ namespace Cartography.DynamicMap
 
                         return new Grid
                         {
+                            Height = iconHeight,
+                            Width = iconWidth,
                             Frame = new System.Drawing.RectangleF(0, 0, biggerWidth, biggerHeight),
                             ClipsToBounds = true,
                             Children =
