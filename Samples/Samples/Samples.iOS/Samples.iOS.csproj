@@ -159,7 +159,7 @@
     <PackageReference Include="Xamarin.Essentials.Interfaces">
       <Version>1.5.3.2</Version>
     </PackageReference>
-  </ItemGroup> 
+  </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
@@ -177,6 +177,12 @@
       <Project>{0b1da980-496d-47c9-acd5-592c91b20828}</Project>
       <Name>Cartography.StaticMap</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Assets\Pushpin\active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Assets\Pushpin\inactive.png" />
   </ItemGroup>
   <Import Project="..\Samples.Shared\Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

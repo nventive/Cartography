@@ -161,17 +161,15 @@ namespace Cartography.DynamicMap
                         view.CenterOffset = new System.Drawing.PointF(0, -yAxisPoint);
                         var parameterString = selectedIconWidth + "&" + iconWidth + "|" + selectedIconHeight + "&" + iconHeight;
 
-
                         // This fixes an issue that causes the image of recycled pins to not be updated properly.
                         var selectedImage = imageSelector.Convert(pushpin.Content, typeof(string), pushpin.Content, CultureInfo.CurrentUICulture.ToString()).ToString();
                         var nonSelectedImage = imageSelector.Convert(pushpin.Content, typeof(string), null, CultureInfo.CurrentUICulture.ToString()).ToString();
 
                         return new Grid
                         {
-                            Height = iconHeight,
-                            Width = iconWidth,
+                            //Height = iconHeight,
+                            //Width = iconWidth,
                             Frame = new System.Drawing.RectangleF(0, 0, biggerWidth, biggerHeight),
-                            ClipsToBounds = true,
                             Children =
                             {
                                 new Image
@@ -192,8 +190,9 @@ namespace Cartography.DynamicMap
                                     Margin = new Thickness(0, iconMargin, 0,0),
                                 }.Binding("Visibility", new Binding { Path = "IsSelected", Converter = TrueToCollapsed}),
                             }
-                        }.Binding("Frame", new Binding { Path = "IsSelected", Converter = new PinFrameValueConverter(), ConverterParameter = parameterString });
+                        };
                     };
+                        //.Binding("Frame", new Binding { Path = "IsSelected", Converter = new PinFrameValueConverter(), ConverterParameter = parameterString });
 
 
                 }
