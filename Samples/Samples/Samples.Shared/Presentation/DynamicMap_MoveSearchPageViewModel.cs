@@ -112,11 +112,11 @@ namespace Samples.Presentation
 
         private IDisposable ObserveViewPort()
         {
-            return this.GetProperty(x => x.ViewPort).GetAndObserve().Subscribe(UpdatePushpins);
+            return this.GetProperty(x => x.ViewPortCoordinates).GetAndObserve().Subscribe(UpdatePushpins);
 
             // When Viewport change load new set of Pushpin.
-            void UpdatePushpins(MapViewPort viewPort){
-                Pushpins = GetPushpins(ViewPortCoordinates);
+            void UpdatePushpins(MapViewPortCoordinates viewPortCoordinates){
+                Pushpins = GetPushpins(viewPortCoordinates);
             }
         }
 

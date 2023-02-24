@@ -470,11 +470,12 @@ namespace Cartography.DynamicMap
 			// Source to View
 			return viewPort
 				.Where(t => t != null)
-				.SelectManyDisposePrevious(
+                .SelectManyDisposePrevious(
 					async (viewport, ct) =>
 					{
-						await TrySetViewPort(ct, component.ViewPort);
-					},
+                        await TrySetViewPort(ct, component.ViewPort);
+                        component.ViewPortCoordinates = GetViewPortCoordinates();
+                    },
 					GetDispatcherScheduler())
 				.Subscribe(_ => { }, e => _logger.Error(() => $"There was an issue syncing the view port from '{component}'", e));
 		}
