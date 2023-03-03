@@ -14,6 +14,7 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.Views;
+using Android.Widget;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -27,6 +28,8 @@ namespace Cartography.DynamicMap
 {
 	public partial class MapControlBase
 	{
+		private const string COMPASS_TAG = "GoogleMapCompass";
+
 		private GoogleMapView _internalMapView;
 
 		private Thickness _padding;
@@ -36,6 +39,7 @@ namespace Cartography.DynamicMap
 		private BitmapDescriptor _icon;
 		private BitmapDescriptor _selectedIcon;
 		private MapReadyCallback _callback;
+		private View _compass;
 
 		/// <summary>
 		/// Sets the selector that will be used to update the marker. This will get 
@@ -47,6 +51,39 @@ namespace Cartography.DynamicMap
 		/// (UseIcons && PushpinIconsMarkerUpdater)? -> UpdateMarker -> MarkerUpdater?
 		/// </remarks>
 		public Action<Pushpin, Marker> MarkerUpdater { get; set; }
+
+		/// <summary>
+		/// Handles margin for the compass icon
+		/// </summary>
+		public Thickness CompassMargin
+		{
+			get
+			{
+				if (_compass == null)
+				{
+					_compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
+				}
+
+				RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
+
+				return new Thickness(rlp.LeftMargin, rlp.TopMargin, rlp.RightMargin, rlp.BottomMargin);
+			}
+
+			set
+			{
+				if (_compass == null)
+				{
+					_compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
+				}
+
+				RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
+				rlp.TopMargin = (int)value.Top;
+				rlp.RightMargin = (int)value.Right;
+				rlp.LeftMargin = (int)value.Left;
+				rlp.BottomMargin = (int)value.Bottom;
+			}
+		}
+
 
 		/// <summary>
 		/// Enables multiple selected pins
