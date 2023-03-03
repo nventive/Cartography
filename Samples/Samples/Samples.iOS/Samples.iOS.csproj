@@ -159,7 +159,7 @@
     <PackageReference Include="Xamarin.Essentials.Interfaces">
       <Version>1.5.3.2</Version>
     </PackageReference>
-  </ItemGroup> 
+  </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
@@ -169,7 +169,7 @@
       <Project>{6abe0223-31de-46a3-9351-00e34fc9b8ff}</Project>
       <Name>Cartography.DynamicMap</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.MapService\Cartography.MapService.csproj">
+    <ProjectReference Include="..\..\..\src\Cartography\Cartography.MapService\Cartography.MapService.Uno.csproj">
       <Project>{90bd779b-bf4f-4949-b0b1-c31da35b94f7}</Project>
       <Name>Cartography.MapService</Name>
     </ProjectReference>

@@ -10,6 +10,7 @@
 		<AssemblyName>Cartography.MapService.Uno.WinUI</AssemblyName>
 		<PackageId>Cartography.MapService.Uno.WinUI</PackageId>
 		<Description>Cartography.MapService</Description>
+		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
 
@@ -21,7 +22,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GeolocatorService" Version="0.2.0-dev.41" />
+		<PackageReference Include="GeolocatorService" Version="0.2.0-dev.dotnet6.33" />
 		<PackageReference Include="Reactive.Annex" Version="0.5.0-dev.46" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
 		<PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
