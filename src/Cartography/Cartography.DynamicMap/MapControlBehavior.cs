@@ -45,7 +45,7 @@ namespace Cartography.DynamicMap
                 map.RotateEnabled = !disableRotation;
 #pragma warning restore 618
 #elif __ANDROID__
-				//TODO Android
+				map.IsRotateGestureEnabled = !disableRotation;
 #endif
             });
         }
