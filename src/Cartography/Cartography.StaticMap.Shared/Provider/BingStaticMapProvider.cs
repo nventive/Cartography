@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__
+﻿#if !NETSTANDARD2_0
 using System;
 using System.Text;
 using System.Threading;

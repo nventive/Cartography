@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__
+﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__ || NET6_0_OR_GREATER
 using System.Threading;
 using System.Threading.Tasks;
 

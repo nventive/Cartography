@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Uno.Extensions;
 using Uno.Logging;
+#if NET6_0_OR_GREATER
+using Microsoft.UI.Xaml.Media;
+#else
 using Windows.UI.Xaml.Media;
+#endif
 #if WINDOWS_UWP
 using Windows.UI.Xaml.Media.Imaging;
 #endif

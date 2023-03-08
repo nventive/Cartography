@@ -9,5 +9,17 @@
     <Import_RootNamespace>Cartography.StaticMap.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)IStaticMapComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\AppleStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\BingStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleSdkStaticMapProvider.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleSdkStaticMapProvider.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\IStaticMapProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Provider\StaticMapParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\MapHelper.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\MapViewPort.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\ZoomLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticMapCore\ZoomLevels.cs" />
   </ItemGroup>
 </Project>

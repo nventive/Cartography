@@ -9,7 +9,11 @@ using Microsoft.Extensions.Logging;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
+#if NET6_0_OR_GREATER
+using Microsoft.UI.Xaml.Media;
+#else
 using Windows.UI.Xaml.Media;
+#endif
 
 namespace Cartography.StaticMap.Provider
 {
