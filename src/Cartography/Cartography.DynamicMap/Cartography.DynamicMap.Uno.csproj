@@ -49,6 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="MapControlItem.UWP.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	  <None Update="UserLocationMarker.UWP.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
@@ -62,5 +66,7 @@
 	    <Version>117.0.1.5</Version>
 	  </PackageReference>
 	</ItemGroup>
+
+	<Import Project="..\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems" Label="Shared" />
 
 </Project>

@@ -755,7 +755,6 @@ Global
 		src\Cartography\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems*{6abe0223-31de-46a3-9351-00e34fc9b8ff}*SharedItemsImports = 5
 		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{8b87f06e-c6c5-4d01-a329-a0f91664474b}*SharedItemsImports = 5
 		src\Cartography\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems*{8d9574fd-4d1c-4755-8da1-b03e486bdb81}*SharedItemsImports = 5
-		src\Cartography\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems*{90bd779b-bf4f-4949-b0b1-c31da35b94f7}*SharedItemsImports = 5
 		src\Cartography\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems*{a3557daa-55ef-4e49-9b94-81b0a1af17b1}*SharedItemsImports = 5
 		src\Cartography\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems*{dc40799a-6439-4115-87e3-9ca885e5c299}*SharedItemsImports = 13
 	EndGlobalSection
