@@ -36,7 +36,7 @@ using Cartography.DynamicMap
 
 #### **DynamicMap Control**
 
-- Control can be added to your map : See [DynamicMapControl](Documentation/DynamicMapControl)
+- Control can be added to your map : See [DynamicMapControl](Documentation/DynamicMapControl.md)
 
 &nbsp;
 ## **StaticMap**
