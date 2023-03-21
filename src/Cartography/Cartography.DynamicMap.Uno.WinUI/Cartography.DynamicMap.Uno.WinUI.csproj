@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
 		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
-		<TargetFrameworks>net6.0-windows10.0.18362;net6.0-ios;net6.0-android;</TargetFrameworks>
+		<TargetFrameworks>net6.0-ios;net6.0-android;</TargetFrameworks>
 		<LangVersion>10</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
@@ -38,6 +38,7 @@
 	<ItemGroup>
 		<!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="Xamarin.Google.iOS.Maps" Version="6.0.1.1" />
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22621.28" Condition="'$(TargetFramework)'=='net6.0-windows10.0.18362'" />
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22621.28" Condition="'$(TargetFramework)'=='net6.0-windows10.0.18362'" />
 	</ItemGroup>
@@ -71,6 +72,12 @@
 		<PackageReference Include="Xamarin.GooglePlayServices.Maps">
 			<Version>117.0.1.5</Version>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+	  <PackageReference Include="Xamarin.GooglePlayServices.Maps">
+	    <Version>117.0.1.5</Version>
+	  </PackageReference>
 	</ItemGroup>
 
 	<Import Project="..\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems" Label="Shared" />

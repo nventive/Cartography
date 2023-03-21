@@ -18,8 +18,13 @@ using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
 using Uno.Logging;
 using Windows.Devices.Geolocation;
+#if NET6_0_OR_GREATER
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+#else
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+#endif
 
 namespace Cartography.DynamicMap
 {
@@ -329,6 +334,6 @@ namespace Cartography.DynamicMap
 
 			_logger.Info("Updated the pushpins.");
 		}
-	}
+    }
 }
 #endif

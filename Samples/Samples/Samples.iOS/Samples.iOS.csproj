@@ -165,7 +165,7 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.DynamicMap\Cartography.DynamicMap.csproj">
+    <ProjectReference Include="..\..\..\src\Cartography\Cartography.DynamicMap\Cartography.DynamicMap.Uno.csproj">
       <Project>{6abe0223-31de-46a3-9351-00e34fc9b8ff}</Project>
       <Name>Cartography.DynamicMap</Name>
     </ProjectReference>

@@ -609,9 +609,9 @@ namespace Cartography.DynamicMap
 
 		TaskCompletionSource<bool> _viewLayedOut = new TaskCompletionSource<bool>();
 
-		protected override void OnLayoutCore(bool changed, int left, int top, int right, int bottom)
+		protected override void OnLayoutCore(bool changed, int left, int top, int right, int bottom, bool isLocalRequest)
 		{
-			base.OnLayoutCore(changed, left, top, right, bottom);
+			base.OnLayoutCore(changed, left, top, right, bottom, true);
 
 			_viewLayedOut.TrySetResult(true);
 		}

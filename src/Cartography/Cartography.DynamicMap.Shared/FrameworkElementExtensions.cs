@@ -10,6 +10,9 @@ using Windows.UI.Xaml;
 #if WINDOWS_UWP
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+#elif NET6_0_OR_GREATER
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Data;
 #elif __ANDROID__ || __IOS__ || __WASM__
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
@@ -78,7 +81,12 @@ namespace Cartography.DynamicMap
 		{
 			var dependencyProperty = GetDependencyProperty(element, property);
 			var path = new PropertyPath(propertyPath.Replace("].[", "]["));
-			var binding = new Windows.UI.Xaml.Data.Binding { Path = path, Converter = Windows.UI.Xaml.ResourceHelper.FindConverter(converter) };
+
+#if NET6_0_OR_GREATER
+			var binding = new Microsoft.UI.Xaml.Data.Binding { Path = path, Converter = Microsoft.UI.Xaml.ResourceHelper.FindConverter(converter) };
+#else
+            var binding = new Windows.UI.Xaml.Data.Binding { Path = path, Converter = Windows.UI.Xaml.ResourceHelper.FindConverter(converter) };
+#endif
 
 			(element as IDependencyObjectStoreProvider).Store.SetBinding(dependencyProperty, binding);
 
@@ -87,7 +95,17 @@ namespace Cartography.DynamicMap
 
 		public static T Binding<T>(this T element, string property, string propertyPath, object source, BindingMode mode) where T : DependencyObject
 		{
+#if NET6_0_OR_GREATER
 			return element.Binding(property,
+				new Binding()
+				{
+					Path = propertyPath,
+					Source = source,
+					Mode = mode
+				}
+			);
+#else
+            return element.Binding(property,
 				new Windows.UI.Xaml.Data.Binding()
 				{
 					Path = propertyPath,
@@ -95,6 +113,7 @@ namespace Cartography.DynamicMap
 					Mode = mode
 				}
 			);
+#endif
 		}
 
 		public static T Binding<T>(this T element, string property, BindingBase binding) where T : DependencyObject
@@ -180,31 +199,53 @@ namespace Cartography.DynamicMap
 		public static T Binding<T>(this T element, string property, string propertyPath) where T : DependencyObject
 		{
 			var path = new PropertyPath(propertyPath.Replace("].[", "]["));
-			var binding = new Windows.UI.Xaml.Data.Binding { Path = path };
+#if NET6_0_OR_GREATER
+			var binding = new Binding { Path = path };
+#else
+            var binding = new Windows.UI.Xaml.Data.Binding { Path = path };
+#endif
 
 			return element.Binding(property, binding);
 		}
 
+#if NET6_0_OR_GREATER
+		public static Microsoft.UI.Xaml.Documents.Run Binding(
+			this Microsoft.UI.Xaml.Documents.Run element,
+			string property,
+			string propertyPath
+		)
+#else
 		public static Windows.UI.Xaml.Documents.Run Binding(
 			this Windows.UI.Xaml.Documents.Run element,
 			string property,
 			string propertyPath
 		)
-		{
-			propertyPath = propertyPath.Replace("].[", "][");
+#endif
+        {
+            propertyPath = propertyPath.Replace("].[", "][");
 
 			if (property == "Text")
 			{
 				var templateString = "<Run xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" Text=\"{{Binding {0}}}\" />";
 
-				return (Windows.UI.Xaml.Documents.Run)Windows.UI.Xaml.Markup.XamlReader.Load(templateString.InvariantCultureFormat(propertyPath));
+#if NET6_0_OR_GREATER
+				return (Microsoft.UI.Xaml.Documents.Run)Microsoft.UI.Xaml.Markup.XamlReader.Load(templateString.InvariantCultureFormat(propertyPath));
+#else
+                return (Windows.UI.Xaml.Documents.Run)Windows.UI.Xaml.Markup.XamlReader.Load(templateString.InvariantCultureFormat(propertyPath));
+#endif
+
 			}
 			else
 			{
 				var path = new PropertyPath(propertyPath);
-				var binding = new Windows.UI.Xaml.Data.Binding { Path = path };
 
-				var dependencyProperty = GetDependencyProperty(element, property);
+#if NET6_0_OR_GREATER
+                var binding = new Binding { Path = path };
+#else
+				var binding = new Windows.UI.Xaml.Data.Binding { Path = path };
+#endif
+
+                var dependencyProperty = GetDependencyProperty(element, property);
 
 				BindingOperations.SetBinding(element, dependencyProperty, binding);
 
@@ -212,5 +253,5 @@ namespace Cartography.DynamicMap
 			}
 		}
 #endif
-	}
+		}
 }

@@ -15,8 +15,8 @@ using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
 using Windows.Devices.Geolocation;
-using Windows.UI;
-using Windows.UI.Xaml;
+using Microsoft.UI.Xaml;
+using System.Drawing;
 
 namespace Cartography.DynamicMap
 {

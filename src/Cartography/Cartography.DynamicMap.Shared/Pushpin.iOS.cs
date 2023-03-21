@@ -2,8 +2,12 @@
 
 namespace Cartography.DynamicMap
 {
+#if NET6_0_OR_GREATER
+	[Microsoft.UI.Xaml.Data.Bindable]
+#else
 	[Windows.UI.Xaml.Data.Bindable]
-	public class Pushpin : MapControlItem, ISelectable
+#endif
+    public class Pushpin : MapControlItem, ISelectable
 	{
 		public const string AnnotationId = "Nventive.Pushpin";
 
