@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<!-- Suppress Compiler warnings for elements without XML Docs -->
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Samples.ProjectTest.Base\IsExternalInit.cs"
+						 Visible="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+		<PackageReference Include="System.Text.Json" Version="6.0.0" />
+	</ItemGroup>
+</Project>

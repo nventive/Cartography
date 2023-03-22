@@ -1,0 +1,40 @@
+﻿<Page x:Class="Samples.ProjectTest.Presentation.MainPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:Samples.ProjectTest.Presentation"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d xamarin"
+	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
+	  xmlns:utu="using:Uno.Toolkit.UI"
+	  xmlns:not_skia="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:xamarin="http://nventive.com/xamarin"
+      NavigationCacheMode="Required"
+	  Background="{ThemeResource BackgroundBrush}">
+
+    <Grid Background="White">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Button x:Name="MapServiceButton"
+                    Command="{Binding NavigateToMapService}"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Map Service"
+                    Margin="10" />
+            <Button x:Name="LocationButton"
+                    Command="{Binding NavigateToLocation}"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Location Service"
+                    Margin="10" />
+            <xamarin:Button x:Name="DynamicMapButton"
+                    Command="{Binding NavigateToDynamicMap}"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Dynamic Map"
+                    Margin="10" />
+            <Button x:Name="staticMapButton"
+                    Command="{Binding NavigateToStaticMap}"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Content="Static Map"
+                    Margin="10" />
+        </StackPanel>
+    </Grid>
+</Page>

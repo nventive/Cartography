@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="Samples.ProjectTest.Presentation.MapServicePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Samples.ProjectTest.Presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" >
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Button x:Name="ReturnToMenu"
+                    Content="Return to main menu"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Command="{Binding MapServiceToMenu}"
+                    Margin="0,40,0,0"/>
+            <TextBlock Text="Map service" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Margin="20">
+
+                <!-- ShowLocation button -->
+                <Button Content="Show location"
+                        Style="{StaticResource BasicButtonStyle}"
+                        Command="{Binding ShowLocation}"
+						HorizontalAlignment="Stretch"/>
+
+                <!-- ShowDirections button -->
+                <Button Content="Show directions"
+                        Style="{StaticResource BasicButtonStyle}"
+                        Command="{Binding ShowDirections}"
+						HorizontalAlignment="Stretch"
+						Margin="0,25" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
