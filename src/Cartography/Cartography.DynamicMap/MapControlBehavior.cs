@@ -131,17 +131,7 @@ namespace Cartography.DynamicMap
 					};
 				}
 #elif __IOS__
-                // note: on ios, GoogleMapControl doesnt not subclass from MapControl
-                if (d is GoogleMapControl gmap)
-                {
-                    gmap.MarkerUpdater = (pin, marker) =>
-                    {
-                        var name = (string)imageSelector.Convert(pin.Content, null, pin.IsSelected, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-                        marker.Icon = UIKit.UIImage.FromFile(name);
-                        marker.Title = pin.Content.ToString();
-                    };
-                }
-                else if (d is MapControl map)
+                if (d is MapControl map)
                 {
                     var iconWidth = GetIconWidth(map);
                     var iconHeight = GetIconHeight(map);
