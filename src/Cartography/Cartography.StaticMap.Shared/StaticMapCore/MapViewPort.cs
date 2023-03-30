@@ -11,9 +11,9 @@ namespace Cartography.StaticMap
 	/// </summary>
 	public class StaticMapViewPort
 	{
-		private const int MAXIMUM_LONGITUDE = 90;
-		private const int MINIMUM_LONGITUDE = -90;
-		private const int MAXIMUM_LATITUDE = 180;
+		private const int MAXIMUM_LONGITUDE = 180;
+		private const int MINIMUM_LONGITUDE = -180;
+		private const int MAXIMUM_LATITUDE = 90;
 
 		/// <summary>
 		/// Default ctor

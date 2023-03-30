@@ -53,7 +53,7 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
-	  <None Update="UserLocationMarker.UWP.xaml">
+	  <None Update="Platforms\Windows\UserLocationMarker.UWP.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
 	</ItemGroup>

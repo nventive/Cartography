@@ -45,7 +45,7 @@ namespace Cartography.DynamicMap
                 map.RotateEnabled = !disableRotation;
 #pragma warning restore 618
 #elif __ANDROID__
-				//TODO Android
+				map.IsRotateGestureEnabled = !disableRotation;
 #endif
             });
         }
@@ -131,17 +131,7 @@ namespace Cartography.DynamicMap
 					};
 				}
 #elif __IOS__
-                // note: on ios, GoogleMapControl doesnt not subclass from MapControl
-                if (d is GoogleMapControl gmap)
-                {
-                    gmap.MarkerUpdater = (pin, marker) =>
-                    {
-                        var name = (string)imageSelector.Convert(pin.Content, null, pin.IsSelected, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-                        marker.Icon = UIKit.UIImage.FromFile(name);
-                        marker.Title = pin.Content.ToString();
-                    };
-                }
-                else if (d is MapControl map)
+                if (d is MapControl map)
                 {
                     var iconWidth = GetIconWidth(map);
                     var iconHeight = GetIconHeight(map);
@@ -197,11 +187,37 @@ namespace Cartography.DynamicMap
 #endif
         }
 
-        private static FromBoolToVisibility TrueToVisible = new FromBoolToVisibility() { VisibilityIfTrue = VisibilityIfTrue.Visible };
+		public static Thickness GetCompassMargin(DependencyObject obj)
+		{
+			return (Thickness)obj.GetValue(CompassMarginProperty);
+		}
+
+		public static void SetCompassMargin(DependencyObject obj, Thickness value)
+		{
+			obj.SetValue(CompassMarginProperty, value);
+		}
+
+		public static readonly DependencyProperty CompassMarginProperty =
+			DependencyProperty.RegisterAttached("CompassMargin", typeof(Thickness), typeof(MapControlBehavior), new PropertyMetadata(default(Thickness), OnCompassMarginChanged));
+
+		private static FromBoolToVisibility TrueToVisible = new FromBoolToVisibility() { VisibilityIfTrue = VisibilityIfTrue.Visible };
         private static FromBoolToVisibility TrueToCollapsed = new FromBoolToVisibility() { VisibilityIfTrue = VisibilityIfTrue.Collapsed };
 
-        // Converter is defined here as it is required by the behavior and we don't reference Umbrella.View
-        private class FromBoolToVisibility : IValueConverter
+		private static void OnCompassMarginChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            dependencyObject.Maybe<MapControl>(map =>
+            {
+				var margin = GetCompassMargin(map);
+
+#if __ANDROID__
+				map.CompassMargin = margin;
+#endif
+			});
+
+		}
+
+		// Converter is defined here as it is required by the behavior and we don't reference Umbrella.View
+		private class FromBoolToVisibility : IValueConverter
         {
             private readonly ILogger _logger = NullLogger.Instance;
             public VisibilityIfTrue VisibilityIfTrue { get; set; }
