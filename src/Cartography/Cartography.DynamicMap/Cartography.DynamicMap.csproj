@@ -49,7 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="UserLocationMarker.UWP.xaml">
+	  <None Update="Platforms\Windows\UserLocationMarker.UWP.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
 	</ItemGroup>
