@@ -5,6 +5,8 @@
 
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -65,8 +67,8 @@
 	<ItemGroup>
 		<ProjectReference Condition="'$(TargetFramework)' != 'net6.0-windows10.0.19041.0_OR_GREATER'" Include="..\..\src\Cartography\Cartography.DynamicMap.Uno.WinUI\Cartography.DynamicMap.Uno.WinUI.csproj" />
 		<ProjectReference Include="..\..\src\Cartography\Cartography.MapService.Uno.WinUI\Cartography.MapService.Uno.WinUI.csproj" />
+		<ProjectReference Include="..\..\src\Cartography\Cartography.MapService\Cartography.MapService.Uno.csproj" />
 		<ProjectReference Include="..\..\src\Cartography\Cartography.StaticMap.Uno.WinUI\Cartography.StaticMap.Uno.WinUI.csproj" />
-		<ProjectReference Include="..\Samples.ProjectTest.DataContracts\Samples.ProjectTest.DataContracts.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

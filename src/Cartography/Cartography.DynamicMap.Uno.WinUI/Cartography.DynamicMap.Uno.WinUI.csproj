@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
 		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
-		<TargetFrameworks>net6.0-ios;net6.0-android;</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows10.0.18362;net6.0-ios;net6.0-android;</TargetFrameworks>
 		<LangVersion>10</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>

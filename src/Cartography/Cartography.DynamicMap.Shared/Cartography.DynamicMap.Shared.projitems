@@ -9,13 +9,6 @@
     <Import_RootNamespace>Cartography.DynamicMap.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapCore\Extensions\BasicGeopositionExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapCore\MapViewPort.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapCore\MapViewPortCoordinates.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapCore\ViewPortBounds.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapCore\ViewPortPadding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapCore\ZoomLevel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DynamicMapCore\ZoomLevels.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FrameworkElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GeoCoordinateExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GeoCoordinatePrecision.cs" />
@@ -23,34 +16,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)GeoLocatedGrouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GoogleMapControl.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GoogleMapControlItem.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GoogleMapLayer.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GoogleMapLayer.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GoogleMapView.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GooglePushpin.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDynamicMapComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IGeoLocated.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IGeoLocatedGrouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMapControlItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMapLayer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IosMapLayer.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapComponentExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapElementLayer.UWP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapException.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapGroupAnnotation.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapHelper.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapLayer.UWP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapLayerExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapSelectionMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObservableExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PrettyMapViewPortEqualityComparer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pushpin.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pushpin.UWP.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UserLocationMarker.UWP.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)UserLocationMarker.UWP.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
 </Project>
