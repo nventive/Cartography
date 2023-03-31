@@ -18,6 +18,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Windows.Devices.Geolocation;
 using Windows.UI.Core;
+using Cartography.DynamicMap;
 using GeolocatorService;
 using Microsoft.Extensions.DependencyInjection;
 #if WINDOWS_UWP

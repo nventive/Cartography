@@ -1,0 +1,44 @@
+﻿<Page x:Class="Cartography.Sample.MainPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:Cartography.Sample"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:nvc="using:Nventive.View.Controls"
+	  mc:Ignorable="d"
+	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<CommandBar Grid.Row="0"
+					Content="Playground"
+					Height="48" />
+
+		<ScrollViewer Grid.Row="1">
+			<StackPanel Margin="16"
+						Spacing="16">
+
+				<!-- Playground. -->
+
+				<!-- DelayControl -->
+				<TextBlock Text="Delay Control: Appears 2 seconds after loading." />
+				<nvc:DelayControl DelayAfterLoad="00:00:02.00"
+								  DelayAfterDataContext="00:00:00.00"
+								  Height="48"
+								  Width="48"
+								  WaitForInnerView="False">
+
+					<DataTemplate>
+						<Ellipse Fill="Red"
+								 HorizontalAlignment="Stretch"
+								 VerticalAlignment="Stretch" />
+					</DataTemplate>
+				</nvc:DelayControl>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Page>
