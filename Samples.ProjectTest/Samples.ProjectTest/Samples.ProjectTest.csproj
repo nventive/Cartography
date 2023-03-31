@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) or '$(EnableWindowsTargeting)' == 'true'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>
-		<TargetFrameworks>$(TargetFrameworks);net6.0-ios;net6.0-android</TargetFrameworks>
+		<TargetFrameworks>net6.0-ios;net6.0-android;net6.0-windows10.0.18362</TargetFrameworks>
 
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
@@ -10,7 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Uno.Dsp.Tasks" Version="1.0.1" />
 		<PackageReference Include="Uno.WinUI" Version="4.8.15" />
 		<PackageReference Include="Uno.Resizetizer" Version="1.0.2" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
@@ -19,16 +17,14 @@
 		<PackageReference Include="Uno.Extensions.Http.Refit" Version="2.3.2" />
 		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="2.3.2" />
 		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="2.3.2" />
-		<PackageReference Include="Uno.Material.WinUI" Version="2.5.3" />
-		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="2.5.5" />
-		<PackageReference Include="Uno.Toolkit.WinUI" Version="2.5.5" />
 		<PackageReference Include="Uno.Extensions.Authentication.WinUI" Version="2.3.2" />
 		<PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="2.3.2" />
 		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="2.3.2" />
 		<PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="2.3.2" />
 		<PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="2.3.2" />
+		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
-		<PackageReference Include="Chinook.SectionsNavigation" Version="1.1.2" />
+		<PackageReference Include="Chinook.SectionsNavigation.Uno.WinUI" Version="1.1.2" />
 	</ItemGroup>
 
 	<Choose>
