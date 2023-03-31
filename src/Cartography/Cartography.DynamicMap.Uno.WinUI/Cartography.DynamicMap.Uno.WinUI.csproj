@@ -81,5 +81,4 @@
 	</ItemGroup>
 
 	<Import Project="..\Cartography.DynamicMap.Shared\Cartography.DynamicMap.Shared.projitems" Label="Shared" />
-
 </Project>
