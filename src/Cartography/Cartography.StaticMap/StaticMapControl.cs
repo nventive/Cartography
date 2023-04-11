@@ -32,7 +32,7 @@ namespace Cartography.StaticMap
 	/// </summary>
 	public partial class StaticMapControl
 	{
-		#region DependencyProperties
+#region DependencyProperties
 
 		/// <summary>
 		/// Dependency property to the MapViewPort.
@@ -63,7 +63,7 @@ namespace Cartography.StaticMap
 		/// </summary>
 		public static readonly DependencyProperty PushpinTemplateSelectorProperty =
 			DependencyProperty.Register("PushpinTemplateSelector", typeof(DataTemplateSelector), typeof(StaticMapControl), new PropertyMetadata(default(DataTemplateSelector)));
-		#endregion
+#endregion
 
 		private const string DefaultState = "Default";
 		private const string LoadingState = "Loading";

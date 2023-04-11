@@ -1,4 +1,9 @@
-﻿using Windows.Foundation;
+﻿using System;
+using System.Collections.Generic;
+using GeolocatorService;
+using Uno;
+using Windows.Devices.Geolocation;
+using Windows.Foundation;
 
 namespace Cartography.StaticMap
 {

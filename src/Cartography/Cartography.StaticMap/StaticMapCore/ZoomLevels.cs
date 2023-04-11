@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cartography.DynamicMap
+namespace Cartography.StaticMap
 {
     /// <summary>
     /// Implements a set of predefined ZoomLevel.

@@ -63,9 +63,5 @@
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22000.25" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\src\Cartography\Cartography.StaticMap.Uno.WinUI\Cartography.StaticMap.Uno.WinUI.csproj" />
-	</ItemGroup>
-
 	<Import Project="..\Cartography.Sample.Shared\Cartography.Sample.Shared.projitems" Label="Shared" />
 </Project>

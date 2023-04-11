@@ -49,6 +49,4 @@
 	    <Version>117.0.1.5</Version>
 	  </PackageReference>
 	</ItemGroup>
-
-	<Import Project="..\Cartography.StaticMap.Shared\Cartography.StaticMap.Shared.projitems" Label="Shared" />
 </Project>

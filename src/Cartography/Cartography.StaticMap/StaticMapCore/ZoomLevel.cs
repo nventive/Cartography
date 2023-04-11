@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace Cartography.DynamicMap
+namespace Cartography.StaticMap
 {
     /// <summary>
     /// Represents a zoom level on a map
