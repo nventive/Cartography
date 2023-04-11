@@ -1,5 +1,4 @@
-﻿
-using Windows.Devices.Geolocation;
+﻿using Windows.Devices.Geolocation;
 
 namespace Cartography.DynamicMap
 {

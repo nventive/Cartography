@@ -33,6 +33,4 @@
 		<!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
-
-	<Import Project="..\Cartography.MapService.Shared\Cartography.MapService.Shared.projitems" Label="Shared" />
 </Project>

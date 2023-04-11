@@ -8,18 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>Cartography.MapService.Shared</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)IMapService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapService.Android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapService.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapService.UWP.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapServiceiOSProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MapServiceTextProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NavigationAppConstants.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Provider\AppleMapsServiceProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Provider\GoogleMapsServiceProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Provider\IMapServiceProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Provider\MapServiceProviderFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Provider\WazeServiceProvider.cs" />
-  </ItemGroup>
 </Project>

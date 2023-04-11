@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_0
+﻿#if __IOS__ || __ANDROID__ || WINDOWS_UWP
 using System;
 using System.Collections.Generic;
 using System.Linq;

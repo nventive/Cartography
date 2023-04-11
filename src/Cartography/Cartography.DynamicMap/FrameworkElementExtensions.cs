@@ -23,52 +23,52 @@ using System.Windows;
 
 namespace Cartography.DynamicMap
 {
-	internal static partial class FrameworkElementExtensions
-	{
-		[Flags]
-		public enum UiEventSubscriptionsOptions
-		{
-			/// <summary>
-			/// Default is ImmediateSubscribe
-			/// </summary>
-			Default = ImmediateSubscribe,
+    internal static partial class FrameworkElementExtensions
+    {
+        [Flags]
+        public enum UiEventSubscriptionsOptions
+        {
+            /// <summary>
+            /// Default is ImmediateSubscribe
+            /// </summary>
+            Default = ImmediateSubscribe,
 
-			/// <summary>
-			/// Subscribe and Unsubscribe will be enforced on Dispacther scheduler
-			/// </summary>
-			/// <remarks>Be sure to not miss an event between subscribe to observable and real event handler add</remarks>
-			DispatcherOnly = 0,
+            /// <summary>
+            /// Subscribe and Unsubscribe will be enforced on Dispacther scheduler
+            /// </summary>
+            /// <remarks>Be sure to not miss an event between subscribe to observable and real event handler add</remarks>
+            DispatcherOnly = 0,
 
-			/// <summary>
-			/// Add event handler immediatly on Subscribe.
-			/// </summary>
-			/// <remarks>This mean you must call subscribe on dispatcher</remarks>
-			ImmediateSubscribe = 1,
+            /// <summary>
+            /// Add event handler immediatly on Subscribe.
+            /// </summary>
+            /// <remarks>This mean you must call subscribe on dispatcher</remarks>
+            ImmediateSubscribe = 1,
 
-			/// <summary>
-			/// Remove event handler immediatly on Dispose / Complete.
-			/// </summary>
-			/// <remarks>This mean you must dispose subscription on dispatcher</remarks>
-			ImmediateUnsubscribe = 2
-		}
+            /// <summary>
+            /// Remove event handler immediatly on Dispose / Complete.
+            /// </summary>
+            /// <remarks>This mean you must dispose subscription on dispatcher</remarks>
+            ImmediateUnsubscribe = 2
+        }
 
-		/// <summary>
-		/// Helper to create an observable sequence "FromEventPattern" on a DependencyObject using right scheduler.
-		/// </summary>
-		internal static IObservable<EventPattern<TArgs>> FromEventPattern<THandler, TArgs>(
-			Action<THandler> addHandler,
-			Action<THandler> removeHandler,
-			DependencyObject element,
-			UiEventSubscriptionsOptions options)
+        /// <summary>
+        /// Helper to create an observable sequence "FromEventPattern" on a DependencyObject using right scheduler.
+        /// </summary>
+        internal static IObservable<EventPattern<TArgs>> FromEventPattern<THandler, TArgs>(
+            Action<THandler> addHandler,
+            Action<THandler> removeHandler,
+            DependencyObject element,
+            UiEventSubscriptionsOptions options)
 #if !WINDOWS_UWP && !__ANDROID__ && !__IOS__ && !__WASM__
-			where TArgs : EventArgs 
+            where TArgs : EventArgs
 #endif
-		{
-			var immediateSubscribe = options.HasFlag(UiEventSubscriptionsOptions.ImmediateSubscribe);
-			var immediateUnsubscribe = options.HasFlag(UiEventSubscriptionsOptions.ImmediateUnsubscribe);
-			return Observable.FromEventPattern<THandler, TArgs>(addHandler, removeHandler, Scheduler.Immediate);
+        {
+            var immediateSubscribe = options.HasFlag(UiEventSubscriptionsOptions.ImmediateSubscribe);
+            var immediateUnsubscribe = options.HasFlag(UiEventSubscriptionsOptions.ImmediateUnsubscribe);
+            return Observable.FromEventPattern<THandler, TArgs>(addHandler, removeHandler, Scheduler.Immediate);
 
-		}
+        }
 
 #if __ANDROID__ || __IOS__
 		public static T Style<T>(this T element, Style style) where T : FrameworkElement
@@ -253,5 +253,5 @@ namespace Cartography.DynamicMap
 			}
 		}
 #endif
-		}
+    }
 }

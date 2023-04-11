@@ -64,8 +64,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Cartography\Cartography.MapService.Uno.WinUI\Cartography.MapService.Uno.WinUI.csproj" />
-		<ProjectReference Include="..\..\src\Cartography\Cartography.DynamicMap.Uno.WinUI\Cartography.DynamicMap.Uno.WinUI.csproj" />
 		<ProjectReference Include="..\..\src\Cartography\Cartography.StaticMap.Uno.WinUI\Cartography.StaticMap.Uno.WinUI.csproj" />
 	</ItemGroup>
 

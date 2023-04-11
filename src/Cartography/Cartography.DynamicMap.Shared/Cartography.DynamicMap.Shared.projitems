@@ -9,6 +9,13 @@
     <Import_RootNamespace>Cartography.DynamicMap.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Extensions\BasicGeopositionExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\MapViewPort.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\MapViewPortCoordinates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ViewPortBounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ViewPortPadding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ZoomLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ZoomLevels.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FrameworkElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GeoCoordinateExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GeoCoordinatePrecision.cs" />
