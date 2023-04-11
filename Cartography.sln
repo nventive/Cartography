@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.MapService.Uno"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.StaticMap.Uno", "src\Cartography\Cartography.StaticMap\Cartography.StaticMap.Uno.csproj", "{8D9574FD-4D1C-4755-8DA1-B03E486BDB81}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{BEB05535-BD8B-4A9B-A17E-AC197A00CA43}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{BEB05535-BD8B-4A9B-A17E-AC197A00CA43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.Sample.Mobile", "Samples\Cartography.Sample.Mobile\Cartography.Sample.Mobile.csproj", "{2470543A-1486-4FA0-96B2-D29D50BAF0FA}"
 EndProject

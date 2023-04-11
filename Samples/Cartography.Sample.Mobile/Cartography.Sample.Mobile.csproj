@@ -10,9 +10,11 @@
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="Chinook.DynamicMvvm" Version="0.13.1" />
 		<PackageReference Include="Uno.WinUI" Version="4.5.14" />
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.5.14" Condition="'$(Configuration)'=='Debug'" />
 		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.5.14" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
 	</ItemGroup>
 	<Choose>
