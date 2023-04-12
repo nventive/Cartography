@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.StaticMap.Uno",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{BEB05535-BD8B-4A9B-A17E-AC197A00CA43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.Sample.Mobile", "Samples\Cartography.Sample.Mobile\Cartography.Sample.Mobile.csproj", "{2470543A-1486-4FA0-96B2-D29D50BAF0FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.Sample.Mobile", "Sample\Cartography.Sample.Mobile\Cartography.Sample.Mobile.csproj", "{2470543A-1486-4FA0-96B2-D29D50BAF0FA}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cartography.Sample.Shared", "Samples\Cartography.Sample.Shared\Cartography.Sample.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cartography.Sample.Shared", "Sample\Cartography.Sample.Shared\Cartography.Sample.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.Sample.WinUI", "Samples\Cartography.Sample.Windows\Cartography.Sample.WinUI.csproj", "{D3064F01-EC03-4F07-87BE-44AEBF6C5BC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartography.Sample.WinUI", "Sample\Cartography.Sample.Windows\Cartography.Sample.WinUI.csproj", "{D3064F01-EC03-4F07-87BE-44AEBF6C5BC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -455,8 +455,8 @@ Global
 		SolutionGuid = {A7CE3663-C71E-406C-B397-2EC8038C9771}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Samples\Cartography.Sample.Shared\Cartography.Sample.Shared.projitems*{2470543a-1486-4fa0-96b2-d29d50baf0fa}*SharedItemsImports = 5
-		Samples\Cartography.Sample.Shared\Cartography.Sample.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
-		Samples\Cartography.Sample.Shared\Cartography.Sample.Shared.projitems*{d3064f01-ec03-4f07-87be-44aebf6c5bc4}*SharedItemsImports = 5
+		Sample\Cartography.Sample.Shared\Cartography.Sample.Shared.projitems*{2470543a-1486-4fa0-96b2-d29d50baf0fa}*SharedItemsImports = 5
+		Sample\Cartography.Sample.Shared\Cartography.Sample.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
+		Sample\Cartography.Sample.Shared\Cartography.Sample.Shared.projitems*{d3064f01-ec03-4f07-87be-44aebf6c5bc4}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

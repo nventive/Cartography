@@ -32,7 +32,7 @@ using Cartography.DynamicMap
    <dynamicMap:MapControl ViewModel="{Binding}" />
 </xamarin:Grid>
 ```
-- Add Style MapControl : see https://github.com/nventive/Cartography/blob/master/Samples/Samples/Samples.Shared/Views/Styles/MapControl.xaml
+- Add Style MapControl : see https://github.com/nventive/Cartography/blob/master/Sample/Sample/Sample.Shared/Views/Styles/MapControl.xaml
 
 #### **DynamicMap Control**
 
@@ -54,7 +54,7 @@ using Cartography.StaticMap
                                         Width="10"
                                         Height="10" />
 ```
-- Add Style StaticMapControl : see https://github.com/nventive/Cartography/blob/master/Samples/Samples/Samples.Shared/Views/Styles/StaticMapControl.xaml
+- Add Style StaticMapControl : see https://github.com/nventive/Cartography/blob/master/Sample/Sample/Sample.Shared/Views/Styles/StaticMapControl.xaml
 
 &nbsp;
 ## **MapService**
