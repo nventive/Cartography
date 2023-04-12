@@ -446,7 +446,7 @@ namespace Cartography.DynamicMap
 					component.ViewPortCoordinates = l.Coordinates;
 					component.ViewPort = l.ViewPort;
 				})
-				.Subscribe(_ => { }, e => _logger.Error(() => $"There was an error syncing the view port to '{component}'", e));
+				.Subscribe(_ => { }, e => _logger.Log().Error(() => $"There was an error syncing the view port to '{component}'", e));
 		}
 
 		private MapViewPort GetEffectiveViewPort(MapViewPort original, MapViewPort current, IEqualityComparer<MapViewPort> filter)
@@ -493,8 +493,9 @@ namespace Cartography.DynamicMap
 			}
 			catch (TaskCanceledException)
 			{
-				// This is a normal case, for instance if the user drags the map during the animation
-			}
+                // This is a normal case, for instance if the user drags the map during the animation
+                _isAnimating = false;
+            }
 			catch (Exception ex)
 			{
 				_logger.Error("Error due to the selection of many view ports. Disposed the previous one.", ex);
