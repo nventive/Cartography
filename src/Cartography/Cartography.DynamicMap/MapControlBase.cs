@@ -446,7 +446,7 @@ namespace Cartography.DynamicMap
 					component.ViewPortCoordinates = l.Coordinates;
 					component.ViewPort = l.ViewPort;
 				})
-				.Subscribe(_ => { }, e => _logger.Error(() => $"There was an error syncing the view port to '{component}'", e));
+				.Subscribe(_ => { }, e => _logger.Log().Error(() => $"There was an error syncing the view port to '{component}'", e));
 		}
 
 		private MapViewPort GetEffectiveViewPort(MapViewPort original, MapViewPort current, IEqualityComparer<MapViewPort> filter)
