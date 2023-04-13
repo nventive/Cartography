@@ -88,7 +88,7 @@ namespace Samples.Presentation
         //The Animation Setting is include in the Viewport object. Must be add when setting viewport. See ComputeMapViewPort.
         public bool IsViewPortAnimationDisabled
         {
-            get => this.Get<bool>(initialValue:false);
+            get => this.Get<bool>(initialValue: false);
             set => this.Set(value);
         }
 
@@ -126,7 +126,7 @@ namespace Samples.Presentation
 
         // These properties are mandatory and depend from IDynamicMapComponent.
         #region Map-Property
-        
+
         // These Pushpins will be show as inactive.
         public IGeoLocated[] Pushpins
         {
@@ -143,7 +143,7 @@ namespace Samples.Presentation
 
         public IGeoLocatedGrouping<IGeoLocated[]> Groups
         {
-            get => this.Get<IGeoLocatedGrouping<IGeoLocated[]>>();
+            get => this.Get<IGeoLocatedGrouping<IGeoLocated[]>>( initialValue: GetInitialGroupingPushpins());
             set => this.Set(value);
         }
 
@@ -287,7 +287,31 @@ namespace Samples.Presentation
 
         private PushpinEntity[] GetInitialPushpins()
         {
-            return new[]
+            return new PushpinEntity[]
+            {
+                    //new PushpinEntity
+                    //{
+                    //    Name = "Pushpin 1",
+                    //    Coordinates = new Geopoint(new BasicGeoposition{Latitude = 46.3938717, Longitude = -72.0921769})
+                    //},
+                    //new PushpinEntity
+                    //{
+                    //    Name = "Pushpin 2",
+                    //    Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5502838, Longitude = -73.2801901 })
+                    //},
+                    //new PushpinEntity
+                    //{
+                    //    Name = "Pushpin 3",
+                    //    Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5502838, Longitude = -72.0921769 })
+                    //},
+                };
+        }
+
+        private IGeoLocatedGrouping<PushpinEntity[]> GetInitialGroupingPushpins()
+        {
+            var grouping = new PushpinsEntityGroup();
+
+            grouping.Add(new[]
             {
                     new PushpinEntity
                     {
@@ -304,7 +328,9 @@ namespace Samples.Presentation
                         Name = "Pushpin 3",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5502838, Longitude = -72.0921769 })
                     },
-                };
+            });
+
+            return grouping;
         }
 
         public IDynamicCommand LocateMe => this.GetCommandFromTask(async ct =>
