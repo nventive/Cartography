@@ -45,6 +45,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Entities\GeoViewPort.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\PushpinEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PushpinsEntityGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocationPage.xaml.cs">
       <DependentUpon>LocationPage.xaml</DependentUpon>
     </Compile>
