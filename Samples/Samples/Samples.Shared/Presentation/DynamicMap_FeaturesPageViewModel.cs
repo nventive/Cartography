@@ -32,8 +32,9 @@ namespace Samples.Presentation
         private ISectionsNavigator _sectionsNavigator;
         private readonly IDispatcherScheduler _dispatcherScheduler;
 
-        public DynamicMap_FeaturesPageViewModel()
+        public DynamicMap_FeaturesPageViewModel(bool isClusterEnabled = false)
         {
+            IsClusterEnabled = isClusterEnabled;
             _geolocatorService = this.GetService<IGeolocatorService>();
             _sectionsNavigator = this.GetService<ISectionsNavigator>();
             _dispatcherScheduler = this.GetService<IDispatcherScheduler>();
@@ -174,6 +175,12 @@ namespace Samples.Presentation
         }
 
         public bool IsUserDragging
+        {
+            get => this.Get<bool>(initialValue: false);
+            set => this.Set(value);
+        }
+
+        public bool IsClusterEnabled
         {
             get => this.Get<bool>(initialValue: false);
             set => this.Set(value);

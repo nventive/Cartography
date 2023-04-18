@@ -50,10 +50,15 @@ namespace Cartography.DynamicMap
 		/// </summary>
 		bool IsUserDragging { get; set; }
 
-		/// <summary>
-		/// User location if any and if display requested, else empty value
-		/// </summary>
-		LocationResult UserLocation { get; set; }
+        /// <summary>
+        /// Whether or not the pushpin clustering is enabled
+        /// </summary>
+        bool IsClusterEnabled { get; set; }
+
+        /// <summary>
+        /// User location if any and if display requested, else empty value
+        /// </summary>
+        LocationResult UserLocation { get; set; }
 
 		/// <summary>
 		/// VisibleRegion of the map - READ ONLY

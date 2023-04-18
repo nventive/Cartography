@@ -26,6 +26,11 @@ namespace Samples.Presentation
             await _sectionsNavigator.Navigate(ct, () => new DynamicMap_FeaturesPageViewModel());
         });
 
+        public IDynamicCommand GotoDynamicMap_WithClustering_FeaturesPage => this.GetCommandFromTask(async ct =>
+        {
+            await _sectionsNavigator.Navigate(ct, () => new DynamicMap_FeaturesPageViewModel(isClusterEnabled: true));
+        });
+
         public IDynamicCommand GotoDynamicMap_MoveSearchPage => this.GetCommandFromTask(async ct =>
         {
             await _sectionsNavigator.Navigate(ct, () => new DynamicMap_MoveSearchPageViewModel());

@@ -103,6 +103,12 @@ namespace Samples.Presentation
             await _sectionsNavigator.Navigate(ct, () => new DynamicMapMenuViewModel());
         });
 
+        public bool IsClusterEnabled
+        {
+            get => this.Get(initialValue: false);
+            set => this.Set(value);
+        }
+
         private MapViewPort GetStartingCoordinates()
         {
             var mapViewPort = new MapViewPort(new Geopoint(new BasicGeoposition { Latitude = 45.503343, Longitude = -73.571695 }));
