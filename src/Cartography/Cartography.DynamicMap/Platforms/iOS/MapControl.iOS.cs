@@ -84,7 +84,7 @@ namespace Cartography.DynamicMap
             AutoZoomModifyer = 1.15f;
 
             EnableZoomAnimations = true;
-
+            _internalMapView.Register(typeof(ClusterView), MKMapViewDefault.ClusterAnnotationViewReuseIdentifier);
             _internalMapView.GetViewForAnnotation = OnGetViewForAnnotation;
             _internalMapView.DidDeselectAnnotationView += MapControl_DidDeselectAnnotationView;
             _internalMapView.DidSelectAnnotationView += MapControl_DidSelectAnnotationView;
