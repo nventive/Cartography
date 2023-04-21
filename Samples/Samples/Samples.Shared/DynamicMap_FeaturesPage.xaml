@@ -122,7 +122,7 @@
                 <dynamicMap:MapControl ViewModel="{Binding}"
 									   SelectionMode="Single"
 									   AutolocateButtonVisibility="Collapsed"
-                                       IsClusterEnabled="{Binding IsClusterEnabled}"
+                                       IsClusterEnabled="True"
 									   dynamicMap:MapControlBehavior.DisableRotation="True"
                                        dynamicMap:MapControlBehavior.ClusterTemplate="{StaticResource ClusterImageTemplate}"
 									   dynamicMap:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"

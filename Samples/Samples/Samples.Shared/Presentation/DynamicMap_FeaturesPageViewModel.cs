@@ -394,7 +394,7 @@ namespace Samples.Presentation
             var newPushpin = await CreatePushpinAtCenter(ct);
 
             var list = pushpins.ToList();
-            list.Add((IGeoLocated)newPushpin);
+            list.Add(newPushpin);
 
             Pushpins = list.ToArray();
         });
