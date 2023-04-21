@@ -12,10 +12,13 @@ using Android.App;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Gms.Maps.Utils.Clustering;
+using Android.Gms.Maps.Utils.Data;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using GeolocatorService;
+using Java.Util;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
@@ -27,14 +30,18 @@ using Windows.UI.Xaml.Controls;
 namespace Cartography.DynamicMap
 {
 	public partial class MapControlBase
-	{
+    {
 		private const string COMPASS_TAG = "GoogleMapCompass";
 
 		private GoogleMapView _internalMapView;
 
 		private Thickness _padding;
 		private GoogleMapLayer _pushpins;
-		private MapLifeCycleCallBacks _callbacks;
+		private CustomClusterManager _unselectedPinsClusterManager;
+		private MapClusterItems _unselectedClusterPins;
+		private CustomClusterManager _SelectedPinsClusterManager;
+		private MapClusterItems _selectedClusterPins;
+        private MapLifeCycleCallBacks _callbacks;
 		private Android.App.Application _application;
 		private BitmapDescriptor _icon;
 		private BitmapDescriptor _selectedIcon;
@@ -142,11 +149,26 @@ namespace Cartography.DynamicMap
 			_map = map;
 
 			_padding = Thickness.Empty;
-			_pushpins = new GoogleMapLayer(map);
-			_isReady = true;
 
-			map.MarkerClick += Map_MarkerClick;
-			map.MapClick += Map_MapClick;
+			// Zoomlevel does not need to be manage here. Clustermanager will handle how and when a cluster is shown. 
+			if (IsClusterEnabled)
+			{
+				// A cluster can show a single pin. The diffrents styles will be manage in ClusterManager.
+                _unselectedClusterPins = new MapClusterItems(new MapClusterItem[0]);
+                _unselectedPinsClusterManager = new CustomClusterManager(Context, _map);
+                SetupCustomClusterManager(_unselectedPinsClusterManager);
+
+                _selectedClusterPins = new MapClusterItems(new MapClusterItem[0]); ;
+                _SelectedPinsClusterManager = new CustomClusterManager(Context, _map);
+                SetupCustomClusterManager(_SelectedPinsClusterManager);
+            }
+			else
+			{
+                _pushpins = new GoogleMapLayer(map);
+                map.MarkerClick += Map_MarkerClick;
+                map.MapClick += Map_MapClick;
+            }
+			_isReady = true;
 
 			UpdateMapPushpinOnCameraIdle();
 
@@ -161,11 +183,21 @@ namespace Cartography.DynamicMap
 			TryStart();
 		}
 
-		/// <summary>
-		/// Idea is to register to the LifeCycleCallbacks and properly call the OnResume and OnPause methods when needed.
-		/// This will release the GPS while the application is in the background
-		/// </summary>
-		private void HandleActivityLifeCycle()
+		private void SetupCustomClusterManager(CustomClusterManager cluster)
+		{
+            _map.SetOnMarkerClickListener(cluster);
+            _map.SetOnInfoWindowClickListener(cluster);
+            cluster.SetOnClusterClickListener(cluster);
+            cluster.SetOnClusterInfoWindowClickListener(cluster);
+            cluster.SetOnClusterItemClickListener(cluster);
+            cluster.SetOnClusterItemInfoWindowClickListener(cluster);
+        }
+
+        /// <summary>
+        /// Idea is to register to the LifeCycleCallbacks and properly call the OnResume and OnPause methods when needed.
+        /// This will release the GPS while the application is in the background
+        /// </summary>
+        private void HandleActivityLifeCycle()
 		{
 			_callbacks = new MapLifeCycleCallBacks(onPause: _internalMapView.OnPause, onResume: _internalMapView.OnResume);
 
@@ -315,22 +347,72 @@ namespace Cartography.DynamicMap
 #region Pushpins
 		private void UpdateMapPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
 		{
-			_pushpins.Update(
-				items: items,
-				selectedItems: selectedItems,
-				containerFactory: _ => new Pushpin
-				{
-					Map = this,
-					// call chain: PushpinIconsMarkerUpdater? -> UpdateMarker -> MarkerUpdater?
-					MarkerUpdater = UseIcons
-						? PushpinIconsMarkerUpdater
-						: (Action<Pushpin, Marker>)UpdateMarker
-				},
+			if(IsClusterEnabled)
+			{
+				UpdateAndroidClusteringPushpins(items, selectedItems);
+			}
+			else
+			{
+                UpdateStandardPushpins(items, selectedItems);
+            }
+        }
 
-				// Pin instances cannot be recycled in Google Maps.
-				canRecycle: false
-			);
-		}
+		private void UpdateStandardPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
+		{
+            _pushpins.Update(
+                    items: items,
+                    selectedItems: selectedItems,
+                    containerFactory: _ => new Pushpin
+                    {
+                        Map = this,
+                        // call chain: PushpinIconsMarkerUpdater? -> UpdateMarker -> MarkerUpdater?
+                        MarkerUpdater = UseIcons
+                            ? PushpinIconsMarkerUpdater
+                            : (Action<Pushpin, Marker>)UpdateMarker
+                    },
+
+                    // Pin instances cannot be recycled in Google Maps.
+                    canRecycle: false
+                );
+        }
+
+		private void UpdateAndroidClusteringPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
+		{
+			UpdateClusterManager(_unselectedPinsClusterManager, items, _unselectedClusterPins);
+            
+			UpdateClusterManager(_SelectedPinsClusterManager, selectedItems, _selectedClusterPins);
+        }
+
+		private void UpdateClusterManager(ClusterManager cluster, IGeoLocated[] items, MapClusterItems clusterItems)
+		{
+            var pinsToAdd = ClusterItemsToAdd(items, clusterItems.ClusterItems);
+            var pinsToRemove = ClusterItemsToRemove(items, clusterItems.ClusterItems);
+            _unselectedClusterPins.UpdateItems(pinsToAdd, pinsToRemove);
+
+            cluster.RemoveItems(pinsToRemove);
+            cluster.AddItems(pinsToAdd);
+			cluster.Cluster();
+        }
+
+		private MapClusterItem[] ClusterItemsToAdd(IGeoLocated[] items, MapClusterItem[] mapClusterItems)
+		{
+            var mapClusterItemsLookup = mapClusterItems.ToDictionary(mc => mc.Item);
+
+            return items
+                .Where(item => !mapClusterItemsLookup.ContainsKey(item))
+                .Select(item => new MapClusterItem(item))
+                .ToArray();
+        }
+
+		private MapClusterItem[] ClusterItemsToRemove(IGeoLocated[] items, MapClusterItem[] mapClusterItems)
+		{
+
+            var ItemsLookup = items.ToDictionary(item => item);
+
+            return mapClusterItems
+                .Where(clusterItem => !ItemsLookup.ContainsKey((IGeoLocated)clusterItem))
+                .ToArray();
+        }
 
 		private void UpdateMarker(Pushpin pushpin, Marker marker)
 		{
@@ -524,14 +606,28 @@ namespace Cartography.DynamicMap
 
 		private void UpdateMapSelectedPushpins(IGeoLocated[] newlySelected)
 		{
-			_pushpins.UpdateSelection(newlySelected);
+			if(!IsClusterEnabled)
+				_pushpins.UpdateSelection(newlySelected);
+			else
+			{
+                _unselectedPinsClusterManager.RemoveItems(newlySelected);
+				_SelectedPinsClusterManager.AddItems(newlySelected);
+			}
 		}
 #endregion
 
 		private void UpdateMapPushpinOnCameraIdle()
 		{
-			_map.SetOnCameraIdleListener(new MapOnCameraIdleListener(this));
-		}
+			if (IsClusterEnabled)
+			{
+                _map.SetOnCameraIdleListener(_unselectedPinsClusterManager);
+				_map.SetOnCameraIdleListener(_SelectedPinsClusterManager);
+			}
+			else
+			{
+				_map.SetOnCameraIdleListener(new MapOnCameraIdleListener(this));
+            }
+        }
 
 		private class MapOnCameraIdleListener : Java.Lang.Object, GoogleMap.IOnCameraIdleListener
 		{
@@ -710,6 +806,6 @@ namespace Cartography.DynamicMap
 				_map.SetMapStyle(new MapStyleOptions(newStyle));
 			}
 		}
-	}
+    }
 }
 #endif
