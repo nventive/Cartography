@@ -33,6 +33,13 @@
 						Command="{Binding GotoDynamicMap_FeaturesPage}"
                         Style="{StaticResource BasicButtonStyle}"
 						HorizontalAlignment="Stretch"
+						Margin="0,20" /> 
+                
+                <!-- Show DynamicMap_PushpinsPage button -->
+                <Button Content="Show DynamicMap Clustering sample"
+                        Command="{Binding GotoDynamicMap_WithClustering_FeaturesPage}"
+                        Style="{StaticResource BasicButtonStyle}"
+						HorizontalAlignment="Stretch"
 						Margin="0,20" />
 
                 <!--Show NavigateToDynamicMap_MoveSearchPage button-->
