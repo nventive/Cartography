@@ -8,6 +8,11 @@ using CoreGraphics;
 using CoreLocation;
 using System.Drawing;
 using Uno.Extensions;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 
 namespace Cartography.DynamicMap
 {
@@ -19,6 +24,8 @@ namespace Cartography.DynamicMap
         /// is the instance of the native annotation.
         /// </summary>
         public static Func<UIView> ClusterPinTemplate { get; set; }
+
+        public static DataTemplate ClusterTemplate { get; set; }
 
         public static UIColor ClusterColor = UIColor.FromRGB(202, 150, 38);
         public override IMKAnnotation Annotation
@@ -33,26 +40,41 @@ namespace Cartography.DynamicMap
                 var cluster = MKAnnotationWrapperExtensions.UnwrapClusterAnnotation(value);
                 if (cluster != null)
                 {
-                    var renderer = new UIGraphicsImageRenderer(new CGSize(40,40));
+                    var renderer = new UIGraphicsImageRenderer(new CGSize(40, 40));
                     var count = cluster.MemberAnnotations.Length;
 
-                    Image = renderer.CreateImage((context) =>
+                    Image = renderer.CreateImage(async (context) =>
                     {
-                        var backgroundColor = UIColor.Red;
+                        ContentControl contentControl = new ContentControl()
+                        {
+                            ContentTemplate = ClusterPinTemplate
+                        };
 
-                        var foregroundColor = UIColor.Black;
+                        // Render the content control into a bitmap
+                        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
+                        await renderTargetBitmap.RenderAsync(contentControl, 40, 40);
 
-                        backgroundColor.SetFill();
+                        // Convert the bitmap into a UIImage
+                        var pixelBuffer = await renderTargetBitmap.GetPixelsAsync();
+                        NSData data = NSData.FromArray(pixelBuffer.ToArray());
+                        UIImage image = UIImage.LoadFromData(data);
+
+                        // Draw the image in the center of the context
+                        image.Draw(new CGRect(0,0, image.Size.Width, image.Size.Height));
+
+                        UIColor.Red.SetFill();
                         UIBezierPath.FromOval(new CGRect(0, 0, 40, 40)).Fill();
 
+                        // Draw pushpin count
+                        var foregroundColor = UIColor.Black;
                         var attributes = new UIStringAttributes()
                         {
                             ForegroundColor = foregroundColor,
                             Font = UIFont.BoldSystemFontOfSize(20)
                         };
                         var text = new NSString($"{count}");
-                        var size = text.GetSizeUsingAttributes(attributes);
-                        var rect = new CGRect(20 - size.Width / 2, 20 - size.Height / 2, size.Width, size.Height);
+                        var rectSize = text.GetSizeUsingAttributes(attributes);
+                        var rect = new CGRect(20 - rectSize.Width / 2, 20 - rectSize.Height / 2, rectSize.Width, rectSize.Height);
                         text.DrawString(rect, attributes);
                     });
                 }

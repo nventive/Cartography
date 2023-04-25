@@ -5,7 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
@@ -14,8 +16,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 #if __ANDROID__
 using Android.Gms.Maps.Model;
+#endif
+
+#if __IOS__
+using CoreGraphics;
+using Foundation;
+using UIKit;
 #endif
 
 namespace Cartography.DynamicMap
@@ -187,7 +196,47 @@ namespace Cartography.DynamicMap
 #endif
         }
 
-		public static Thickness GetCompassMargin(DependencyObject obj)
+        public static DataTemplate GetClusterTemplate(DependencyObject obj)
+        {
+            return (DataTemplate)obj.GetValue(ClusterTemplateProperty);
+        }
+
+        public static void SetClusterTemplate(DependencyObject obj, DataTemplate value)
+        {
+            obj.SetValue(ClusterTemplateProperty, value);
+        }
+
+        private static async void OnClusterTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+#if __ANDROID__ || __IOS__
+            if (d != null && GetClusterTemplate(d) is DataTemplate clusterTemplate)
+            {
+#if __ANDROID__
+				if (d is MapControl map)
+				{
+					//map.MarkerUpdater = (pin, marker) =>
+					//{
+					//	var name = (string)imageSelector.Convert(pin.Content, null, pin.IsSelected, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+					//	marker.SetIcon(BitmapDescriptorFactory.FromResource(ImageSource.FindResourceId(name).GetValueOrDefault(0)));
+					//	marker.Title = pin.Content.ToString();
+					//};
+				}
+#elif __IOS__
+                if (d is MapControl map)
+                {
+                    ClusterView.ClusterTemplate = clusterTemplate;
+                }
+#endif
+            }
+#endif
+        }
+
+
+        public static readonly DependencyProperty ClusterTemplateProperty =
+            DependencyProperty.RegisterAttached("ClusterTemplate", typeof(DataTemplate), typeof(MapControlBehavior), new PropertyMetadata(default, OnClusterTemplateChanged));
+
+
+        public static Thickness GetCompassMargin(DependencyObject obj)
 		{
 			return (Thickness)obj.GetValue(CompassMarginProperty);
 		}
