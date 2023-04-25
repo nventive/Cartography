@@ -303,52 +303,52 @@ namespace Samples.Presentation
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 2",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5041113, Longitude = -73.5584092 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 3",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5035613, Longitude = -73.5587392 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 4",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5043413, Longitude = -73.5567092 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 5",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5040713, Longitude = -73.5547092 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 6",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5042713, Longitude = -73.5583092 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 7",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5046513, Longitude = -73.5587492 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 8",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5042313, Longitude = -73.5583562 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 1",
+                        Name = "Pushpin 9",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5040313, Longitude = -73.5584322 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 2",
+                        Name = "Pushpin 10",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5502338, Longitude = -73.2801901 })
                     },
                     new PushpinEntity
                     {
-                        Name = "Pushpin 3",
+                        Name = "Pushpin 11",
                         Coordinates = new Geopoint(new BasicGeoposition { Latitude = 45.5501838, Longitude = -72.0921769 })
                     },
                 };

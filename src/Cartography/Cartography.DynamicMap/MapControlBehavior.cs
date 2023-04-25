@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
-
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
@@ -224,17 +223,15 @@ namespace Cartography.DynamicMap
 #elif __IOS__
                 if (d is MapControl map)
                 {
-                    ClusterView.ClusterTemplate = clusterTemplate;
+                    //TODO
                 }
 #endif
             }
 #endif
         }
 
-
         public static readonly DependencyProperty ClusterTemplateProperty =
             DependencyProperty.RegisterAttached("ClusterTemplate", typeof(DataTemplate), typeof(MapControlBehavior), new PropertyMetadata(default, OnClusterTemplateChanged));
-
 
         public static Thickness GetCompassMargin(DependencyObject obj)
 		{

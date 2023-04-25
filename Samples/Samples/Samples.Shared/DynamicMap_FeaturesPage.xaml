@@ -22,16 +22,7 @@
             <converters:FromNullableBoolToVisibilityConverter x:Key="IsTrueToVisible" />
 
             <converters:FromNullableBoolToVisibilityConverter x:Key="IsTrueToCollapsed"
-															  VisibilityIfTrue="Collapsed" />
-            <DataTemplate x:Key="ClusterImageTemplate">
-                <Grid Background="Red"
-                      Width="20"
-                      Height="20">
-                    <TextBlock Text="Bonjour"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top" />
-                </Grid>
-            </DataTemplate>
+                                                              VisibilityIfTrue="Collapsed" />
 
         </ResourceDictionary>
     </Page.Resources>
@@ -122,9 +113,8 @@
                 <dynamicMap:MapControl ViewModel="{Binding}"
 									   SelectionMode="Single"
 									   AutolocateButtonVisibility="Collapsed"
-                                       IsClusterEnabled="True"
+                                       IsClusterEnabled="{Binding IsClusterEnabled}"
 									   dynamicMap:MapControlBehavior.DisableRotation="True"
-                                       dynamicMap:MapControlBehavior.ClusterTemplate="{StaticResource ClusterImageTemplate}"
 									   dynamicMap:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"
                                        dynamicMap:MapControlBehavior.IconWidth="36"
                                        dynamicMap:MapControlBehavior.IconHeight="40"
