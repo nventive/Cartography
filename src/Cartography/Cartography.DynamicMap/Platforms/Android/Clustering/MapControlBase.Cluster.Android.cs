@@ -12,122 +12,117 @@ using Uno.Extensions;
 using Uno.Logging;
 using Windows.UI.Xaml;
 
-namespace Cartography.DynamicMap
+namespace Cartography.DynamicMap;
+
+public partial class MapControlBase
 {
-    public partial class MapControlBase
+    private CustomClusterManager _clusterManager;
+    private MapClusterItems _clusterPins;
+
+    private void OnMapClusterReady()
     {
-        private CustomClusterManager _clusterManager;
-        private MapClusterItems _clusterPins;
+        // Zoomlevel does not need to be manage here. ClusterManager will handle how and when a cluster is shown. 
+        // A cluster can show a single pin. The diffrent styles will be manage in ClusterManager.
 
-        private void OnMapClusterReady(GoogleMap map)
+        _clusterPins = new MapClusterItems(new MapClusterItem[0]);
+        _clusterManager = new CustomClusterManager(Context, _map);
+        SetupCustomClusterManager(_clusterManager);
+
+        UpdateMapPushpinOnCameraIdle();
+
+        _isReady = true;
+
+        UpdateAutolocateButtonVisibility(AutolocateButtonVisibility);
+        UpdateCompassButtonVisibility(CompassButtonVisibility);
+        UpdateIsRotateGestureEnabled(IsRotateGestureEnabled);
+        UpdateMapStyleJson(MapStyleJson);
+
+        UpdateIcon(PushpinIcon);
+        UpdateSelectedIcon(SelectedPushpinIcon);
+
+        TryStart();
+    }
+
+    private void SetupCustomClusterManager(CustomClusterManager cluster)
+    {
+        _map.SetOnMarkerClickListener(cluster);
+        _map.SetOnInfoWindowClickListener(cluster);
+        cluster.SetOnClusterClickListener(cluster);
+        cluster.SetOnClusterInfoWindowClickListener(cluster);
+        cluster.SetOnClusterItemClickListener(new ClusterItemClick(this));
+        cluster.SetOnClusterItemInfoWindowClickListener(cluster);
+    }
+
+    private void UpdateAndroidClusteringPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
+    {
+        if (_clusterPins != null)
         {
-            _map = map;
+            var pinsToAdd = ClusterItemsToAdd(items, false);
+            var pinsToRemove = ClusterItemsToRemove(items, false);
+            _clusterPins.UpdateItems(pinsToAdd, pinsToRemove);
 
-            _padding = Thickness.Empty;
+            var selectedPinsToAdd = ClusterItemsToAdd(selectedItems, true);
+            var selectedPinsToRemove = ClusterItemsToRemove(selectedItems, true);
+            _clusterPins.UpdateItems(selectedPinsToAdd, selectedPinsToRemove);
 
-            // Zoomlevel does not need to be manage here. Clustermanager will handle how and when a cluster is shown. 
-            // A cluster can show a single pin. The diffrents styles will be manage in ClusterManager.
+            _clusterManager.RemoveItems(pinsToRemove);
+            _clusterManager.RemoveItems(selectedPinsToRemove);
+            _clusterManager.AddItems(pinsToAdd);
+            _clusterManager.AddItems(selectedPinsToAdd);
+            _clusterManager.Cluster();
+        }
+    }
 
-            _clusterPins = new MapClusterItems(new MapClusterItem[0]);
-            _clusterManager = new CustomClusterManager(Context, _map);
-            SetupCustomClusterManager(_clusterManager);
+    private MapClusterItem[] ClusterItemsToAdd(IGeoLocated[] items, bool isSelected)
+    {
+        var mapClusterItemsLookup = _clusterPins.ClusterItems.ToDictionary(mc => mc.Item);
 
-            UpdateMapPushpinOnCameraIdle();
+        return items
+            .Where(item => !mapClusterItemsLookup.ContainsKey(item))
+            .Select(item => new MapClusterItem(item, isSelected))
+            .ToArray();
+    }
 
-            _isReady = true;
+    private MapClusterItem[] ClusterItemsToRemove(IGeoLocated[] items, bool isSelected)
+    {
+        var ItemLookup = items.ToDictionary(mc => mc);
 
-            UpdateAutolocateButtonVisibility(AutolocateButtonVisibility);
-            UpdateCompassButtonVisibility(CompassButtonVisibility);
-            UpdateIsRotateGestureEnabled(IsRotateGestureEnabled);
-            UpdateMapStyleJson(MapStyleJson);
+        return _clusterPins.ClusterItems
+            .Where(mapItem => mapItem.IsSelected == isSelected && !ItemLookup.ContainsKey(mapItem.Item))
+            .ToArray();
+    }
 
-            UpdateIcon(PushpinIcon);
-            UpdateSelectedIcon(SelectedPushpinIcon);
+    private class ClusterItemClick : Java.Lang.Object, CustomClusterManager.IOnClusterItemClickListener
+    {
+        private MapControlBase _control;
 
-            TryStart();
+        public ClusterItemClick(MapControlBase mapControl)
+        {
+            _control = mapControl;
         }
 
-        private void SetupCustomClusterManager(CustomClusterManager cluster)
+        public bool OnClusterItemClick(Java.Lang.Object item)
         {
-            _map.SetOnMarkerClickListener(cluster);
-            _map.SetOnInfoWindowClickListener(cluster);
-            cluster.SetOnClusterClickListener(cluster);
-            cluster.SetOnClusterInfoWindowClickListener(cluster);
-            cluster.SetOnClusterItemClickListener(new ClusterItemClick(this));
-            cluster.SetOnClusterItemInfoWindowClickListener(cluster);
-        }
+            var _clusterItems = _control._clusterPins.ClusterItems;
+            var clusterItem = (MapClusterItem)item;
+            clusterItem.IsSelected = !clusterItem.IsSelected;
 
-        private void UpdateAndroidClusteringPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
-        {
-            if (_clusterPins != null)
+            if (!_control.AllowMultipleSelection)
             {
-                var pinsToAdd = ClusterItemsToAdd(items, false);
-                var pinsToRemove = ClusterItemsToRemove(items, false);
-                _clusterPins.UpdateItems(pinsToAdd, pinsToRemove);
-
-                var selectedPinsToAdd = ClusterItemsToAdd(selectedItems, true);
-                var selectedPinsToRemove = ClusterItemsToRemove(selectedItems, true);
-                _clusterPins.UpdateItems(selectedPinsToAdd, selectedPinsToRemove);
-
-                _clusterManager.RemoveItems(pinsToRemove);
-                _clusterManager.RemoveItems(selectedPinsToRemove);
-                _clusterManager.AddItems(pinsToAdd);
-                _clusterManager.AddItems(selectedPinsToAdd);
-                _clusterManager.Cluster();
+                _clusterItems
+                    .Where(item => item != clusterItem)
+                    .ForEach(item => item.IsSelected = false);
             }
-        }
 
-        private MapClusterItem[] ClusterItemsToAdd(IGeoLocated[] items, bool isSelected)
-        {
-            var mapClusterItemsLookup = _clusterPins.ClusterItems.ToDictionary(mc => mc.Item);
-
-            return items
-                .Where(item => !mapClusterItemsLookup.ContainsKey(item))
-                .Select(item => new MapClusterItem(item, isSelected))
+            var eventSelectedPins = _clusterItems
+                .Where(item => item.IsSelected)
+                .Select(item => item.Item)
                 .ToArray();
-        }
 
-        private MapClusterItem[] ClusterItemsToRemove(IGeoLocated[] items, bool isSelected)
-        {
-            var ItemLookup = items.ToDictionary(mc => mc);
+            _control._selectedPushpins.OnNext(eventSelectedPins);
+            _control._clusterManager.Cluster();
 
-            return _clusterPins.ClusterItems
-                .Where(mapItem => mapItem.IsSelected == isSelected && !ItemLookup.ContainsKey(mapItem.Item))
-                .ToArray();
-        }
-
-        private class ClusterItemClick : Java.Lang.Object, CustomClusterManager.IOnClusterItemClickListener
-        {
-            private MapControlBase _control;
-
-            public ClusterItemClick(MapControlBase mapControl)
-            {
-                _control = mapControl;
-            }
-
-            public bool OnClusterItemClick(Java.Lang.Object item)
-            {
-                var _clusterItems = _control._clusterPins.ClusterItems;
-                var clusterItem = (MapClusterItem)item;
-                clusterItem.IsSelected = !clusterItem.IsSelected;
-
-                if (!_control.AllowMultipleSelection)
-                {
-                    _clusterItems
-                        .Where(item => item != clusterItem)
-                        .ForEach(item => item.IsSelected = false);
-                }
-
-                var eventSelectedPins = _clusterItems
-                    .Where(item => item.IsSelected)
-                    .Select(item => item.Item)
-                    .ToArray();
-
-                _control._selectedPushpins.OnNext(eventSelectedPins);
-                _control._clusterManager.Cluster();
-
-                return true;
-            }
+            return true;
         }
     }
 }

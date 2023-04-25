@@ -27,727 +27,723 @@ using Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Cartography.DynamicMap
+namespace Cartography.DynamicMap;
+
+public partial class MapControlBase
 {
-	public partial class MapControlBase
+    private const string COMPASS_TAG = "GoogleMapCompass";
+
+    private GoogleMapView _internalMapView;
+
+    private Thickness _padding;
+    private GoogleMapLayer _pushpins;
+    private MapLifeCycleCallBacks _callbacks;
+    private Android.App.Application _application;
+    private BitmapDescriptor _icon;
+    private BitmapDescriptor _selectedIcon;
+    private MapReadyCallback _callback;
+    private View _compass;
+
+    /// <summary>
+    /// Sets the selector that will be used to update the marker. This will get 
+    /// called when the DataContext changes, the position changes and the selected 
+    /// state changes for a marker.
+    /// </summary>
+    /// <remarks>
+    /// The call chain for the update are the following:
+    /// (UseIcons && PushpinIconsMarkerUpdater)? -> UpdateMarker -> MarkerUpdater?
+    /// </remarks>
+    public Action<Pushpin, Marker> MarkerUpdater { get; set; }
+
+    /// <summary>
+    /// Handles margin for the compass icon.
+    /// </summary>
+    public Thickness CompassMargin
     {
-		private const string COMPASS_TAG = "GoogleMapCompass";
+        get
+        {
+            if (_compass == null)
+            {
+                _compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
+            }
 
-		private GoogleMapView _internalMapView;
+            RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
 
-		private Thickness _padding;
-		private GoogleMapLayer _pushpins;
-        private MapLifeCycleCallBacks _callbacks;
-		private Android.App.Application _application;
-		private BitmapDescriptor _icon;
-		private BitmapDescriptor _selectedIcon;
-		private MapReadyCallback _callback;
-		private View _compass;
+            return new Thickness(rlp.LeftMargin, rlp.TopMargin, rlp.RightMargin, rlp.BottomMargin);
+        }
 
-		/// <summary>
-		/// Sets the selector that will be used to update the marker. This will get 
-		/// called when the DataContext changes, the position changes and the selected 
-		/// state changes for a marker.
-		/// </summary>
-		/// <remarks>
-		/// The call chain for the update are the following:
-		/// (UseIcons && PushpinIconsMarkerUpdater)? -> UpdateMarker -> MarkerUpdater?
-		/// </remarks>
-		public Action<Pushpin, Marker> MarkerUpdater { get; set; }
+        set
+        {
+            if (_compass == null)
+            {
+                _compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
+            }
 
-		/// <summary>
-		/// Handles margin for the compass icon
-		/// </summary>
-		public Thickness CompassMargin
-		{
-			get
-			{
-				if (_compass == null)
-				{
-					_compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
-				}
+            RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
+            rlp.TopMargin = (int)value.Top;
+            rlp.RightMargin = (int)value.Right;
+            rlp.LeftMargin = (int)value.Left;
+            rlp.BottomMargin = (int)value.Bottom;
+        }
+    }
 
-				RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
+    /// <summary>
+    /// Enables multiple selected pins.
+    /// </summary>
+    private bool AllowMultipleSelection { get { return SelectionMode == MapSelectionMode.Multiple; } }
 
-				return new Thickness(rlp.LeftMargin, rlp.TopMargin, rlp.RightMargin, rlp.BottomMargin);
-			}
+    partial void PartialConstructor(ILogger<MapControlBase> logger = null)
+    {
+        Loaded += (sender, args) => OnLoaded();
+        Unloaded += (sender, args) => OnUnloaded();
 
-			set
-			{
-				if (_compass == null)
-				{
-					_compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
-				}
+        _internalMapView = new GoogleMapView(Android.App.Application.Context, new GoogleMapOptions());
 
-				RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
-				rlp.TopMargin = (int)value.Top;
-				rlp.RightMargin = (int)value.Right;
-				rlp.LeftMargin = (int)value.Left;
-				rlp.BottomMargin = (int)value.Bottom;
-			}
-		}
+        Template = new ControlTemplate(() => _internalMapView);//TODO support templateing
 
+        MapsInitializer.Initialize(Android.App.Application.Context);
 
-		/// <summary>
-		/// Enables multiple selected pins
-		/// </summary>
-		private bool AllowMultipleSelection { get { return SelectionMode == MapSelectionMode.Multiple; } }
-		partial void PartialConstructor(ILogger<MapControlBase> logger = null)
-		{
-			Loaded += (sender, args) => OnLoaded();
-			Unloaded += (sender, args) => OnUnloaded();
+        _internalMapView.GetMapAsync(_callback = new MapReadyCallback(OnMapReady));
 
-			_internalMapView = new GoogleMapView(Android.App.Application.Context, new GoogleMapOptions());
+        _internalMapView.OnCreate(null); // This otherwise the map does not appear
 
-			Template = new ControlTemplate(() => _internalMapView);//TODO support templateing
+        _logger = logger ?? NullLogger<MapControlBase>.Instance;
+    }
 
-			MapsInitializer.Initialize(Android.App.Application.Context);
+    private void OnLoaded()
+    {
+        _internalMapView.OnResume(); // This otherwise the map stay empty
 
-                _internalMapView.GetMapAsync(_callback = new MapReadyCallback(OnMapClusterReady));
-   //         if (IsClusterEnabled)
-			//{
-   //         }
-			//else
-			//{
-   //             _internalMapView.GetMapAsync(_callback = new MapReadyCallback(OnMapReady));
-			//}
+        HandleActivityLifeCycle();
 
-			_internalMapView.OnCreate(null); // This otherwise the map does not appear
+        _internalMapView.TouchOccurred += MapTouchOccurred;
+    }
 
-			_logger = logger ?? NullLogger<MapControlBase>.Instance;
+    private void OnUnloaded()
+    {
+        // These line is required for the control to 
+        // stop actively monitoring the user's location.
+        _internalMapView.OnPause();
 
-		}
+        _application.UnregisterActivityLifecycleCallbacks(_callbacks);
 
-		private void OnLoaded()
-		{
-			_internalMapView.OnResume(); // This otherwise the map stay empty
+        if (_internalMapView != null)
+        {
+            _internalMapView.TouchOccurred -= MapTouchOccurred;
+        }
+    }
 
-			HandleActivityLifeCycle();
+    private void MapTouchOccurred(object sender, MotionEvent e)
+    {
+        _isUserDragging.OnNext(e.Action == MotionEventActions.Move);
+    }
 
-			_internalMapView.TouchOccurred += MapTouchOccurred;
-		}
+    private GoogleMap _map;
 
-		private void OnUnloaded()
-		{
-			// These line is required for the control to 
-			// stop actively monitoring the user's location.
-			_internalMapView.OnPause();
+    private void OnMapReady(GoogleMap map)
+    {
+        _map = map;
 
-			_application.UnregisterActivityLifecycleCallbacks(_callbacks);
+        _padding = Thickness.Empty;
 
-			if (_internalMapView != null)
-			{
-				_internalMapView.TouchOccurred -= MapTouchOccurred;
-			}
-		}
+        // Cannot put this before because DependencyProperty isn't ready in partial constructor. 
+        if (IsClusterEnabled)
+        {
+            OnMapClusterReady();
+            return;
+        }
 
-		private void MapTouchOccurred(object sender, MotionEvent e)
-		{
-			_isUserDragging.OnNext(e.Action == MotionEventActions.Move);
-		}
+        _pushpins = new GoogleMapLayer(map);
 
-		private GoogleMap _map;
-		private void OnMapReady(GoogleMap map)
-		{
-			_map = map;
+        _isReady = true;
 
-			_padding = Thickness.Empty;
+        map.MarkerClick += Map_MarkerClick;
+        map.MapClick += Map_MapClick;
 
-            _pushpins = new GoogleMapLayer(map);
+        UpdateMapPushpinOnCameraIdle();
 
-			_isReady = true;
+        UpdateAutolocateButtonVisibility(AutolocateButtonVisibility);
+        UpdateCompassButtonVisibility(CompassButtonVisibility);
+        UpdateIsRotateGestureEnabled(IsRotateGestureEnabled);
+        UpdateMapStyleJson(MapStyleJson);
 
-            map.MarkerClick += Map_MarkerClick;
-            map.MapClick += Map_MapClick;
+        UpdateIcon(PushpinIcon);
+        UpdateSelectedIcon(SelectedPushpinIcon);
 
-			UpdateMapPushpinOnCameraIdle();
+        TryStart();
+    }
 
-			UpdateAutolocateButtonVisibility(AutolocateButtonVisibility);
-			UpdateCompassButtonVisibility(CompassButtonVisibility);
-			UpdateIsRotateGestureEnabled(IsRotateGestureEnabled);
-			UpdateMapStyleJson(MapStyleJson);
+    /// <summary>
+    /// Idea is to register to the LifeCycleCallbacks and properly call the OnResume and OnPause methods when needed.
+    /// This will release the GPS while the application is in the background.
+    /// </summary>
+    private void HandleActivityLifeCycle()
+    {
+        _callbacks = new MapLifeCycleCallBacks(onPause: _internalMapView.OnPause, onResume: _internalMapView.OnResume);
 
-			UpdateIcon(PushpinIcon);
-			UpdateSelectedIcon(SelectedPushpinIcon);
+        _application = Context.ApplicationContext as Android.App.Application;
+        if (_application != null)
+        {
+            _application.RegisterActivityLifecycleCallbacks(_callbacks);
+        }
+        else
+        {
+            _logger.Error("ApplicationContext is invalid, could not RegisterActivityLifecycleCallbacks to release GPS when application is paused.");
+        }
+    }
 
-			TryStart();
-		}
+    #region UserLocation
+    private void UpdateMapUserLocation(LocationResult locationAndStatus)
+    {
+        if (locationAndStatus != null)
+            _map.MyLocationEnabled = locationAndStatus.IsSuccessful;
+    }
+    #endregion
 
-        /// <summary>
-        /// Idea is to register to the LifeCycleCallbacks and properly call the OnResume and OnPause methods when needed.
-        /// This will release the GPS while the application is in the background
-        /// </summary>
-        private void HandleActivityLifeCycle()
-		{
-			_callbacks = new MapLifeCycleCallBacks(onPause: _internalMapView.OnPause, onResume: _internalMapView.OnResume);
+    #region ViewPort
+    private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
+    {
+        var map = _map;
 
-			_application = Context.ApplicationContext as Android.App.Application;
-			if (_application != null)
-			{
-				_application.RegisterActivityLifecycleCallbacks(_callbacks);
-			}
-			else
-			{
-				_logger.Error("ApplicationContext is invalid, could not RegisterActivityLifecycleCallbacks to release GPS when application is paused.");
-			}
-		}
+        yield return System.Reactive.Linq.Observable
+            .FromEventPattern<GoogleMap.CameraChangeEventArgs>(
+                h => map.CameraChange += h,
+                h => map.CameraChange -= h)
+            .Where(_ => !_isAnimating)
+            .Select(_ => Unit.Default);
+    }
 
-#region UserLocation
-		private void UpdateMapUserLocation(LocationResult locationAndStatus)
-		{
-			if (locationAndStatus != null)
-				_map.MyLocationEnabled = locationAndStatus.IsSuccessful;
-		}
-#endregion
+    private MapViewPort GetViewPort()
+    {
+        var position = _map.CameraPosition;
+        var point = new BasicGeoposition();
+        point.Longitude = position.Target.Longitude;
+        point.Latitude = position.Target.Latitude;
 
-#region ViewPort
+        return new MapViewPort
+        {
+            Center = new Geopoint(point),
+            Heading = position.Bearing,
+            Pitch = position.Tilt,
+            ZoomLevel = (ZoomLevel)position.Zoom,
+        };
+    }
 
-		private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
-		{
-			var map = _map;
+    private bool GetInitializationStatus() => true;
 
-			yield return System.Reactive.Linq.Observable
-				.FromEventPattern<GoogleMap.CameraChangeEventArgs>(
-					h => map.CameraChange += h,
-					h => map.CameraChange -= h)
-				.Where(_ => !_isAnimating)
-				.Select(_ => Unit.Default);
-		}
+    private async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
+    {
+        await _viewLayedOut.Task;
 
-		private MapViewPort GetViewPort()
-		{
-			var position = _map.CameraPosition;
-			var point = new BasicGeoposition();
-			point.Longitude = position.Target.Longitude;
-			point.Latitude = position.Target.Latitude;
+        var animation = new MapCancellableCallback(ct);
 
-			return new MapViewPort
-			{
-				Center = new Geopoint(point),
-				Heading = position.Bearing,
-				Pitch = position.Tilt,
-				ZoomLevel = (ZoomLevel)position.Zoom,
-			};
-		}
+        if (viewPort.PointsOfInterest.Safe().Any())
+        {
+            //Rubber-band bounds to PointsOfInterest
+            var bounds = viewPort
+                .PointsOfInterest
+                .Aggregate(
+                    new LatLngBounds.Builder(),
+                    (builder, poi) => builder.Include(new LatLng(poi.Position.Latitude, poi.Position.Longitude)))
+                .Build();
 
-		private bool GetInitializationStatus() => true;
+            if (viewPort.Center != default(Geopoint))
+            {
+                bounds = AddPushpinPaddingToBounds(viewPort);
+            }
 
-		private async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
-		{
-			await _viewLayedOut.Task;
+            var cameraBounds = CameraUpdateFactory.NewLatLngBounds(bounds, 0);
 
-			var animation = new MapCancellableCallback(ct);
+            if (viewPort.IsAnimationDisabled)
+            {
+                _map.MoveCamera(cameraBounds);
+            }
+            else
+            {
+                _map.AnimateCamera(cameraBounds, animation);
+            }
+        }
+        else
+        {
+            var builder = new CameraPosition.Builder(_map.CameraPosition)
+                .Target(new LatLng(viewPort.Center.Position.Latitude, viewPort.Center.Position.Longitude));
 
-			if (viewPort.PointsOfInterest.Safe().Any())
-			{
-				//Rubber-band bounds to PointsOfInterest
-				var bounds = viewPort
-					.PointsOfInterest
-					.Aggregate(
-						new LatLngBounds.Builder(),
-						(builder, poi) => builder.Include(new LatLng(poi.Position.Latitude, poi.Position.Longitude)))
-					.Build();
+            if (viewPort.Heading.HasValue)
+            {
+                builder.Bearing((float)viewPort.Heading.Value);
+            }
 
-				if (viewPort.Center != default(Geopoint))
-				{
-					bounds = AddPushpinPaddingToBounds(viewPort);
-				}
+            if (viewPort.Pitch.HasValue)
+            {
+                builder.Tilt((float)viewPort.Pitch.Value);
+            }
 
-				var cameraBounds = CameraUpdateFactory.NewLatLngBounds(bounds, 0);
+            if (viewPort.ZoomLevel.HasValue)
+            {
+                builder.Zoom((float)viewPort.ZoomLevel);
+            }
 
-				if (viewPort.IsAnimationDisabled)
-				{
-					_map.MoveCamera(cameraBounds);
-				}
-				else
-				{
-					_map.AnimateCamera(cameraBounds, animation);
-				}
-			}
-			else
-			{
-				var builder = new CameraPosition.Builder(_map.CameraPosition)
-					.Target(new LatLng(viewPort.Center.Position.Latitude, viewPort.Center.Position.Longitude));
+            var cameraUpdate = CameraUpdateFactory.NewCameraPosition(builder.Build());
 
-				if (viewPort.Heading.HasValue)
-				{
-					builder.Bearing((float)viewPort.Heading.Value);
-				}
-
-				if (viewPort.Pitch.HasValue)
-				{
-					builder.Tilt((float)viewPort.Pitch.Value);
-				}
-
-				if (viewPort.ZoomLevel.HasValue)
-				{
-					builder.Zoom((float)viewPort.ZoomLevel);
-				}
-
-				var cameraUpdate = CameraUpdateFactory.NewCameraPosition(builder.Build());
-
-				if (viewPort.IsAnimationDisabled)
-				{
-					_map.MoveCamera(cameraUpdate);
-				}
-				else
-				{
-					_map.AnimateCamera(cameraUpdate, animation);
-				}
-			}
-
-			await animation;
-		}
-
-		private LatLngBounds AddPushpinPaddingToBounds(MapViewPort viewPort)
-		{
-			var frontiers = viewPort.GetBounds();
-
-			// create ViewPort with calculated dimensions
-			var northEastCorner = new LatLng(frontiers.EastFrontier, frontiers.NorthFrontier);
-			var southWestCorner = new LatLng(frontiers.WestFrontier, frontiers.SouthFrontier);
-
-			return new LatLngBounds(southWestCorner, northEastCorner);
-		}
-#endregion
-
-#region ViewPortCoordinates
-		private MapViewPortCoordinates GetViewPortCoordinates()
-		{
-			var visibleRegion = _map.Projection.VisibleRegion;
-			return new MapViewPortCoordinates(
-				northWest: new BasicGeoposition { Latitude = visibleRegion.FarLeft.Latitude, Longitude = visibleRegion.FarLeft.Longitude },
-				northEast: new BasicGeoposition { Latitude = visibleRegion.FarRight.Latitude, Longitude = visibleRegion.FarRight.Longitude },
-				southWest: new BasicGeoposition { Latitude = visibleRegion.NearLeft.Latitude, Longitude = visibleRegion.NearLeft.Longitude },
-				southEast: new BasicGeoposition { Latitude = visibleRegion.NearRight.Latitude, Longitude = visibleRegion.NearRight.Longitude }
-			);
-		}
-#endregion
-
-#region Pushpins
-		private void UpdateMapPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
-		{
-			if(IsClusterEnabled)
-			{
-				UpdateAndroidClusteringPushpins(items, selectedItems);
-			}
-			else
-			{
-                UpdateStandardPushpins(items, selectedItems);
+            if (viewPort.IsAnimationDisabled)
+            {
+                _map.MoveCamera(cameraUpdate);
+            }
+            else
+            {
+                _map.AnimateCamera(cameraUpdate, animation);
             }
         }
 
-		private void UpdateStandardPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
-		{
-            _pushpins.Update(
-                    items: items,
-                    selectedItems: selectedItems,
-                    containerFactory: _ => new Pushpin
-                    {
-                        Map = this,
-                        // call chain: PushpinIconsMarkerUpdater? -> UpdateMarker -> MarkerUpdater?
-                        MarkerUpdater = UseIcons
-                            ? PushpinIconsMarkerUpdater
-                            : (Action<Pushpin, Marker>)UpdateMarker
-                    },
+        await animation;
+    }
 
-                    // Pin instances cannot be recycled in Google Maps.
-                    canRecycle: false
-                );
+    private LatLngBounds AddPushpinPaddingToBounds(MapViewPort viewPort)
+    {
+        var frontiers = viewPort.GetBounds();
+
+        // create ViewPort with calculated dimensions
+        var northEastCorner = new LatLng(frontiers.EastFrontier, frontiers.NorthFrontier);
+        var southWestCorner = new LatLng(frontiers.WestFrontier, frontiers.SouthFrontier);
+
+        return new LatLngBounds(southWestCorner, northEastCorner);
+    }
+    #endregion
+
+    #region ViewPortCoordinates
+    private MapViewPortCoordinates GetViewPortCoordinates()
+    {
+        var visibleRegion = _map.Projection.VisibleRegion;
+        return new MapViewPortCoordinates(
+            northWest: new BasicGeoposition { Latitude = visibleRegion.FarLeft.Latitude, Longitude = visibleRegion.FarLeft.Longitude },
+            northEast: new BasicGeoposition { Latitude = visibleRegion.FarRight.Latitude, Longitude = visibleRegion.FarRight.Longitude },
+            southWest: new BasicGeoposition { Latitude = visibleRegion.NearLeft.Latitude, Longitude = visibleRegion.NearLeft.Longitude },
+            southEast: new BasicGeoposition { Latitude = visibleRegion.NearRight.Latitude, Longitude = visibleRegion.NearRight.Longitude }
+        );
+    }
+    #endregion
+
+    #region Pushpins
+    private void UpdateMapPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
+    {
+        if (IsClusterEnabled)
+        {
+            UpdateAndroidClusteringPushpins(items, selectedItems);
+        }
+        else
+        {
+            UpdateStandardPushpins(items, selectedItems);
+        }
+    }
+
+    private void UpdateStandardPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
+    {
+        _pushpins.Update(
+                items: items,
+                selectedItems: selectedItems,
+                containerFactory: _ => new Pushpin
+                {
+                    Map = this,
+                    // call chain: PushpinIconsMarkerUpdater? -> UpdateMarker -> MarkerUpdater?
+                    MarkerUpdater = UseIcons
+                        ? PushpinIconsMarkerUpdater
+                        : (Action<Pushpin, Marker>)UpdateMarker
+                },
+
+                // Pin instances cannot be recycled in Google Maps.
+                canRecycle: false
+            );
+    }
+
+    private void UpdateMarker(Pushpin pushpin, Marker marker)
+    {
+        // update z-index
+        marker.ZIndex = pushpin.ZIndex;
+
+        // call injected updater
+        MarkerUpdater?.Invoke(pushpin, marker);
+    }
+    #endregion
+
+    #region Pushpin ICONS
+    private bool UseIcons => _icon != null;
+
+    private void UpdateIcon(object icon)
+    {
+        if (_icon != null)
+        {
+            throw new InvalidOperationException("Pushpins icons cannot be changed.");
         }
 
-		private void UpdateMarker(Pushpin pushpin, Marker marker)
-		{
-			// update z-index
-			marker.ZIndex = pushpin.ZIndex;
+        UpdateIcon(ref _icon, icon);
+    }
 
-			// call injected updater
-			MarkerUpdater?.Invoke(pushpin, marker);
-		}
-#endregion
+    private void UpdateSelectedIcon(object icon)
+    {
+        if (_selectedIcon != null)
+        {
+            throw new InvalidOperationException("Pushpins icons cannot be changed.");
+        }
 
-#region Pushpin ICONS
-		private bool UseIcons => _icon != null;
+        UpdateIcon(ref _selectedIcon, icon);
+    }
 
-		private void UpdateIcon(object icon)
-		{
-			if (_icon != null)
-			{
-				throw new InvalidOperationException("Pushpins icons cannot be changed.");
-			}
+    private void UpdateIcon(ref BitmapDescriptor icon, object value)
+    {
+        if (!_isReady)
+        {
+            // Deferring the update, the map control is not available yet.
+            return;
+        }
 
-			UpdateIcon(ref _icon, icon);
-		}
+        if (value == null)
+        {
+            icon = null;
+            return;
+        }
 
-		private void UpdateSelectedIcon(object icon)
-		{
-			if (_selectedIcon != null)
-			{
-				throw new InvalidOperationException("Pushpins icons cannot be changed.");
-			}
+        icon = ToImageSource(value);
+        if (icon == null)
+        {
+            throw new InvalidOperationException("Failed to convert '{0}' to a PushpinIcon".InvariantCultureFormat(value));
+        }
+    }
 
-			UpdateIcon(ref _selectedIcon, icon);
-		}
+    private static BitmapDescriptor ToImageSource(object value)
+    {
+        var uriStr = value as string;
+        if (uriStr.HasValueTrimmed()
+            && Uri.IsWellFormedUriString(uriStr, UriKind.RelativeOrAbsolute))
+        {
+            value = new Uri(uriStr, UriKind.RelativeOrAbsolute);
+        }
 
-		private void UpdateIcon(ref BitmapDescriptor icon, object value)
-		{
-			if (!_isReady)
-			{
-				// Deferring the update, the map control is not available yet.
-				return;
-			}
+        var uri = value as Uri;
+        if (uri != null)
+        {
+            if (!uri.IsAbsoluteUri)
+            {
+                //return BitmapDescriptorFactory.FromAsset(uri.OriginalString);
+                return BitmapDescriptorFactory_FromAsset(uri.OriginalString);
+            }
 
-			if (value == null)
-			{
-				icon = null;
-				return;
-			}
+            switch (uri.Scheme.ToUpperInvariant())
+            {
+                case "RES":
+                case "RESOURCE":
+                    return BitmapDescriptorFactory.FromResource(int.Parse(uri.LocalPath.Trim(new[] { '/' })));
 
-			icon = ToImageSource(value);
-			if (icon == null)
-			{
-				throw new InvalidOperationException("Failed to convert '{0}' to a PushpinIcon".InvariantCultureFormat(value));
-			}
-		}
+                case "FILE":
+                    return BitmapDescriptorFactory.FromFile(uri.LocalPath);
 
-		private static BitmapDescriptor ToImageSource(object value)
-		{
-			var uriStr = value as string;
-			if (uriStr.HasValueTrimmed()
-				&& Uri.IsWellFormedUriString(uriStr, UriKind.RelativeOrAbsolute))
-			{
-				value = new Uri(uriStr, UriKind.RelativeOrAbsolute);
-			}
+                case "ASSET":
+                    //return BitmapDescriptorFactory.FromAsset(uri.LocalPath);
+                    return BitmapDescriptorFactory_FromAsset(uri.LocalPath);
 
-			var uri = value as Uri;
-			if (uri != null)
-			{
-				if (!uri.IsAbsoluteUri)
-				{
-					//return BitmapDescriptorFactory.FromAsset(uri.OriginalString);
-					return BitmapDescriptorFactory_FromAsset(uri.OriginalString);
-				}
-
-				switch (uri.Scheme.ToUpperInvariant())
-				{
-					case "RES":
-					case "RESOURCE":
-						return BitmapDescriptorFactory.FromResource(int.Parse(uri.LocalPath.Trim(new[] { '/' })));
-
-					case "FILE":
-						return BitmapDescriptorFactory.FromFile(uri.LocalPath);
-
-					case "ASSET":
-						//return BitmapDescriptorFactory.FromAsset(uri.LocalPath);
-						return BitmapDescriptorFactory_FromAsset(uri.LocalPath);
-
-					case "HTTP":
-					default:
-						throw new NotSupportedException("Scheme '{0}' not supported as source of a pushpin icon".InvariantCultureFormat(uri.Scheme));
-				}
-			}
-
-			var bitmap = value as Bitmap;
-			if (bitmap != null)
-			{
-				return BitmapDescriptorFactory.FromBitmap(bitmap);
-			}
-
-			return null;
-		}
-
-		private static BitmapDescriptor BitmapDescriptorFactory_FromAsset(string assetName)
-		{
-			// A known bug with the Google Play services (fixed in 7.3) is that we cannot use assets as icon of pushpins
-			// cf. https://code.google.com/p/gmaps-api-issues/issues/detail?id=7696
-
-			// As v7.3 binding is not yet released (only private RC for now), we cannot update, so we will use work arround 
-			// proposed in message #21 of link upper.
-
-			var assetManager = Android.App.Application.Context.Assets;
-
-			try
-			{
-				var inputStream = assetManager.Open(assetName.TrimStart("Assets", StringComparison.OrdinalIgnoreCase).TrimStart('/', '\\'));
-				var image = BitmapFactory.DecodeStream(inputStream);
-
-				return BitmapDescriptorFactory.FromBitmap(image);
-			}
-			catch
-			{
-				return null;
-			}
-		}
-
-		private void PushpinIconsMarkerUpdater(Pushpin pushpin, Marker marker)
-		{
-			var icon = pushpin.IsSelected
-				? _selectedIcon
-				: _icon;
-
-			marker.SetIcon(icon ?? _icon ?? BitmapDescriptorFactory.DefaultMarker());
-
-			UpdateMarker(pushpin, marker);
-		}
-#endregion
-
-#region Selected pushpins
-		private void Map_MarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
-		{
-			_logger.Debug("Clicking on a pin.");
-
-			var pushPin = _pushpins.FindPushPin(e.Marker);
-
-			if (pushPin != null)
-			{
-				pushPin.IsSelected = !pushPin.IsSelected;
-
-				if (!AllowMultipleSelection)
-				{
-					_pushpins
-						.Items
-						.Where(i => i != pushPin)
-						.ForEach(p => p.IsSelected = false);
-				}
-
-				var selectedContent = GetSelectedAnnotationsContent();
-
-				_logger.Info($"Clicked on '{selectedContent.Length}' pins.");
-
-				_selectedPushpins.OnNext(selectedContent);
-			}
-		}
-
-		void Map_MapClick(object sender, GoogleMap.MapClickEventArgs e)
-		{
-			_logger.Debug("Clicking on the map.");
-
-			if (!AllowMultipleSelection)
-			{
-				_pushpins
-					.Items
-					.ForEach(p => p.IsSelected = false);
-
-				_selectedPushpins.OnNext(new IGeoLocated[0]);
-			}
-
-			OnMapTapped(new Geocoordinate(e.Point.Latitude, e.Point.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
-
-			_logger.Info("Clicked on the map.");
-		}
-
-
-		private IGeoLocated[] GetSelectedAnnotationsContent()
-		{
-			return _pushpins
-				.Items
-				.Where(p => p.IsSelected)
-				.Select(p => p.Content)
-				.ToArray();
-		}
-
-		private void UpdateMapSelectedPushpins(IGeoLocated[] newlySelected)
-		{
-			if (IsClusterEnabled)
-			{
-				// not needed for clustering at the moment.
-			}
-			else
-			{
-				_pushpins.UpdateSelection(newlySelected);
-			}
-		}
-#endregion
-
-		private void UpdateMapPushpinOnCameraIdle()
-		{
-			if (IsClusterEnabled)
-			{
-                _map.SetOnCameraIdleListener(_clusterManager);
-			}
-			else
-			{
-				_map.SetOnCameraIdleListener(new MapOnCameraIdleListener(this));
+                case "HTTP":
+                default:
+                    throw new NotSupportedException("Scheme '{0}' not supported as source of a pushpin icon".InvariantCultureFormat(uri.Scheme));
             }
         }
 
-		private class MapOnCameraIdleListener : Java.Lang.Object, GoogleMap.IOnCameraIdleListener
-		{
-			private readonly MapControlBase _parent;
+        var bitmap = value as Bitmap;
+        if (bitmap != null)
+        {
+            return BitmapDescriptorFactory.FromBitmap(bitmap);
+        }
 
-			public MapOnCameraIdleListener(MapControlBase parent)
-			{
-				_parent = parent;
-			}
+        return null;
+    }
 
-			public void OnCameraIdle()
-			{
-				var selectedContent = _parent.GetSelectedAnnotationsContent();
-				_parent._selectedPushpins.OnNext(selectedContent);
-			}
-		}
+    private static BitmapDescriptor BitmapDescriptorFactory_FromAsset(string assetName)
+    {
+        // A known bug with the Google Play services (fixed in 7.3) is that we cannot use assets as icon of pushpins
+        // cf. https://code.google.com/p/gmaps-api-issues/issues/detail?id=7696
 
-		private class MapReadyCallback : Java.Lang.Object, IOnMapReadyCallback
-		{
-			private readonly Action<GoogleMap> _mapAvailable;
+        // As v7.3 binding is not yet released (only private RC for now), we cannot update, so we will use work arround 
+        // proposed in message #21 of link upper.
 
-			public MapReadyCallback(Action<GoogleMap> mapAvailable)
-			{
-				_mapAvailable = mapAvailable;
-			}
+        var assetManager = Android.App.Application.Context.Assets;
 
-			public void OnMapReady(GoogleMap googleMap)
-			{
-				_mapAvailable(googleMap);
-			}
-		}
+        try
+        {
+            var inputStream = assetManager.Open(assetName.TrimStart("Assets", StringComparison.OrdinalIgnoreCase).TrimStart('/', '\\'));
+            var image = BitmapFactory.DecodeStream(inputStream);
 
-		private class MapCancellableCallback : Java.Lang.Object, GoogleMap.ICancelableCallback
-		{
-			private readonly TaskCompletionSource<Unit> _source = new TaskCompletionSource<Unit>();
-			private readonly IDisposable _cancelSubscription;
+            return BitmapDescriptorFactory.FromBitmap(image);
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
-			public MapCancellableCallback(CancellationToken ct)
-			{
-				_cancelSubscription = ct.Register(() => _source.TrySetCanceled());
-			}
+    private void PushpinIconsMarkerUpdater(Pushpin pushpin, Marker marker)
+    {
+        var icon = pushpin.IsSelected
+            ? _selectedIcon
+            : _icon;
 
-			void GoogleMap.ICancelableCallback.OnCancel()
-			{
-				_source.TrySetCanceled();
-			}
+        marker.SetIcon(icon ?? _icon ?? BitmapDescriptorFactory.DefaultMarker());
 
-			void GoogleMap.ICancelableCallback.OnFinish()
-			{
-				_source.TrySetResult(Unit.Default);
-			}
+        UpdateMarker(pushpin, marker);
+    }
+    #endregion
 
-			public TaskAwaiter<Unit> GetAwaiter()
-			{
-				return _source.Task.GetAwaiter();
-			}
+    #region Selected pushpins
+    private void Map_MarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
+    {
+        _logger.Debug("Clicking on a pin.");
 
-			protected override void Dispose(bool disposing)
-			{
-				_cancelSubscription.Dispose();
+        var pushPin = _pushpins.FindPushPin(e.Marker);
 
-				base.Dispose(disposing);
-			}
-		}
+        if (pushPin != null)
+        {
+            pushPin.IsSelected = !pushPin.IsSelected;
 
-		private class MapLifeCycleCallBacks : Java.Lang.Object, global::Android.App.Application.IActivityLifecycleCallbacks
-		{
-			private readonly Action _onPause;
-			private readonly Action _onResume;
+            if (!AllowMultipleSelection)
+            {
+                _pushpins
+                    .Items
+                    .Where(i => i != pushPin)
+                    .ForEach(p => p.IsSelected = false);
+            }
 
-			public MapLifeCycleCallBacks(Action onPause, Action onResume)
-			{
-				_onResume = onResume;
-				_onPause = onPause;
-			}
+            var selectedContent = GetSelectedAnnotationsContent();
 
-			public void OnActivityResumed(Activity activity)
-			{
-				_onResume();
-			}
+            _logger.Info($"Clicked on '{selectedContent.Length}' pins.");
 
-			public void OnActivityPaused(Activity activity)
-			{
-				_onPause();
-			}
+            _selectedPushpins.OnNext(selectedContent);
+        }
+    }
 
-#region Not implemented
+    void Map_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+    {
+        _logger.Debug("Clicking on the map.");
 
-			public void OnActivityCreated(Activity activity, global::Android.OS.Bundle savedInstanceState)
-			{
-			}
+        if (!AllowMultipleSelection)
+        {
+            _pushpins
+                .Items
+                .ForEach(p => p.IsSelected = false);
 
-			public void OnActivityDestroyed(Activity activity)
-			{
-			}
+            _selectedPushpins.OnNext(new IGeoLocated[0]);
+        }
 
-			public void OnActivitySaveInstanceState(Activity activity, global::Android.OS.Bundle outState)
-			{
-			}
+        OnMapTapped(new Geocoordinate(e.Point.Latitude, e.Point.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
 
-			public void OnActivityStarted(Activity activity)
-			{
-			}
+        _logger.Info("Clicked on the map.");
+    }
 
-			public void OnActivityStopped(Activity activity)
-			{
-			}
+    private IGeoLocated[] GetSelectedAnnotationsContent()
+    {
+        return _pushpins
+            .Items
+            .Where(p => p.IsSelected)
+            .Select(p => p.Content)
+            .ToArray();
+    }
 
-#endregion
-		}
+    private void UpdateMapSelectedPushpins(IGeoLocated[] newlySelected)
+    {
+        if (IsClusterEnabled)
+        {
+            // not needed for clustering at the moment.
+        }
+        else
+        {
+            _pushpins.UpdateSelection(newlySelected);
+        }
+    }
+    #endregion
 
-		CustomClusterManager.ClusterItemClickEventArgs _clusterItemClickEventArgs;
-		TaskCompletionSource<bool> _viewLayedOut = new TaskCompletionSource<bool>();
+    private void UpdateMapPushpinOnCameraIdle()
+    {
+        if (IsClusterEnabled)
+        {
+            _map.SetOnCameraIdleListener(_clusterManager);
+        }
+        else
+        {
+            _map.SetOnCameraIdleListener(new MapOnCameraIdleListener(this));
+        }
+    }
 
-		protected override void OnLayoutCore(bool changed, int left, int top, int right, int bottom)
-		{
-			base.OnLayoutCore(changed, left, top, right, bottom);
+    private class MapOnCameraIdleListener : Java.Lang.Object, GoogleMap.IOnCameraIdleListener
+    {
+        private readonly MapControlBase _parent;
 
-			_viewLayedOut.TrySetResult(true);
-		}
+        public MapOnCameraIdleListener(MapControlBase parent)
+        {
+            _parent = parent;
+        }
 
-		partial void UpdateAutolocateButtonVisibility(Visibility visibility)
-		{
-			_logger.Debug("Updating the autolocate button's visibility.");
+        public void OnCameraIdle()
+        {
+            var selectedContent = _parent.GetSelectedAnnotationsContent();
+            _parent._selectedPushpins.OnNext(selectedContent);
+        }
+    }
 
-			if (_map != null)
-			{
-				_map.UiSettings.MyLocationButtonEnabled = visibility == Visibility.Visible;
+    private class MapReadyCallback : Java.Lang.Object, IOnMapReadyCallback
+    {
+        private readonly Action<GoogleMap> _mapAvailable;
 
-				_logger.Info("Updated the autolocate button's visibility.");
-			}
-			else
-			{
-				_logger.Error("Could not update the autolocate button's visibility .");
-			}
-		}
+        public MapReadyCallback(Action<GoogleMap> mapAvailable)
+        {
+            _mapAvailable = mapAvailable;
+        }
 
-		partial void UpdateCompassButtonVisibility(Visibility visibility)
-		{
-			_logger.Debug("Updating the compass button's visibility.");
+        public void OnMapReady(GoogleMap googleMap)
+        {
+            _mapAvailable(googleMap);
+        }
+    }
 
-			if (_map != null)
-			{
-				_map.UiSettings.CompassEnabled = visibility == Visibility.Visible;
+    private class MapCancellableCallback : Java.Lang.Object, GoogleMap.ICancelableCallback
+    {
+        private readonly TaskCompletionSource<Unit> _source = new TaskCompletionSource<Unit>();
+        private readonly IDisposable _cancelSubscription;
 
-				_logger.Info("Updated the autolocate button's visibility.");
-			}
-			else
-			{
-				_logger.Error("Could not update the compass button's visibility.");
-			}
-		}
+        public MapCancellableCallback(CancellationToken ct)
+        {
+            _cancelSubscription = ct.Register(() => _source.TrySetCanceled());
+        }
 
-		partial void UpdateIsRotateGestureEnabled(bool isRotateGestureEnabled)
-		{
-			_logger.Debug($"{(isRotateGestureEnabled ? "Enabling" : "Disabling")} the gesture rotation.");
+        void GoogleMap.ICancelableCallback.OnCancel()
+        {
+            _source.TrySetCanceled();
+        }
 
-			if (_map != null)
-			{
-				_map.UiSettings.RotateGesturesEnabled = isRotateGestureEnabled;
+        void GoogleMap.ICancelableCallback.OnFinish()
+        {
+            _source.TrySetResult(Unit.Default);
+        }
 
-				_logger.Debug($"{(isRotateGestureEnabled ? "Enabled" : "Disabled")} the gesture rotation.");
-			}
-			else
-			{
-				_logger.Error($" Could not {(isRotateGestureEnabled ? "enable" : "disable")} the gesture rotation.");
-			}
-		}
+        public TaskAwaiter<Unit> GetAwaiter()
+        {
+            return _source.Task.GetAwaiter();
+        }
 
-		partial void UpdateMapStyleJson(string mapStyleJson)
-		{
-			if (_map != null)
-			{
-				var newStyle = mapStyleJson.HasValueTrimmed() ? mapStyleJson : "[]";
+        protected override void Dispose(bool disposing)
+        {
+            _cancelSubscription.Dispose();
 
-				_map.SetMapStyle(new MapStyleOptions(newStyle));
-			}
-		}
+            base.Dispose(disposing);
+        }
+    }
+
+    private class MapLifeCycleCallBacks : Java.Lang.Object, global::Android.App.Application.IActivityLifecycleCallbacks
+    {
+        private readonly Action _onPause;
+        private readonly Action _onResume;
+
+        public MapLifeCycleCallBacks(Action onPause, Action onResume)
+        {
+            _onResume = onResume;
+            _onPause = onPause;
+        }
+
+        public void OnActivityResumed(Activity activity)
+        {
+            _onResume();
+        }
+
+        public void OnActivityPaused(Activity activity)
+        {
+            _onPause();
+        }
+
+        #region Not implemented
+
+        public void OnActivityCreated(Activity activity, global::Android.OS.Bundle savedInstanceState)
+        {
+        }
+
+        public void OnActivityDestroyed(Activity activity)
+        {
+        }
+
+        public void OnActivitySaveInstanceState(Activity activity, global::Android.OS.Bundle outState)
+        {
+        }
+
+        public void OnActivityStarted(Activity activity)
+        {
+        }
+
+        public void OnActivityStopped(Activity activity)
+        {
+        }
+
+        #endregion
+    }
+
+    TaskCompletionSource<bool> _viewLayedOut = new TaskCompletionSource<bool>();
+
+    protected override void OnLayoutCore(bool changed, int left, int top, int right, int bottom)
+    {
+        base.OnLayoutCore(changed, left, top, right, bottom);
+
+        _viewLayedOut.TrySetResult(true);
+    }
+
+    partial void UpdateAutolocateButtonVisibility(Visibility visibility)
+    {
+        _logger.Debug("Updating the autolocate button's visibility.");
+
+        if (_map != null)
+        {
+            _map.UiSettings.MyLocationButtonEnabled = visibility == Visibility.Visible;
+
+            _logger.Info("Updated the autolocate button's visibility.");
+        }
+        else
+        {
+            _logger.Error("Could not update the autolocate button's visibility .");
+        }
+    }
+
+    partial void UpdateCompassButtonVisibility(Visibility visibility)
+    {
+        _logger.Debug("Updating the compass button's visibility.");
+
+        if (_map != null)
+        {
+            _map.UiSettings.CompassEnabled = visibility == Visibility.Visible;
+
+            _logger.Info("Updated the autolocate button's visibility.");
+        }
+        else
+        {
+            _logger.Error("Could not update the compass button's visibility.");
+        }
+    }
+
+    partial void UpdateIsRotateGestureEnabled(bool isRotateGestureEnabled)
+    {
+        _logger.Debug($"{(isRotateGestureEnabled ? "Enabling" : "Disabling")} the gesture rotation.");
+
+        if (_map != null)
+        {
+            _map.UiSettings.RotateGesturesEnabled = isRotateGestureEnabled;
+
+            _logger.Debug($"{(isRotateGestureEnabled ? "Enabled" : "Disabled")} the gesture rotation.");
+        }
+        else
+        {
+            _logger.Error($" Could not {(isRotateGestureEnabled ? "enable" : "disable")} the gesture rotation.");
+        }
+    }
+
+    partial void UpdateMapStyleJson(string mapStyleJson)
+    {
+        if (_map != null)
+        {
+            var newStyle = mapStyleJson.HasValueTrimmed() ? mapStyleJson : "[]";
+
+            _map.SetMapStyle(new MapStyleOptions(newStyle));
+        }
     }
 }
 #endif
