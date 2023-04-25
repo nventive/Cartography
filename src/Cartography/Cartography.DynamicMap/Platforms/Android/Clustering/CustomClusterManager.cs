@@ -3,13 +3,14 @@ using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Utils.Clustering;
 using Android.Gms.Maps.Utils.Collections;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Cartography.DynamicMap
 {
-    public class CustomClusterManager : ClusterManager, ClusterManager.IOnClusterClickListener, ClusterManager.IOnClusterItemClickListener, ClusterManager.IOnClusterInfoWindowClickListener, ClusterManager.IOnClusterItemInfoWindowClickListener
+    public class CustomClusterManager : ClusterManager, ClusterManager.IOnClusterClickListener, ClusterManager.IOnClusterInfoWindowClickListener, ClusterManager.IOnClusterItemInfoWindowClickListener
     {
         private ClusterManager _clusterManager;
 
@@ -23,22 +24,15 @@ namespace Cartography.DynamicMap
 
         public bool OnClusterClick(ICluster cluster)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public void OnClusterInfoWindowClick(ICluster cluster)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool OnClusterItemClick(Java.Lang.Object item)
-        {
-            throw new NotImplementedException();
         }
 
         public void OnClusterItemInfoWindowClick(Java.Lang.Object item)
         {
-            throw new NotImplementedException();
         }
     }
 }

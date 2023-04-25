@@ -1,6 +1,7 @@
 ﻿#if __ANDROID__
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Cartography.DynamicMap
@@ -31,7 +32,7 @@ namespace Cartography.DynamicMap
         /// <param name="items"></param>
         public void AddItems(MapClusterItem[] items)
         {
-            var listItems = new List<MapClusterItem>(ClusterItems);
+            var listItems = ClusterItems.ToList();
 
             foreach (var item in items)
             {
@@ -47,10 +48,9 @@ namespace Cartography.DynamicMap
         /// <param name="item"></param>
         public void AddItem(MapClusterItem item)
         {
-            var listItems = new List<MapClusterItem>(ClusterItems)
-            {
-                item
-            };
+            var listItems = ClusterItems.ToList();
+            
+            listItems.Add(item);
 
             ClusterItems = listItems.ToArray();
         }
@@ -61,7 +61,7 @@ namespace Cartography.DynamicMap
         /// <param name="items"></param>
         public void RemoveItems(MapClusterItem[] items)
         {
-            var listItems = new List<MapClusterItem>(ClusterItems);
+            var listItems = ClusterItems.ToList();
 
             foreach (var item in items)
             {
@@ -77,7 +77,7 @@ namespace Cartography.DynamicMap
         /// <param name="item"></param>
         public void RemoveItem(MapClusterItem item)
         {
-            var listItems = new List<MapClusterItem>(ClusterItems);
+            var listItems = ClusterItems.ToList();
 
             listItems.Remove(item);
 
@@ -96,10 +96,20 @@ namespace Cartography.DynamicMap
             otherClusterItems.AddItem(item);
         }
 
+        /// <summary>
+        /// Add and remove MapClusterItem from MapClusterItems
+        /// </summary>
+        /// <param name="itemToAdd"></param>
+        /// <param name="itemToRemove"></param>
         public void UpdateItems(MapClusterItem[] itemToAdd, MapClusterItem[] itemToRemove)
         {
             RemoveItems(itemToRemove);
             AddItems(itemToAdd);
+        }
+
+        public void ToggleItemSelection(MapClusterItem item)
+        {
+            ClusterItems.First(x => x.Item == item).IsSelected = !item.IsSelected;
         }
     }
 }

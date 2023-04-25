@@ -9,12 +9,13 @@ namespace Cartography.DynamicMap
 {
     public class MapClusterItem : Java.Lang.Object, IMapControlItem, IClusterItem
     {
-        public MapClusterItem(IGeoLocated pushpin)
+        public MapClusterItem(IGeoLocated pushpin, bool isSelected = false)
         {
             Item = pushpin;
             Position = new LatLng(pushpin.Coordinates.Position.Latitude, pushpin.Coordinates.Position.Longitude);
             Snippet = null;
             Title = null;
+            IsSelected= isSelected;
         }
 
         public IGeoLocated Item { get; set; }
@@ -25,6 +26,7 @@ namespace Cartography.DynamicMap
 
         public string Title { get; set; }
 
+        public bool IsSelected { get; set; }
     }
 }
 #endif
