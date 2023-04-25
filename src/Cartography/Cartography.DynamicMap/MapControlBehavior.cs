@@ -20,12 +20,6 @@ using Windows.UI.Xaml.Media.Imaging;
 using Android.Gms.Maps.Model;
 #endif
 
-#if __IOS__
-using CoreGraphics;
-using Foundation;
-using UIKit;
-#endif
-
 namespace Cartography.DynamicMap
 {
     public static class MapControlBehavior
