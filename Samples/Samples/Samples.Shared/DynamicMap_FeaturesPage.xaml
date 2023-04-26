@@ -22,7 +22,8 @@
             <converters:FromNullableBoolToVisibilityConverter x:Key="IsTrueToVisible" />
 
             <converters:FromNullableBoolToVisibilityConverter x:Key="IsTrueToCollapsed"
-															  VisibilityIfTrue="Collapsed" />
+                                                              VisibilityIfTrue="Collapsed" />
+
         </ResourceDictionary>
     </Page.Resources>
     
