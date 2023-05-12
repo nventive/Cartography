@@ -32,11 +32,6 @@ namespace Cartography.DynamicMap
     {
         private MKMapView _internalMapView;
 
-        private const double MINIMUM_ZOOM_ARC = 0.014; // approximately 1 miles (1 degree of arc ~= 69 miles)
-        private const double MAX_DEGREES_ARC = 360.0;
-        private const double MAX_GOOGLE_LEVELS = 20;
-        private const double ZOOM_LEVEL_COEFFICIENT = 1.15; // Used to align apple map zoom scale to google map scale
-
         private readonly List<UIView> _pushPins = new List<UIView>();
         private IMapLayer<Pushpin> _pushpinsLayer;
         private readonly ILogger<MapControl> _logger = NullLogger<MapControl>.Instance;
@@ -574,12 +569,12 @@ namespace Cartography.DynamicMap
             region.Span.LongitudeDelta *= viewPort.PointsOfInterestPadding.VerticalPadding.Value;
 
             //but padding can’t be bigger than the world
-            if (region.Span.LatitudeDelta > MAX_DEGREES_ARC) { region.Span.LatitudeDelta = MAX_DEGREES_ARC; }
-            if (region.Span.LongitudeDelta > MAX_DEGREES_ARC) { region.Span.LongitudeDelta = MAX_DEGREES_ARC; }
+            if (region.Span.LatitudeDelta > MapClusterConstants.MAX_DEGREES_ARC) { region.Span.LatitudeDelta = MapClusterConstants.MAX_DEGREES_ARC; }
+            if (region.Span.LongitudeDelta > MapClusterConstants.MAX_DEGREES_ARC) { region.Span.LongitudeDelta = MapClusterConstants.MAX_DEGREES_ARC; }
 
             //and don’t zoom in stupid-close on small samples
-            if (region.Span.LatitudeDelta < MINIMUM_ZOOM_ARC) { region.Span.LatitudeDelta = MINIMUM_ZOOM_ARC; }
-            if (region.Span.LongitudeDelta < MINIMUM_ZOOM_ARC) { region.Span.LongitudeDelta = MINIMUM_ZOOM_ARC; }
+            if (region.Span.LatitudeDelta < MapClusterConstants.MINIMUM_ZOOM_ARC) { region.Span.LatitudeDelta = MapClusterConstants.MINIMUM_ZOOM_ARC; }
+            if (region.Span.LongitudeDelta < MapClusterConstants.MINIMUM_ZOOM_ARC) { region.Span.LongitudeDelta = MapClusterConstants.MINIMUM_ZOOM_ARC; }
 
             return region;
         }
