@@ -16,8 +16,6 @@ public class ClusterView : MKAnnotationView
     /// </summary>
     public static Func<UIView> ClusterPinTemplate { get; set; }
 
-    public static UIColor ClusterColor = UIColor.FromRGB(202, 150, 38);
-
     public override IMKAnnotation Annotation
     {
         get
@@ -35,21 +33,21 @@ public class ClusterView : MKAnnotationView
 
                 Image = renderer.CreateImage((context) =>
                 {
-                    var backgroundColor = UIColor.Red;
+                    var backgroundColor = MapClusterProperties.BackgroundColor;
 
-                    var foregroundColor = UIColor.Black;
+                    var foregroundColor = MapClusterProperties.ForegroundColor;
 
                     backgroundColor.SetFill();
-                    UIBezierPath.FromOval(new CGRect(0, 0, 40, 40)).Fill();
+                    UIBezierPath.FromOval(MapClusterProperties.ClusterSize).Fill();
 
                     var attributes = new UIStringAttributes()
                     {
                         ForegroundColor = foregroundColor,
-                        Font = UIFont.BoldSystemFontOfSize(20)
+                        Font = MapClusterProperties.ClusterFontSize
                     };
                     var text = new NSString($"{count}");
                     var size = text.GetSizeUsingAttributes(attributes);
-                    var rect = new CGRect(20 - size.Width / 2, 20 - size.Height / 2, size.Width, size.Height);
+                    var rect = new CGRect(MapClusterProperties.ClusterSize.GetMidX() - size.Width / 2, MapClusterProperties.ClusterSize.GetMidY() - size.Height / 2, size.Width, size.Height);
                     text.DrawString(rect, attributes);
                 });
             }
