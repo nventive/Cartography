@@ -216,7 +216,7 @@ namespace Cartography.DynamicMap
 
 		}
 
-		// Converter is defined here as it is required by the behavior and we don't reference Umbrella.View
+		// Converter is defined here as it is required by the behavior and we don't reference nventive.View
 		private class FromBoolToVisibility : IValueConverter
         {
             private readonly ILogger _logger = NullLogger.Instance;
