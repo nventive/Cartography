@@ -14,7 +14,7 @@ using Windows.UI.Core;
 
 namespace Samples.Presentation
 {
-    public partial class StaticMapPageViewModel : ViewModel
+    public partial class StaticMapPageViewModel : ViewModel, IStaticMapComponent
     {
         private ISectionsNavigator _sectionsNavigator;
         private readonly IDispatcherScheduler _dispatcherScheduler;
@@ -32,9 +32,21 @@ namespace Samples.Presentation
 #endif
         }
 
-        public StaticMapViewPort MapViewPort
+        public StaticMapViewPort ViewPort
         {
             get => this.Get<StaticMapViewPort>( initialValue: GetMapViewPort());
+            set => this.Set(value);
+        }
+        
+        public Size MapSize
+        {
+            get => this.Get<Size>(initialValue: new Size(300, 300));
+            set => this.Set(value);
+        }
+
+        public object Pushpin
+        {
+            get => this.Get<object>();
             set => this.Set(value);
         }
 
@@ -53,12 +65,6 @@ namespace Samples.Presentation
         public double ZoomLevel
         {
             get => this.Get<double>(initialValue: 12.0);
-            set => this.Set(value);
-        }
-
-        public Size MapSize
-        {
-            get => this.Get<Size>(initialValue: new Size(300, 300));
             set => this.Set(value);
         }
 
@@ -83,10 +89,10 @@ namespace Samples.Presentation
         {
             var coordinate = new Geopoint(CreateGeoposition());
 
-            var mapViewPort = new StaticMapViewPort(coordinate);
-            mapViewPort.ZoomLevel = ZoomLevels.District;
+            var viewPort = new StaticMapViewPort(coordinate);
+            viewPort.ZoomLevel = ZoomLevels.District;
 
-            return mapViewPort;
+            return viewPort;
         }
 
         private BasicGeoposition CreateGeoposition(double latitude = 45.504071, double longitude = -73.558709)
@@ -109,12 +115,14 @@ namespace Samples.Presentation
             Width = width.ToString();
             double zoomLevel = ZoomLevel;
 
-            StaticMapViewPort mapViewPort = new StaticMapViewPort(new Geopoint(CreateGeoposition(latitude, longitude)));
-            mapViewPort.ZoomLevel = new ZoomLevel(Math.Round(zoomLevel));
+            StaticMapViewPort viewPort = new StaticMapViewPort(new Geopoint(CreateGeoposition(latitude, longitude)));
+            viewPort.ZoomLevel = new ZoomLevel(Math.Round(zoomLevel));
 
             MapSize = new Size(width, height);
 
-            MapViewPort = (mapViewPort);
+            ViewPort = (viewPort);
         });
+
+        
     }
 }

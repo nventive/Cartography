@@ -26,7 +26,7 @@ namespace Samples.Presentation
      * For adding a property without it you need to use INotifyPropertyChanged and add PropertyChangedEventHandler.
      * Cartography is using the ViewModel.
      */
-    public class DynamicMap_FeaturesPageViewModel : ViewModel, IMapComponent
+    public class DynamicMap_FeaturesPageViewModel : ViewModel, IDynamicMapComponent
     {
         private IGeolocatorService _geolocatorService;
         private ISectionsNavigator _sectionsNavigator;
@@ -124,7 +124,7 @@ namespace Samples.Presentation
         }
         #endregion
 
-        // These properties are mandatory and depend from IMapComponent.
+        // These properties are mandatory and depend from IDynamicMapComponent.
         #region Map-Property
         
         // These Pushpins will be show as inactive.
