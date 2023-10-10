@@ -11,9 +11,12 @@
 		<Company>nventive</Company>
 		<AssemblyName>Cartography.MapService</AssemblyName>
 		<PackageId>Cartography.MapService</PackageId>
-		<Description>Cartography.MapService</Description>
+		<Description>Open the default map service of the platform.</Description>
+		<PackageTags>cartography;mapService;mvvm;ios;android;xamarin;uwp;google maps;bing maps;uno;maps</PackageTags>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<!--Needed for Source Link support -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -32,6 +35,13 @@
 	<ItemGroup>
 		<!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<None Include="..\..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 	
 </Project>

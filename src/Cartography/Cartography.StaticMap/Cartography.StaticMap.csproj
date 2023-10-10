@@ -11,9 +11,12 @@
 		<Company>nventive</Company>
 		<AssemblyName>Cartography.StaticMap</AssemblyName>
 		<PackageId>Cartography.StaticMap</PackageId>
-		<Description>Cartography.StaticMap</Description>
+		<Description>Provide a static map for iOS, Android and UWP.</Description>
+		<PackageTags>cartography;staticmap;mvvm;ios;android;xamarin;uwp;google maps;bing maps;uno;maps</PackageTags>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<!--Needed for Source Link support -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -32,6 +35,13 @@
 	<ItemGroup>
 		<!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'xamarinios10'">
