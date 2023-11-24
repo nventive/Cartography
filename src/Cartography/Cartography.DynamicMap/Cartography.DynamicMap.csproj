@@ -11,9 +11,12 @@
 		<Company>nventive</Company>
 		<AssemblyName>Cartography.DynamicMap</AssemblyName>
 		<PackageId>Cartography.DynamicMap</PackageId>
-		<Description>Cartography.DynamicMap</Description>
+		<Description>Provide an interactive map for iOS, Android and UWP.</Description>
+		<PackageTags>cartography;dynamicmap;mvvm;ios;android;xamarin;uwp;google maps;bing maps;uno;maps</PackageTags>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<!--Needed for Source Link support -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -52,6 +55,13 @@
 	  <None Update="Platforms\Windows\UserLocationMarker.UWP.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'monoandroid12.0'">
