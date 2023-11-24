@@ -231,9 +231,20 @@ namespace Cartography.DynamicMap
 			get { return (Point)this.GetValue(PushpinsIconsPositionOriginProperty); }
 			set { this.SetValue(PushpinsIconsPositionOriginProperty, value); }
 		}
+		#endregion
+
+#region IsClusterEnabled (dp)
+		public static readonly DependencyProperty IsClusterEnabledProperty = DependencyProperty.Register(
+            "IsClusterEnabled", typeof(bool), typeof(MapControlBase), new PropertyMetadata(false));
+
+        public bool IsClusterEnabled
+        {
+            get { return (bool)this.GetValue(IsClusterEnabledProperty); }
+            set { this.SetValue(IsClusterEnabledProperty, value); }
+        }
 #endregion
 
-		private readonly SerialDisposable _configuredSourceSubscriptions = new SerialDisposable();
+        private readonly SerialDisposable _configuredSourceSubscriptions = new SerialDisposable();
 		private ViewModelBase _configuredViewModel;
 
 		private Action<Geocoordinate> _onMapTapped;
@@ -511,7 +522,7 @@ namespace Cartography.DynamicMap
 					vm.GetAndObservePushpins(filterOutChangesFromSource: this),
 					vm.GetAndObserveGroups(filterOutChangesFromSource: this),
 					vm.GetAndObserveSelectedPushpins(filterOutChangesFromSource: null),
-					(pushpins, groups, selected) => new
+                    (pushpins, groups, selected) => new
 					{
 						items = pushpins
 							.Concat(groups)
@@ -524,7 +535,7 @@ namespace Cartography.DynamicMap
 				.Do(x =>
 				{
 					UpdateMapPushpins(x.items, x.selected);
-				})
+                })
 				.ObserveOn(GetBackgroundScheduler())
 				.CombineLatest(
 					// In order to prevent the pushpins being updated when the source changes, but still making sure the pins are updated before the selection
