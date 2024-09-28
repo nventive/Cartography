@@ -149,20 +149,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.DynamicMap\Cartography.DynamicMap.csproj">
-      <Project>{6abe0223-31de-46a3-9351-00e34fc9b8ff}</Project>
-      <Name>Cartography.DynamicMap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.MapService\Cartography.MapService.csproj">
-      <Project>{90bd779b-bf4f-4949-b0b1-c31da35b94f7}</Project>
-      <Name>Cartography.MapService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Cartography\src\Cartography\Cartography.StaticMap\Cartography.StaticMap.csproj">
-      <Project>{0b1da980-496d-47c9-acd5-592c91b20828}</Project>
-      <Name>Cartography.StaticMap</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\Samples.Shared\Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="Issue3897Workaround" Condition=" '$(ManagedDesignTimeBuild)' == 'True' " AfterTargets="_RemoveLegacyDesigner">
