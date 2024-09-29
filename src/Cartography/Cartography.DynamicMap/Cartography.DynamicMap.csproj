@@ -21,10 +21,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Chinook.DynamicMvvm" Version="1.4.3" />
-		<PackageReference Include="Chinook.DynamicMvvm.Reactive" Version="1.4.3" />
+		<PackageReference Include="Chinook.DynamicMvvm" Version="2.1.1" />
+		<PackageReference Include="Chinook.DynamicMvvm.Reactive" Version="2.1.1" />
 		<PackageReference Include="GeolocatorService" Version="1.0.0" />
-		<PackageReference Include="Reactive.Annex" Version="1.0.2" />
+		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
 		<PackageReference Include="Uno.Core" Version="4.1.1" />
 	</ItemGroup>
 
