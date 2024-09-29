@@ -19,7 +19,7 @@ using GeolocatorService;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
-using Windows.Devices.Geolocation;
+using wdg = Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -204,13 +204,13 @@ namespace Cartography.DynamicMap
 		private MapViewPort GetViewPort()
 		{
 			var position = _map.CameraPosition;
-			var point = new BasicGeoposition();
+			var point = new wdg.BasicGeoposition();
 			point.Longitude = position.Target.Longitude;
 			point.Latitude = position.Target.Latitude;
 
 			return new MapViewPort
 			{
-				Center = new Geopoint(point),
+				Center = new wdg.Geopoint(point),
 				Heading = position.Bearing,
 				Pitch = position.Tilt,
 				ZoomLevel = (ZoomLevel)position.Zoom,
@@ -235,7 +235,7 @@ namespace Cartography.DynamicMap
 						(builder, poi) => builder.Include(new LatLng(poi.Position.Latitude, poi.Position.Longitude)))
 					.Build();
 
-				if (viewPort.Center != default(Geopoint))
+				if (viewPort.Center != default(wdg.Geopoint))
 				{
 					bounds = AddPushpinPaddingToBounds(viewPort);
 				}
@@ -303,10 +303,10 @@ namespace Cartography.DynamicMap
 		{
 			var visibleRegion = _map.Projection.VisibleRegion;
 			return new MapViewPortCoordinates(
-				northWest: new BasicGeoposition { Latitude = visibleRegion.FarLeft.Latitude, Longitude = visibleRegion.FarLeft.Longitude },
-				northEast: new BasicGeoposition { Latitude = visibleRegion.FarRight.Latitude, Longitude = visibleRegion.FarRight.Longitude },
-				southWest: new BasicGeoposition { Latitude = visibleRegion.NearLeft.Latitude, Longitude = visibleRegion.NearLeft.Longitude },
-				southEast: new BasicGeoposition { Latitude = visibleRegion.NearRight.Latitude, Longitude = visibleRegion.NearRight.Longitude }
+				northWest: new wdg.BasicGeoposition { Latitude = visibleRegion.FarLeft.Latitude, Longitude = visibleRegion.FarLeft.Longitude },
+				northEast: new wdg.BasicGeoposition { Latitude = visibleRegion.FarRight.Latitude, Longitude = visibleRegion.FarRight.Longitude },
+				southWest: new wdg.BasicGeoposition { Latitude = visibleRegion.NearLeft.Latitude, Longitude = visibleRegion.NearLeft.Longitude },
+				southEast: new wdg.BasicGeoposition { Latitude = visibleRegion.NearRight.Latitude, Longitude = visibleRegion.NearRight.Longitude }
 			);
 		}
 #endregion
@@ -506,7 +506,7 @@ namespace Cartography.DynamicMap
 				_selectedPushpins.OnNext(new IGeoLocated[0]);
 			}
 
-			OnMapTapped(new Geocoordinate(e.Point.Latitude, e.Point.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
+			OnMapTapped(new wdg.Geocoordinate(e.Point.Latitude, e.Point.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
 
 			_logger.LogInformation("Clicked on the map.");
 		}

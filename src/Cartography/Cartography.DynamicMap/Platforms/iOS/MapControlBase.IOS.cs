@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
 using Uno.Extensions;
-using Windows.Devices.Geolocation;
+using wdg = Windows.Devices.Geolocation;
 using Windows.UI;
 using Windows.UI.Xaml;
 
@@ -42,7 +42,7 @@ namespace Cartography.DynamicMap
 
 		protected abstract IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers();
 
-		protected abstract Geopoint GetCenter();
+		protected abstract wdg.Geopoint GetCenter();
 
 		protected abstract MapViewPortCoordinates GetViewPortCoordinates();
 

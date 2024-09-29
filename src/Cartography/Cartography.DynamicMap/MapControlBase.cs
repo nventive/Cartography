@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Concurrency;
 using System.Threading;
@@ -14,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using Windows.Devices.Geolocation;
+using wdg = Windows.Devices.Geolocation;
 using GeolocatorService;
 using Microsoft.Extensions.DependencyInjection;
 using Uno;
@@ -235,7 +234,7 @@ namespace Cartography.DynamicMap
 		private readonly SerialDisposable _configuredSourceSubscriptions = new SerialDisposable();
 		private ViewModelBase _configuredViewModel;
 
-		private Action<Geocoordinate> _onMapTapped;
+		private Action<wdg.Geocoordinate> _onMapTapped;
 
 		private bool _isReady;
 
@@ -340,7 +339,7 @@ namespace Cartography.DynamicMap
 			});
 		}
 
-		protected void OnMapTapped(Geocoordinate coordinate)
+		protected void OnMapTapped(wdg.Geocoordinate coordinate)
 		{
 			var onMapTapped = _onMapTapped;
 

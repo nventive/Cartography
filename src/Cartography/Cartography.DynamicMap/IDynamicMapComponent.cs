@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeolocatorService;
-using Windows.Devices.Geolocation;
 
 namespace Cartography.DynamicMap
 {
@@ -38,7 +37,7 @@ namespace Cartography.DynamicMap
 		/// <summary>
 		/// Informs the view-model that an empty area of the map was tapped.
 		/// </summary>
-		Action<Geocoordinate> OnMapTapped { get; set; }
+		Action<Windows.Devices.Geolocation.Geocoordinate> OnMapTapped { get; set; }
 
 		/// <summary>
 		/// Defines whether user tracking is enabled - READ / WRITE

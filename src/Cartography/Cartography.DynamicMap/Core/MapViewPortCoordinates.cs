@@ -1,13 +1,12 @@
 ﻿using System;
-using GeolocatorService;
 using Uno.Extensions;
-using Windows.Devices.Geolocation;
+using wdg = Windows.Devices.Geolocation;
 
 namespace Cartography.DynamicMap
 {
 	public class MapViewPortCoordinates : IEquatable<MapViewPortCoordinates>
 	{
-		public MapViewPortCoordinates(BasicGeoposition northWest, BasicGeoposition northEast, BasicGeoposition southWest, BasicGeoposition southEast)
+		public MapViewPortCoordinates(wdg.BasicGeoposition northWest, wdg.BasicGeoposition northEast, wdg.BasicGeoposition southWest, wdg.BasicGeoposition southEast)
 		{
 			NorthWest = northWest;
 			NorthEast = northEast;
@@ -18,22 +17,22 @@ namespace Cartography.DynamicMap
 		/// <summary>
 		/// Gets the coordinate of the point to the northwest extreme of the Region
 		/// </summary>
-		public BasicGeoposition NorthWest { get; }
+		public wdg.BasicGeoposition NorthWest { get; }
 
 		/// <summary>
 		/// Gets the coordinate of the point to the northeast extreme of the Region
 		/// </summary>
-		public BasicGeoposition NorthEast { get;  }
+		public wdg.BasicGeoposition NorthEast { get;  }
 
 		/// <summary>
 		/// Gets the coordinate of the point to the southwest extreme of the Region
 		/// </summary>
-		public BasicGeoposition SouthWest { get; }
+		public wdg.BasicGeoposition SouthWest { get; }
 
 		/// <summary>
 		/// Gets the coordinate of the point to the southwest extreme of the Region
 		/// </summary>
-		public BasicGeoposition SouthEast { get; }
+		public wdg.BasicGeoposition SouthEast { get; }
 
 		public bool Equals(MapViewPortCoordinates other)
 		{
@@ -59,7 +58,7 @@ namespace Cartography.DynamicMap
 		/// <summary>
 		/// Returns true when the coordinates surround (inclusively) the given coordinate
 		/// </summary>
-		public bool IsSurrounding(Geopoint coordinate)
+		public bool IsSurrounding(wdg.Geopoint coordinate)
 		{
 			return coordinate.Position.Latitude >= SouthEast.Latitude
 				&& coordinate.Position.Latitude <= NorthEast.Latitude

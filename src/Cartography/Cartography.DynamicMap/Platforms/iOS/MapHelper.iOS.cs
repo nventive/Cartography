@@ -5,7 +5,7 @@ using System.Text;
 using CoreGraphics;
 using CoreLocation;
 using MapKit;
-using Windows.Devices.Geolocation;
+using wdg = Windows.Devices.Geolocation;
 
 namespace Cartography.DynamicMap
 {
@@ -14,7 +14,7 @@ namespace Cartography.DynamicMap
 		private const double MercatorRadius = 85445659.44705395;
 		private const double MercatorOffset = 268435456;
 
-		public static MKCoordinateRegion CreateRegion(BasicGeoposition centerCoordinate, ZoomLevel zoomLevel, CGSize size)
+		public static MKCoordinateRegion CreateRegion(wdg.BasicGeoposition centerCoordinate, ZoomLevel zoomLevel, CGSize size)
 		{
 			// convert center coordiate to pixel space 
 			double centerPixelX = LongitudeToPixelSpaceX(centerCoordinate.Longitude);

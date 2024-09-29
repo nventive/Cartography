@@ -19,7 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
 using Uno.Extensions;
-using Windows.Devices.Geolocation;
+using wdg = Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -238,7 +238,7 @@ namespace Cartography.DynamicMap
 
 		private void SetViewport(MapViewPort viewPort, bool preventAnimations = false)
 		{
-			var padding = ApplyPaddingToCoordinate(new BasicGeoposition { Latitude = _internalMapView.CenterCoordinate.Latitude, Longitude = _internalMapView.CenterCoordinate.Longitude }, this.Padding, this.ZoomLevel);
+			var padding = ApplyPaddingToCoordinate(new wdg.BasicGeoposition { Latitude = _internalMapView.CenterCoordinate.Latitude, Longitude = _internalMapView.CenterCoordinate.Longitude }, this.Padding, this.ZoomLevel);
 
 			_internalMapView.CenterCoordinate = new CLLocationCoordinate2D(padding.Latitude, padding.Longitude);
 
@@ -260,7 +260,7 @@ namespace Cartography.DynamicMap
 			}
 		}
 
-		private void SetViewport(BasicGeoposition centerCoordinate, double? heading, double? pitch, ZoomLevel zoomLevel, bool preventAnimations = false)
+		private void SetViewport(wdg.BasicGeoposition centerCoordinate, double? heading, double? pitch, ZoomLevel zoomLevel, bool preventAnimations = false)
 		{
 			centerCoordinate = ApplyPaddingToCoordinate(centerCoordinate, this.Padding, zoomLevel);
 
@@ -505,7 +505,7 @@ namespace Cartography.DynamicMap
 					var point = recognizer.LocationInView(_internalMapView);
 					var coordinate = _internalMapView.ConvertPoint(point, _internalMapView);
 
-					OnMapTapped(new Geocoordinate(coordinate.Latitude, coordinate.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
+					OnMapTapped(new wdg.Geocoordinate(coordinate.Latitude, coordinate.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
 				});
 
 			_internalMapView.AddGestureRecognizer(tapRecognizer);
@@ -531,7 +531,7 @@ namespace Cartography.DynamicMap
 		private MKCoordinateRegion ComputeBoundingRectangle(MapViewPort viewPort)
 		{
 			MKCoordinateRegion region;
-			if (viewPort.Center == default(Geopoint))
+			if (viewPort.Center == default(wdg.Geopoint))
 			{
 				var coordinates = viewPort.PointsOfInterest
 					.Select(p => MKMapPoint.FromCoordinate(new CLLocationCoordinate2D { Latitude = p.Position.Latitude, Longitude = p.Position.Longitude }));
@@ -548,7 +548,7 @@ namespace Cartography.DynamicMap
 				region.Center.Latitude = viewPort.Center.Position.Latitude;
 				region.Center.Longitude = viewPort.Center.Position.Longitude;
 
-				var centerCoordinates = new BasicGeoposition { Latitude = region.Center.Latitude, Longitude = region.Center.Longitude };
+				var centerCoordinates = new wdg.BasicGeoposition { Latitude = region.Center.Latitude, Longitude = region.Center.Longitude };
 
 				//Get the farthest pushpin 
 				var farthestHorizontalPushpin = viewPort.PointsOfInterest
@@ -585,7 +585,7 @@ namespace Cartography.DynamicMap
 			return zoomScale;
 		}
 
-		private static BasicGeoposition ApplyPaddingToCoordinate(BasicGeoposition coordinate, Thickness padding, ZoomLevel zoomLevel)
+		private static wdg.BasicGeoposition ApplyPaddingToCoordinate(wdg.BasicGeoposition coordinate, Thickness padding, ZoomLevel zoomLevel)
 		{
 			if (padding == Thickness.Empty)
 			{
@@ -603,19 +603,19 @@ namespace Cartography.DynamicMap
 			centerPixelX += (((padding.Right - padding.Left) / 2) * zoomScale);
 			centerPixelY += (((padding.Bottom - padding.Top) / 2) * zoomScale);
 
-			return new BasicGeoposition
-			{
+			return new wdg.BasicGeoposition
+            {
 				Longitude = MapHelper.PixelSpaceXToLongitude(centerPixelX),
 				Latitude = MapHelper.PixelSpaceYToLatitude(centerPixelY)
 			};
 		}
 
-		protected override Geopoint GetCenter()
+		protected override wdg.Geopoint GetCenter()
 		{
-			var center = new BasicGeoposition();
+			var center = new wdg.BasicGeoposition();
 			center.Latitude = _internalMapView.Region.Center.Latitude;
 			center.Longitude = _internalMapView.Region.Center.Longitude;
-			return new Geopoint(center);
+			return new wdg.Geopoint(center);
 		}
 
 		protected override MapViewPortCoordinates GetViewPortCoordinates()
@@ -625,23 +625,23 @@ namespace Cartography.DynamicMap
 			var longitudeDelta = _internalMapView.Region.Span.LongitudeDelta;
 
 			return new MapViewPortCoordinates(
-			northWest: new BasicGeoposition
-			{
+			northWest: new wdg.BasicGeoposition
+            {
 				Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: true),
 				Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: false)
 			},
-			northEast: new BasicGeoposition
-			{
+			northEast: new wdg.BasicGeoposition
+            {
 				Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: true),
 				Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: true)
 			},
-			southWest: new BasicGeoposition
-			{
+			southWest: new wdg.BasicGeoposition
+            {
 				Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: false),
 				Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: false)
 			},
-			southEast: new BasicGeoposition
-			{
+			southEast: new wdg.BasicGeoposition
+            {
 				Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: false),
 				Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: true)
 			}
