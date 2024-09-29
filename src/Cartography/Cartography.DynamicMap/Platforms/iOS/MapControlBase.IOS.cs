@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using UIKit;
 using Uno.Extensions;
-using Uno.Logging;
 using Windows.Devices.Geolocation;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -80,20 +79,20 @@ namespace Cartography.DynamicMap
 
 		partial void UpdateCompassButtonVisibility(Visibility compassButtonVisibility)
 		{
-			_logger.Debug("Updating the compass button's visibility.");
+			_logger.LogDebug("Updating the compass button's visibility.");
 
 			UpdateCompassButtonVisibilityInner(compassButtonVisibility);
 
-			_logger.Info("Updated the compass button's visibility.");
+			_logger.LogInformation("Updated the compass button's visibility.");
 		}
 
 		partial void UpdateIsRotateGestureEnabled(bool isRotateGestureEnabled)
 		{
-			_logger.Debug($"{(IsRotateGestureEnabled ? "Enabling" : "Disabling")} the rotation gesture.");
+			_logger.LogDebug($"{(IsRotateGestureEnabled ? "Enabling" : "Disabling")} the rotation gesture.");
 
 			UpdateIsRotateGestureEnabledInner(isRotateGestureEnabled);
 
-			_logger.Info($"{(IsRotateGestureEnabled ? "Enabled" : "Disabled")} the rotation gesture.");
+			_logger.LogInformation($"{(IsRotateGestureEnabled ? "Enabled" : "Disabled")} the rotation gesture.");
 		}
 
 		protected void AddDragGestureRecognizer(UIView mapView)
@@ -138,7 +137,7 @@ namespace Cartography.DynamicMap
 
 			if (icon == null)
 			{
-				_logger.Error($"Failed to convert '{value}' to a PushpinIcon");
+				_logger.LogError($"Failed to convert '{value}' to a PushpinIcon");
 			}
 		}
 

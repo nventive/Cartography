@@ -19,7 +19,6 @@ using GeolocatorService;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
-using Uno.Logging;
 using Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -176,7 +175,7 @@ namespace Cartography.DynamicMap
 			}
 			else
 			{
-				_logger.Error("ApplicationContext is invalid, could not RegisterActivityLifecycleCallbacks to release GPS when application is paused.");
+				_logger.LogInformation("ApplicationContext is invalid, could not RegisterActivityLifecycleCallbacks to release GPS when application is paused.");
 			}
 		}
 
@@ -470,7 +469,7 @@ namespace Cartography.DynamicMap
 #region Selected pushpins
 		private void Map_MarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
 		{
-			_logger.Debug("Clicking on a pin.");
+			_logger.LogDebug("Clicking on a pin.");
 
 			var pushPin = _pushpins.FindPushPin(e.Marker);
 
@@ -488,7 +487,7 @@ namespace Cartography.DynamicMap
 
 				var selectedContent = GetSelectedAnnotationsContent();
 
-				_logger.Info($"Clicked on '{selectedContent.Length}' pins.");
+				_logger.LogInformation($"Clicked on '{selectedContent.Length}' pins.");
 
 				_selectedPushpins.OnNext(selectedContent);
 			}
@@ -496,7 +495,7 @@ namespace Cartography.DynamicMap
 
 		void Map_MapClick(object sender, GoogleMap.MapClickEventArgs e)
 		{
-			_logger.Debug("Clicking on the map.");
+			_logger.LogDebug("Clicking on the map.");
 
 			if (!AllowMultipleSelection)
 			{
@@ -509,7 +508,7 @@ namespace Cartography.DynamicMap
 
 			OnMapTapped(new Geocoordinate(e.Point.Latitude, e.Point.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
 
-			_logger.Info("Clicked on the map.");
+			_logger.LogInformation("Clicked on the map.");
 		}
 
 
@@ -655,49 +654,49 @@ namespace Cartography.DynamicMap
 
 		partial void UpdateAutolocateButtonVisibility(Visibility visibility)
 		{
-			_logger.Debug("Updating the autolocate button's visibility.");
+			_logger.LogDebug("Updating the autolocate button's visibility.");
 
 			if (_map != null)
 			{
 				_map.UiSettings.MyLocationButtonEnabled = visibility == Visibility.Visible;
 
-				_logger.Info("Updated the autolocate button's visibility.");
+				_logger.LogInformation("Updated the autolocate button's visibility.");
 			}
 			else
 			{
-				_logger.Error("Could not update the autolocate button's visibility .");
+				_logger.LogError("Could not update the autolocate button's visibility .");
 			}
 		}
 
 		partial void UpdateCompassButtonVisibility(Visibility visibility)
 		{
-			_logger.Debug("Updating the compass button's visibility.");
+			_logger.LogDebug("Updating the compass button's visibility.");
 
 			if (_map != null)
 			{
 				_map.UiSettings.CompassEnabled = visibility == Visibility.Visible;
 
-				_logger.Info("Updated the autolocate button's visibility.");
+				_logger.LogInformation("Updated the autolocate button's visibility.");
 			}
 			else
 			{
-				_logger.Error("Could not update the compass button's visibility.");
+				_logger.LogError("Could not update the compass button's visibility.");
 			}
 		}
 
 		partial void UpdateIsRotateGestureEnabled(bool isRotateGestureEnabled)
 		{
-			_logger.Debug($"{(isRotateGestureEnabled ? "Enabling" : "Disabling")} the gesture rotation.");
+			_logger.LogDebug($"{(isRotateGestureEnabled ? "Enabling" : "Disabling")} the gesture rotation.");
 
 			if (_map != null)
 			{
 				_map.UiSettings.RotateGesturesEnabled = isRotateGestureEnabled;
 
-				_logger.Debug($"{(isRotateGestureEnabled ? "Enabled" : "Disabled")} the gesture rotation.");
+				_logger.LogDebug($"{(isRotateGestureEnabled ? "Enabled" : "Disabled")} the gesture rotation.");
 			}
 			else
 			{
-				_logger.Error($" Could not {(isRotateGestureEnabled ? "enable" : "disable")} the gesture rotation.");
+				_logger.LogError($" Could not {(isRotateGestureEnabled ? "enable" : "disable")} the gesture rotation.");
 			}
 		}
 

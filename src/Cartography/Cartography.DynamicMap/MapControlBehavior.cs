@@ -9,7 +9,6 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Extensions;
-using Uno.Logging;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -235,7 +234,7 @@ namespace Cartography.DynamicMap
 
             public object ConvertBack(object value, Type targetType, object parameter, string language)
             {
-                _logger.Warn("The ConvertBack method is not implemented.");
+                _logger.LogWarning("The ConvertBack method is not implemented.");
 
                 throw new NotImplementedException();
             }
