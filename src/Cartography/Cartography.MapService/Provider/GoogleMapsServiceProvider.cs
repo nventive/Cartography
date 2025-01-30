@@ -4,66 +4,65 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Logging;
 
-namespace Cartography.MapService
+namespace Cartography.MapService;
+
+/// <summary>
+/// Service that provide locations and directions commands to Google Maps
+/// </summary>
+internal class GoogleMapsServiceProvider : IMapServiceProvider
 {
-	/// <summary>
-	/// Service that provide locations and directions commands to Google Maps
-	/// </summary>
-	internal class GoogleMapsServiceProvider : IMapServiceProvider
+	private readonly ILogger _logger = NullLogger.Instance;
+
+	/// <inheritdoc />
+	public string Name => NavigationAppConstants.NavigationAppName.GoogleMaps;
+
+	/// <inheritdoc />
+	public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.GoogleMapsUrl;
+	
+
+	/// <inheritdoc />
+	public NSUrl GetDirectionsUrl(MapRequest mapRequest)
 	{
-		private readonly ILogger _logger = NullLogger.Instance;
+		_logger.Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
 
-		/// <inheritdoc />
-		public string Name => NavigationAppConstants.NavigationAppName.GoogleMaps;
+		var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
+		var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
 
-		/// <inheritdoc />
-		public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.GoogleMapsUrl;
-		
+		var isSearchMode = !mapRequest.IsCoordinatesSet;
+		var input = isSearchMode
+			? mapRequest.LocationName
+			: $"{latitude},{longitude}";
 
-		/// <inheritdoc />
-		public NSUrl GetDirectionsUrl(MapRequest mapRequest)
-		{
-			_logger.Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
+		return new NSUrl(BuildQuery(input, isSearchMode, true));
+	}
 
-			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
-			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
+	/// <inheritdoc />
+	public NSUrl GetLocationUrl(MapRequest mapRequest)
+	{
+		_logger.Debug(() => $"Showing location using {nameof(GoogleMapsServiceProvider)}.");
 
-			var isSearchMode = !mapRequest.IsCoordinatesSet;
-			var input = isSearchMode
-				? mapRequest.LocationName
-				: $"{latitude},{longitude}";
+		var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
+		var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
 
-			return new NSUrl(BuildQuery(input, isSearchMode, true));
-		}
+		var isSearchMode = !mapRequest.IsCoordinatesSet;
+		var input = isSearchMode
+			? mapRequest.LocationName
+			: $"{latitude},{longitude}";
 
-		/// <inheritdoc />
-		public NSUrl GetLocationUrl(MapRequest mapRequest)
-		{
-			_logger.Debug(() => $"Showing location using {nameof(GoogleMapsServiceProvider)}.");
+		return new NSUrl(BuildQuery(input, isSearchMode, false));
+	}
 
-			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
-			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
-
-			var isSearchMode = !mapRequest.IsCoordinatesSet;
-			var input = isSearchMode
-				? mapRequest.LocationName
-				: $"{latitude},{longitude}";
-
-			return new NSUrl(BuildQuery(input, isSearchMode, false));
-		}
-
-		private string BuildQuery(string input, bool isSearch, bool isNavigating)
-		{
-			return NavigationAppConstants.NavigationAppNSUrl.GoogleMapsUrl.AbsoluteString
-				+ (isNavigating
-					? (isSearch
-						? $"{NavigationAppConstants.GoogleMapsParameters.DestinationAddress}{input.Replace(" ", "+")}"
-						: $"{NavigationAppConstants.GoogleMapsParameters.DestinationAddress}{input}"
-					)
-					: $"{NavigationAppConstants.GoogleMapsParameters.Search}{(isSearch ? input.Replace(' ', '+') : input)}"
+	private string BuildQuery(string input, bool isSearch, bool isNavigating)
+	{
+		return NavigationAppConstants.NavigationAppNSUrl.GoogleMapsUrl.AbsoluteString
+			+ (isNavigating
+				? (isSearch
+					? $"{NavigationAppConstants.GoogleMapsParameters.DestinationAddress}{input.Replace(" ", "+")}"
+					: $"{NavigationAppConstants.GoogleMapsParameters.DestinationAddress}{input}"
 				)
-				+ (isNavigating ? NavigationAppConstants.GoogleMapsParameters.Driving : string.Empty);
-		}
+				: $"{NavigationAppConstants.GoogleMapsParameters.Search}{(isSearch ? input.Replace(' ', '+') : input)}"
+			)
+			+ (isNavigating ? NavigationAppConstants.GoogleMapsParameters.Driving : string.Empty);
 	}
 }
 #endif

@@ -1,17 +1,13 @@
-﻿
-using Windows.Devices.Geolocation;
+﻿namespace Cartography.DynamicMap;
 
-namespace Cartography.DynamicMap
+public partial interface IMapControlItem
 {
-	public partial interface IMapControlItem
-	{
-		IGeoLocated Item { get; set; }
-	}
+	IGeoLocated Item { get; set; }
+}
 
-	public partial interface ISelectable : IMapControlItem
-	{
-		bool IsSelected { get; set; }
+public partial interface ISelectable : IMapControlItem
+{
+	bool IsSelected { get; set; }
 
-		int ZIndex { get; set; }
-	}
+	int ZIndex { get; set; }
 }

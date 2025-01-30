@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Cartography.DynamicMap;
 
-namespace Cartography.DynamicMap
+/// <summary>
+/// An enum of the possible selection modes on a <see cref="MapControl"/>.
+/// </summary>
+public enum MapSelectionMode
 {
 	/// <summary>
-	/// An enum of the possible selection modes on a <see cref="MapControl"/>.
+	/// Selection disabled
 	/// </summary>
-	public enum MapSelectionMode
-	{
-		/// <summary>
-		/// Selection disabled
-		/// </summary>
-		None,
+	None,
 
-		/// <summary>
-		/// Only one pushpin selected at a time
-		/// </summary>
-		Single,
+	/// <summary>
+	/// Only one pushpin selected at a time
+	/// </summary>
+	Single,
 
-		/// <summary>
-		/// Allow multiple pushpin selection
-		/// </summary>
-		Multiple,
-	}
+	/// <summary>
+	/// Allow multiple pushpin selection
+	/// </summary>
+	Multiple,
 }
