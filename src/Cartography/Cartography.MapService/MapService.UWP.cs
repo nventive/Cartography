@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP
+﻿#if WINDOWS && false
 using System;
 using System.Reactive.Concurrency;
 using System.Threading;
@@ -15,7 +15,7 @@ namespace Cartography.MapService
 	/// <summary>
 	/// Implementation of <see href="IMapService" />
 	/// </summary>
-	public class MapServiceUWP : IMapService
+	public class MapServiceWindows : IMapService
 	{
 		private readonly IGeolocatorService _locationService;
 		private readonly IDispatcherScheduler _dispatcherScheduler;
@@ -27,7 +27,7 @@ namespace Cartography.MapService
 		/// <param name="dispatcherScheduler">Dispatcher</param>
 		/// <param name="locationService">Location service</param>
 		/// <param name="logger">logger</param>
-		public MapServiceUWP(IDispatcherScheduler dispatcherScheduler, IGeolocatorService locationService, ILogger logger = null)
+		public MapServiceWindows(IDispatcherScheduler dispatcherScheduler, IGeolocatorService locationService, ILogger logger = null)
 		{
 			_dispatcherScheduler = dispatcherScheduler;
 			_locationService = locationService;

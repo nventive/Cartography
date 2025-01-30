@@ -1,16 +1,14 @@
-﻿using System;
-using Windows.Devices.Geolocation;
+﻿using Windows.Devices.Geolocation;
 
-namespace Cartography.DynamicMap
+namespace Cartography.DynamicMap;
+
+/// <summary>
+/// An item which exposed its location
+/// </summary>
+public interface IGeoLocated
 {
 	/// <summary>
-	/// An item which exposed its location
+	/// Coordinate of the item
 	/// </summary>
-	public interface IGeoLocated
-	{
-		/// <summary>
-		/// Coordinate of the item
-		/// </summary>
-		Geopoint Coordinates { get; }
-	}
+	Geopoint Coordinates { get; }
 }

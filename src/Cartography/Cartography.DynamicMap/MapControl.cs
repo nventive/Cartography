@@ -1,19 +1,14 @@
-﻿#if __IOS__ || __ANDROID__ || WINDOWS_UWP
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿#if __MOBILE__ //|| WINDOWS
 
-namespace Cartography.DynamicMap
+namespace Cartography.DynamicMap;
+
+public partial class MapControl : MapControlBase
 {
-	public partial class MapControl : MapControlBase
+	public MapControl()
 	{
-		public MapControl()
-		{
-			Initialize();
-		}
-
-		partial void Initialize();
+		Initialize();
 	}
+
+	partial void Initialize();
 }
 #endif
