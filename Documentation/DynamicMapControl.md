@@ -1,6 +1,6 @@
 # List of Control for dynamicMap
 
-## dynamicMap 
+## DynamicMap
 
 - SelectionMode : "**None**", "Single", "Multiple" / *Enable Selection type.*
 - AutolocateButtonVisibility : "**Visible**", "Collapsed" / *Show locate me button.*
@@ -21,18 +21,16 @@
 - dynamicMap:MapControlBehavior.CompassMargin : [Thickness](https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.thickness?view=winrt-22621) / *Set margin of compass.*
 - dynamicMap:MapControlBehavior.PushpinImageSelector : IValueConverter / *Select the right image depending of parameter.*
 
-&nbsp;
-### PushpinSelector example :
-&nbsp;
+### PushpinSelector example
 
 ```xml
-// YourMap.xaml
+<!-- YourMap.xaml -->
 
 <Page.Resources>
-        <ResourceDictionary>
-            <converters:FromPushpinToStringConverter x:Key="PushpinToMapPin"
-                                                           UnselectedValue="ms-appx:///Assets/Pushpin/inactive.png"
-                                                           SelectedValue="ms-appx:///Assets/Pushpin/active.png"/>
+    <ResourceDictionary>
+        <converters:FromPushpinToStringConverter x:Key="PushpinToMapPin"
+                                                 UnselectedValue="ms-appx:///Assets/Pushpin/inactive.png"
+                                                 SelectedValue="ms-appx:///Assets/Pushpin/active.png" />
     </ResourceDictionary>
 </Page.Resources> 
 ```
@@ -41,76 +39,73 @@
 // FromPushpinToStringConverter.cs
 
 public class FromPushpinToStringConverter : ConverterBase
+{
+    public string UnselectedValue { get; set; }
+
+    public string SelectedValue { get; set; }
+
+    protected override object Convert(object value, Type targetType, object parameter)
     {
-        public string UnselectedValue { get; set; }
-
-        public string SelectedValue { get; set; }
-
-        protected override object Convert(object value, Type targetType, object parameter)
-        {
-            var Pushpin = value as PushpinEntity;
+        var Pushpin = value as PushpinEntity;
 
 #if __ANDROID__
-            var isSelected = parameter as bool? ?? false;
+        var isSelected = parameter as bool? ?? false;
 #else
-			var isSelected = Pushpin.SafeEquals(parameter as PushpinEntity);
+        var isSelected = Pushpin.SafeEquals(parameter as PushpinEntity);
 #endif
-
-            return isSelected
-                ? SelectedValue
-                : UnselectedValue;
+        return isSelected
+            ? SelectedValue
+            : UnselectedValue;
         }
     }
 ```
 
-&nbsp;
-### Multiple pushpins example :
-&nbsp;
-
+### Multiple pushpins example
 
 ```csharp
 // FromMultiplePushpinTypeToStringConverter.cs
+
 public class FromMultiplePushpinTypeToStringConverter : ConverterBase
-	{
-        public string UnselectedValue { get; set; }
+{
+    public string UnselectedValue { get; set; }
 
-		public string Type1 { get; set; }
+    public string Type1 { get; set; }
 
-		public string Type2 { get; set; }
+    public string Type2 { get; set; }
 
-		public string Type3 { get; set; }
+    public string Type3 { get; set; }
 
-		public string DefaultType { get; set; }
+    public string DefaultType { get; set; }
 
-		protected override object Convert(object value, Type targetType, object parameter)
-		{
-			var LocationPushpin = value as LocationPushpin;
+    protected override object Convert(object value, Type targetType, object parameter)
+    {
+        var LocationPushpin = value as LocationPushpin;
 
 #if __ANDROID__
-			var isSelected = parameter as bool? ?? false;
+        var isSelected = parameter as bool? ?? false;
 #else
-			var isSelected = LocationPushpin.SafeEquals(parameter as LocationPushpin);
+        var isSelected = LocationPushpin.SafeEquals(parameter as LocationPushpin);
 #endif
 
-			if (!isSelected)
-			{
-				return UnselectedValue;
-			}
+        if (!isSelected)
+        {
+            return UnselectedValue;
+        }
 
-			switch (LocationPushpin.typeName)
-			{
-				case "pushpinType1":
-					return Type1;
+        switch (LocationPushpin.typeName)
+        {
+            case "pushpinType1":
+                return Type1;
 
-				case "pushpinType2":
-					return Type2;
+            case "pushpinType2":
+                return Type2;
 
-				case "pushpinType3":
-					return Type3;
+            case "pushpinType3":
+                return Type3;
 
-				default:
-					return DefaultType;
-			}
-		}
+            default:
+                return DefaultType;
+        }
     }
+}
 ```
