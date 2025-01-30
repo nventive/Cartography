@@ -6,87 +6,86 @@ using System.Threading.Tasks;
 using CoreGraphics;
 using MapKit;
 using Microsoft.Extensions.Logging;
+using Microsoft.UI.Xaml.Media;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
-using Windows.UI.Xaml.Media;
 
-namespace Cartography.StaticMap.Provider
+namespace Cartography.StaticMap.Provider;
+
+/// <summary>
+/// Provides a static map created using the native iOS SDK.
+/// The resulting static map is a UIImage.
+/// </summary>
+internal class AppleStaticMapProvider : IStaticMapProvider
 {
+	private readonly IDispatcherScheduler _dispatcherScheduler;
+
 	/// <summary>
-	/// Provides a static map created using the native iOS SDK.
-	/// The resulting static map is a UIImage.
+	/// Initializes a new instance of the <see cref="AppleStaticMapProvider"/> class.
 	/// </summary>
-	internal class AppleStaticMapProvider : IStaticMapProvider
+	/// <param name="dispatcherScheduler">Dispatcher</param>
+	public AppleStaticMapProvider(IDispatcherScheduler dispatcherScheduler)
 	{
-		private readonly IDispatcherScheduler _dispatcherScheduler;
+		_dispatcherScheduler = dispatcherScheduler;
+	}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AppleStaticMapProvider"/> class.
-		/// </summary>
-		/// <param name="dispatcherScheduler">Dispatcher</param>
-		public AppleStaticMapProvider(IDispatcherScheduler dispatcherScheduler)
+	/// <summary>
+	/// Get a map with the specified parameters.
+	/// </summary>
+	/// <param name="ct">Cancellation token</param>
+	/// <param name="parameters">Map parameters</param>
+	/// <returns>The map as a UIImage.</returns>
+	public async Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters)
+	{
+		if (this.Log().IsEnabled(LogLevel.Debug))
 		{
-			_dispatcherScheduler = dispatcherScheduler;
+			this.Log().Debug($"Getting an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
 		}
 
-		/// <summary>
-		/// Get a map with the specified parameters.
-		/// </summary>
-		/// <param name="ct">Cancellation token</param>
-		/// <param name="parameters">Map parameters</param>
-		/// <returns>The map as a UIImage.</returns>
-		public async Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters)
+		return await await _dispatcherScheduler.Run(() =>
 		{
-			if (this.Log().IsEnabled(LogLevel.Debug))
+			var options = CreateOptions(parameters);
+
+			if (this.Log().IsEnabled(LogLevel.Information))
 			{
-				this.Log().Debug($"Getting an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}'.");
+				this.Log().Info($"Return an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}').");
 			}
 
-			return await await _dispatcherScheduler.Run(() =>
-			{
-				var options = CreateOptions(parameters);
+			return CreateMapImage(ct, options);
+		}, ct);
+	}
 
-				if (this.Log().IsEnabled(LogLevel.Information))
-				{
-					this.Log().Info($"Return an Apple map with the scale: '{parameters?.Scale}', the width: '{parameters?.Width}', the height: '{parameters?.Height}', '{parameters?.ViewPort?.PointsOfInterest}' POIs and a zoom level of '{parameters?.ViewPort?.ZoomLevel}').");
-				}
-
-				return CreateMapImage(ct, options);
-			}, ct);
-		}
-
-		private MKMapSnapshotOptions CreateOptions(StaticMapParameters parameters)
+	private MKMapSnapshotOptions CreateOptions(StaticMapParameters parameters)
+	{
+		return new MKMapSnapshotOptions()
 		{
-			return new MKMapSnapshotOptions()
-			{
-				Region = MapHelper.CreateRegion(parameters.ViewPort.Center, parameters.ViewPort.ZoomLevel.Value, new CGSize(parameters.Width, parameters.Height)),
-				Size = new CGSize(parameters.Width, parameters.Height)
-			};
-		}
+			Region = MapHelper.CreateRegion(parameters.ViewPort.Center, parameters.ViewPort.ZoomLevel.Value, new CGSize(parameters.Width, parameters.Height)),
+			Size = new CGSize(parameters.Width, parameters.Height)
+		};
+	}
 
-		private async Task<ImageSource> CreateMapImage(CancellationToken ct, MKMapSnapshotOptions options)
+	private async Task<ImageSource> CreateMapImage(CancellationToken ct, MKMapSnapshotOptions options)
+	{
+		var tc = new TaskCompletionSource<UIImage>();
+		using (ct.Register(() => tc.TrySetCanceled()))
 		{
-			var tc = new TaskCompletionSource<UIImage>();
-			using (ct.Register(() => tc.TrySetCanceled()))
+			var snapshotter = new MKMapSnapshotter(options);
+
+			try
 			{
-				var snapshotter = new MKMapSnapshotter(options);
+				var snapshot = await snapshotter.StartAsync();
 
-				try
-				{
-					var snapshot = await snapshotter.StartAsync();
-
-					tc.TrySetResult(snapshot.Image);
-				}
-				catch(Exception ex)
-				{
-					tc.TrySetException(ex);
-				}
-
+				tc.TrySetResult(snapshot.Image);
+			}
+			catch(Exception ex)
+			{
+				tc.TrySetException(ex);
 			}
 
-			return await tc.Task;
 		}
+
+		return await tc.Task;
 	}
 }
 #endif

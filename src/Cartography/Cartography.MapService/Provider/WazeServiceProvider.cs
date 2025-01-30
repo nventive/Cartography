@@ -4,62 +4,61 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Logging;
 
-namespace Cartography.MapService
+namespace Cartography.MapService;
+
+/// <summary>
+/// Service that provide locations and directions commands to Waze
+/// </summary>
+internal class WazeServiceProvider : IMapServiceProvider
 {
-	/// <summary>
-	/// Service that provide locations and directions commands to Waze
-	/// </summary>
-	internal class WazeServiceProvider : IMapServiceProvider
+	private readonly ILogger _logger = NullLogger.Instance;
+
+	/// <inheritdoc />
+	public string Name => NavigationAppConstants.NavigationAppName.Waze;
+
+	/// <inheritdoc />
+	public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.WazeUrl;
+
+	/// <inheritdoc />
+	public NSUrl GetDirectionsUrl(MapRequest mapRequest)
 	{
-		private readonly ILogger _logger = NullLogger.Instance;
+		_logger.Debug(() => $"Showing directions using {nameof(WazeServiceProvider)}.");
 
-		/// <inheritdoc />
-		public string Name => NavigationAppConstants.NavigationAppName.Waze;
+		var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
+		var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
 
-		/// <inheritdoc />
-		public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.WazeUrl;
+		var isSearchMode = !mapRequest.IsCoordinatesSet;
+		var input = isSearchMode
+			? mapRequest.LocationName
+			: $"{latitude},{longitude}";
 
-		/// <inheritdoc />
-		public NSUrl GetDirectionsUrl(MapRequest mapRequest)
-		{
-			_logger.Debug(() => $"Showing directions using {nameof(WazeServiceProvider)}.");
+		return new NSUrl(BuildQuery(input, isSearchMode, true));
+	}
 
-			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
-			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
+	/// <inheritdoc />
+	public NSUrl GetLocationUrl(MapRequest mapRequest)
+	{
+		_logger.Debug(() => $"Showing location using {nameof(WazeServiceProvider)}.");
 
-			var isSearchMode = !mapRequest.IsCoordinatesSet;
-			var input = isSearchMode
-				? mapRequest.LocationName
-				: $"{latitude},{longitude}";
+		var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
+		var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
 
-			return new NSUrl(BuildQuery(input, isSearchMode, true));
-		}
+		var isSearchMode = !mapRequest.IsCoordinatesSet;
+		var input = isSearchMode
+			? mapRequest.LocationName
+			: $"{latitude},{longitude}";
 
-		/// <inheritdoc />
-		public NSUrl GetLocationUrl(MapRequest mapRequest)
-		{
-			_logger.Debug(() => $"Showing location using {nameof(WazeServiceProvider)}.");
+		return new NSUrl(BuildQuery(input, isSearchMode, false));
+	}
 
-			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
-			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
-
-			var isSearchMode = !mapRequest.IsCoordinatesSet;
-			var input = isSearchMode
-				? mapRequest.LocationName
-				: $"{latitude},{longitude}";
-
-			return new NSUrl(BuildQuery(input, isSearchMode, false));
-		}
-
-		private string BuildQuery(string input, bool isSearch, bool isNavigating)
-		{
-			return NavigationAppConstants.NavigationAppNSUrl.WazeUrl.AbsoluteString
-				+ (isSearch
-					? $"{NavigationAppConstants.WazeParameters.Search}{input.Replace(" ", "%20")}"
-					: $"{NavigationAppConstants.WazeParameters.Coordinates}{input}"
-				)
-				+ (isNavigating ? NavigationAppConstants.WazeParameters.Navigate : string.Empty);
-		}
+	private string BuildQuery(string input, bool isSearch, bool isNavigating)
+	{
+		return NavigationAppConstants.NavigationAppNSUrl.WazeUrl.AbsoluteString
+			+ (isSearch
+				? $"{NavigationAppConstants.WazeParameters.Search}{input.Replace(" ", "%20")}"
+				: $"{NavigationAppConstants.WazeParameters.Coordinates}{input}"
+			)
+			+ (isNavigating ? NavigationAppConstants.WazeParameters.Navigate : string.Empty);
 	}
 }
 #endif

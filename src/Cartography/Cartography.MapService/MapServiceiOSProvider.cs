@@ -1,11 +1,10 @@
 ﻿#if __IOS__
-namespace Cartography.MapService
+namespace Cartography.MapService;
+
+public enum MapServiceiOSProvider
 {
-	public enum MapServiceiOSProvider
-	{
-		AppleMap,
-		GoogleMap,
-		Waze
-	}
+	AppleMap,
+	GoogleMap,
+	Waze
 }
 #endif

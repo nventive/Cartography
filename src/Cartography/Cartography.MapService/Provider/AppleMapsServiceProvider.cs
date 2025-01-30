@@ -2,73 +2,71 @@
 using Foundation;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Uno.Extensions;
 using Uno.Logging;
 
-namespace Cartography.MapService
+namespace Cartography.MapService;
+
+/// <summary>
+/// Service that provide locations and directions commands to Apple Maps
+/// </summary>
+internal class AppleMapsServiceProvider : IMapServiceProvider
 {
-	/// <summary>
-	/// Service that provide locations and directions commands to Apple Maps
-	/// </summary>
-	internal class AppleMapsServiceProvider : IMapServiceProvider
+	private readonly ILogger _logger = NullLogger.Instance;
+
+	/// <inheritdoc />
+	public string Name => NavigationAppConstants.NavigationAppName.AppleMaps;
+
+	/// <inheritdoc />
+	public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.AppleMapsUrl;
+	
+
+	/// <inheritdoc />
+	public NSUrl GetDirectionsUrl(MapRequest mapRequest)
 	{
-		private readonly ILogger _logger = NullLogger.Instance;
+		_logger.Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
 
-		/// <inheritdoc />
-		public string Name => NavigationAppConstants.NavigationAppName.AppleMaps;
+		var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
+		var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
 
-		/// <inheritdoc />
-		public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.AppleMapsUrl;
-		
+		var isSearchMode = !mapRequest.IsCoordinatesSet;
+		var input = isSearchMode
+			? mapRequest.LocationName
+			: $"{latitude},{longitude}";
 
-		/// <inheritdoc />
-		public NSUrl GetDirectionsUrl(MapRequest mapRequest)
-		{
-			_logger.Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
+		return new NSUrl(BuildQuery(input, isSearchMode, true));
+	}
 
-			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
-			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
+	/// <inheritdoc />
+	public NSUrl GetLocationUrl(MapRequest mapRequest)
+	{
+		_logger.Debug(() => $"Showing location using {nameof(AppleMapsServiceProvider)}.");
 
-			var isSearchMode = !mapRequest.IsCoordinatesSet;
-			var input = isSearchMode
-				? mapRequest.LocationName
-				: $"{latitude},{longitude}";
+		var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
+		var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
 
-			return new NSUrl(BuildQuery(input, isSearchMode, true));
-		}
+		var isSearchMode = !mapRequest.IsCoordinatesSet;
+		var input = isSearchMode
+			? mapRequest.LocationName
+			: $"{latitude},{longitude}";
 
-		/// <inheritdoc />
-		public NSUrl GetLocationUrl(MapRequest mapRequest)
-		{
-			_logger.Debug(() => $"Showing location using {nameof(AppleMapsServiceProvider)}.");
+		return new NSUrl(BuildQuery(input, isSearchMode, false));
+	}
 
-			var latitude = $"{mapRequest.Coordinates.Latitude}".Replace(",", ".");
-			var longitude = $"{mapRequest.Coordinates.Longitude}".Replace(",", ".");
-
-			var isSearchMode = !mapRequest.IsCoordinatesSet;
-			var input = isSearchMode
-				? mapRequest.LocationName
-				: $"{latitude},{longitude}";
-
-			return new NSUrl(BuildQuery(input, isSearchMode, false));
-		}
-
-		private string BuildQuery(string input, bool isSearch, bool isNavigating)
-		{
-			return NavigationAppConstants.AppleMapsParameters.UrlScheme
-				+ (isNavigating
-					? (isSearch
-						? $"{NavigationAppConstants.AppleMapsParameters.DestinationAddress}{input.Replace(" ", "+")}"
-						: $"{NavigationAppConstants.AppleMapsParameters.DestinationAddress}{input}"
-					)
-					: (isSearch
-						? $"{NavigationAppConstants.AppleMapsParameters.Search}{input.Replace(' ', '+')}"
-						: $"{NavigationAppConstants.AppleMapsParameters.Coordinates}{input}"
-							+ $"{NavigationAppConstants.AppleMapsParameters.PinName}{input}"
-					)
+	private string BuildQuery(string input, bool isSearch, bool isNavigating)
+	{
+		return NavigationAppConstants.AppleMapsParameters.UrlScheme
+			+ (isNavigating
+				? (isSearch
+					? $"{NavigationAppConstants.AppleMapsParameters.DestinationAddress}{input.Replace(" ", "+")}"
+					: $"{NavigationAppConstants.AppleMapsParameters.DestinationAddress}{input}"
 				)
-				+ (isNavigating ? NavigationAppConstants.AppleMapsParameters.Driving : string.Empty);
-		}
+				: (isSearch
+					? $"{NavigationAppConstants.AppleMapsParameters.Search}{input.Replace(' ', '+')}"
+					: $"{NavigationAppConstants.AppleMapsParameters.Coordinates}{input}"
+						+ $"{NavigationAppConstants.AppleMapsParameters.PinName}{input}"
+				)
+			)
+			+ (isNavigating ? NavigationAppConstants.AppleMapsParameters.Driving : string.Empty);
 	}
 }
 #endif

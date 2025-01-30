@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP
+﻿#if WINDOWS && false
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace Cartography.DynamicMap
 		private MapIconLayer _pushpinIcons;
 		private MapLayer<UserLocationMarker> _userLocation;
 
-		#region PushpinCommand (dp)
+        #region PushpinCommand (dp)
 		/// <summary>
 		/// Identifies the <see cref="PushpinCommand"/> dependency property.
 		/// </summary>
@@ -44,7 +44,7 @@ namespace Cartography.DynamicMap
 			get { return (ICommand)GetValue(PushpinCommandProperty); }
 			set { SetValue(PushpinCommandProperty, value); }
 		}
-		#endregion
+        #endregion
 
 		/// <summary>
 		/// ctor.
@@ -58,7 +58,7 @@ namespace Cartography.DynamicMap
 			Unloaded += (snd, e) => Pause();
 		}
 
-		#region View
+        #region View
 		/// <inherit />
 		protected override void OnApplyTemplate()
 		{
@@ -99,9 +99,9 @@ namespace Cartography.DynamicMap
 		{
 			_isUserDragging.OnNext(true);
 		}
-		#endregion
+        #endregion
 
-		#region User location
+        #region User location
 		private void UpdateMapUserLocation(LocationResult locationAndStatus)
 		{
 			if (locationAndStatus == null)
@@ -122,9 +122,9 @@ namespace Cartography.DynamicMap
 				_userLocation.Clear();
 			}
 		}
-		#endregion
+        #endregion
 
-		#region View port
+        #region View port
 
 		private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
 		{
@@ -172,9 +172,9 @@ namespace Cartography.DynamicMap
 
 			return new GeoboundingBox(northWestCorner, southEastCorner);
 		}
-		#endregion
+        #endregion
 
-		#region View port coordinates
+        #region View port coordinates
 		private MapViewPortCoordinates GetViewPortCoordinates()
 		{
 			var visibleRegionBounds = _map.GetVisibleRegion(MapVisibleRegionKind.Full);
@@ -201,7 +201,7 @@ namespace Cartography.DynamicMap
 				}
 			);
 		}
-		#endregion
+        #endregion
 
 		private void UpdateMapPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
 		{
@@ -215,7 +215,7 @@ namespace Cartography.DynamicMap
 			}
 		}
 
-		#region Pushpins ICONS
+        #region Pushpins ICONS
 		private bool UseIcons => _icon != null;
 
 		private RandomAccessStreamReference _icon;
@@ -291,9 +291,9 @@ namespace Cartography.DynamicMap
 
 			return null;
 		}
-		#endregion
+        #endregion
 
-		#region Selection
+        #region Selection
 		private void UpdateMapSelectedPushpins(IGeoLocated[] items)
 		{
 			if (_pushpins == null)
@@ -373,7 +373,7 @@ namespace Cartography.DynamicMap
 			_selectedPushpins.OnNext(selectedItems);
 			return true;
 		}
-		#endregion
+        #endregion
 
 	}
 }
