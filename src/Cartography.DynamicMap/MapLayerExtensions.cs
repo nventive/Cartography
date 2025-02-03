@@ -1,4 +1,4 @@
-﻿#if __IOS__ || __ANDROID__ || WINDOWS
+﻿#if __MOBILE__ || WINDOWS
 using System;
 using System.Collections.Generic;
 using System.Linq;

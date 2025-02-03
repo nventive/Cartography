@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uno.Extensions;
-using Windows.Devices.Geolocation;
 
 namespace Cartography.DynamicMap;
 
@@ -17,7 +16,7 @@ public class GeoLocatedGrouping<T> : IGeoLocatedGrouping<T>
 
 	public Geopoint Coordinates
 	{
-		get { return _source.Key.Point; }
+		get { return Key.Point; }
 	}
 
 	public Geocoordinate Key

@@ -1,7 +1,6 @@
-﻿#if __IOS__ || __ANDROID__ || WINDOWS
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Cartography.DynamicMap;
+namespace Cartography;
 
 public interface IMapLayer<TItem>
 	where TItem : IMapControlItem
@@ -16,4 +15,3 @@ public interface IMapLayer<TItem>
 	void RemoveAt(int index);
 	bool Contains(TItem item);
 }
-#endif

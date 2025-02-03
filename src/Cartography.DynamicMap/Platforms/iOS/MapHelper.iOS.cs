@@ -11,7 +11,7 @@ public static class MapHelper
 	private const double MercatorRadius = 85445659.44705395;
 	private const double MercatorOffset = 268435456;
 
-	public static MKCoordinateRegion CreateRegion(Windows.Devices.Geolocation.BasicGeoposition centerCoordinate, ZoomLevel zoomLevel, CGSize size)
+	public static MKCoordinateRegion CreateRegion(BasicGeoposition centerCoordinate, ZoomLevel zoomLevel, CGSize size)
 	{
 		// convert center coordiate to pixel space 
 		double centerPixelX = LongitudeToPixelSpaceX(centerCoordinate.Longitude);

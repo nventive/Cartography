@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeolocatorService;
 
-namespace Cartography.DynamicMap;
+namespace Cartography;
 
 /// <summary>
 /// Interface that define the required property for the MapComponent
@@ -37,7 +36,7 @@ public interface IDynamicMapComponent
 	/// <summary>
 	/// Informs the view-model that an empty area of the map was tapped.
 	/// </summary>
-	Action<Windows.Devices.Geolocation.Geocoordinate> OnMapTapped { get; set; }
+	Action<Geocoordinate> OnMapTapped { get; set; }
 
 	/// <summary>
 	/// Defines whether user tracking is enabled - READ / WRITE
@@ -49,10 +48,10 @@ public interface IDynamicMapComponent
 	/// </summary>
 	bool IsUserDragging { get; set; }
 
-	/// <summary>
-	/// User location if any and if display requested, else empty value
-	/// </summary>
-	LocationResult UserLocation { get; set; }
+    /// <summary>
+    /// User location if any and if display requested, else empty value
+    /// </summary>
+    BasicGeoposition UserLocation { get; set; }
 
 	/// <summary>
 	/// VisibleRegion of the map - READ ONLY

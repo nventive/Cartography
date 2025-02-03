@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Cartography.DynamicMap;
+namespace Cartography;
 
 /// <summary>
 /// Represents a zoom level on a map
