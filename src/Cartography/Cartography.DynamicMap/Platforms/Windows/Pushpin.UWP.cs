@@ -1,4 +1,5 @@
-﻿#if WINDOWS && false
+﻿#if WINDOWS
+using Microsoft.UI.Xaml;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;

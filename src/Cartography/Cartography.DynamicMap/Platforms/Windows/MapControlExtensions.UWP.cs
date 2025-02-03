@@ -1,4 +1,4 @@
-﻿#if WINDOWS && false
+﻿#if WINDOWS
 using System;
 using System.Linq;
 using System.Reactive;
@@ -15,11 +15,11 @@ namespace Cartography.DynamicMap
 		/// Creates an observable sequence of the <see cref="Windows.UI.Xaml.Controls.Maps.MapControl.CenterChanged"/> event.
 		/// </summary>
 		internal static IObservable<Unit> ObserveCenterChanged(
-			this Windows.UI.Xaml.Controls.Maps.MapControl map,
+			this Microsoft.UI.Xaml.Controls.MapControl map,
 			FrameworkElementExtensions.UiEventSubscriptionsOptions options = FrameworkElementExtensions.UiEventSubscriptionsOptions.Default)
 		{
 			return FrameworkElementExtensions
-				.FromEventPattern<Windows.Foundation.TypedEventHandler<Windows.UI.Xaml.Controls.Maps.MapControl, object>, object>(
+				.FromEventPattern<Windows.Foundation.TypedEventHandler<Microsoft.UI.Xaml.Controls.MapControl, object>, object>(
 					h => map.CenterChanged += h,
 					h => map.CenterChanged -= h,
 					map,
@@ -47,11 +47,11 @@ namespace Cartography.DynamicMap
 		/// Creates an observable sequence of the <see cref="Windows.UI.Xaml.Controls.Maps.MapControl.PitchChanged"/> event.
 		/// </summary>
 		internal static IObservable<Unit> ObservePitchChanged(
-			this Windows.UI.Xaml.Controls.Maps.MapControl map,
+			this Microsoft.UI.Xaml.Controls.MapControl map,
 			FrameworkElementExtensions.UiEventSubscriptionsOptions options = FrameworkElementExtensions.UiEventSubscriptionsOptions.Default)
 		{
 			return FrameworkElementExtensions
-				.FromEventPattern<Windows.Foundation.TypedEventHandler<Windows.UI.Xaml.Controls.Maps.MapControl, object>, object>(
+				.FromEventPattern<Windows.Foundation.TypedEventHandler<Microsoft.UI.Xaml.Controls.MapControl, object>, object>(
 					h => map.PitchChanged += h,
 					h => map.PitchChanged -= h,
 					map,
@@ -63,11 +63,11 @@ namespace Cartography.DynamicMap
 		/// Creates an observable sequence of the <see cref="Windows.UI.Xaml.Controls.Maps.MapControl.ZoomLevelChanged"/> event.
 		/// </summary>
 		internal static IObservable<Unit> ObserveZoomLevelChanged(
-			this Windows.UI.Xaml.Controls.Maps.MapControl map,
+			this Microsoft.UI.Xaml.Controls.MapControl map,
 			FrameworkElementExtensions.UiEventSubscriptionsOptions options = FrameworkElementExtensions.UiEventSubscriptionsOptions.Default)
 		{
 			return FrameworkElementExtensions
-				.FromEventPattern<Windows.Foundation.TypedEventHandler<Windows.UI.Xaml.Controls.Maps.MapControl, object>, object>(
+				.FromEventPattern<Windows.Foundation.TypedEventHandler<Microsoft.UI.Xaml.Controls.MapControl, object>, object>(
 					h => map.ZoomLevelChanged += h,
 					h => map.ZoomLevelChanged -= h,
 					map,

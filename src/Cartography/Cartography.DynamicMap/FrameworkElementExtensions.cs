@@ -10,8 +10,6 @@ using System.Reflection;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Markup;
 using Uno.Extensions;
-#else
-using System.Windows;
 #endif
 
 namespace Cartography.DynamicMap;

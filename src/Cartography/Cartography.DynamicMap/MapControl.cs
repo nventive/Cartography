@@ -1,4 +1,4 @@
-﻿#if __MOBILE__ //|| WINDOWS
+﻿#if __MOBILE__ || WINDOWS
 
 namespace Cartography.DynamicMap;
 

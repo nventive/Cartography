@@ -2,7 +2,6 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:local="using:Cartography.DynamicMap">
 
-	<!--
 	<Style TargetType="local:MapControlItem">
 		<Setter Property="Background"
 				Value="Blue" />
@@ -10,7 +9,8 @@
 				Value="12" />
 		<Setter Property="Height"
 				Value="12" />
-		<Setter Property="PositionOrigin" Value=".5,.5" />
+		<Setter Property="PositionOrigin"
+				Value=".5,.5" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:MapControlItem">
@@ -21,6 +21,4 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	-->
-
 </ResourceDictionary>

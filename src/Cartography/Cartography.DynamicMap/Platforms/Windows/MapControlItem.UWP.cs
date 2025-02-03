@@ -1,4 +1,6 @@
-﻿#if WINDOWS && false
+﻿#if WINDOWS
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -35,8 +37,8 @@ namespace Cartography.DynamicMap
 
 		private static void OnPositionOriginChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			Windows.UI.Xaml.Controls.Maps.MapControl.SetNormalizedAnchorPoint(d, (Point)e.NewValue);
-		} 
+            Windows.UI.Xaml.Controls.Maps.MapControl.SetNormalizedAnchorPoint(d, (Point)e.NewValue);
+		}
 #endregion
 
 		IGeoLocated IMapControlItem.Item
@@ -44,6 +46,7 @@ namespace Cartography.DynamicMap
 			get { return (IGeoLocated) Content; }
 			set { Content = value; }
 		}
+
 		internal IGeoLocated Item
 		{
 			get { return (IGeoLocated) Content; }

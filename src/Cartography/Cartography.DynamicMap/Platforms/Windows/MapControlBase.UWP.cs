@@ -1,4 +1,4 @@
-﻿#if WINDOWS && false
+﻿#if WINDOWS
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +11,24 @@ using System.Windows.Input;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Uno.Extensions;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Maps;
 
 namespace Cartography.DynamicMap
 {
 	public partial class MapControlBase : Control
 	{
-		private Windows.UI.Xaml.Controls.Maps.MapControl _map;
+		private Microsoft.UI.Xaml.Controls.MapControl _map;
 		private ContentPresenter _errorPresenter;
 		private MapLayer<Pushpin> _pushpins;
 		private MapIconLayer _pushpinIcons;
 		private MapLayer<UserLocationMarker> _userLocation;
 
-        #region PushpinCommand (dp)
+		#region PushpinCommand (dp)
 		/// <summary>
 		/// Identifies the <see cref="PushpinCommand"/> dependency property.
 		/// </summary>
@@ -58,7 +57,7 @@ namespace Cartography.DynamicMap
 			Unloaded += (snd, e) => Pause();
 		}
 
-        #region View
+		#region View
 		/// <inherit />
 		protected override void OnApplyTemplate()
 		{
@@ -167,8 +166,8 @@ namespace Cartography.DynamicMap
 			var frontiers = viewPort.GetBounds();
 
 			// create ViewPort with calculated dimensions
-			var northWestCorner = new BasicGeoposition() { Latitude = frontiers.WestFrontier, Longitude = frontiers.NorthFrontier };
-			var southEastCorner = new BasicGeoposition() { Latitude = frontiers.EastFrontier, Longitude = frontiers.SouthFrontier };
+			var northWestCorner = new Windows.Devices.Geolocation.BasicGeoposition() { Latitude = frontiers.WestFrontier, Longitude = frontiers.NorthFrontier };
+			var southEastCorner = new Windows.Devices.Geolocation.BasicGeoposition() { Latitude = frontiers.EastFrontier, Longitude = frontiers.SouthFrontier };
 
 			return new GeoboundingBox(northWestCorner, southEastCorner);
 		}
@@ -179,22 +178,22 @@ namespace Cartography.DynamicMap
 		{
 			var visibleRegionBounds = _map.GetVisibleRegion(MapVisibleRegionKind.Full);
 			return new MapViewPortCoordinates(
-				northEast: new BasicGeoposition
+				northEast: new Windows.Devices.Geolocation.BasicGeoposition
 				{
 					Latitude = visibleRegionBounds.Positions.Max(p => p.Latitude),
 					Longitude = visibleRegionBounds.Positions.Max(p => p.Longitude)
 				},
-				northWest: new BasicGeoposition
+				northWest: new Windows.Devices.Geolocation.BasicGeoposition
 				{
 					Latitude = visibleRegionBounds.Positions.Max(p => p.Latitude),
 					Longitude = visibleRegionBounds.Positions.Min(p => p.Longitude)
 				},
-				southWest: new BasicGeoposition
+				southWest: new Windows.Devices.Geolocation.BasicGeoposition
 				{
 					Latitude = visibleRegionBounds.Positions.Min(p => p.Latitude),
 					Longitude = visibleRegionBounds.Positions.Min(p => p.Longitude)
 				},
-				southEast: new BasicGeoposition
+				southEast: new Windows.Devices.Geolocation.BasicGeoposition
 				{
 					Latitude = visibleRegionBounds.Positions.Min(p => p.Latitude),
 					Longitude = visibleRegionBounds.Positions.Max(p => p.Longitude)
@@ -373,7 +372,7 @@ namespace Cartography.DynamicMap
 			_selectedPushpins.OnNext(selectedItems);
 			return true;
 		}
-        #endregion
+		#endregion
 
 	}
 }
