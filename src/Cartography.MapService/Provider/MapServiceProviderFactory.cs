@@ -11,7 +11,7 @@ internal static class MapServiceProviderFactory
 		//Return the apple provider if no provider was selected
 		if(providers == null)
 		{
-			return new IMapServiceProvider[]{ new AppleMapsServiceProvider()};
+			return [new AppleMapsServiceProvider()];
 		}
 
 		var returnProvider = new List<IMapServiceProvider>(providers.Length);
