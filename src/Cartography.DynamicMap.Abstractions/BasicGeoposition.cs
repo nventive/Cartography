@@ -1,4 +1,4 @@
-﻿namespace Cartography;
+﻿namespace Cartography.DynamicMap;
 
 public sealed class BasicGeoposition
 {

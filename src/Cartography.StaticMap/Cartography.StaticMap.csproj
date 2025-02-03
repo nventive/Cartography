@@ -1,6 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net8.0-ios;net8.0-android;net8.0-windows10.0.22621.0</TargetFrameworks>
+		<LangVersion>13.0</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder. -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Cartography.StaticMap</RootNamespace>
@@ -20,9 +21,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GeolocatorService.Uno.WinUI" Version="1.0.0" />
-		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
-		<PackageReference Include="Uno.Core" Version="4.1.1" />
 		<PackageReference Include="Uno.WinUI" Version="5.0.19" />
 
 		<!-- Needed for Source Link support. -->
@@ -41,5 +39,9 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
 		<PackageReference Include="Xamarin.GooglePlayServices.Base" Version="118.5.0.4" />
 		<PackageReference Include="Xamarin.GooglePlayServices.Maps" Version="119.0.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Cartography.StaticMap.Abstractions\Cartography.StaticMap.Abstractions.csproj" />
 	</ItemGroup>
 </Project>

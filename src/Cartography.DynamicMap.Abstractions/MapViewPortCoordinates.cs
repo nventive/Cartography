@@ -1,7 +1,7 @@
 ﻿using System;
 using Uno.Extensions;
 
-namespace Cartography;
+namespace Cartography.DynamicMap;
 
 public class MapViewPortCoordinates : IEquatable<MapViewPortCoordinates>
 {

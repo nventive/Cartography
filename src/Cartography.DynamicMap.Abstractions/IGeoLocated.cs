@@ -1,4 +1,4 @@
-﻿namespace Cartography;
+﻿namespace Cartography.DynamicMap;
 
 /// <summary>
 /// An item which exposed its location

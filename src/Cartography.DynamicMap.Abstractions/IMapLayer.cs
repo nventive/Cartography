@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cartography;
+namespace Cartography.DynamicMap;
 
 public interface IMapLayer<TItem>
 	where TItem : IMapControlItem

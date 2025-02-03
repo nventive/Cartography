@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Cartography;
+namespace Cartography.DynamicMap;
 
 public class PrettyMapViewPortEqualityComparer : IEqualityComparer<MapViewPort>
 {

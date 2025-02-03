@@ -1,4 +1,4 @@
-﻿namespace Cartography;
+﻿namespace Cartography.DynamicMap;
 
 /// <summary>
 /// Implements a set of predefined ZoomLevel.

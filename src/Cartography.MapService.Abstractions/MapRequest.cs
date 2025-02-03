@@ -1,4 +1,4 @@
-﻿namespace Cartography;
+﻿namespace Cartography.MapService;
 
 /// <summary>
 /// This class aggregates map parameters.
