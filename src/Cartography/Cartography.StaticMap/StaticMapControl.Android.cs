@@ -1,93 +1,92 @@
 ﻿#if __ANDROID__
 using System;
 using Cartography.StaticMap.Provider;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Uno.UI;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Image = Windows.UI.Xaml.Controls.Image;
+using Image = Microsoft.UI.Xaml.Controls.Image;
 using Size = Windows.Foundation.Size;
 
-namespace Cartography.StaticMap
+namespace Cartography.StaticMap;
+
+/// <summary>
+/// Implementation of <see href="StaticMapControl"/>  in Android/>
+/// </summary>
+public partial class StaticMapControl : Control
 {
-	/// <summary>
-	/// Implementation of <see href="StaticMapControl"/>  in Android/>
-	/// </summary>
-	public partial class StaticMapControl : Control
+	private const string InnerMapImageElementName = "PART_InnerMap";
+	private const string InnerMapContentElementName = "PART_InnerMapContentControl";
+
+	private Size _measuredSize;
+	private Image _innerMapImage;
+	private ContentPresenter _innerMapContent;
+
+	/// <inheritdoc/>
+	protected override void OnApplyTemplate()
 	{
-		private const string InnerMapImageElementName = "PART_InnerMap";
-		private const string InnerMapContentElementName = "PART_InnerMapContentControl";
+		base.OnApplyTemplate();
 
-		private Size _measuredSize;
-		private Image _innerMapImage;
-		private ContentPresenter _innerMapContent;
-
-		/// <inheritdoc/>
-		protected override void OnApplyTemplate()
+		_innerMapImage = this.GetTemplateChild(InnerMapImageElementName) as Image;
+		if (_innerMapImage != null)
 		{
-			base.OnApplyTemplate();
-
-			_innerMapImage = this.GetTemplateChild(InnerMapImageElementName) as Image;
-			if (_innerMapImage != null)
-			{
-				_innerMapImage.Stretch = Stretch.UniformToFill;
-			}
-
-			_innerMapContent = this.GetTemplateChild(InnerMapContentElementName) as ContentPresenter;
-
-			GoToState(DefaultState);
-
-			_viewReady = true;
-
-			RequestUpdate();
+			_innerMapImage.Stretch = Stretch.UniformToFill;
 		}
 
-		/// <inheritdoc/>
-		protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
+		_innerMapContent = this.GetTemplateChild(InnerMapContentElementName) as ContentPresenter;
+
+		GoToState(DefaultState);
+
+		_viewReady = true;
+
+		RequestUpdate();
+	}
+
+	/// <inheritdoc/>
+	protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
+	{
+		base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
+
+		// Skip any measure done until the view is ready.
+		if (!_viewReady)
 		{
-			base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
-
-			// Skip any measure done until the view is ready.
-			if (!_viewReady)
-			{
-				return;
-			}
-
-			_measuredSize = new Size(MeasureSpec.GetSize(widthMeasureSpec), MeasureSpec.GetSize(heightMeasureSpec));
+			return;
 		}
 
-		private void SetMap(object map, StaticMapParameters parameters = null)
-		{
-			if (map == null)
-			{
-				return;
-			}
+		_measuredSize = new Size(MeasureSpec.GetSize(widthMeasureSpec), MeasureSpec.GetSize(heightMeasureSpec));
+	}
 
-			if (map is Uri uri && _innerMapImage != null)
-			{
-				_innerMapImage.Source = uri;
-			}
-			else if (map is ImageSource imageSource && _innerMapImage != null)
-			{
-				_innerMapImage.Source = imageSource;
-			}
-			else if (_innerMapContent != null)
-			{
-				_innerMapContent.Content = map;
-			}
+	private void SetMap(object map, StaticMapParameters parameters = null)
+	{
+		if (map == null)
+		{
+			return;
 		}
 
-		private Size GetControlSize()
+		if (map is Uri uri && _innerMapImage != null)
 		{
-			var size = ViewHelper.PhysicalToLogicalPixels(_measuredSize);
-
-			// we round the size because this will be sent to an API that expects dimensions to be integers
-			var roundedSize = new Size(
-				(int)Math.Round(size.Width),
-				(int)Math.Round(size.Height)
-			);
-
-			return roundedSize;
+			_innerMapImage.Source = uri;
 		}
+		else if (map is ImageSource imageSource && _innerMapImage != null)
+		{
+			_innerMapImage.Source = imageSource;
+		}
+		else if (_innerMapContent != null)
+		{
+			_innerMapContent.Content = map;
+		}
+	}
+
+	private Size GetControlSize()
+	{
+		var size = ViewHelper.PhysicalToLogicalPixels(_measuredSize);
+
+		// we round the size because this will be sent to an API that expects dimensions to be integers
+		var roundedSize = new Size(
+			(int)Math.Round(size.Width),
+			(int)Math.Round(size.Height)
+		);
+
+		return roundedSize;
 	}
 }
 #endif

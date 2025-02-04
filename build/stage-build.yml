@@ -1,28 +1,22 @@
 steps:
 - task: gitversion/setup@0
   inputs:
-    versionSpec: '5.X'
+    versionSpec: '5.10.1'
   displayName: 'Install GitVersion'
 
 - task: gitversion/execute@0
   inputs:
     useConfigFile: true
-    configFilePath: build/gitversion.yml
+    configFilePath: $(Build.SourcesDirectory)/build/gitversion.yml
   displayName: 'Calculate version'
 
-- task: NuGetToolInstaller@1
-  displayName: 'Install NuGet $(NUGET_VERSION)'
+- task: DotNetCoreCLI@2
+  displayName: 'Install .NET Workloads'
   inputs:
-    versionSpec: $(NUGET_VERSION)
-    checkLatest: 
+    command: 'custom'
+    custom: 'workload'
+    arguments: 'install android ios macos maccatalyst'
 
-- task: JavaToolInstaller@0
-  displayName: "Install Java SDK 11"
-  inputs:
-    versionSpec: '11'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
-    
 - task: MSBuild@1
   displayName: 'Restore solution packages'
   inputs:
@@ -39,7 +33,7 @@ steps:
     restoreNugetPackages: false
     logProjectEvents: false
     createLogFile: false
-
+    
 - task: MSBuild@1
   displayName: 'Build solution in $(ApplicationConfiguration) | $(ApplicationPlatform)'
   inputs:
@@ -54,7 +48,9 @@ steps:
     restoreNugetPackages: false
     logProjectEvents: false
     createLogFile: false
-    msbuildArguments: /p:PackageVersion=$(GitVersion.SemVer) # Set the version of the packages, will have no effect on application projects (Heads).
+    msbuildArguments: > # Set the version of the packages, will have no effect on application projects (Heads).
+      /p:PackageVersion=$(GitVersion.SemVer) 
+      /p:ContinuousIntegrationBuild=true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifact $(ApplicationConfiguration)'

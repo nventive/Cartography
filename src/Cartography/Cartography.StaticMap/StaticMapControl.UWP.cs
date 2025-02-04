@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP
+﻿#if WINDOWS && false
 using System;
 using Cartography.StaticMap.Provider;
 using Windows.Foundation;

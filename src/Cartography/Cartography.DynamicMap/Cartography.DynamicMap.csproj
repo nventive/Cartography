@@ -1,10 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
-		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
-		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;monoandroid12.0;uap10.0.19041</TargetFrameworks>
-		<LangVersion>10</LangVersion>
-		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+		<TargetFrameworks>net8.0;net8.0-ios;net8.0-android;net8.0-windows10.0.22621.0</TargetFrameworks>
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder. -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Cartography.DynamicMap</RootNamespace>
 		<Authors>nventive</Authors>
@@ -15,52 +12,41 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
 
-		<!--Needed for Source Link support -->
+		<!--Needed for Source Link support. -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<IncludeSymbols>true</IncludeSymbols>
+		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Chinook.DynamicMvvm" Version="0.13.1" />
-		<PackageReference Include="Chinook.DynamicMvvm.Reactive" Version="0.13.1" />
-		<PackageReference Include="GeolocatorService" Version="0.2.0-dev.41" />
-		<PackageReference Include="Reactive.Annex" Version="0.5.0-dev.46" />
-		<PackageReference Include="Uno.Core" Version="4.0.1" />
-		<PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
-	</ItemGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-windows10.0.22621.0'">
+		<RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+		<WindowsSdkPackageVersion>10.0.22621.38</WindowsSdkPackageVersion>
+		<UseWinUI>true</UseWinUI>
+	</PropertyGroup>
 
 	<ItemGroup>
-		<!--Microsoft.SourceLink.GitHub is needed for Source Link support -->
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="Chinook.DynamicMvvm" Version="2.1.1" />
+		<PackageReference Include="Chinook.DynamicMvvm.Reactive" Version="2.1.1" />
+		<PackageReference Include="GeolocatorService.Uno.WinUI" Version="1.0.0" />
+		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
+		<PackageReference Include="Uno.Core" Version="4.1.1" />
+		<PackageReference Include="Uno.WinUI" Version="5.0.19" />
+
+		<!-- Needed for Source Link support. -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'xamarinios10'">
-		<PackageReference Include="Xamarin.Google.iOS.Maps" Version="3.9.0" />
+	<ItemGroup Condition="'$(TargetFramework)'=='net8.0-windows10.0.22621.0'">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <SourceGeneratorInput Remove="PrettyMapViewPortEqualityComparer.cs" />
+	<ItemGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
+		<PackageReference Include="Xamarin.Google.iOS.Maps" Version="6.0.1.1" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <SourceGeneratorInput Remove="ObservableExtension.cs" />
+	<ItemGroup Condition="'$(TargetFramework)'=='net8.0-android'">
+		<PackageReference Include="Xamarin.GooglePlayServices.Base" Version="118.5.0.4" />
+		<PackageReference Include="Xamarin.GooglePlayServices.Maps" Version="119.0.0.4" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="Platforms\Windows\UserLocationMarker.UWP.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'monoandroid12.0'">
-	  <PackageReference Include="Xamarin.GooglePlayServices.Base">
-	    <Version>117.6.0.5</Version>
-	  </PackageReference>
-	  <PackageReference Include="Xamarin.GooglePlayServices.Maps">
-	    <Version>117.0.1.5</Version>
-	  </PackageReference>
-	</ItemGroup>
-
 </Project>

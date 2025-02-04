@@ -1,22 +1,21 @@
-﻿#if WINDOWS_UWP || __IOS__ || __ANDROID__
+﻿#if WINDOWS || __IOS__ || __ANDROID__
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cartography.StaticMap.Provider
+namespace Cartography.StaticMap.Provider;
+
+/// <summary>
+/// Provides a static map to display.
+/// The resulting static map may be an image, a url or other.
+/// </summary>
+internal interface IStaticMapProvider
 {
 	/// <summary>
-	/// Provides a static map to display.
-	/// The resulting static map may be an image, a url or other.
+	/// Get a map with the specified parameters.
 	/// </summary>
-	internal interface IStaticMapProvider
-	{
-		/// <summary>
-		/// Get a map with the specified parameters.
-		/// </summary>
-		/// <param name="ct">Cancellation token</param>
-		/// <param name="parameters">Map parameters</param>
-		/// <returns>An image or a mapview.</returns>
-		Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters);
-	}
+	/// <param name="ct">Cancellation token</param>
+	/// <param name="parameters">Map parameters</param>
+	/// <returns>An image or a mapview.</returns>
+	Task<object> GetMap(CancellationToken ct, StaticMapParameters parameters);
 }
 #endif
