@@ -1,4 +1,4 @@
-﻿namespace Cartography.DynamicMap;
+﻿namespace Cartography;
 
 public partial interface IMapControlItem
 {

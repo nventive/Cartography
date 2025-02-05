@@ -233,7 +233,7 @@ public abstract partial class MapControlBase : Control
     private readonly SerialDisposable _configuredSourceSubscriptions = new SerialDisposable();
     private ViewModelBase _configuredViewModel;
 
-    private Action<Windows.Devices.Geolocation.Geocoordinate> _onMapTapped;
+    private Action<Geocoordinate> _onMapTapped;
 
     private bool _isReady;
 
@@ -338,14 +338,14 @@ public abstract partial class MapControlBase : Control
         });
     }
 
-    protected void OnMapTapped(Windows.Devices.Geolocation.Geocoordinate coordinate)
+    protected void OnMapTapped(Geocoordinate geocoordinate)
     {
         var onMapTapped = _onMapTapped;
 
         if (onMapTapped != null)
         {
             GetDispatcherScheduler()
-                .ScheduleAsync(async (ct, scheduler) => onMapTapped(coordinate))
+                .ScheduleAsync(async (ct, scheduler) => onMapTapped(geocoordinate))
                 .Dispose();
         }
     }

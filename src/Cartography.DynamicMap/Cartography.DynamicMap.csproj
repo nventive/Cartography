@@ -43,4 +43,8 @@
 		<PackageReference Include="Xamarin.GooglePlayServices.Base" Version="118.5.0.4" />
 		<PackageReference Include="Xamarin.GooglePlayServices.Maps" Version="119.0.0.4" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Cartography.DynamicMap.Abstractions\Cartography.DynamicMap.Abstractions.csproj" />
+	</ItemGroup>
 </Project>

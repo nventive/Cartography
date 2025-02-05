@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder. -->
+		<GenerateLibraryLayout>true</GenerateLibraryLayout>
+		<RootNamespace>Cartography.DynamicMap.Abstractions</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Cartography.DynamicMap.Abstractions</AssemblyName>
+		<PackageId>Cartography.DynamicMap.Abstractions</PackageId>
+		<Description>Cartography.DynamicMap.Abstractions</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+
+		<!--Needed for Source Link support. -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Uno.Core" Version="4.1.1" />
+		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
+
+		<!-- Needed for Source Link support. -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
+</Project>

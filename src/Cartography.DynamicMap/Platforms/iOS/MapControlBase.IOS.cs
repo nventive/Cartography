@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.UI.Xaml;
 using UIKit;
 using Uno.Extensions;
-using Windows.UI;
 
 namespace Cartography.DynamicMap;
 
@@ -39,7 +38,7 @@ public partial class MapControlBase
 
 	protected abstract IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers();
 
-	protected abstract Windows.Devices.Geolocation.Geopoint GetCenter();
+	protected abstract Geopoint GetCenter();
 
 	protected abstract MapViewPortCoordinates GetViewPortCoordinates();
 

@@ -1,6 +1,4 @@
-﻿using Windows.Devices.Geolocation;
-
-namespace Cartography.DynamicMap;
+﻿namespace Cartography;
 
 /// <summary>
 /// An item which exposed its location

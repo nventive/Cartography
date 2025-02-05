@@ -1,11 +1,11 @@
 ﻿using System;
 using Uno.Extensions;
 
-namespace Cartography.DynamicMap;
+namespace Cartography;
 
 public class MapViewPortCoordinates : IEquatable<MapViewPortCoordinates>
 {
-	public MapViewPortCoordinates(Windows.Devices.Geolocation.BasicGeoposition northWest, Windows.Devices.Geolocation.BasicGeoposition northEast, Windows.Devices.Geolocation.BasicGeoposition southWest, Windows.Devices.Geolocation.BasicGeoposition southEast)
+	public MapViewPortCoordinates(BasicGeoposition northWest, BasicGeoposition northEast, BasicGeoposition southWest, BasicGeoposition southEast)
 	{
 		NorthWest = northWest;
 		NorthEast = northEast;
@@ -16,22 +16,22 @@ public class MapViewPortCoordinates : IEquatable<MapViewPortCoordinates>
 	/// <summary>
 	/// Gets the coordinate of the point to the northwest extreme of the Region
 	/// </summary>
-	public Windows.Devices.Geolocation.BasicGeoposition NorthWest { get; }
+	public BasicGeoposition NorthWest { get; }
 
 	/// <summary>
 	/// Gets the coordinate of the point to the northeast extreme of the Region
 	/// </summary>
-	public Windows.Devices.Geolocation.BasicGeoposition NorthEast { get;  }
+	public BasicGeoposition NorthEast { get;  }
 
 	/// <summary>
 	/// Gets the coordinate of the point to the southwest extreme of the Region
 	/// </summary>
-	public Windows.Devices.Geolocation.BasicGeoposition SouthWest { get; }
+	public BasicGeoposition SouthWest { get; }
 
 	/// <summary>
 	/// Gets the coordinate of the point to the southwest extreme of the Region
 	/// </summary>
-	public Windows.Devices.Geolocation.BasicGeoposition SouthEast { get; }
+	public BasicGeoposition SouthEast { get; }
 
 	public bool Equals(MapViewPortCoordinates other)
 	{
@@ -57,11 +57,11 @@ public class MapViewPortCoordinates : IEquatable<MapViewPortCoordinates>
 	/// <summary>
 	/// Returns true when the coordinates surround (inclusively) the given coordinate
 	/// </summary>
-	public bool IsSurrounding(Windows.Devices.Geolocation.Geopoint coordinate)
+	public bool IsSurrounding(Geocoordinate coordinate)
 	{
-		return coordinate.Position.Latitude >= SouthEast.Latitude
-			&& coordinate.Position.Latitude <= NorthEast.Latitude
-			&& coordinate.Position.Longitude >= SouthWest.Longitude
-			&& coordinate.Position.Longitude <= SouthEast.Longitude;
+		return coordinate.Latitude >= SouthEast.Latitude
+			&& coordinate.Latitude <= NorthEast.Latitude
+			&& coordinate.Longitude >= SouthWest.Longitude
+			&& coordinate.Longitude <= SouthEast.Longitude;
 	}
 }

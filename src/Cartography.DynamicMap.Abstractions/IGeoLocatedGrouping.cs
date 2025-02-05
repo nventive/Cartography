@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
-using Windows.Devices.Geolocation;
 
-namespace Cartography.DynamicMap;
+namespace Cartography;
 
 /// <summary>
 /// Represents a geolocated pushpin grouping

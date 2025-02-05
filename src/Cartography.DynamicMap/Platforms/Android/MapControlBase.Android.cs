@@ -191,7 +191,7 @@ public partial class MapControlBase
 	{
 		var map = _map;
 
-		yield return System.Reactive.Linq.Observable
+		yield return Observable
 			.FromEventPattern<GoogleMap.CameraChangeEventArgs>(
 				h => map.CameraChange += h,
 				h => map.CameraChange -= h)
@@ -202,13 +202,11 @@ public partial class MapControlBase
 	private MapViewPort GetViewPort()
 	{
 		var position = _map.CameraPosition;
-		var point = new Windows.Devices.Geolocation.BasicGeoposition();
-		point.Longitude = position.Target.Longitude;
-		point.Latitude = position.Target.Latitude;
+		var point = new BasicGeoposition(position.Target.Latitude, position.Target.Longitude);
 
 		return new MapViewPort
 		{
-			Center = new Windows.Devices.Geolocation.Geopoint(point),
+			Center = new Geopoint(point),
 			Heading = position.Bearing,
 			Pitch = position.Tilt,
 			ZoomLevel = (ZoomLevel)position.Zoom,
@@ -233,7 +231,7 @@ public partial class MapControlBase
 					(builder, poi) => builder.Include(new LatLng(poi.Position.Latitude, poi.Position.Longitude)))
 				.Build();
 
-			if (viewPort.Center != default(Windows.Devices.Geolocation.Geopoint))
+			if (viewPort.Center != default(Geopoint))
 			{
 				bounds = AddPushpinPaddingToBounds(viewPort);
 			}
@@ -301,10 +299,10 @@ public partial class MapControlBase
 	{
 		var visibleRegion = _map.Projection.VisibleRegion;
 		return new MapViewPortCoordinates(
-			northWest: new Windows.Devices.Geolocation.BasicGeoposition { Latitude = visibleRegion.FarLeft.Latitude, Longitude = visibleRegion.FarLeft.Longitude },
-			northEast: new Windows.Devices.Geolocation.BasicGeoposition { Latitude = visibleRegion.FarRight.Latitude, Longitude = visibleRegion.FarRight.Longitude },
-			southWest: new Windows.Devices.Geolocation.BasicGeoposition { Latitude = visibleRegion.NearLeft.Latitude, Longitude = visibleRegion.NearLeft.Longitude },
-			southEast: new Windows.Devices.Geolocation.BasicGeoposition { Latitude = visibleRegion.NearRight.Latitude, Longitude = visibleRegion.NearRight.Longitude }
+			northWest: new BasicGeoposition(visibleRegion.FarLeft.Latitude, visibleRegion.FarLeft.Longitude),
+			northEast: new BasicGeoposition(visibleRegion.FarRight.Latitude, visibleRegion.FarRight.Longitude),
+			southWest: new BasicGeoposition(visibleRegion.NearLeft.Latitude, visibleRegion.NearLeft.Longitude),
+			southEast: new BasicGeoposition(visibleRegion.NearRight.Latitude, visibleRegion.NearRight.Longitude)
 		);
 	}
 #endregion
@@ -501,10 +499,10 @@ public partial class MapControlBase
 				.Items
 				.ForEach(p => p.IsSelected = false);
 
-			_selectedPushpins.OnNext(new IGeoLocated[0]);
+			_selectedPushpins.OnNext([]);
 		}
 
-		OnMapTapped(new Windows.Devices.Geolocation.Geocoordinate(e.Point.Latitude, e.Point.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
+		OnMapTapped(new Geocoordinate(e.Point.Latitude, e.Point.Longitude, DateTimeOffset.Now, new Geopoint(new BasicGeoposition(e.Point.Latitude, e.Point.Longitude))));
 
 		_logger.LogInformation("Clicked on the map.");
 	}

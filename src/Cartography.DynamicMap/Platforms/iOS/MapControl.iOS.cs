@@ -217,9 +217,9 @@ partial class MapControl
 		}
 		else
 		{
-			//TODO
-			// SetRegion(new MKCoordinateRegion(viewPort.Center, Region.Span), true);
-			SetViewport(viewPort.Center.Position, viewPort.Heading, viewPort.Pitch, viewPort.ZoomLevel ?? ZoomLevel, preventAnimations: viewPort.IsAnimationDisabled);
+            //TODO
+            // SetRegion(new MKCoordinateRegion(viewPort.Center, Region.Span), true);
+            SetViewport(viewPort.Center.Position, viewPort.Heading, viewPort.Pitch, viewPort.ZoomLevel ?? ZoomLevel, preventAnimations: viewPort.IsAnimationDisabled);
 		}
 
 		_logger.LogInformation($"Viewport set with '{viewPort?.PointsOfInterest}' and a zoom level of '{viewPort?.ZoomLevel}'.");
@@ -234,7 +234,7 @@ partial class MapControl
 
 	private void SetViewport(MapViewPort viewPort, bool preventAnimations = false)
 	{
-		var padding = ApplyPaddingToCoordinate(new Windows.Devices.Geolocation.BasicGeoposition { Latitude = _internalMapView.CenterCoordinate.Latitude, Longitude = _internalMapView.CenterCoordinate.Longitude }, this.Padding, this.ZoomLevel);
+		var padding = ApplyPaddingToCoordinate(new BasicGeoposition { Latitude = _internalMapView.CenterCoordinate.Latitude, Longitude = _internalMapView.CenterCoordinate.Longitude }, this.Padding, this.ZoomLevel);
 
 		_internalMapView.CenterCoordinate = new CLLocationCoordinate2D(padding.Latitude, padding.Longitude);
 
@@ -256,7 +256,7 @@ partial class MapControl
 		}
 	}
 
-	private void SetViewport(Windows.Devices.Geolocation.BasicGeoposition centerCoordinate, double? heading, double? pitch, ZoomLevel zoomLevel, bool preventAnimations = false)
+	private void SetViewport(BasicGeoposition centerCoordinate, double? heading, double? pitch, ZoomLevel zoomLevel, bool preventAnimations = false)
 	{
 		centerCoordinate = ApplyPaddingToCoordinate(centerCoordinate, this.Padding, zoomLevel);
 
@@ -501,7 +501,7 @@ partial class MapControl
 				var point = recognizer.LocationInView(_internalMapView);
 				var coordinate = _internalMapView.ConvertPoint(point, _internalMapView);
 
-				OnMapTapped(new Windows.Devices.Geolocation.Geocoordinate(coordinate.Latitude, coordinate.Longitude, 0, DateTime.Now, null, null, null, null, null, default));
+				OnMapTapped(new Geocoordinate(coordinate.Latitude, coordinate.Longitude, DateTimeOffset.Now, new Geopoint(new BasicGeoposition(coordinate.Latitude, coordinate.Longitude))));
 			});
 
 		_internalMapView.AddGestureRecognizer(tapRecognizer);
@@ -527,7 +527,7 @@ partial class MapControl
 	private MKCoordinateRegion ComputeBoundingRectangle(MapViewPort viewPort)
 	{
 		MKCoordinateRegion region;
-		if (viewPort.Center == default(Windows.Devices.Geolocation.Geopoint))
+		if (viewPort.Center == default(Geopoint))
 		{
 			var coordinates = viewPort.PointsOfInterest
 				.Select(p => MKMapPoint.FromCoordinate(new CLLocationCoordinate2D { Latitude = p.Position.Latitude, Longitude = p.Position.Longitude }));
@@ -544,7 +544,7 @@ partial class MapControl
 			region.Center.Latitude = viewPort.Center.Position.Latitude;
 			region.Center.Longitude = viewPort.Center.Position.Longitude;
 
-			var centerCoordinates = new Windows.Devices.Geolocation.BasicGeoposition { Latitude = region.Center.Latitude, Longitude = region.Center.Longitude };
+			var centerCoordinates = new BasicGeoposition { Latitude = region.Center.Latitude, Longitude = region.Center.Longitude };
 
 			//Get the farthest pushpin 
 			var farthestHorizontalPushpin = viewPort.PointsOfInterest
@@ -581,7 +581,7 @@ partial class MapControl
 		return zoomScale;
 	}
 
-	private static Windows.Devices.Geolocation.BasicGeoposition ApplyPaddingToCoordinate(Windows.Devices.Geolocation.BasicGeoposition coordinate, Thickness padding, ZoomLevel zoomLevel)
+	private static BasicGeoposition ApplyPaddingToCoordinate(BasicGeoposition coordinate, Thickness padding, ZoomLevel zoomLevel)
 	{
 		if (padding == Thickness.Empty)
 		{
@@ -599,19 +599,21 @@ partial class MapControl
 		centerPixelX += (((padding.Right - padding.Left) / 2) * zoomScale);
 		centerPixelY += (((padding.Bottom - padding.Top) / 2) * zoomScale);
 
-		return new Windows.Devices.Geolocation.BasicGeoposition
-            {
+		return new BasicGeoposition
+		{
 			Longitude = MapHelper.PixelSpaceXToLongitude(centerPixelX),
 			Latitude = MapHelper.PixelSpaceYToLatitude(centerPixelY)
 		};
 	}
 
-	protected override Windows.Devices.Geolocation.Geopoint GetCenter()
+	protected override Geopoint GetCenter()
 	{
-		var center = new Windows.Devices.Geolocation.BasicGeoposition();
-		center.Latitude = _internalMapView.Region.Center.Latitude;
-		center.Longitude = _internalMapView.Region.Center.Longitude;
-		return new Windows.Devices.Geolocation.Geopoint(center);
+        var center = new BasicGeoposition
+        {
+            Latitude = _internalMapView.Region.Center.Latitude,
+            Longitude = _internalMapView.Region.Center.Longitude
+        };
+        return new Geopoint(center);
 	}
 
 	protected override MapViewPortCoordinates GetViewPortCoordinates()
@@ -621,22 +623,22 @@ partial class MapControl
 		var longitudeDelta = _internalMapView.Region.Span.LongitudeDelta;
 
 		return new MapViewPortCoordinates(
-		northWest: new Windows.Devices.Geolocation.BasicGeoposition
+		northWest: new BasicGeoposition
             {
 			Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: true),
 			Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: false)
 		},
-		northEast: new Windows.Devices.Geolocation.BasicGeoposition
+		northEast: new BasicGeoposition
             {
 			Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: true),
 			Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: true)
 		},
-		southWest: new Windows.Devices.Geolocation.BasicGeoposition
+		southWest: new BasicGeoposition
             {
 			Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: false),
 			Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: false)
 		},
-		southEast: new Windows.Devices.Geolocation.BasicGeoposition
+		southEast: new BasicGeoposition
             {
 			Latitude = GetLatitude(center.Latitude, latitudeDelta, isNorth: false),
 			Longitude = GetLongitude(center.Longitude, longitudeDelta, isEast: true)

@@ -1,7 +1,6 @@
 ﻿using System;
-using Windows.Devices.Geolocation;
 
-namespace Cartography.DynamicMap;
+namespace Cartography;
 
 public static class BasicGeopositionExtension
 {

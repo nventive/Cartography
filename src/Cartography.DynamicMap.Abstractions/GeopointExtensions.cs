@@ -1,9 +1,8 @@
 ﻿using System;
-using Windows.Devices.Geolocation;
 
-namespace Cartography.DynamicMap;
+namespace Cartography;
 
-public static partial class GeoCoordinateExtensions
+public static partial class GeopointExtensions
 {
 	/// <summary>
 	/// Gets a bool which indicates if the corrdinates are valid, i.e. latitude and longitude are neither infinite nor NaN
