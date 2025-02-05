@@ -1,4 +1,4 @@
-﻿namespace Cartography.MapService;
+﻿namespace Cartography.StaticMap;
 
 public sealed class BasicGeoposition
 {

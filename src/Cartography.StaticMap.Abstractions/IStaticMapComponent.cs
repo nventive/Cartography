@@ -1,4 +1,4 @@
-﻿using Windows.Foundation;
+﻿using System.Drawing;
 
 namespace Cartography.StaticMap;
 

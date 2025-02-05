@@ -1,4 +1,4 @@
-﻿namespace Cartography;
+﻿namespace Cartography.DynamicMap;
 
 public class ViewPortPadding
 {

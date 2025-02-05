@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Cartography;
+namespace Cartography.DynamicMap;
 
 public static class GeoLocatedExtensions
 {

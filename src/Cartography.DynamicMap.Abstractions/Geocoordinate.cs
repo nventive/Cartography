@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cartography;
+namespace Cartography.DynamicMap;
 
 public sealed class Geocoordinate
 {

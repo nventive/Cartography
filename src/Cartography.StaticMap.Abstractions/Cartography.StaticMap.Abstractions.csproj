@@ -7,12 +7,12 @@
 
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder. -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
-		<RootNamespace>Cartography.DynamicMap.Abstractions</RootNamespace>
+		<RootNamespace>Cartography.StaticMap.Abstractions</RootNamespace>
 		<Authors>nventive</Authors>
 		<Company>nventive</Company>
-		<AssemblyName>Cartography.DynamicMap.Abstractions</AssemblyName>
-		<PackageId>Cartography.DynamicMap.Abstractions</PackageId>
-		<Description>Cartography.DynamicMap.Abstractions</Description>
+		<AssemblyName>Cartography.StaticMap.Abstractions</AssemblyName>
+		<PackageId>Cartography.StaticMap.Abstractions</PackageId>
+		<Description>Cartography.StaticMap.Abstractions</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
 
@@ -24,7 +24,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GeolocatorService.Abstractions" Version="2.0.0" />
 		<PackageReference Include="Uno.Core" Version="4.1.1" />
 		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
 

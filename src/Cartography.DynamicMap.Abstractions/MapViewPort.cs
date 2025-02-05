@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Uno.Extensions;
 
-namespace Cartography;
+namespace Cartography.DynamicMap;
 
 /// <summary>
 /// Represents all information about the view port of a map.

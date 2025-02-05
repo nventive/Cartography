@@ -1,4 +1,4 @@
-﻿namespace Cartography;
+﻿namespace Cartography.DynamicMap;
 
 /// <summary>
 /// An enum of the possible selection modes on a <see cref="MapControl"/>.

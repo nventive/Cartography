@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cartography;
+namespace Cartography.DynamicMap;
 
 public static partial class GeopointExtensions
 {

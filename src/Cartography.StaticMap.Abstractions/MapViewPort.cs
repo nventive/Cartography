@@ -1,5 +1,4 @@
 ﻿using Uno.Extensions;
-using Windows.Devices.Geolocation;
 
 namespace Cartography.StaticMap;
 
