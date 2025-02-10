@@ -9,12 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="ApiClients\DadJokes\DadJokesRepositoryMock.FetchData.json" />
-		<EmbeddedResource Include="ApiClients\Posts\PostsRepositoryMock.GetAll.json" />
-		<EmbeddedResource Include="ApiClients\UserProfile\UserProfileRepositoryMock.Get.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="DynamicData" Version="9.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />

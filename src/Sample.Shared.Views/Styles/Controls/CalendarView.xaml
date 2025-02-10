@@ -276,7 +276,7 @@
 										Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HeaderText}"
 										Foreground="{TemplateBinding Foreground}"
 										IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HasMoreViews}"
-										Style="{StaticResource HeaderButtonStyle}" />
+									 />
 								<Button x:Name="PreviousButton"
 										Grid.Column="1"
 										Padding="1"
@@ -286,7 +286,7 @@
 										Foreground="{TemplateBinding Foreground}"
 										IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HasMoreContentBefore}"
 										IsTabStop="True"
-										Style="{StaticResource NavigationButtonStyle}" />
+										 />
 								<Button x:Name="NextButton"
 										Grid.Column="2"
 										Padding="1"
@@ -296,7 +296,7 @@
 										Foreground="{TemplateBinding Foreground}"
 										IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HasMoreContentAfter}"
 										IsTabStop="True"
-										Style="{StaticResource NavigationButtonStyle}" />
+										 />
 							</Grid>
 							<Grid x:Name="Views"
 								  Grid.Row="1">
@@ -333,37 +333,29 @@
 											<ColumnDefinition Width="*" />
 										</Grid.ColumnDefinitions>
 										<TextBlock x:Name="WeekDay1"
-												   Style="{StaticResource WeekDayNameStyle}"
 												   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FirstCharacterConverter}, Path=TemplateSettings.WeekDay1}" />
 										<TextBlock x:Name="WeekDay2"
 												   Grid.Column="1"
-												   Style="{StaticResource WeekDayNameStyle}"
 												   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FirstCharacterConverter}, Path=TemplateSettings.WeekDay2}" />
 										<TextBlock x:Name="WeekDay3"
 												   Grid.Column="2"
-												   Style="{StaticResource WeekDayNameStyle}"
 												   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FirstCharacterConverter}, Path=TemplateSettings.WeekDay3}" />
 										<TextBlock x:Name="WeekDay4"
 												   Grid.Column="3"
-												   Style="{StaticResource WeekDayNameStyle}"
 												   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FirstCharacterConverter}, Path=TemplateSettings.WeekDay4}" />
 										<TextBlock x:Name="WeekDay5"
 												   Grid.Column="4"
-												   Style="{StaticResource WeekDayNameStyle}"
 												   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FirstCharacterConverter}, Path=TemplateSettings.WeekDay5}" />
 										<TextBlock x:Name="WeekDay6"
 												   Grid.Column="5"
-												   Style="{StaticResource WeekDayNameStyle}"
 												   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FirstCharacterConverter}, Path=TemplateSettings.WeekDay6}" />
 										<TextBlock x:Name="WeekDay7"
 												   Grid.Column="6"
-												   Style="{StaticResource WeekDayNameStyle}"
 												   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FirstCharacterConverter}, Path=TemplateSettings.WeekDay7}" />
 									</Grid>
 									<ScrollViewer x:Name="MonthViewScrollViewer"
 												  Grid.Row="1"
-												  IsFocusEngagementEnabled="True"
-												  Style="{StaticResource ScrollViewerStyle}">
+												  IsFocusEngagementEnabled="True">
 										<CalendarPanel x:Name="MonthViewPanel" />
 									</ScrollViewer>
 								</Grid>
@@ -371,7 +363,6 @@
 								<ScrollViewer x:Name="YearViewScrollViewer"
 											  IsFocusEngagementEnabled="True"
 											  Opacity="0"
-											  Style="{StaticResource ScrollViewerStyle}"
 											  UseLayoutRounding="False"
 											  Visibility="Collapsed">
 									<ScrollViewer.RenderTransform>
@@ -385,7 +376,6 @@
 								<ScrollViewer x:Name="DecadeViewScrollViewer"
 											  IsFocusEngagementEnabled="True"
 											  Opacity="0"
-											  Style="{StaticResource ScrollViewerStyle}"
 											  UseLayoutRounding="False"
 											  Visibility="Collapsed">
 									<ScrollViewer.RenderTransform>

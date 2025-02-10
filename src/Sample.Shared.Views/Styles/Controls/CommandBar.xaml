@@ -81,7 +81,6 @@
 			<Setter.Value>
 				<DataTemplate>
 					<TextBlock Text="{Binding}"
-							   Style="{StaticResource TitleLarge}"
 							   Foreground="{ThemeResource OnPrimaryColor}" />
 				</DataTemplate>
 			</Setter.Value>

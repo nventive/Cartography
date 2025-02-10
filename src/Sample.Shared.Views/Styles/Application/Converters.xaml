@@ -32,8 +32,6 @@
 
 	<converters:DebugConverter x:Key="Debug" />
 
-	<converters:FromNullableAppBarButtonToAppBarButtonConverter x:Key="NullableAppBarButtonToAppBarButton" />
-
 	<converters:FromPushpinEntityToStringConverter x:Key="PushpinEntityToStringConverter" />
 
 	<converters:FromNullableBoolToVisibilityConverter x:Key="NullableBoolToVisibilityConverter" />

@@ -1,5 +1,4 @@
 ﻿using System.Reactive.Concurrency;
-using Sample.DataAccess;
 using Chinook.DynamicMvvm;
 using MessageDialogService;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,14 +26,10 @@ public static class ViewServicesConfiguration
 				DispatcherQueuePriority.Normal
 			))
 			.AddSingleton<IDispatcherFactory, DispatcherFactory>()
-			.AddSingleton<IDiagnosticsService, DiagnosticsService>()
 			.AddSingleton<ILauncherService>(s => new LauncherService(s.GetRequiredService<DispatcherQueue>()))
 			.AddSingleton<IVersionProvider, VersionProvider>()
-			.AddSingleton<IAppStoreUriProvider, AppStoreUriProvider>()
 			.AddSingleton<IDeviceInformationProvider, DeviceInformationProvider>()
 			.AddSingleton<IExtendedSplashscreenController, ExtendedSplashscreenController>(s => new ExtendedSplashscreenController(Shell.Instance.DispatcherQueue))
-			.AddSingleton<IConnectivityRepository, ConnectivityRepository>()
-			.AddSingleton<IEmailRepository, EmailRepository>()
 			.AddSingleton<IMemoryProvider, MemoryProvider>()
 			.AddSingleton<IReviewPrompter, ReviewPrompter>()
 			.AddMapService()

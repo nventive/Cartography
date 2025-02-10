@@ -89,7 +89,6 @@ public abstract class CoreStartupBase : IDisposable
 			.ConfigureLogging((hostBuilderContext, loggingBuilder) =>
 			{
 				loggingConfiguration(hostBuilderContext, loggingBuilder, isAppLogging: true);
-				loggingBuilder.Services.BindOptionsToConfiguration<LoggingOutputOptions>(hostBuilderContext.Configuration);
 			})
 			// We add the LoggerFactory so that the configuration providers can use loggers.
 			.ConfigureHostConfiguration(b => b.Properties["HostLoggerFactory"] = hostServices.GetService<ILoggerFactory>()),

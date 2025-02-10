@@ -14,7 +14,6 @@
         <StackPanel Grid.Row="0">
             <Button x:Name="ReturnToMenu"
                     Content="Return to main menu"
-                    Style="{StaticResource BasicButtonStyle}"
                     Command="{Binding MapServiceToMenu}"
                     Margin="0,40,0,0"/>
             <TextBlock Text="Map service" />
@@ -26,13 +25,11 @@
 
                 <!-- ShowLocation button -->
                 <Button Content="Show location"
-                        Style="{StaticResource BasicButtonStyle}"
                         Command="{Binding ShowLocation}"
 						HorizontalAlignment="Stretch"/>
 
                 <!-- ShowDirections button -->
                 <Button Content="Show directions"
-                        Style="{StaticResource BasicButtonStyle}"
                         Command="{Binding ShowDirections}"
 						HorizontalAlignment="Stretch"
 						Margin="0,25" />

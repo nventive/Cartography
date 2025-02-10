@@ -12,9 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\FormattingTextBoxBehavior.Android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\FormattingTextBoxBehavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\FormattingTextBoxBehavior.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ApiConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\LocalizationConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\LoggingConfiguration.cs" />
@@ -22,21 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\PersistenceConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ViewServicesConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Authentication\CreateAccountPage.xaml.cs">
-      <DependentUpon>CreateAccountPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Authentication\ForgotPasswordPage.xaml.cs">
-      <DependentUpon>ForgotPasswordPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Authentication\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Authentication\ResetPasswordPage.xaml.cs">
-      <DependentUpon>ResetPasswordPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Authentication\SentEmailConfirmationPage.xaml.cs">
-      <DependentUpon>SentEmailConfirmationPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMapMenuPage.xaml.cs">
       <DependentUpon>DynamicMapMenuPage.xaml</DependentUpon>
     </Compile>
@@ -58,89 +40,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\StaticMapPage.xaml.cs">
       <DependentUpon>StaticMapPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\DadJokes\DadJokesFiltersPage.xaml.cs">
-      <DependentUpon>DadJokesFiltersPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\DadJokes\DadJokesPage.xaml.cs">
-      <DependentUpon>DadJokesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Diagnostics\ConfigurationDebuggerView.xaml.cs">
-      <DependentUpon>ConfigurationDebuggerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Diagnostics\DiagnosticsOverlay.xaml.cs">
-      <DependentUpon>DiagnosticsOverlay.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Diagnostics\DiagnosticsPage.xaml.cs">
-      <DependentUpon>DiagnosticsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Diagnostics\DiagnosticsTabPresenter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Diagnostics\EnvironmentPickerPage.xaml.cs">
-      <DependentUpon>EnvironmentPickerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Diagnostics\HttpDebuggerView.xaml.cs">
-      <DependentUpon>HttpDebuggerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Diagnostics\NavigationDebuggerView.xaml.cs">
-      <DependentUpon>NavigationDebuggerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\ForcedUpdate\ForcedUpdatePage.xaml.cs">
-      <DependentUpon>ForcedUpdatePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\KillSwitch\KillSwitchPage.xaml.cs">
-      <DependentUpon>KillSwitchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Menu.xaml.cs">
-      <DependentUpon>Menu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Posts\EditPostPage.xaml.cs">
-      <DependentUpon>EditPostPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Posts\PostsPage.xaml.cs">
-      <DependentUpon>PostsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Settings\EditProfilePage.xaml.cs">
-      <DependentUpon>EditProfilePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Settings\LicensesPage.xaml.cs">
-      <DependentUpon>LicensesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Settings\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Welcome\OnboardingPage.xaml.cs">
-      <DependentUpon>OnboardingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Content\Welcome\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\BottomTabBarButton.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Validation\DataValidationState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Validation\DataValidationStateType.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Validation\DataValidationView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DebugConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\FiltersConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromMoveSearchPushpinListToString.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableAppBarButtonToAppBarButtonConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToCustomValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)converters\FromNullableBoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromPushpinEntityToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\AttachableUserControl.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\DiagnosticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MapServiceWindows.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NativePlatform\Email\EmailRepository.Mobile.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NativePlatform\Email\EmailRepository.Windows.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\DeviceInformation\DeviceInformationProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Launcher\AppStoreUriProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Launcher\LauncherServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Launcher\LauncherService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NativePlatform\Connectivity\ConnectivityRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\ExtendedSplashscreenController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Memory\MemoryProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Memory\MemoryProvider.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionProvider.Mobile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionProvider.Windows.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\AppBarBackButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FrameworkElementExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObservableExtensions.cs" />
@@ -150,92 +65,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background-Mustaches.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background-Mustaches.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background-Mustaches.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background-Mustaches.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background-Mustaches.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background_Mustaches_Light.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background_Mustaches_Light.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background_Mustaches_Light.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background_Mustaches_Light.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Background_Mustaches_Light.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\closeIcon.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\closeIcon.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\closeIcon.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\closeIcon.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\closeIcon.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\filter.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\filter.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\filter.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\filter.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\CommandBar\filter.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Error_Template_Icon.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Error_Template_Icon.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Error_Template_Icon.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Error_Template_Icon.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Error_Template_Icon.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Google_Icon.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Google_Icon.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Google_Icon.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Google_Icon.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Google_Icon.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Image_Example.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Image_Example.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Image_Example.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Image_Example.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Image_Example.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Letters.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Letters.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Letters.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Letters.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Letters.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_FirstScreen_Icon.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_FirstScreen_Icon.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_FirstScreen_Icon.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_FirstScreen_Icon.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_FirstScreen_Icon.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_SecondScreen_Icon.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_SecondScreen_Icon.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_SecondScreen_Icon.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_SecondScreen_Icon.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_SecondScreen_Icon.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_ThirdScreen_Icon.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_ThirdScreen_Icon.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_ThirdScreen_Icon.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_ThirdScreen_Icon.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Tutorial_ThirdScreen_Icon.scale-400.png" />
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\fr\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Authentication\CreateAccountPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Authentication\ForgotPasswordPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Authentication\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Authentication\ResetPasswordPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Authentication\SentEmailConfirmationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMapMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,78 +94,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\StaticMapPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\DadJokes\DadJokesFiltersPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\DadJokes\DadJokesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Diagnostics\ConfigurationDebuggerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Diagnostics\DiagnosticsOverlay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Diagnostics\DiagnosticsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Diagnostics\EnvironmentPickerPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Diagnostics\HttpDebuggerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Diagnostics\NavigationDebuggerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\ForcedUpdate\ForcedUpdatePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\KillSwitch\KillSwitchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Menu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Posts\EditPostPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Posts\PostsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Settings\EditProfilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Settings\LicensesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Settings\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Welcome\OnboardingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Content\Welcome\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -368,10 +129,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\BottomTabBarButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -393,10 +150,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\DataLoaderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\DataValidationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -480,6 +233,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\segmdl2.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)NativePlatform\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
   </ItemGroup>
 </Project>

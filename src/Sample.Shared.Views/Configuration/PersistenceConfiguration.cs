@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Concurrency;
 using System.Text.Json;
-using Sample.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 using Nventive.Persistence;
 using ReviewService;
@@ -14,18 +13,6 @@ namespace Sample.Views;
 /// </summary>
 public static class PersistenceConfiguration
 {
-	/// <summary>
-	/// Adds the persistence services to the <see cref="IServiceCollection"/>.
-	/// </summary>
-	/// <param name="services">Service collection.</param>
-	/// <returns><see cref="IServiceCollection"/>.</returns>
-	public static IServiceCollection AddPersistence(this IServiceCollection services)
-	{
-		return services
-			.AddSingleton(s => CreateDataPersister(s, defaultValue: new ReviewSettings(), SerializationConfiguration.NoSourceGenerationJsonSerializerOptions))
-			.AddSingleton(s => CreateSecureDataPersister(s, defaultValue: ApplicationSettings.Default));
-	}
-
 	private static IObservableDataPersister<T> CreateSecureDataPersister<T>(IServiceProvider services, T defaultValue = default(T))
 	{
 #if __ANDROID__

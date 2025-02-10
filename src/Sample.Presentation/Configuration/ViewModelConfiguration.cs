@@ -63,10 +63,6 @@ public static class ViewModelConfiguration
 			return new DataLoaderBuilderFactory(b => b
 				.OnBackgroundThread()
 				.WithEmptySelector(GetIsEmpty)
-				.WithMonitoring(
-					onSuccess: async (ct, request, value) => { /* Some monitoring logic */ },
-					onError: async (ct, request, error) => { /* Some monitoring logic */ }
-				)
 				.WithLoggedErrors(s.GetRequiredService<ILogger<IDataLoader>>())
 			);
 

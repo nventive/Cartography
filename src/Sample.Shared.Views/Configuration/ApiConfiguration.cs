@@ -1,7 +1,4 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Sample.DataAccess;
-using MallardMessageHandlers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Sample.Views;
@@ -11,12 +8,7 @@ public static class ApiConfiguration
 	public static IServiceCollection AddApi(this IServiceCollection services)
 	{
 		return services
-			.AddMainHandler()
-			.AddSingleton<INetworkAvailabilityChecker>(serviceProvider =>
-			{
-				var connectivityProvider = serviceProvider.GetRequiredService<IConnectivityRepository>();
-				return new NetworkAvailabilityChecker(_ => Task.FromResult(connectivityProvider.State is ConnectivityState.Internet));
-			});
+			.AddMainHandler();
 	}
 
 	private static IServiceCollection AddMainHandler(this IServiceCollection services)

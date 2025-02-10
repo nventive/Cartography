@@ -25,27 +25,6 @@ public static class NavigationConfiguration
 
 	private static IReadOnlyDictionary<Type, Type> GetPageRegistrations() => new Dictionary<Type, Type>()
 	{
-		// TODO: Add your ViewModel and Page associations here.
-		{ typeof(WelcomePageViewModel), typeof(WelcomePage) },
-		{ typeof(PostsPageViewModel), typeof(PostsPage) },
-		{ typeof(EditPostPageViewModel), typeof(EditPostPage) },
-		{ typeof(DiagnosticsPageViewModel), typeof(DiagnosticsPage) },
-		{ typeof(CreateAccountPageViewModel), typeof(CreateAccountPage) },
-		{ typeof(ForgotPasswordPageViewModel), typeof(ForgotPasswordPage) },
-		{ typeof(LoginPageViewModel), typeof(LoginPage) },
-		{ typeof(OnboardingPageViewModel), typeof(OnboardingPage) },
-		{ typeof(SettingsPageViewModel), typeof(SettingsPage) },
-		{ typeof(LicensesPageViewModel), typeof(LicensesPage) },
-		{ typeof(EnvironmentPickerPageViewModel), typeof(EnvironmentPickerPage) },
-		{ typeof(EditProfilePageViewModel), typeof(EditProfilePage) },
-		{ typeof(DadJokesPageViewModel), typeof(DadJokesPage) },
-		{ typeof(DadJokesFiltersPageViewModel), typeof(DadJokesFiltersPage) },
-		{ typeof(SentEmailConfirmationPageViewModel), typeof(SentEmailConfirmationPage) },
-		{ typeof(ResetPasswordPageViewModel), typeof(ResetPasswordPage) },
-		{ typeof(ForcedUpdatePageViewModel), typeof(ForcedUpdatePage) },
-		{ typeof(KillSwitchPageViewModel), typeof(KillSwitchPage) },
-
-		// Cartography
 		{ typeof(StaticMapPageViewModel), typeof(StaticMapPage) },
 		{ typeof(DynamicMap_FeaturesPageViewModel), typeof(DynamicMap_FeaturesPage) },
 		{ typeof(DynamicMap_MoveSearchPageViewModel), typeof(DynamicMap_MoveSearchPage) },

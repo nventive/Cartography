@@ -94,7 +94,7 @@ public static class LoggingConfiguration
 #elif __WINDOWS__
 		return configuration
 			.WriteTo.File(logFilePath, outputTemplate: "{Timestamp:MM-dd HH:mm:ss.fffzzz} [{Platform}] Thread:{ThreadId} {Level:u1}/{SourceContext}: {Message:lj} {Exception}{NewLine}")
-			.Enrich.WithProperty("Platform", "UWP");
+			.Enrich.WithProperty("Platform", "WinUI");
 
 #else
 		return configuration;

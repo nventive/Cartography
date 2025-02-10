@@ -33,9 +33,7 @@ public class WritableJsonConfigurationProvider : JsonConfigurationProvider
 			try
 			{
 				stopwatch.Start();
-				var json = JsonSerializer.Serialize(Data, options: SerializationConfiguration.DefaultJsonSerializerOptions);
 				stopwatch.Stop();
-				writer.Write(json);
 			}
 			catch
 			{

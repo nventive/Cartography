@@ -76,21 +76,6 @@ public static class ChinookViewModelExtensionsForOptions
 				})
 			);
 
-			// Update the config when the dynamic property is set.
-			viewModel.AddDisposable(
-				propertyName + "ValueChangedSubscription",
-				property.Subscribe(dp =>
-				{
-					var monitorValue = selector(monitor.CurrentValue);
-					if (!Equals(dp.Value, monitorValue))
-					{
-						var config = viewModel.GetService<IConfiguration>();
-						var configName = $"{SampleConfigurationExtensions.DefaultOptionsName<TOptions>()}:{optionPropertyName}";
-						config[configName] = valueToString((TValue)dp.Value);
-					}
-				})
-			);
-
 			return property;
 		}));
 

@@ -34,7 +34,6 @@
 			<Button x:Name="ReturnToDynamicMapMenu"
 					Content="Return to DynamicMap menu"
 					Command="{Binding SearchToDynamicMapMenu}"
-					Style="{StaticResource BasicButtonStyle}"
 					Margin="0,40,0,0" />
 			<TextBlock Text="DynamicMap Move Search Page" />
 		</StackPanel>
@@ -45,12 +44,12 @@
 			<TextBlock Text="{Binding ViewPortCoordinates}"
 					   Foreground="White"
 					   TextWrapping="Wrap"
-					   Style="{StaticResource Typo02}" />
+					    />
 
 			<TextBlock Text="{Binding Pushpins, Converter={StaticResource FromMoveSearchPushpinListToString}}"
 					   TextWrapping="Wrap"
 					   Foreground="White"
-					   Style="{StaticResource Typo02}" />
+					   />
 		</StackPanel>
 
 		<!-- Dynamic map -->

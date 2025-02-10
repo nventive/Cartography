@@ -1,10 +1,7 @@
 ﻿using System.Reactive.Concurrency;
-using Sample.Business;
-using Sample.DataAccess;
 using Sample.Presentation;
 using MessageDialogService;
 using Microsoft.Extensions.DependencyInjection;
-using Cartography.MapService;
 
 namespace Sample;
 
@@ -24,15 +21,6 @@ public static class AppServicesConfiguration
 	{
 		return services
 			.AddSingleton<IMessageDialogService, AcceptOrDefaultMessageDialogService>()
-			.AddSingleton<IConnectivityRepository, MockedConnectivityRepository>()
-			.AddSingleton<IBackgroundScheduler>(s => TaskPoolScheduler.Default.ToBackgroundScheduler())
-			.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>()
-			.AddSingleton<IPostService, PostService>()
-			.AddSingleton<IDadJokesService, DadJokesService>()
-			.AddSingleton<IAuthenticationService, AuthenticationService>()
-			.AddSingleton<IUserProfileService, UserProfileService>()
-			.AddSingleton<IUpdateRequiredService, UpdateRequiredService>()
-			.AddSingleton<IKillSwitchService, KillSwitchService>()
-			.AddSingleton<DiagnosticsCountersService>();
+			.AddSingleton<IBackgroundScheduler>(s => TaskPoolScheduler.Default.ToBackgroundScheduler());
 	}
 }

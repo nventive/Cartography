@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Sample.Business;
-using Sample.DataAccess;
 using MallardMessageHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,102 +26,9 @@ public static class ApiConfiguration
 	{
 		// TODO: Configure your HTTP clients here.
 
-		// For example purpose: the following line loads the DadJokesRepository configuration section and make IOptions<DadJokesApiClientOptions> available for DI.
-		services.BindOptionsToConfiguration<DadJokesApiClientOptions>(configuration);
-
 		services
 			.AddMainHandler()
-			.AddNetworkExceptionHandler()
-			.AddExceptionHubHandler()
-			.AddAuthenticationTokenHandler()
-			.AddTransient<HttpDebuggerHandler>()
-			.AddResponseContentDeserializer()
-			.AddAuthentication()
-			.AddPosts(configuration)
-			.AddUserProfile()
-			.AddMinimumVersion()
-			.AddKillSwitch()
-			.AddDadJokes(configuration);
-
-		return services;
-	}
-
-	private static IServiceCollection AddUserProfile(this IServiceCollection services)
-	{
-		// This one doesn't have an actual remote API yet. It's always a mock implementation.
-		return services.AddSingleton<IUserProfileRepository, UserProfileRepositoryMock>();
-	}
-
-	private static IServiceCollection AddMinimumVersion(this IServiceCollection services)
-	{
-		// This one doesn't have an actual remote API yet. It's always a mock implementation.
-		return services.AddSingleton<IMinimumVersionReposiory, MinimumVersionRepositoryMock>();
-	}
-
-	private static IServiceCollection AddKillSwitch(this IServiceCollection services)
-	{
-		// This one doesn't have an actual remote API yet. It's always a mock implementation.
-		return services.AddSingleton<IKillSwitchRepository, KillSwitchRepositoryMock>();
-	}
-
-	private static IServiceCollection AddAuthentication(this IServiceCollection services)
-	{
-		// This one doesn't have an actual remote API yet. It's always a mock implementation.
-		return services.AddSingleton<IAuthenticationRepository, AuthenticationRepositoryMock>();
-	}
-
-	private static IServiceCollection AddPosts(this IServiceCollection services, IConfiguration configuration)
-	{
-		return services
-			.AddSingleton<IErrorResponseInterpreter<PostErrorResponse>>(s => new ErrorResponseInterpreter<PostErrorResponse>(
-				(request, response, deserializedResponse) => deserializedResponse.Error != null,
-				(request, response, deserializedResponse) => new PostRepositoryException(deserializedResponse)
-			))
-			.AddTransient<ExceptionInterpreterHandler<PostErrorResponse>>()
-			.AddApiClient<IPostsRepository, PostsRepositoryMock>(configuration, "PostApiClient", b => b
-				.AddHttpMessageHandler<ExceptionInterpreterHandler<PostErrorResponse>>()
-				.AddHttpMessageHandler<AuthenticationTokenHandler<AuthenticationData>>()
-			);
-	}
-
-	private static IServiceCollection AddDadJokes(this IServiceCollection services, IConfiguration configuration)
-	{
-		return services.AddApiClient<IDadJokesRepository, DadJokesRepositoryMock>(configuration, "DadJokesApiClient");
-	}
-
-	private static IServiceCollection AddApiClient<TInterface, TMock>(
-		this IServiceCollection services,
-		IConfiguration configuration,
-		string name,
-		Func<IHttpClientBuilder, IHttpClientBuilder> configure = null
-	)
-		where TInterface : class
-		where TMock : class, TInterface
-	{
-		var mockOptions = configuration.GetSection("Mock").Get<MockOptions>();
-		if (mockOptions.IsMockEnabled)
-		{
-			services.AddSingleton<TInterface, TMock>();
-		}
-		else
-		{
-			var options = configuration.GetSection(name).Get<ApiClientOptions>();
-			var diagnosticsOptions = configuration.ReadOptions<DiagnosticsOptions>();
-			var httpClientBuilder = services
-				.AddRefitHttpClient<TInterface>()
-				.ConfigurePrimaryHttpMessageHandler(serviceProvider => serviceProvider.GetRequiredService<HttpMessageHandler>())
-				.ConfigureHttpClient((serviceProvider, client) =>
-				{
-					client.BaseAddress = options.Url;
-					AddDefaultHeaders(client, serviceProvider);
-				})
-				.AddConditionalHttpMessageHandler<HttpDebuggerHandler>(diagnosticsOptions.IsHttpDebuggerEnabled)
-				.AddHttpMessageHandler<ExceptionHubHandler>();
-
-			configure?.Invoke(httpClientBuilder);
-
-			httpClientBuilder.AddHttpMessageHandler<NetworkExceptionHandler>();
-		}
+			.AddExceptionHubHandler();
 
 		return services;
 	}
@@ -134,32 +38,12 @@ public static class ApiConfiguration
 		return services.AddTransient<HttpMessageHandler, HttpClientHandler>();
 	}
 
-	private static IServiceCollection AddResponseContentDeserializer(this IServiceCollection services)
-	{
-		return services.AddSingleton<IResponseContentDeserializer, JsonSerializerToResponseContentSererializerAdapter>();
-	}
-
-	private static IServiceCollection AddNetworkExceptionHandler(this IServiceCollection services)
-	{
-		return services
-			.AddSingleton<INetworkAvailabilityChecker>(s =>
-					new NetworkAvailabilityChecker(ct => Task.FromResult(s.GetRequiredService<IConnectivityRepository>().State is ConnectivityState.Internet))
-			)
-			.AddTransient<NetworkExceptionHandler>();
-	}
 
 	private static IServiceCollection AddExceptionHubHandler(this IServiceCollection services)
 	{
 		return services
 			.AddSingleton<IExceptionHub>(new ExceptionHub())
 			.AddTransient<ExceptionHubHandler>();
-	}
-
-	private static IServiceCollection AddAuthenticationTokenHandler(this IServiceCollection services)
-	{
-		return services
-			.AddSingleton<IAuthenticationTokenProvider<AuthenticationData>>(s => s.GetRequiredService<IAuthenticationService>())
-			.AddTransient<AuthenticationTokenHandler<AuthenticationData>>();
 	}
 
 	private static void AddDefaultHeaders(HttpClient client, IServiceProvider serviceProvider)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -34,9 +33,6 @@ public static class ConfigurationConfiguration
 		return hostBuilder
 			.AddConfiguration(environmentManager)
 			.ConfigureHostConfiguration(b => b
-				// Readonly configuration (from code, not from any file)
-				.AddReadOnlyConfiguration(folderPath, environmentManager)
-
 				// appsettings.json
 				.AddBaseConfiguration()
 
@@ -46,25 +42,6 @@ public static class ConfigurationConfiguration
 				// appsettings.override.json
 				.AddUserOverrideConfiguration(folderPath)
 			);
-	}
-
-	/// <summary>
-	/// Adds the read-only configuration source containing the values that cannot come from appsettings.json files.
-	/// </summary>
-	/// <param name="configurationBuilder">The configuration builder.</param>
-	/// <param name="folderPath">The folder containing the configuration override files.</param>
-	/// <param name="environmentManager">The environment manager.</param>
-	private static IConfigurationBuilder AddReadOnlyConfiguration(this IConfigurationBuilder configurationBuilder, string folderPath, IEnvironmentManager environmentManager)
-	{
-		return configurationBuilder.AddInMemoryCollection(GetCodeConfiguration(folderPath));
-
-		IEnumerable<KeyValuePair<string, string>> GetCodeConfiguration(string folderPath)
-		{
-			var prefix = SampleConfigurationExtensions.DefaultOptionsName<ReadOnlyConfigurationOptions>() + ":";
-
-			yield return new KeyValuePair<string, string>(prefix + nameof(ReadOnlyConfigurationOptions.ConfigurationOverrideFolderPath), folderPath);
-			yield return new KeyValuePair<string, string>(prefix + nameof(ReadOnlyConfigurationOptions.DefaultEnvironment), environmentManager.Default);
-		}
 	}
 
 	/// <summary>
@@ -126,7 +103,6 @@ public static class ConfigurationConfiguration
 		return hostBuilder.ConfigureServices((hostBuilderContext, serviceCollection) => serviceCollection
 			.AddSingleton(serviceProvider => hostBuilderContext.Configuration)
 			.AddSingleton(environmentManager)
-			.BindOptionsToConfiguration<ReadOnlyConfigurationOptions>(hostBuilderContext.Configuration)
 		);
 	}
 

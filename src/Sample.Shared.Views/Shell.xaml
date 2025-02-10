@@ -19,15 +19,6 @@
 		<nav:MultiFrame x:Name="RootNavigationMultiFrame"
 						CommaSeparatedSectionsFrameNames="Login,Home,Posts,Settings,Main" />
 
-		<local:Menu x:Name="Menu"
-					DataContext="{Binding Menu}"
-					VerticalAlignment="Bottom"
-					Grid.Row="1" />
-
-		<local:DiagnosticsOverlay DataContext="{Binding DiagnosticsOverlay}"
-								  Visibility="{Binding ShouldDisplayOverlay, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-								  Grid.RowSpan="2" />
-
 		<splash:ExtendedSplashScreen x:Name="AppExtendedSplashScreen"
 									 ue:MultipleTapExtension.Command="{Binding DiagnosticsOverlay.NavigateToDiagnosticsPage}"
 									 ue:MultipleTapExtension.TapCount="3"

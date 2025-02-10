@@ -5,7 +5,6 @@
 	<DataTemplate x:Key="DataLoaderViewEmptyTemplate">
 		<Grid Background="{ThemeResource BackgroundBrush}">
 			<TextBlock Text="Nothing to show here"
-					   Style="{StaticResource BodyLarge}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Top"
 					   Margin="0,44,0,0" />
@@ -22,7 +21,7 @@
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
-			<TextBlock Style="{StaticResource BodyLarge}"
+			<TextBlock
 					   Foreground="White"
 					   HorizontalAlignment="Left"
 					   VerticalAlignment="Center">
@@ -71,14 +70,12 @@
 				<!-- Title -->
 				<TextBlock Text="Something went wrong"
 						   Foreground="{ThemeResource OnBackgroundBrush}"
-						   Style="{StaticResource TitleLarge}"
 						   TextAlignment="Center"
 						   Margin="0,0,0,8" />
 
 				<!-- Message -->
 				<TextBlock Text="Please try again."
 						   Foreground="{ThemeResource OnSurfaceMediumBrush}"
-						   Style="{StaticResource BodyLarge}"
 						   TextAlignment="Center" />
 
 				<!-- Try Again Button -->

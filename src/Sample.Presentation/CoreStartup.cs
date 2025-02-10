@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
-using Sample.Business;
-using Sample.DataAccess;
 using Sample.Presentation;
 using Chinook.BackButtonManager;
 using Chinook.DataLoader;
@@ -38,16 +35,10 @@ public sealed class CoreStartup : CoreStartupBase
 		return hostBuilder
 			.AddConfiguration(settingsFolderPath, environmentManager)
 			.ConfigureServices((context, s) => s
-				.AddDiagnostics(context.Configuration)
-				.AddMock(context.Configuration)
-				.AddApi(context.Configuration)
 				.AddMvvm()
-				.AddPersistence()
 				.AddNavigationCore()
 				.AddErrorHandling()
-				.AddSerialization()
 				.AddLocalization()
-				.AddReviewServices()
 				.AddAppServices()
 				.AddAnalytics()
 			);
@@ -72,12 +63,8 @@ public sealed class CoreStartup : CoreStartupBase
 		{
 			// TODO: Start your core services and customize the initial navigation logic here.
 			StartAutomaticAnalyticsCollection(services);
-			await services.GetRequiredService<IReviewService>().TrackApplicationLaunched(CancellationToken.None);
 			NotifyUserOnSessionExpired(services);
-			services.GetRequiredService<DiagnosticsCountersService>().Start();
 			await ExecuteInitialNavigation(CancellationToken.None, services);
-			SuscribeToRequiredUpdate(services);
-			SuscribeToKillSwitch(services);
 		}
 	}
 
@@ -91,9 +78,7 @@ public sealed class CoreStartup : CoreStartupBase
 	/// <param name="services">The service provider.</param>
 	public static async Task ExecuteInitialNavigation(CancellationToken ct, IServiceProvider services)
 	{
-		var applicationSettingsService = services.GetRequiredService<IApplicationSettingsRepository>();
 		var sectionsNavigator = services.GetRequiredService<ISectionsNavigator>();
-		var authenticationService = services.GetRequiredService<IAuthenticationService>();
 
 		await sectionsNavigator.SetActiveSection(ct, "Main");
 
@@ -114,35 +99,7 @@ public sealed class CoreStartup : CoreStartupBase
 
 	private void NotifyUserOnSessionExpired(IServiceProvider services)
 	{
-		var authenticationService = services.GetRequiredService<IAuthenticationService>();
 		var messageDialogService = services.GetRequiredService<IMessageDialogService>();
-
-		authenticationService
-			.ObserveSessionExpired()
-			.SkipWhileSelectMany(async (ct, s) =>
-			{
-				await messageDialogService.ShowMessage(ct, mb => mb
-					.TitleResource("SessionExpired_DialogTitle")
-					.ContentResource("SessionExpired_DialogBody")
-					.OkCommand()
-				);
-
-				var navigationController = services.GetRequiredService<ISectionsNavigator>();
-
-				foreach (var modal in navigationController.State.Modals)
-				{
-					await navigationController.CloseModal(CancellationToken.None);
-				}
-
-				foreach (var stack in navigationController.State.Sections)
-				{
-					await ClearNavigationStack(CancellationToken.None, stack.Value);
-				}
-
-				await services.GetRequiredService<ISectionsNavigator>().SetActiveSection(ct, "Login", () => new LoginPageViewModel(isFirstLogin: false), returnToRoot: true);
-			})
-			.Subscribe(_ => { }, e => Logger.LogError(e, "Failed to notify user of session expiration."))
-			.DisposeWith(Disposables);
 	}
 
 	private static async Task ClearNavigationStack(CancellationToken ct, ISectionStackNavigator stack)
@@ -182,76 +139,6 @@ public sealed class CoreStartup : CoreStartupBase
 
 			OnError(exception, e.IsTerminating);
 		};
-	}
-
-	private void SuscribeToRequiredUpdate(IServiceProvider services)
-	{
-		var updateRequiredService = services.GetRequiredService<IUpdateRequiredService>();
-
-		updateRequiredService.UpdateRequired += ForceUpdate;
-
-		void ForceUpdate(object sender, EventArgs e)
-		{
-			var navigationController = services.GetRequiredService<ISectionsNavigator>();
-
-			_ = Task.Run(async () =>
-			{
-				await navigationController.NavigateAndClear(CancellationToken.None, () => new ForcedUpdatePageViewModel());
-			});
-
-			updateRequiredService.UpdateRequired -= ForceUpdate;
-		}
-	}
-
-	private void SuscribeToKillSwitch(IServiceProvider serviceProvider)
-	{
-		var killSwitchService = serviceProvider.GetRequiredService<IKillSwitchService>();
-		var navigationController = serviceProvider.GetRequiredService<ISectionsNavigator>();
-
-		killSwitchService.ObserveKillSwitchActivation()
-			.SelectManyDisposePrevious(async (activated, ct) =>
-			{
-				Logger.LogTrace("Kill switch activation changed to {Activated}.", activated);
-
-				if (activated)
-				{
-					await OnKillSwitchActivated(ct);
-				}
-				else
-				{
-					await OnKillSwitchDeactivated(ct);
-				}
-			})
-			.Subscribe()
-			.DisposeWith(Disposables);
-
-		async Task OnKillSwitchActivated(CancellationToken ct)
-		{
-			// Clear all navigation stacks and show the kill switch page.
-			// We clear the navigation stack to avoid weird animations once the kill switch is deactivated.
-			foreach (var modal in navigationController.State.Modals)
-			{
-				await navigationController.CloseModal(ct);
-			}
-
-			await navigationController.NavigateAndClear(ct, () => new KillSwitchPageViewModel());
-
-			Logger.LogInformation("Navigated to kill switch page succesfully.");
-		}
-
-		async Task OnKillSwitchDeactivated(CancellationToken ct)
-		{
-			if (navigationController.GetActiveViewModel() is KillSwitchPageViewModel)
-			{
-				foreach (var stack in navigationController.State.Sections)
-				{
-					await ClearNavigationStack(ct, stack.Value);
-				}
-
-				await ExecuteInitialNavigation(ct, serviceProvider);
-				Logger.LogInformation("The kill switch was deactivated.");
-			}
-		}
 	}
 
 	/// <summary>

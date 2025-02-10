@@ -23,7 +23,6 @@
 			<Button x:Name="ReturnToMenu"
 					Content="Return to main menu"
 					Command="{Binding StaticToMenu}"
-					Style="{StaticResource BasicButtonStyle}"
 					Margin="0,40,0,0" />
 		</StackPanel>
 
@@ -69,8 +68,7 @@
 						Grid.Row="0">
 
 				<!-- Zoom Level label -->
-				<TextBlock Text="Zoom Level"
-						   Style="{StaticResource Typo01}" />
+				<TextBlock Text="Zoom Level" />
 
 				<!-- Zoom Level value -->
 				<Slider Value="{Binding ZoomLevel, Mode=TwoWay}"
@@ -86,23 +84,19 @@
 
 				<!-- Latitude label -->
 				<TextBlock Text="Latitude"
-						   FontSize="16"
-						   Style="{StaticResource Typo01}" />
+						   FontSize="16" />
 
 				<!-- Latitude value -->
 				<TextBox Text="{Binding Latitude, Mode=TwoWay}"
-						 Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
 
 				<!-- Longitude label -->
 				<TextBlock Text="Longitude"
 						   FontSize="16"
-						   Margin="0,10,0,0"
-						   Style="{StaticResource Typo01}" />
+						   Margin="0,10,0,0" />
 
 				<!-- Longitude value -->
 				<TextBox Text="{Binding Longitude, Mode=TwoWay}"
-						 Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
 			</StackPanel>
 
@@ -112,23 +106,19 @@
 
 				<!-- Height label -->
 				<TextBlock Text="Height (max 400)"
-						   FontSize="16"
-						   Style="{StaticResource Typo01}" />
+						   FontSize="16" />
 
 				<!-- Height value -->
 				<TextBox Text="{Binding Height, Mode=TwoWay}"
-						 Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
 
 				<!-- Width label -->
 				<TextBlock Text="Width (max 400)"
 						   FontSize="16"
-						   Margin="0,10,0,0"
-						   Style="{StaticResource Typo01}" />
+						   Margin="0,10,0,0" />
 
 				<!-- Width value -->
 				<TextBox Text="{Binding Width, Mode=TwoWay}"
-						 Style="{StaticResource TextBoxStyle}"
 						 FontSize="16" />
 			</StackPanel>
 		</Grid>

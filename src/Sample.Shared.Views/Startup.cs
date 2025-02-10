@@ -46,7 +46,6 @@ public sealed class Startup : StartupBase
 			.AddNavigation()
 			.AddViewServices()
 			.AddApi()
-			.AddPersistence()
 		);
 	}
 
@@ -88,9 +87,6 @@ public sealed class Startup : StartupBase
 			await AddMouseBackButtonSource(services);
 
 			HandleSystemBackVisibility(services);
-
-			// Set StatusBar color depending on current ViewModel.
-			SetStatusBarColor(services);
 
 #if WINDOWS
 			StaticMapInitializer.Initialize(services.GetRequiredService<IDispatcherScheduler>(), Constants.BingMaps.ApiKey);
@@ -197,7 +193,7 @@ public sealed class Startup : StartupBase
 	/// </summary>
 	private async Task AddMouseBackButtonSource(IServiceProvider services)
 	{
-#if __WINDOWS__
+#if WINDOWS
 		var dispatcherQueue = services.GetRequiredService<DispatcherQueue>();
 		var backButtonManager = services.GetRequiredService<IBackButtonManager>();
 		await dispatcherQueue.EnqueueAsync(AddSystemBackButtonSourceInner, DispatcherQueuePriority.High);
@@ -211,52 +207,4 @@ public sealed class Startup : StartupBase
 #endif
 	}
 
-	private void SetStatusBarColor(IServiceProvider services)
-	{
-#if __ANDROID__ || __IOS__
-		var dispatcher = services.GetRequiredService<IDispatcherScheduler>();
-
-		// These are pages with a different background color, needing a different status bar color.
-		var vmsAlternateColor = new Type[]
-		{
-			typeof(OnboardingPageViewModel),
-			typeof(LoginPageViewModel),
-			typeof(ForgotPasswordFormViewModel),
-			typeof(ResetPasswordPageViewModel),
-			typeof(SentEmailConfirmationPageViewModel),
-		};
-
-		services
-			.GetRequiredService<ISectionsNavigator>()
-			.ObserveProcessedState()
-			.ObserveOn(dispatcher)
-			.Subscribe(onNext: state =>
-			{
-				var currentVmType = state.CurrentState.GetCurrentOrNextViewModelType();
-
-				// We set the default status bar color to white.
-				var statusBarColor = Microsoft.UI.Colors.White;
-
-				if (App.Instance.CurrentWindow.Content is FrameworkElement root && root.ActualTheme == ElementTheme.Dark)
-				{
-					// For dark theme, the status bar is black except for the pages in vmsAlternateColor.
-					if (!vmsAlternateColor.Contains(currentVmType))
-					{
-						statusBarColor = Microsoft.UI.Colors.Black;
-					}
-				}
-				else
-				{
-					// For light theme, the status bar is white except for the pages in vmsAlternateColor.
-					if (vmsAlternateColor.Contains(currentVmType))
-					{
-						statusBarColor = Microsoft.UI.Colors.Black;
-					}
-				}
-
-				Windows.UI.ViewManagement.StatusBar.GetForCurrentView().ForegroundColor = statusBarColor;
-			},
-			onError: e => Logger.LogError(e, "Failed to set status bar color."));
-#endif
-	}
 }

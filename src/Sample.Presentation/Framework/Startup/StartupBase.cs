@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Sample;
 
 /// <summary>
-/// This class abstracts the startup of the actual app (UWP, iOS, Android and not test projects).
+/// This class abstracts the startup of the actual app (WinUI, iOS, Android and not test projects).
 /// This abstract class is responsible for building the host of the application as well as startup diagnostics.
 /// The implementer class is responsible for the application-specific code that initializes the application's services.
 /// </summary>
