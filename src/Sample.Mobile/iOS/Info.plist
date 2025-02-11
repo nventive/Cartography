@@ -36,6 +36,10 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Sample would like to access your location</string>
+		<key>NSLocationUsageDescription</key>
+		<string>Sample would like to access your location</string>
 		<key>UIAppFonts</key>
 		<array>
 			<string>Fonts/uno-fluentui-assets.ttf</string>

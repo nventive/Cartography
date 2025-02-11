@@ -11,13 +11,10 @@ namespace Sample.Presentation
 	public partial class StaticMapPageViewModel : ViewModel, IStaticMapComponent
 	{
         private ISectionsNavigator _sectionsNavigator;
-        private readonly IDispatcherScheduler _dispatcherScheduler;
 
         public StaticMapPageViewModel()
         {
             _sectionsNavigator = this.GetService<ISectionsNavigator>();
-            _dispatcherScheduler = this.GetService<IDispatcherScheduler>();
-
 		}
 
         public StaticMapViewPort ViewPort

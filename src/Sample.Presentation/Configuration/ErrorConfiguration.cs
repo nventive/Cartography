@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.DynamicMvvm;
-using MallardMessageHandlers;
 using MessageDialogService;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -56,17 +52,6 @@ public static class ErrorConfiguration
 
 		var titleResourceKey = string.Empty;
 		var bodyResourceKey = string.Empty;
-
-		if (exception.IsOrContainsExceptionType<NoNetworkException>())
-		{
-			titleResourceKey = $"NoNetwork_Error_DialogTitle";
-			bodyResourceKey = $"NoNetwork_Error_DialogBody";
-		}
-		else
-		{
-			titleResourceKey = $"{command.Name}_Error_DialogTitle";
-			bodyResourceKey = $"{command.Name}_Error_DialogBody";
-		}
 
 		var title = stringLocalizer[titleResourceKey];
 		var body = stringLocalizer[bodyResourceKey];

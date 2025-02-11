@@ -18,6 +18,14 @@
 		<DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
 		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Content Include="Images\LockScreenLogo.scale-200.png" />
+	  <Content Include="Images\SplashScreen.scale-200.png" />
+	  <Content Include="Images\Square150x150Logo.scale-200.png" />
+	  <Content Include="Images\Square44x44Logo.scale-200.png" />
+	  <Content Include="Images\StoreLogo.png" />
+	  <Content Include="Images\Wide310x150Logo.scale-200.png" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Chinook.BackButtonManager.Uno.WinUI" Version="2.1.0" />
@@ -60,8 +68,6 @@
 		<ProjectReference Include="..\Cartography.DynamicMap\Cartography.DynamicMap.csproj" />
 		<ProjectReference Include="..\Cartography.MapService\Cartography.MapService.csproj" />
 		<ProjectReference Include="..\Cartography.StaticMap\Cartography.StaticMap.csproj" />
-		<ProjectReference Include="..\Sample.Access\Sample.Access.csproj" />
-		<ProjectReference Include="..\Sample.Business\Sample.Business.csproj" />
 		<ProjectReference Include="..\Sample.Presentation\Sample.Presentation.csproj" />
 	</ItemGroup>
 	
@@ -84,9 +90,5 @@
 	<ItemGroup>
 		<!-- This prevents the xaml file links from being visible from this project. It removes unnecessary clutter. -->
 		<Page Update="..\Sample.Shared.Views\**\*.xaml" Visible="false" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Images\" />
 	</ItemGroup>
 </Project>

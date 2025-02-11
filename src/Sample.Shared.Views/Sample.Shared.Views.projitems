@@ -16,7 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\LocalizationConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\LoggingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\NavigationConfiguration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Configuration\PersistenceConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ViewServicesConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMapMenuPage.xaml.cs">
@@ -201,6 +200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\StaticMapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\TextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -231,8 +234,11 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\Guillon-Regular.ttf" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\Guillon-SemiBold.ttf" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\segmdl2.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\active.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\inactive.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_base.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_base.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_choisi.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_choisi.scale-300.png" />
   </ItemGroup>
 </Project>

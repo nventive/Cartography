@@ -16,23 +16,6 @@
 		<TrimMode>partial</TrimMode>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Android\Resources\drawable-hdpi\**" />
-	  <Compile Remove="Android\Resources\drawable-mdpi\**" />
-	  <Compile Remove="Android\Resources\drawable-xhdpi\**" />
-	  <Compile Remove="Android\Resources\drawable-xxhdpi\**" />
-	  <Compile Remove="Android\Resources\drawable-xxxhdpi\**" />
-	  <EmbeddedResource Remove="Android\Resources\drawable-hdpi\**" />
-	  <EmbeddedResource Remove="Android\Resources\drawable-mdpi\**" />
-	  <EmbeddedResource Remove="Android\Resources\drawable-xhdpi\**" />
-	  <EmbeddedResource Remove="Android\Resources\drawable-xxhdpi\**" />
-	  <EmbeddedResource Remove="Android\Resources\drawable-xxxhdpi\**" />
-	  <None Remove="Android\Resources\drawable-hdpi\**" />
-	  <None Remove="Android\Resources\drawable-mdpi\**" />
-	  <None Remove="Android\Resources\drawable-xhdpi\**" />
-	  <None Remove="Android\Resources\drawable-xxhdpi\**" />
-	  <None Remove="Android\Resources\drawable-xxxhdpi\**" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Chinook.BackButtonManager.Uno.WinUI" Version="2.1.0" />
 		<PackageReference Include="Chinook.DataLoader.Uno.WinUI" Version="2.0.0" />
 		<PackageReference Include="Chinook.DynamicMvvm.Uno.WinUI" Version="2.1.1" />
@@ -62,8 +45,6 @@
 		<ProjectReference Include="..\Cartography.DynamicMap\Cartography.DynamicMap.csproj" />
 		<ProjectReference Include="..\Cartography.MapService\Cartography.MapService.csproj" />
 		<ProjectReference Include="..\Cartography.StaticMap\Cartography.StaticMap.csproj" />
-		<ProjectReference Include="..\Sample.Access\Sample.Access.csproj" />
-		<ProjectReference Include="..\Sample.Business\Sample.Business.csproj" />
 		<ProjectReference Include="..\Sample.Presentation\Sample.Presentation.csproj" />
 	</ItemGroup>
 	<ItemGroup>
@@ -282,20 +263,5 @@
 		</When>
 	</Choose>
 	<Import Project="..\Sample.Shared.Views\Sample.Shared.Views.projitems" Label="Shared" />
-	<ItemGroup>
-	  <AndroidResource Remove="Android\Resources\drawable-hdpi\**" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AndroidResource Remove="Android\Resources\drawable-mdpi\**" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AndroidResource Remove="Android\Resources\drawable-xhdpi\**" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AndroidResource Remove="Android\Resources\drawable-xxhdpi\**" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AndroidResource Remove="Android\Resources\drawable-xxxhdpi\**" />
-	</ItemGroup>
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadWrongLinkerErrorInfoBarSampleMobileHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 </Project>
