@@ -3,7 +3,7 @@ namespace Cartography.DynamicMap;
 
 public partial class MapControl : MapControlBase
 {
-	public MapControl()
+	public MapControl(): base()
 	{
 		Initialize();
 	}

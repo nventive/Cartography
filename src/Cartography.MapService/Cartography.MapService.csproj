@@ -23,7 +23,7 @@
 	<ItemGroup>
 		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
 		<PackageReference Include="Uno.Core" Version="4.1.1" />
-		<PackageReference Include="Uno.WinUI" Version="5.0.19" />
+		<PackageReference Include="Uno.WinUI" Version="5.4.22" />
 
 		<!-- Needed for Source Link support. -->
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />

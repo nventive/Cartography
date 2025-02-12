@@ -88,6 +88,11 @@ public partial class MapControlBase
 	private bool AllowMultipleSelection { get { return SelectionMode == MapSelectionMode.Multiple; } }
 	partial void PartialConstructor(ILogger<MapControlBase> logger = null)
 	{
+		if (logger != null)
+		{
+			_logger = logger;
+		}
+
 		Loaded += (sender, args) => OnLoaded();
 		Unloaded += (sender, args) => OnUnloaded();
 
@@ -100,9 +105,6 @@ public partial class MapControlBase
 		_internalMapView.GetMapAsync(_callback = new MapReadyCallback(OnMapReady));
 
 		_internalMapView.OnCreate(null); // This otherwise the map does not appear
-
-		_logger = logger ?? NullLogger<MapControlBase>.Instance;
-
 	}
 
 	private void OnLoaded()

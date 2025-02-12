@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Uno;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Extensions.Logging.Abstractions;
 
 #if WINDOWS
 using Windows.Foundation;
@@ -44,7 +45,7 @@ public abstract partial class MapControlBase : Control
     private const string _initializingStateName = "Initializing";
     private const string _readyStateName = "Ready";
     private const string _errorStateName = "Error";
-    private ILogger<MapControlBase> _logger;
+    private ILogger<MapControlBase> _logger = NullLogger<MapControlBase>.Instance;
 
     #region ViewModel (dp)
     /// <summary>
