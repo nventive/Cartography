@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using Uno.Extensions;
+using Microsoft.UI.Xaml.Media;
 
 #if __ANDROID__
 using Android.Gms.Maps.Model;
@@ -118,7 +119,12 @@ public static class MapControlBehavior
 					map.MarkerUpdater = (pin, marker) =>
 					{
 						var name = (string)imageSelector.Convert(pin.Content, null, pin.IsSelected, System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-						marker.SetIcon(BitmapDescriptorFactory.FromResource(Microsoft.UI.Xaml.Media.ImageSource.FindResourceId(name).GetValueOrDefault(0)));
+                        // We need to manually format the asset names for android because uno changed the way assets are loaded since uno 4.5
+                        var formattedName = name
+                            .Replace("ms-appx:///", "")
+                            .Replace("/", "_");
+						var resourceId = ImageSource.FindResourceId(formattedName) ?? 0;
+						marker.SetIcon(BitmapDescriptorFactory.FromResource(resourceId));
 						marker.Title = pin.Content.ToString();
 					};
 				}
