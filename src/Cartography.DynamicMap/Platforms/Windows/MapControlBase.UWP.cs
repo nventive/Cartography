@@ -49,9 +49,9 @@ namespace Cartography.DynamicMap
 		/// <summary>
 		/// ctor.
 		/// </summary>
-		partial void PartialConstructor(ILogger<MapControlBase> logger = null)
+		partial void PartialConstructor()
 		{
-			_logger = logger ?? NullLogger<MapControlBase>.Instance;
+			_logger = this.Log();
 			DefaultStyleKey = typeof(MapControlBase);
 
 			Loaded += (snd, e) => TryStart();

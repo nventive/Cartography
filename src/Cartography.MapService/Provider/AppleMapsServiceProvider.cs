@@ -11,7 +11,7 @@ namespace Cartography.MapService;
 /// </summary>
 internal class AppleMapsServiceProvider : IMapServiceProvider
 {
-	private readonly ILogger _logger = NullLogger.Instance;
+	private readonly ILogger _logger;
 
 	/// <inheritdoc />
 	public string Name => NavigationAppConstants.NavigationAppName.AppleMaps;
@@ -19,6 +19,10 @@ internal class AppleMapsServiceProvider : IMapServiceProvider
 	/// <inheritdoc />
 	public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.AppleMapsUrl;
 	
+	public AppleMapsServiceProvider()
+	{
+		_logger = this.Log();
+	}
 
 	/// <inheritdoc />
 	public NSUrl GetDirectionsUrl(MapRequest mapRequest)

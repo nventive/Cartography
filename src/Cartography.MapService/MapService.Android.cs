@@ -26,11 +26,10 @@ public class MapServiceAndroid : IMapService
 	/// Initializes a new instance of the <see cref="MapServiceAndroid"/> class.
 	/// </summary>
 	/// <param name="contextProvider">Android context provider</param>
-	/// <param name="logger">Logger</param>
-	public MapServiceAndroid(Android.Content.Context contextProvider, ILogger logger = null)
+	public MapServiceAndroid(Android.Content.Context contextProvider)
 	{
 		_contextProvider = contextProvider.Validation().NotNull("contextProvider");
-		_logger = logger ?? NullLogger.Instance;
+		_logger = this.Log();
 	}
 
 	/// <inheritdoc/>

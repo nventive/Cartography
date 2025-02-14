@@ -86,12 +86,9 @@ public partial class MapControlBase
 	/// Enables multiple selected pins
 	/// </summary>
 	private bool AllowMultipleSelection { get { return SelectionMode == MapSelectionMode.Multiple; } }
-	partial void PartialConstructor(ILogger<MapControlBase> logger = null)
+	partial void PartialConstructor()
 	{
-		if (logger != null)
-		{
-			_logger = logger;
-		}
+		_logger = this.Log();
 
 		Loaded += (sender, args) => OnLoaded();
 		Unloaded += (sender, args) => OnUnloaded();

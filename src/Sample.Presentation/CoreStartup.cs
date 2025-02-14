@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using ReviewService;
 using Uno.Disposables;
 using Uno.Extensions;
+using Cartography.DynamicMap;
+using Cartography.MapService;
 
 namespace Sample;
 
@@ -116,6 +118,8 @@ public sealed class CoreStartup : CoreStartupBase
 		BackButtonManagerConfiguration.LoggerFactory = loggerFactory;
 		DynamicMvvmConfiguration.LoggerFactory = loggerFactory;
 		DataLoaderConfiguration.LoggerFactory = loggerFactory;
+		DynamicMapConfiguration.LoggerFactory = loggerFactory;
+		MapServiceConfiguration.LoggerFactory = loggerFactory;
 	}
 
 	private static void HandleUnhandledExceptions(IServiceProvider services)

@@ -8,7 +8,6 @@ using CoreGraphics;
 using Foundation;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.UI.Xaml;
 using UIKit;
 using Uno.Extensions;
@@ -19,11 +18,11 @@ public partial class MapControlBase
 {
 	private UIPanGestureRecognizer _gestureRecognizer;
 
-	partial void PartialConstructor(ILogger<MapControlBase> logger = null)
+	partial void PartialConstructor()
 	{
 		_isReady = true;
-		_logger = logger ?? NullLogger<MapControlBase>.Instance;
-	}
+		_logger = this.Log();
+    }
 
 	public ZoomLevel ZoomLevel => GetZoomLevel();
 

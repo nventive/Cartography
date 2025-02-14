@@ -1,12 +1,10 @@
 ﻿using Chinook.DynamicMvvm;
-using Uno.Extensions;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cartography.DynamicMap;
-using Uno.Logging;
 using Sample.Entities;
 using System.Collections.Generic;
 using Chinook.SectionsNavigation;
@@ -15,7 +13,7 @@ using Geopoint = Cartography.DynamicMap.Geopoint;
 using BasicGeoposition = Cartography.DynamicMap.BasicGeoposition;
 using Geocoordinate = Cartography.DynamicMap.Geocoordinate;
 using GeolocatorService;
-using Uno.Disposables;
+using Uno.Extensions;
 
 namespace Sample.Presentation
 {
@@ -381,7 +379,6 @@ namespace Sample.Presentation
             }
             catch
             {
-                this.Log().Debug(() => "Couldn't get a valid location. Country zoom level will be applied.");
                 return new GeoViewPort(defaultGeoPoint, ZoomLevels.District);
             }
         }
