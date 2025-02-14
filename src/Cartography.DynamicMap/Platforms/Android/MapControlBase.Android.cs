@@ -8,17 +8,13 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
-using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.Views;
-using Android.Widget;
 using GeolocatorService;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Uno.Extensions;
 
 namespace Cartography.DynamicMap;
@@ -26,8 +22,6 @@ namespace Cartography.DynamicMap;
 public partial class MapControlBase
 {
 	private const string COMPASS_TAG = "GoogleMapCompass";
-
-	private GoogleMapView _internalMapView;
 
 	private Thickness _padding;
 	private GoogleMapLayer _pushpins;
@@ -50,39 +44,6 @@ public partial class MapControlBase
 	public Action<Pushpin, Marker> MarkerUpdater { get; set; }
 
 	/// <summary>
-	/// Handles margin for the compass icon
-	/// </summary>
-	public Thickness CompassMargin
-	{
-		get
-		{
-			if (_compass == null)
-			{
-				_compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
-			}
-
-			RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
-
-			return new Thickness(rlp.LeftMargin, rlp.TopMargin, rlp.RightMargin, rlp.BottomMargin);
-		}
-
-		set
-		{
-			if (_compass == null)
-			{
-				_compass = _internalMapView.FindViewWithTag(COMPASS_TAG);
-			}
-
-			RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams)_compass.LayoutParameters;
-			rlp.TopMargin = (int)value.Top;
-			rlp.RightMargin = (int)value.Right;
-			rlp.LeftMargin = (int)value.Left;
-			rlp.BottomMargin = (int)value.Bottom;
-		}
-	}
-
-
-	/// <summary>
 	/// Enables multiple selected pins
 	/// </summary>
 	private bool AllowMultipleSelection { get { return SelectionMode == MapSelectionMode.Multiple; } }
@@ -90,41 +51,7 @@ public partial class MapControlBase
 	{
 		_logger = this.Log();
 
-		Loaded += (sender, args) => OnLoaded();
-		Unloaded += (sender, args) => OnUnloaded();
-
-		_internalMapView = new GoogleMapView(Android.App.Application.Context, new GoogleMapOptions());
-
-		Template = new ControlTemplate(() => _internalMapView);//TODO support templateing
-
 		MapsInitializer.Initialize(Android.App.Application.Context);
-
-		_internalMapView.GetMapAsync(_callback = new MapReadyCallback(OnMapReady));
-
-		_internalMapView.OnCreate(null); // This otherwise the map does not appear
-	}
-
-	private void OnLoaded()
-	{
-		_internalMapView.OnResume(); // This otherwise the map stay empty
-
-		HandleActivityLifeCycle();
-
-		_internalMapView.TouchOccurred += MapTouchOccurred;
-	}
-
-	private void OnUnloaded()
-	{
-		// These line is required for the control to 
-		// stop actively monitoring the user's location.
-		_internalMapView.OnPause();
-
-		_application.UnregisterActivityLifecycleCallbacks(_callbacks);
-
-		if (_internalMapView != null)
-		{
-			_internalMapView.TouchOccurred -= MapTouchOccurred;
-		}
 	}
 
 	private void MapTouchOccurred(object sender, MotionEvent e)
@@ -133,7 +60,7 @@ public partial class MapControlBase
 	}
 
 	private GoogleMap _map;
-	private void OnMapReady(GoogleMap map)
+	protected void OnMapReady(GoogleMap map)
 	{
 		_map = map;
 
@@ -157,34 +84,15 @@ public partial class MapControlBase
 		TryStart();
 	}
 
-	/// <summary>
-	/// Idea is to register to the LifeCycleCallbacks and properly call the OnResume and OnPause methods when needed.
-	/// This will release the GPS while the application is in the background
-	/// </summary>
-	private void HandleActivityLifeCycle()
-	{
-		_callbacks = new MapLifeCycleCallBacks(onPause: _internalMapView.OnPause, onResume: _internalMapView.OnResume);
-
-		_application = (Android.App.Application)Context.ApplicationContext;
-		if (_application != null)
-		{
-			_application.RegisterActivityLifecycleCallbacks(_callbacks);
-		}
-		else
-		{
-			_logger.LogInformation("ApplicationContext is invalid, could not RegisterActivityLifecycleCallbacks to release GPS when application is paused.");
-		}
-	}
-
-#region UserLocation
+	#region UserLocation
 	private void UpdateMapUserLocation(LocationResult locationAndStatus)
 	{
 		if (locationAndStatus != null)
 			_map.MyLocationEnabled = locationAndStatus.IsSuccessful;
 	}
-#endregion
+	#endregion
 
-#region ViewPort
+	#region ViewPort
 
 	private IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
 	{
@@ -291,9 +199,9 @@ public partial class MapControlBase
 
 		return new LatLngBounds(southWestCorner, northEastCorner);
 	}
-#endregion
+	#endregion
 
-#region ViewPortCoordinates
+	#region ViewPortCoordinates
 	private MapViewPortCoordinates GetViewPortCoordinates()
 	{
 		var visibleRegion = _map.Projection.VisibleRegion;
@@ -304,9 +212,9 @@ public partial class MapControlBase
 			southEast: new BasicGeoposition(visibleRegion.NearRight.Latitude, visibleRegion.NearRight.Longitude)
 		);
 	}
-#endregion
+	#endregion
 
-#region Pushpins
+	#region Pushpins
 	private void UpdateMapPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
 	{
 		_pushpins.Update(
@@ -334,9 +242,9 @@ public partial class MapControlBase
 		// call injected updater
 		MarkerUpdater?.Invoke(pushpin, marker);
 	}
-#endregion
+	#endregion
 
-#region Pushpin ICONS
+	#region Pushpin ICONS
 	private bool UseIcons => _icon != null;
 
 	private void UpdateIcon(object icon)
@@ -459,9 +367,9 @@ public partial class MapControlBase
 
 		UpdateMarker(pushpin, marker);
 	}
-#endregion
+	#endregion
 
-#region Selected pushpins
+	#region Selected pushpins
 	private void Map_MarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
 	{
 		_logger.LogDebug("Clicking on a pin.");
@@ -520,7 +428,7 @@ public partial class MapControlBase
 	{
 		_pushpins.UpdateSelection(newlySelected);
 	}
-#endregion
+	#endregion
 
 	private void UpdateMapPushpinOnCameraIdle()
 	{
@@ -543,7 +451,7 @@ public partial class MapControlBase
 		}
 	}
 
-	private class MapReadyCallback : Java.Lang.Object, IOnMapReadyCallback
+	protected class MapReadyCallback : Java.Lang.Object, IOnMapReadyCallback
 	{
 		private readonly Action<GoogleMap> _mapAvailable;
 
@@ -591,7 +499,7 @@ public partial class MapControlBase
 		}
 	}
 
-	private class MapLifeCycleCallBacks : Java.Lang.Object, global::Android.App.Application.IActivityLifecycleCallbacks
+	protected class MapLifeCycleCallBacks : Java.Lang.Object, global::Android.App.Application.IActivityLifecycleCallbacks
 	{
 		private readonly Action _onPause;
 		private readonly Action _onResume;
@@ -612,7 +520,7 @@ public partial class MapControlBase
 			_onPause();
 		}
 
-#region Not implemented
+		#region Not implemented
 
 		public void OnActivityCreated(Activity activity, global::Android.OS.Bundle savedInstanceState)
 		{
@@ -634,7 +542,7 @@ public partial class MapControlBase
 		{
 		}
 
-#endregion
+		#endregion
 	}
 
 
