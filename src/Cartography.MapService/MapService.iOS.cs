@@ -10,7 +10,6 @@ using Cartography.MapService.Provider;
 using UIKit;
 using Uno.Extensions;
 using Uno.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Cartography.MapService;
 
@@ -30,18 +29,16 @@ public class MapServiceiOS : IMapService
 	/// <param name="dispatcherScheduler">Dispatcher scheduler</param>
 	/// <param name="mapServiceTextProvider">Text provider, if null the default ios providor will be use</param>
 	/// <param name="mapServiceProviders">MapServiceProvides for iOS</param>
-	/// /// <param name="logger">logger</param>
 	public MapServiceiOS(
 		IDispatcherScheduler dispatcherScheduler,
 		MapServiceTextProvider mapServiceTextProvider = null,
-		MapServiceiOSProvider[] mapServiceProviders = null,
-		ILogger logger = null
+		MapServiceiOSProvider[] mapServiceProviders = null
 	)
 	{
 		_dispatcherScheduler = dispatcherScheduler;
 		_mapServiceTextProvider = mapServiceTextProvider;
 		_mapServiceProviders = MapServiceProviderFactory.Create(mapServiceProviders);
-		_logger = logger ?? NullLogger.Instance;
+		_logger = this.Log();
 	}
 
 	/// <inheritdoc/>
@@ -91,7 +88,7 @@ public class MapServiceiOS : IMapService
 	}
 
 
-	#region Open Maps
+    #region Open Maps
 
 	private void OpenMaps(MapRequest request, bool withDirections = false)
 	{
@@ -180,6 +177,6 @@ public class MapServiceiOS : IMapService
 		viewController.PresentViewController(alert, true, null);
 	}
 
-	#endregion
+    #endregion
 }
 #endif

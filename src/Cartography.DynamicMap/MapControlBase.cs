@@ -45,7 +45,7 @@ public abstract partial class MapControlBase : Control
     private const string _initializingStateName = "Initializing";
     private const string _readyStateName = "Ready";
     private const string _errorStateName = "Error";
-    private ILogger<MapControlBase> _logger = NullLogger<MapControlBase>.Instance;
+    private ILogger<MapControlBase> _logger;
 
     #region ViewModel (dp)
     /// <summary>
@@ -256,14 +256,13 @@ public abstract partial class MapControlBase : Control
     /// <summary>
     /// creation of MapControlBase
     /// </summary>
-    /// <param name="logger">logger</param>
-    public MapControlBase(ILogger<MapControlBase> logger = null)
+    public MapControlBase()
     {
         this.DefaultStyleKey = typeof(MapControlBase);
-        PartialConstructor(logger);
+        PartialConstructor();
     }
 
-    partial void PartialConstructor(ILogger<MapControlBase> logger = null);
+    partial void PartialConstructor();
 
     private void TryStart(ViewModelBase viewModel)
     {

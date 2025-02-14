@@ -11,7 +11,7 @@ namespace Cartography.MapService;
 /// </summary>
 internal class GoogleMapsServiceProvider : IMapServiceProvider
 {
-	private readonly ILogger _logger = NullLogger.Instance;
+	private readonly ILogger _logger;
 
 	/// <inheritdoc />
 	public string Name => NavigationAppConstants.NavigationAppName.GoogleMaps;
@@ -20,8 +20,13 @@ internal class GoogleMapsServiceProvider : IMapServiceProvider
 	public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.GoogleMapsUrl;
 	
 
-	/// <inheritdoc />
-	public NSUrl GetDirectionsUrl(MapRequest mapRequest)
+	public GoogleMapsServiceProvider()
+	{
+		_logger = this.Log();
+	}
+
+    /// <inheritdoc />
+    public NSUrl GetDirectionsUrl(MapRequest mapRequest)
 	{
 		_logger.Debug(() => $"Showing directions using {nameof(AppleMapsServiceProvider)}.");
 

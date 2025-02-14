@@ -1,7 +1,6 @@
 ﻿#if __IOS__
 using Foundation;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Uno.Logging;
 
 namespace Cartography.MapService;
@@ -11,7 +10,7 @@ namespace Cartography.MapService;
 /// </summary>
 internal class WazeServiceProvider : IMapServiceProvider
 {
-	private readonly ILogger _logger = NullLogger.Instance;
+	private readonly ILogger _logger;
 
 	/// <inheritdoc />
 	public string Name => NavigationAppConstants.NavigationAppName.Waze;
@@ -19,8 +18,13 @@ internal class WazeServiceProvider : IMapServiceProvider
 	/// <inheritdoc />
 	public NSUrl Url => NavigationAppConstants.NavigationAppNSUrl.WazeUrl;
 
-	/// <inheritdoc />
-	public NSUrl GetDirectionsUrl(MapRequest mapRequest)
+	public WazeServiceProvider()
+	{
+		_logger = this.Log();
+	}
+
+    /// <inheritdoc />
+    public NSUrl GetDirectionsUrl(MapRequest mapRequest)
 	{
 		_logger.Debug(() => $"Showing directions using {nameof(WazeServiceProvider)}.");
 

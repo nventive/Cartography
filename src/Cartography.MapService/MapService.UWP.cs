@@ -26,12 +26,11 @@ namespace Cartography.MapService
 		/// </summary>
 		/// <param name="dispatcherScheduler">Dispatcher</param>
 		/// <param name="locationService">Location service</param>
-		/// <param name="logger">logger</param>
-		public MapServiceWindows(IDispatcherScheduler dispatcherScheduler, IGeolocatorService locationService, ILogger logger = null)
+		public MapServiceWindows(IDispatcherScheduler dispatcherScheduler, IGeolocatorService locationService)
 		{
 			_dispatcherScheduler = dispatcherScheduler;
 			_locationService = locationService;
-			_logger = logger ?? NullLogger.Instance;
+			_logger = this.Log();
 		}
 
 		/// <inheritdoc/>
