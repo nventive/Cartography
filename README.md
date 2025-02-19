@@ -11,6 +11,33 @@ Nventive solution for mobile app map.
 - Clone project a sample is available.
 - For seeing samples, build and install app with VS on the desire device (Android & IOS)
 
+## Mobile
+
+### Android
+
+On Android we need to add these lines to the manifest : 
+```
+   <uses-library android:name="com.google.android.maps" />
+   <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="" />
+   <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+```
+
+You'll also need to add the location permissions : 
+```
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
+
+### iOS
+
+For iOS you need to add these lines to your info.plist.
+```
+   <key>NSLocationWhenInUseUsageDescription</key>
+   <string>Sample would like to access your location</string>
+   <key>NSLocationUsageDescription</key>
+   <string>Sample would like to access your location</string>
+```
+
 ## **DynamicMap**
 
 - Add Cartography.DynamicMap NuGet package to your project.
@@ -31,6 +58,41 @@ Nventive solution for mobile app map.
    <dynamicMap:MapControl ViewModel="{Binding}" />
 </mobile:Grid>
 ```
+
+## Pushpins 
+
+In order for the pushpins to display properly on all platforms you need to add a MapControlBehavior.PushpinImageSelector 
+
+```xml
+<mobile:Grid>
+   <dynamicMap:MapControl ViewModel="{Binding}"
+   dynamicMap:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"/>
+</mobile:Grid>
+```
+
+Then you need to have a converter in your page for the Selector 
+```xml
+<converters:FromPushpinEntityToStringConverter x:Key="PushpinEntityToMapPin"
+                                               UnselectedValue="ms-appx:///Assets/Pushpin/inactive.png"
+                                               SelectedValue="ms-appx:///Assets/Pushpin/active.png" />
+```
+
+Finally you need to place your pushpin icons assets in the Shared project assets folder AND the android assets folder in the mobile head. 
+If you don't do the latter the pushpin won't work on android. 
+It is imperative that you place the assets in the android assets folder and not in a subfolder otherwise the assets wont be found by the MapControlBehavior.
+This is because uno 4.5 changed how the assets where generated forcing us to apply a workaround for Android. 
+
+Your Android folder should look like this : 
+
+Sample.Mobile
+    - Android
+        - Assets
+            - active.png
+            - active.scale-200.png
+            - active.scale-300.png
+            - inactive.png
+            - inactive.scale-200.png
+            - inactive.scale-300.png
 
 - Add Style MapControl: see <https://github.com/nventive/Cartography/blob/master/Samples/Samples/Samples.Shared/Views/Styles/MapControl.xaml>
 
