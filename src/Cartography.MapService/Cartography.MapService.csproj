@@ -1,0 +1,39 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net8.0-ios;net8.0-android;net8.0-windows10.0.22621.0</TargetFrameworks>
+		<LangVersion>13.0</LangVersion>
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder. -->
+		<GenerateLibraryLayout>true</GenerateLibraryLayout>
+		<RootNamespace>Cartography.MapService</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Cartography.MapService</AssemblyName>
+		<PackageId>Cartography.MapService</PackageId>
+		<Description>Cartography.MapService</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+
+		<!-- Needed for Source Link support. -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
+		<PackageReference Include="Uno.Core" Version="4.1.1" />
+		<PackageReference Include="Uno.WinUI" Version="5.4.22" />
+
+		<!-- Needed for Source Link support. -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net8.0-windows10.0.22621.0'">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Cartography.MapService.Abstractions\Cartography.MapService.Abstractions.csproj" />
+	</ItemGroup>
+</Project>

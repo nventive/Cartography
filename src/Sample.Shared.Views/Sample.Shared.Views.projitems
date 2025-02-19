@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>16550a16-5615-4100-8bc0-490daf94db72</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Sample.Views</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ApiConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\LocalizationConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\LoggingConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\NavigationConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ViewServicesConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMapMenuPage.xaml.cs">
+      <DependentUpon>DynamicMapMenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMap_FeaturesPage.xaml.cs">
+      <DependentUpon>DynamicMap_FeaturesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMap_MoveSearchPage.xaml.cs">
+      <DependentUpon>DynamicMap_MoveSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\LocationPage.xaml.cs">
+      <DependentUpon>LocationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\MapServicePage.xaml.cs">
+      <DependentUpon>MapServicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\StaticMapPage.xaml.cs">
+      <DependentUpon>StaticMapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\DebugConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromMoveSearchPushpinListToString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToCustomValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)converters\FromNullableBoolToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromPushpinEntityToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\AttachableUserControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapServiceWindows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\DeviceInformation\DeviceInformationProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Launcher\LauncherServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Launcher\LauncherService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\ExtendedSplashscreenController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Memory\MemoryProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Memory\MemoryProvider.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionProvider.Mobile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionProvider.Windows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DependencyObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\FrameworkElementExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObservableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\fr\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMapMenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMap_FeaturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMap_MoveSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\LocationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\MapServicePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\StaticMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\ColorPalette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\LayoutConstants.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\MaterialOverride.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\CalendarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\CommandBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\DataLoaderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ExtendedSplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\FlipViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\Frame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\GridViewHeaderItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\GridViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\HyperlinkButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ListViewHeaderItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ListViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\PasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\PathControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\RadioButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\StaticMapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ToggleSwitch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\Guillon-Black.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\Guillon-Bold.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\Guillon-Light.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\Guillon-Regular.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\Guillon-SemiBold.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fonts\segmdl2.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\active.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\active.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\active.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\inactive.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\inactive.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\inactive.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_base.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_base.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_choisi.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Pushpin\pin_bleu_normal_choisi.scale-300.png" />
+  </ItemGroup>
+</Project>
