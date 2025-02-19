@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated the sample application.
 - Fixed issue with Android map not showing.
 - Fixed issue with iOS pushpins not showing.
+- Fixed an issue with Android pushpin scaling
 
 ### Deprecated
 

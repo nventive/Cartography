@@ -5,10 +5,14 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using Uno.Extensions;
-using Microsoft.UI.Xaml.Media;
+
 
 #if __ANDROID__
 using Android.Gms.Maps.Model;
+using Android.Graphics;
+using Android.Content.Res;
+using System.IO;
+using System.Linq;
 #endif
 
 namespace Cartography.DynamicMap;
@@ -118,14 +122,76 @@ public static class MapControlBehavior
 				{
 					map.MarkerUpdater = (pin, marker) =>
 					{
-						var name = (string)imageSelector.Convert(pin.Content, null, pin.IsSelected, System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-                        // We need to manually format the asset names for android because uno changed the way assets are loaded since uno 4.5
-                        var formattedName = name
-                            .Replace("ms-appx:///", "")
-                            .Replace("/", "_");
-						var resourceId = ImageSource.FindResourceId(formattedName) ?? 0;
-						marker.SetIcon(BitmapDescriptorFactory.FromResource(resourceId));
-						marker.Title = pin.Content.ToString();
+						try
+						{
+							var density = DeviceDisplay.GetMainDisplayInfo().Density;
+							var name = (string)imageSelector.Convert(pin.Content, null, pin.IsSelected, System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+
+							// Format the asset name
+							var formattedName = name.Replace("ms-appx:///", "").Replace("Pushpin/", "").Replace("Assets/", "");
+
+							// Define density suffix options
+							string[] scalingSuffixes = [".scale-100", ".scale-200", ".scale-300", ""];
+
+							// **Find the best matching suffix for the device's density**
+							var bestSuffix = density switch
+							{
+								<= 1.0 => ".scale-100",
+								<= 2.0 => ".scale-200",
+								_ => ".scale-300"
+							};
+
+							var context = Android.App.Application.Context;
+							AssetManager assets = context.Assets;
+							string selectedAsset = null;
+
+							// **First try the best suffix, then fall back to other options**
+							foreach (var suffix in new string[] { bestSuffix }.Concat<string>(scalingSuffixes))
+							{
+								var assetName = formattedName;
+								if (!string.IsNullOrEmpty(suffix))
+								{
+									var extensionIndex = formattedName.LastIndexOf('.');
+									if (extensionIndex > -1)
+									{
+										assetName = formattedName.Insert(extensionIndex, suffix);
+									}
+								}
+
+								// **Check if the asset exists**
+								try
+								{
+									using var testStream = assets.Open(assetName);
+									selectedAsset = assetName;
+									break; // Stop searching once a valid asset is found
+								}
+								catch (FileNotFoundException)
+								{
+									// Ignore and try next suffix
+								}
+							}
+
+							if (selectedAsset == null)
+							{
+								Console.WriteLine($"[Error] No valid asset found for {formattedName}, using default marker.");
+								marker.SetIcon(BitmapDescriptorFactory.DefaultMarker());
+							}
+							else
+							{
+								// **Load and resize the bitmap based on density**
+								using var stream = assets.Open(selectedAsset);
+								var bitmap = BitmapFactory.DecodeStream(stream);
+								var bitmapDescriptor = BitmapDescriptorFactory.FromBitmap(bitmap);
+								marker.SetIcon(bitmapDescriptor);
+							}
+
+							marker.Title = pin.Content.ToString();
+						}
+						catch (Exception ex)
+						{
+							Console.WriteLine($"[Error] Failed to set marker icon: {ex.Message}");
+							marker.SetIcon(BitmapDescriptorFactory.DefaultMarker()); // Fallback to default marker
+						}
 					};
 				}
 #elif __IOS__

@@ -18,7 +18,7 @@ Nventive solution for mobile app map.
 On Android we need to add these lines to the manifest : 
 ```
    <uses-library android:name="com.google.android.maps" />
-   <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="" />
+   <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="{Your-Valid-GMAPS-Key}" />
    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 ```
 
