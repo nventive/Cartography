@@ -264,4 +264,30 @@
 	</Choose>
 	<Import Project="..\Sample.Shared.Views\Sample.Shared.Views.projitems" Label="Shared" />
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadWrongLinkerErrorInfoBarSampleMobileHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+	<ItemGroup>
+	  <AndroidAsset Remove="Android\Assets\active.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AndroidAsset Remove="Android\Assets\active.scale-200.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AndroidAsset Remove="Android\Assets\active.scale-300.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AndroidAsset Remove="Android\Assets\inactive.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AndroidAsset Remove="Android\Assets\inactive.scale-200.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AndroidAsset Remove="Android\Assets\inactive.scale-300.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="Android\Assets\active.png" />
+	  <Content Include="Android\Assets\active.scale-200.png" />
+	  <Content Include="Android\Assets\active.scale-300.png" />
+	  <Content Include="Android\Assets\inactive.png" />
+	  <Content Include="Android\Assets\inactive.scale-200.png" />
+	  <Content Include="Android\Assets\inactive.scale-300.png" />
+	</ItemGroup>
 </Project>

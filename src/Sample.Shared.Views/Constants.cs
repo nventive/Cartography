@@ -8,12 +8,6 @@ namespace Sample
 	 *************************************/
 	public static class Constants
 	{
-		public class GoogleMaps
-		{
-			//TODO: Get new API Key
-			public const string ApiKey = "";
-		}
-
 		public class BingMaps
 		{
 			//TODO: Get new API Key
