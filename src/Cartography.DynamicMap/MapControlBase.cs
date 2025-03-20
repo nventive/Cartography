@@ -86,6 +86,22 @@ public abstract partial class MapControlBase : Control
     }
     #endregion
 
+    #region EnableZoomAnimations (dp)
+    /// <summary>
+    /// Identifies the <see cref="EnableAppleZoomAnimations"/> dependency property.
+    /// </summary>
+    public static readonly DependencyProperty EnableAppleZoomAnimationsProperty = DependencyProperty.Register("EnableAppleZoomAnimations", typeof(bool), typeof(MapControlBase), new PropertyMetadata(true, null));
+
+    /// <summary>
+    /// Enables or disables the zoom animations globally.
+    /// </summary>
+    public bool EnableAppleZoomAnimations
+    {
+        get { return (bool)this.GetValue(EnableAppleZoomAnimationsProperty); }
+        set { this.SetValue(EnableAppleZoomAnimationsProperty, value); }
+    }
+    #endregion
+
     #region AutolocateButtonVisibility (dp)
     public Visibility AutolocateButtonVisibility
     {
@@ -170,7 +186,7 @@ public abstract partial class MapControlBase : Control
     #endregion
 
 #if WINDOWS
-#region PushpinItemTemplate (dp)
+    #region PushpinItemTemplate (dp)
 	/// <summary>
 	/// Identifies the <see cref="PushpinItemTemplate"/> dependency property.
 	/// </summary>
@@ -185,7 +201,7 @@ public abstract partial class MapControlBase : Control
 		get { return (DataTemplate)this.GetValue(PushpinItemTemplateProperty); }
 		set { this.SetValue(PushpinItemTemplateProperty, value); }
 	}
-#endregion
+    #endregion
 #endif
 
     #region PushpinIcon (dp)
