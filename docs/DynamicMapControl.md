@@ -10,6 +10,7 @@
 - PushpinIcon : Image file / *Set image for the unselected Pushpin.*
 - SelectedPushpinIcon : Image file / *Set image for the selected Pushpin.*
 - PushpinIconsPositionOrigin : "(double)x, (double)y" / *Set the origin position for Pushpin.*
+- EnableAppleZoomAnimations: "**True**", "False" / *Enables or disables the animation when moving or zooming on Apple map.*
 
 ## Map Behavior control
 

@@ -97,6 +97,7 @@
 				They must have the exact same dimensions as the normal-scale asset (here, pin_red_selection_base.png)-->
 				<!--See Views/Style/MapControl.xaml for the implementation-->
 				<dynamicMap:MapControl ViewModel="{Binding}"
+									   EnableAppleZoomAnimations="False"
 									   SelectionMode="Single"
 									   AutolocateButtonVisibility="Collapsed"
 									   dynamicMap:MapControlBehavior.DisableRotation="True"

@@ -34,7 +34,7 @@ partial class MapControl
 
 	private readonly List<UIView> _pushPins = new List<UIView>();
 	private IMapLayer<Pushpin> _pushpinsLayer;
-	private readonly ILogger<MapControl> _logger = NullLogger<MapControl>.Instance;
+	private ILogger<MapControl> _logger;
 
 	private readonly Dictionary<IMKOverlay, MKOverlayRenderer> _overlayRenderers = new Dictionary<IMKOverlay, MKOverlayRenderer>();
 
@@ -58,13 +58,10 @@ partial class MapControl
 	/// </summary>
 	public Func<MKAnnotationView, UIView> PinGroupTemplate { get; set; }
 
-	/// <summary>
-	/// Enables or disables the zoom animations globally.
-	/// </summary>
-	public bool EnableZoomAnimations { get; set; }
-
 	partial void Initialize()
 	{
+		_logger = this.Log();
+
 		Loaded += (sender, args) => OnLoaded();
 		Unloaded += (sender, args) => OnUnloaded();
 
@@ -77,8 +74,6 @@ partial class MapControl
 
 		// Set so that the pins are not too close to the edges.
 		AutoZoomModifyer = 1.15f;
-
-		EnableZoomAnimations = true;
 
 		_internalMapView.GetViewForAnnotation = OnGetViewForAnnotation;
 		_internalMapView.DidDeselectAnnotationView += MapControl_DidDeselectAnnotationView;
@@ -240,7 +235,7 @@ partial class MapControl
 
 		var locRect = ComputeBoundingRectangle(viewPort);
 
-		bool animate = EnableZoomAnimations && !preventAnimations;
+		bool animate = EnableAppleZoomAnimations && !preventAnimations;
 
 		if (animate && _animationDurationSeconds.HasValue)
 		{
@@ -262,7 +257,7 @@ partial class MapControl
 
 		var region = MapHelper.CreateRegion(centerCoordinate, zoomLevel, Bounds.Size);
 
-		bool animate = EnableZoomAnimations && !preventAnimations;
+		bool animate = EnableAppleZoomAnimations && !preventAnimations;
 
 		if (animate && _animationDurationSeconds.HasValue)
 		{
