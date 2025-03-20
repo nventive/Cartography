@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Nventive.View package
 
-## [Unreleased]
+## [0.4.2]
 
 ### Added
 
@@ -40,3 +40,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 ### Security
+
+## [0.4.3]
+
+### Changed
+
+- Added more scaling suffixes for android.
