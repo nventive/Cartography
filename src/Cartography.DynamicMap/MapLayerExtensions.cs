@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Uno.Logging;
 
 namespace Cartography.DynamicMap;
 
@@ -45,7 +46,11 @@ public static partial class MapLayerExtensions
 		{
 			foreach (var item in addedItems)
 			{
-				var container = canRecycle && recyclingProvider.MoveNext()
+				var logger = layer.Log();
+
+				logger.Log().Debug($"Update Extension: Adding item {item}");
+
+                var container = canRecycle && recyclingProvider.MoveNext()
 					? recyclingProvider.Current
 					: containerFactory(item);
 

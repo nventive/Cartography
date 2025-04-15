@@ -34,7 +34,7 @@ partial class MapControl
 
 	private readonly List<UIView> _pushPins = new List<UIView>();
 	private IMapLayer<Pushpin> _pushpinsLayer;
-	private readonly ILogger<MapControl> _logger = NullLogger<MapControl>.Instance;
+	private ILogger<MapControl> _logger;
 
 	private readonly Dictionary<IMKOverlay, MKOverlayRenderer> _overlayRenderers = new Dictionary<IMKOverlay, MKOverlayRenderer>();
 
@@ -65,7 +65,9 @@ partial class MapControl
 
 	partial void Initialize()
 	{
-		Loaded += (sender, args) => OnLoaded();
+		_logger = this.Log();
+
+        Loaded += (sender, args) => OnLoaded();
 		Unloaded += (sender, args) => OnUnloaded();
 
 		_internalMapView = new MKMapView();
@@ -78,7 +80,7 @@ partial class MapControl
 		// Set so that the pins are not too close to the edges.
 		AutoZoomModifyer = 1.15f;
 
-		EnableZoomAnimations = true;
+		EnableZoomAnimations = false;
 
 		_internalMapView.GetViewForAnnotation = OnGetViewForAnnotation;
 		_internalMapView.DidDeselectAnnotationView += MapControl_DidDeselectAnnotationView;
@@ -285,7 +287,7 @@ partial class MapControl
 	{
 		_logger.LogDebug($"Updating the '{items.Safe().Count()}' map pushpins (number of selected items: '{selectedItems?.Length}').");
 
-		_pushpinsLayer.Update(items, selectedItems, CreatePushpin);
+		_pushpinsLayer.Update(items, selectedItems, CreatePushpin); // recycles
 
 		_logger.LogInformation($"Updated the '{items.Safe().Count()}' map pushpins (number of selected items: '{selectedItems?.Length}').");
 	}
@@ -306,11 +308,15 @@ partial class MapControl
 
 		if (mapAnnotation != null)
 		{
+			Console.WriteLine($"OnGetViewForAnnotation: {mapAnnotation}");
+
 			// Determine the selector, fallback on standard template for groups if not set.
 			var templateId = Pushpin.AnnotationId;
 			var selector = annotation is MapGroupAnnotation ? PinGroupTemplate ?? PinTemplate : PinTemplate;
 
 			var annotationView = mapView.DequeueReusableAnnotation(templateId);
+
+
 
 			if (annotationView == null)
 			{
@@ -334,6 +340,11 @@ partial class MapControl
 					_logger.LogDebug($"The frame for '{annotationView.Subviews[0]}' is '{annotationView.Frame}', which is too narrow. Set the frame for the Pin UIView.");
 				}
 			}
+			else
+			{
+                annotationView.Annotation = mapAnnotation;
+                selector(annotationView);
+            }
 
 			var dataContextProvider = annotationView.Subviews.FirstOrDefault() as IDataContextProvider;
 

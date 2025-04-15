@@ -9,7 +9,7 @@ namespace Cartography.DynamicMap;
 
 public class MapControlItem : MKAnnotation, INotifyPropertyChanged, IMapControlItem
 {
-	public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 	private CLLocationCoordinate2D _coordinate;
 	private IGeoLocated _content;
 
@@ -19,7 +19,7 @@ public class MapControlItem : MKAnnotation, INotifyPropertyChanged, IMapControlI
 		set
 		{
 			_content = value;
-			RaisePropertyChanged();
+            RaisePropertyChanged();
 		}
 	}
 
