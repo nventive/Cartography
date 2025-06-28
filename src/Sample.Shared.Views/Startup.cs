@@ -85,13 +85,15 @@ public sealed class Startup : StartupBase
 
 			await AddSystemBackButtonSource(services);
 			await AddMouseBackButtonSource(services);
-
 			HandleSystemBackVisibility(services);
 
+			// Initialize StaticMap
 #if WINDOWS
 			StaticMapInitializer.Initialize(services.GetRequiredService<IDispatcherScheduler>(), Constants.BingMaps.ApiKey);
-#elif __ANDROID__ || __IOS__
-        StaticMapInitializer.Initialize(services.GetRequiredService<IDispatcherScheduler>(), string.Empty);
+#elif __ANDROID__
+			StaticMapInitializer.Initialize(services.GetRequiredService<IDispatcherScheduler>(), string.Empty);
+#elif __IOS__
+			StaticMapInitializer.Initialize(services.GetRequiredService<IDispatcherScheduler>(), string.Empty, false);
 #endif
 		}
 	}

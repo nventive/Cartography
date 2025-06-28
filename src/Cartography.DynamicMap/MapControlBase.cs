@@ -511,6 +511,7 @@ public abstract partial class MapControlBase : Control
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex.Message);
             _logger.LogError("Error due to the selection of many view ports. Disposed the previous one.", ex);
         }
     }

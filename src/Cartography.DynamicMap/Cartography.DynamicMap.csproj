@@ -45,5 +45,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Cartography.DynamicMap.Abstractions\Cartography.DynamicMap.Abstractions.csproj" />
+		<ProjectReference Include="..\Cartography.StaticMap.Abstractions\Cartography.StaticMap.Abstractions.csproj" />
 	</ItemGroup>
 </Project>
