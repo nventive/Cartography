@@ -52,3 +52,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Added the option to disable Apple zoom animation.
+
+## [0.6.0]
+
+### Added
+
+- The Google Map Control package for iOS (based on Dynamic Map).

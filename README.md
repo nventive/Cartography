@@ -59,6 +59,16 @@ For iOS you need to add these lines to your info.plist.
 </mobile:Grid>
 ```
 
+#### GoogleMap with Dynamic Map on iOS
+
+```xml
+xmlns:gmc="using:Cartography.DynamicMap.GoogleMap.iOS"
+
+<ios:Grid>
+   <gmc:GoogleMapControl ViewModel="{Binding}" />
+</ios:Grid>
+```
+
 ## Pushpins 
 
 In order for the pushpins to display properly on all platforms you need to add a MapControlBehavior.PushpinImageSelector 

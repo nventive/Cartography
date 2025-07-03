@@ -197,6 +197,7 @@
 			</Choose>
 			<ItemGroup>
 				<PackageReference Include="Uno.Extensions.Logging.OSLog" Version="1.7.0" />
+				<ProjectReference Include="..\Cartography.DynamicMap.GoogleMap.iOS\Cartography.DynamicMap.GoogleMap.iOS.csproj" />
 			</ItemGroup>
 			<ItemGroup>
 				<TrimmerRootDescriptor Include="iOS\LinkerExclusions.xml" />

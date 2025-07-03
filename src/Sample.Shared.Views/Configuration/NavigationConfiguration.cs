@@ -28,6 +28,7 @@ public static class NavigationConfiguration
 		{ typeof(StaticMapPageViewModel), typeof(StaticMapPage) },
 		{ typeof(DynamicMap_FeaturesPageViewModel), typeof(DynamicMap_FeaturesPage) },
 		{ typeof(DynamicMap_MoveSearchPageViewModel), typeof(DynamicMap_MoveSearchPage) },
+		{ typeof(GoogleMapsControl_FeaturesPageViewModel), typeof(GoogleMapControl_FeaturesPage) },
 		{ typeof(MainPageViewModel), typeof(MainPage) },
 		{ typeof(LocationViewModel), typeof(LocationPage) },
 		{ typeof(MapServiceViewModel), typeof(MapServicePage) },

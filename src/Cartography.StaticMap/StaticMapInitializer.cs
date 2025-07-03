@@ -10,12 +10,13 @@ public static class StaticMapInitializer
 
     internal static IDispatcherScheduler DispatcherScheduler { get; set; }
 
-    /// <summary>
-    /// Initialize the required element for <see cref="StaticMapControl"/>.
-    /// </summary>
-    /// <param name="dispatcherScheduler"><see cref="IDispatcherScheduler"/></param>
-    /// <param name="bingMapKey">The BingMap Key required for UWP</param>
-    public static void Initialize(IDispatcherScheduler dispatcherScheduler, string bingMapKey)
+	/// <summary>
+	/// Initialize the required element for <see cref="StaticMapControl"/>.
+	/// </summary>
+	/// <param name="dispatcherScheduler"><see cref="IDispatcherScheduler"/></param>
+	/// <param name="bingMapKey">The BingMap Key required for UWP</param>
+	/// <param name="useAppleMapProvider">Whether the app uses apple or google as a map provider </param>
+	public static void Initialize(IDispatcherScheduler dispatcherScheduler, string bingMapKey, bool useAppleMapProvider = true)
     {
         DispatcherScheduler = dispatcherScheduler;
 
@@ -24,9 +25,15 @@ public static class StaticMapInitializer
 #elif __ANDROID__
 		StaticMapProvider = new GoogleSdkStaticMapProvider();
 #elif __IOS__
-        StaticMapProvider = new AppleStaticMapProvider(dispatcherScheduler);
+		if (useAppleMapProvider)
+		{
+			StaticMapProvider = new AppleStaticMapProvider(dispatcherScheduler);
+		} else
+		{
+			StaticMapProvider = new GoogleSdkStaticMapProvider();
+		}
 #endif
-    }
+	}
 }
 
 #endif

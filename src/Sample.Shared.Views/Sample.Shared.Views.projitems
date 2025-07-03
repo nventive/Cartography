@@ -27,6 +27,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMap_MoveSearchPage.xaml.cs">
       <DependentUpon>DynamicMap_MoveSearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\GoogleMapControl_FeaturesPage.xaml.cs">
+      <DependentUpon>GoogleMapControl_FeaturesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Content\Cartography\LocationPage.xaml.cs">
       <DependentUpon>LocationPage.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\DynamicMap_MoveSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Content\Cartography\GoogleMapControl_FeaturesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
