@@ -411,9 +411,10 @@ public abstract partial class MapControlBase : Control
     {
         var component = (IDynamicMapComponent)vm;
         var userLocation = vm.GetProperty<LocationResult>(nameof(component.UserLocation)).GetAndObserve();
+        var dispatcherScheduler = GetDispatcherScheduler();
 
         return userLocation
-            .ObserveOn(GetDispatcherScheduler())
+            .ObserveOn(dispatcherScheduler)
             .Do(UpdateMapUserLocation)
             .Subscribe(_ => { }, e => _logger.LogError("SyncUserLocationFrom", e));
     }
@@ -511,7 +512,7 @@ public abstract partial class MapControlBase : Control
         }
         catch (Exception ex)
         {
-            _logger.LogError("Error due to the selection of many view ports. Disposed the previous one.", ex);
+            _logger.LogError(ex, "Error due to the selection of many view ports. Disposed the previous one.");
         }
     }
     #endregion

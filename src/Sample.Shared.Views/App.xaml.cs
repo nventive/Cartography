@@ -39,6 +39,14 @@ public sealed partial class App : Application
 
 	public Window CurrentWindow { get; private set; }
 
+#if __IOS__
+	public override bool FinishedLaunching(UIKit.UIApplication application, Foundation.NSDictionary launchOptions)
+	{
+		Google.Maps.MapServices.ProvideApiKey(""); // TODO Add the key here
+		return base.FinishedLaunching(application, launchOptions);
+	}
+#endif
+
 	protected override void OnLaunched(LaunchActivatedEventArgs args)
 	{
 		InitializeAndStart();

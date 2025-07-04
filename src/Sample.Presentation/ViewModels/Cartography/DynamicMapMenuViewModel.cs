@@ -1,8 +1,5 @@
 ﻿using Chinook.DynamicMvvm;
 using Chinook.SectionsNavigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sample.Presentation
 {
@@ -30,5 +27,10 @@ namespace Sample.Presentation
         {
             await _sectionsNavigator.Navigate(ct, () => new DynamicMap_MoveSearchPageViewModel());
         });
-    }
+
+		public IDynamicCommand GoToNavigateToGoogleMapsControl_FeaturesPage => this.GetCommandFromTask(async ct =>
+		{
+			await _sectionsNavigator.Navigate(ct, () => new GoogleMapsControl_FeaturesPageViewModel());
+		});
+	}
 }

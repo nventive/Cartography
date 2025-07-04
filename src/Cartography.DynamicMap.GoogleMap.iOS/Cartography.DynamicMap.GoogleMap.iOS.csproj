@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net8.0-ios</TargetFrameworks>
+		<LangVersion>13.0</LangVersion>
+
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder. -->
+		<GenerateLibraryLayout>true</GenerateLibraryLayout>
+		<RootNamespace>Cartography.DynamicMap.GoogleMap.iOS</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Cartography.DynamicMap.GoogleMap.iOS</AssemblyName>
+		<PackageId>Cartography.DynamicMap.GoogleMap.iOS</PackageId>
+		<Description>Cartography.DynamicMap.GoogleMap.iOS</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageProjectUrl>https://github.com/nventive/Cartography</PackageProjectUrl>
+
+		<!-- Needed for Source Link support. -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Cartography.DynamicMap\Cartography.DynamicMap.csproj" />
+		<ProjectReference Include="..\Cartography.DynamicMap.Abstractions\Cartography.DynamicMap.Abstractions.csproj" />
+	</ItemGroup>
+</Project>
