@@ -109,11 +109,11 @@
 				<gmc:GoogleMapControl ViewModel="{Binding}"
 									  SelectionMode="Single"
 									  AutolocateButtonVisibility="Collapsed"
-									  dynamicMap:MapControlBehavior.DisableRotation="True"
-									  dynamicMap:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"
+									  gmc:MapControlBehavior.DisableRotation="True"
+									  gmc:MapControlBehavior.PushpinImageSelector="{StaticResource PushpinEntityToMapPin}"
 									  CompassButtonVisibility="Collapsed"
-									  dynamicMap:MapControlBehavior.SelectedIconWidth="24"
-									  dynamicMap:MapControlBehavior.SelectedIconHeight="40" />
+									  gmc:MapControlBehavior.SelectedIconWidth="24"
+									  gmc:MapControlBehavior.SelectedIconHeight="40" />
 			</ios:Grid>
 
 			<!--Reticle-->
