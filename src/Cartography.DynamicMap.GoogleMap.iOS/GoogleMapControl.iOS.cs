@@ -14,16 +14,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using UIKit;
 
-using BasicGeoposition = Cartography.DynamicMap.BasicGeoposition;
-using Geocoordinate = Cartography.DynamicMap.Geocoordinate;
-using Geopoint = Cartography.DynamicMap.Geopoint;
-
 namespace Cartography.DynamicMap.GoogleMap.iOS;
 
 /// <summary>
 /// iOS-only MapControl which uses Google Maps.
 /// </summary>
-public partial class GoogleMapControl : MapControlBase
+public sealed partial class GoogleMapControl : MapControlBase
 {
 	private MapView _internalMapView;
 	private ILogger _logger;
@@ -33,8 +29,9 @@ public partial class GoogleMapControl : MapControlBase
 	private CameraPosition Position => _internalMapView?.Camera;
 	private bool UseIcons => _icon != null;
 
-	private static readonly nfloat DefaultPushpinsBoundsPadding = 30;
-
+	/// <summary>
+	/// Initializes a new instance of <see cref="GoogleMapControl"/>.
+	/// </summary>
 	public GoogleMapControl() : base()
 	{
 		Initialize();
@@ -44,9 +41,6 @@ public partial class GoogleMapControl : MapControlBase
 	{
 		_logger = this.Log();
 
-		Loaded += (sender, args) => OnLoaded();
-		Unloaded += (sender, args) => OnUnloaded();
-
 		_internalMapView = new MapView();
 		AddDragGestureRecognizer(_internalMapView);
 		_pushpinsLayer = new GoogleMapLayer(_internalMapView);
@@ -54,22 +48,8 @@ public partial class GoogleMapControl : MapControlBase
 
 		Template = new ControlTemplate(() => _internalMapView);//TODO use templates
 
-		// Set so that the pins are not too close to the edges.
-		_pushpinsLayer = new GoogleMapLayer(_internalMapView);
-
 		_internalMapView.TappedMarker = TappedMarker;
 		_internalMapView.CoordinateTapped += OnMapViewCoordinateTapped;
-	}
-
-	private bool _isLoaded;
-	private void OnLoaded()
-	{
-		_isLoaded = true;
-	}
-
-	private void OnUnloaded()
-	{
-		_isLoaded = false;
 	}
 
 	/// <summary>
@@ -83,11 +63,13 @@ public partial class GoogleMapControl : MapControlBase
 	/// </remarks>
 	public Action<GooglePushpin, Marker> MarkerUpdater { get; set; }
 
+	/// <inheritdoc />
 	protected override DynamicMap.Geopoint GetCenter()
 	{
 		return new DynamicMap.Geopoint(new DynamicMap.BasicGeoposition(Position.Target.Latitude, Position.Target.Longitude));
 	}
 
+	/// <inheritdoc />
 	protected override MapViewPortCoordinates GetViewPortCoordinates()
 	{
 		var visibleRegion = _internalMapView.Projection.VisibleRegion;
@@ -120,6 +102,7 @@ public partial class GoogleMapControl : MapControlBase
 		);
 	}
 
+	/// <inheritdoc />
 	protected override IEnumerable<IObservable<Unit>> GetViewPortChangedTriggers()
 	{
 		yield return Observable
@@ -130,21 +113,24 @@ public partial class GoogleMapControl : MapControlBase
 			.Select(_ => Unit.Default);
 	}
 
+	/// <inheritdoc />
 	protected override ZoomLevel GetZoomLevel()
 	{
 		return (ZoomLevel)Position.Zoom;
 	}
 
+	/// <inheritdoc />
 	protected override bool GetInitializationStatus()
 	{
 		return _isViewPortInitialized;
 	}
 
+	/// <inheritdoc />
 	protected override async Task SetViewPort(CancellationToken ct, MapViewPort viewPort)
 	{
 		var dispatcherScheduler = GetDispatcherScheduler();
 
-		//https://developers.google.com/maps/documentation/ios-sdk/views
+		// Await first idle event after our camera update (used for animated path)
 		var animating = ObserveCameraPositionIdle()
 			.ObserveOn(dispatcherScheduler)
 			.FirstAsync(ct);
@@ -152,29 +138,23 @@ public partial class GoogleMapControl : MapControlBase
 		CameraUpdate update;
 		if (viewPort.PointsOfInterest?.Any() ?? false)
 		{
-			//Rubber-band bounds to PointsOfInterest
-
 			var bounds = viewPort
 				.PointsOfInterest
 				.Aggregate(new CoordinateBounds(), (currentBounds, coord) =>
 				{
 					var cllCoordinate = new CLLocationCoordinate2D(coord.Position.Latitude, coord.Position.Longitude);
-
 					return currentBounds.Including(cllCoordinate);
 				});
 
-			if (viewPort.Center != default(DynamicMap.Geopoint))
+			if (viewPort.Center != default(Geopoint))
 			{
-				//Stretch bounds to center around Center
-				var latDiff = Math.Max(Math.Abs(bounds.NorthEast.Latitude - viewPort.Center.Position.Latitude), Math.Abs(viewPort.Center.Position.Latitude - bounds.SouthWest.Latitude));
-				var lonDiff = Math.Max(Math.Abs(bounds.NorthEast.Longitude - viewPort.Center.Position.Longitude), Math.Abs(viewPort.Center.Position.Longitude - bounds.SouthWest.Longitude));
-
-				var northEast = new CLLocationCoordinate2D(viewPort.Center.Position.Latitude - latDiff, viewPort.Center.Position.Longitude - lonDiff);
-				var southwest = new CLLocationCoordinate2D(viewPort.Center.Position.Latitude + latDiff, viewPort.Center.Position.Longitude + lonDiff);
-				bounds = new CoordinateBounds(northEast, southwest);
+				var viewPostBounds = viewPort.GetBounds();
+				var northEastCorner = new CLLocationCoordinate2D(viewPostBounds.EastFrontier, viewPostBounds.NorthFrontier);
+				var southWestCorner = new CLLocationCoordinate2D(viewPostBounds.WestFrontier, viewPostBounds.SouthFrontier);
+				bounds = new CoordinateBounds(southWestCorner, northEastCorner);
 			}
-			var padding = viewPort.PointsOfInterestPadding.HorizontalPadding ?? DefaultPushpinsBoundsPadding;
-			update = CameraUpdate.FitBounds(bounds, (nfloat)padding);
+
+			update = CameraUpdate.FitBounds(bounds);
 		}
 		else if (viewPort.ZoomLevel.HasValue)
 		{
@@ -186,7 +166,6 @@ public partial class GoogleMapControl : MapControlBase
 			var target = new CLLocationCoordinate2D(viewPort.Center.Position.Latitude, viewPort.Center.Position.Longitude);
 			update = CameraUpdate.SetTarget(target);
 		}
-		//TODO: pitch, heading
 
 		if (!viewPort.IsAnimationDisabled)
 		{
@@ -201,6 +180,7 @@ public partial class GoogleMapControl : MapControlBase
 		_isViewPortInitialized = true;
 	}
 
+	/// <inheritdoc />
 	protected override void UpdateIcon(object icon)
 	{
 		if (_icon != null)
@@ -216,16 +196,19 @@ public partial class GoogleMapControl : MapControlBase
 		UpdateIcon(ref _icon, icon);
 	}
 
+	/// <inheritdoc />
 	protected override void UpdateCompassButtonVisibilityInner(Visibility visibility)
 	{
 		_internalMapView.Settings.CompassButton = visibility == Visibility.Visible;
 	}
 
+	/// <inheritdoc />
 	protected override void UpdateIsRotateGestureEnabledInner(bool isRotateGestureEnabled)
 	{
 		_internalMapView.Settings.RotateGestures = isRotateGestureEnabled;
 	}
 
+	/// <inheritdoc />
 	protected override void UpdateMapPushpins(IGeoLocated[] items, IGeoLocated[] selectedItems)
 	{
 		_pushpinsLayer.Update(items,
@@ -248,16 +231,19 @@ public partial class GoogleMapControl : MapControlBase
 		MarkerUpdater?.Invoke(pushpin, marker);
 	}
 
+	/// <inheritdoc />
 	protected override void UpdateMapSelectedPushpins(IGeoLocated[] items)
 	{
 		_pushpinsLayer.UpdateSelection(items);
 	}
 
+	/// <inheritdoc />
 	protected override void UpdateMapUserLocation(LocationResult locationResult)
 	{
 		_internalMapView.MyLocationEnabled = locationResult.IsSuccessful;
 	}
 
+	/// <inheritdoc />
 	protected override void UpdateSelectedIcon(object icon)
 	{
 		if (_selectedIcon != null)
