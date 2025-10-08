@@ -64,3 +64,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - The Google Maps icons are now correctly displayed on iOS.
+
+## [0.6.2]
+
+### Fixed
+
+- The Google Maps bounds calculation from points of interest with padding.
