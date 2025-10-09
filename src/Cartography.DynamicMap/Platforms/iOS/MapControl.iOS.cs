@@ -73,7 +73,7 @@ partial class MapControl
 		Template = new ControlTemplate(() => _internalMapView);//TODO use templates
 
 		// Set so that the pins are not too close to the edges.
-		AutoZoomModifyer = 1.15f;
+		AutoZoomModifyer = ZOOM_LEVEL_COEFFICIENT;
 
 		_internalMapView.GetViewForAnnotation = OnGetViewForAnnotation;
 		_internalMapView.DidDeselectAnnotationView += MapControl_DidDeselectAnnotationView;

@@ -1,6 +1,6 @@
 ﻿namespace Cartography.DynamicMap;
 
-public class Geopoint
+public sealed class Geopoint
 {
 	public Geopoint(BasicGeoposition position)
 	{
@@ -22,4 +22,10 @@ public class Geopoint
 	/// The type of geographic shape. (Point, Circle, Path, Box)
 	/// </summary>
 	public GeoshapeType GeoshapeType { get; set; }
+
+	/// <inheritdoc/>
+	public override string ToString()
+	{
+		return $"[Geopoint] Position: {Position}, Type: {GeoshapeType}";
+	}
 }

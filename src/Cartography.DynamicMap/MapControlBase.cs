@@ -47,7 +47,7 @@ public abstract partial class MapControlBase : Control
     private const string _errorStateName = "Error";
     private ILogger<MapControlBase> _logger;
 
-    #region ViewModel (dp)
+	#region ViewModel (dp)
     /// <summary>
     /// Identifies the <see cref="ViewModel"/> dependency property.
     /// </summary>
@@ -67,9 +67,9 @@ public abstract partial class MapControlBase : Control
         get { return (ViewModelBase)this.GetValue(ViewModelProperty); }
         set { this.SetValue(ViewModelProperty, value); }
     }
-    #endregion
+	#endregion
 
-    #region SelectionMode (dp)
+	#region SelectionMode (dp)
     /// <summary>
     /// Identifies the <see cref="SelectionMode"/> dependency property.
     /// </summary>
@@ -84,9 +84,9 @@ public abstract partial class MapControlBase : Control
         get { return (MapSelectionMode)this.GetValue(SelectionModeProperty); }
         set { this.SetValue(SelectionModeProperty, value); }
     }
-    #endregion
+	#endregion
 
-    #region EnableZoomAnimations (dp)
+	#region EnableZoomAnimations (dp)
     /// <summary>
     /// Identifies the <see cref="EnableAppleZoomAnimations"/> dependency property.
     /// </summary>
@@ -100,9 +100,9 @@ public abstract partial class MapControlBase : Control
         get { return (bool)this.GetValue(EnableAppleZoomAnimationsProperty); }
         set { this.SetValue(EnableAppleZoomAnimationsProperty, value); }
     }
-    #endregion
+	#endregion
 
-    #region AutolocateButtonVisibility (dp)
+	#region AutolocateButtonVisibility (dp)
     public Visibility AutolocateButtonVisibility
     {
         get { return (Visibility)GetValue(AutolocateButtonVisibilityProperty); }
@@ -122,9 +122,9 @@ public abstract partial class MapControlBase : Control
     }
 
     partial void UpdateAutolocateButtonVisibility(Visibility visibility);
-    #endregion
+	#endregion
 
-    #region CompassButtonVisibility (dp)
+	#region CompassButtonVisibility (dp)
     public Visibility CompassButtonVisibility
     {
         get { return (Visibility)GetValue(CompassButtonVisibilityProperty); }
@@ -144,9 +144,9 @@ public abstract partial class MapControlBase : Control
     }
 
     partial void UpdateCompassButtonVisibility(Visibility visibility);
-    #endregion
+	#endregion
 
-    #region MapStyleJson (dp)
+	#region MapStyleJson (dp)
     public string MapStyleJson
     {
         get { return (string)GetValue(MapStyleJsonProperty); }
@@ -165,9 +165,9 @@ public abstract partial class MapControlBase : Control
     }
 
     partial void UpdateMapStyleJson(string mapStyleJson);
-    #endregion
+	#endregion
 
-    #region IsRotateGestureEnabled (dp)
+	#region IsRotateGestureEnabled (dp)
     public bool IsRotateGestureEnabled
     {
         get { return (bool)GetValue(IsRotateGestureEnabledProperty); }
@@ -183,10 +183,10 @@ public abstract partial class MapControlBase : Control
     }
 
     partial void UpdateIsRotateGestureEnabled(bool isRotateGestureEnabled);
-    #endregion
+	#endregion
 
 #if WINDOWS
-    #region PushpinItemTemplate (dp)
+	#region PushpinItemTemplate (dp)
 	/// <summary>
 	/// Identifies the <see cref="PushpinItemTemplate"/> dependency property.
 	/// </summary>
@@ -201,10 +201,10 @@ public abstract partial class MapControlBase : Control
 		get { return (DataTemplate)this.GetValue(PushpinItemTemplateProperty); }
 		set { this.SetValue(PushpinItemTemplateProperty, value); }
 	}
-    #endregion
+	#endregion
 #endif
 
-    #region PushpinIcon (dp)
+	#region PushpinIcon (dp)
     public static readonly DependencyProperty PushpinIconProperty = DependencyProperty.Register(
         "PushpinIcon", typeof(object), typeof(MapControlBase), new PropertyMetadata(default(object), OnPushpinItemIconChanged));
 
@@ -218,9 +218,9 @@ public abstract partial class MapControlBase : Control
         get { return this.GetValue(PushpinIconProperty); }
         set { this.SetValue(PushpinIconProperty, value); }
     }
-    #endregion
+	#endregion
 
-    #region SelectedPushpinIcon (dp)
+	#region SelectedPushpinIcon (dp)
     public static readonly DependencyProperty SelectedPushpinIconProperty = DependencyProperty.Register(
         "SelectedPushpinIcon", typeof(object), typeof(MapControlBase), new PropertyMetadata(default(object), OnSelectedPushpinItemIconChanged));
 
@@ -234,9 +234,9 @@ public abstract partial class MapControlBase : Control
         get { return this.GetValue(SelectedPushpinIconProperty); }
         set { this.SetValue(SelectedPushpinIconProperty, value); }
     }
-    #endregion
+	#endregion
 
-    #region PushpinIconsPositionOrigin (dp)
+	#region PushpinIconsPositionOrigin (dp)
     public static readonly DependencyProperty PushpinsIconsPositionOriginProperty = DependencyProperty.Register(
         "PushpinIconsPositionOrigin", typeof(Point), typeof(MapControlBase), new PropertyMetadata(new Point(0, 0)));
 
@@ -245,7 +245,7 @@ public abstract partial class MapControlBase : Control
         get { return (Point)this.GetValue(PushpinsIconsPositionOriginProperty); }
         set { this.SetValue(PushpinsIconsPositionOriginProperty, value); }
     }
-    #endregion
+	#endregion
 
     private readonly SerialDisposable _configuredSourceSubscriptions = new SerialDisposable();
     private ViewModelBase _configuredViewModel;
@@ -366,7 +366,7 @@ public abstract partial class MapControlBase : Control
         }
     }
 
-    #region Visual states
+	#region Visual states
     private string _visualState = _initializingStateName;
     private MapException _lastError;
 
@@ -404,9 +404,9 @@ public abstract partial class MapControlBase : Control
 #endif
     }
 
-    #endregion
+	#endregion
 
-    #region UserLocation
+	#region UserLocation
     private IDisposable SyncUserLocationFrom(ViewModelBase vm)
     {
         var component = (IDynamicMapComponent)vm;
@@ -418,10 +418,9 @@ public abstract partial class MapControlBase : Control
             .Do(UpdateMapUserLocation)
             .Subscribe(_ => { }, e => _logger.LogError("SyncUserLocationFrom", e));
     }
-    #endregion
+	#endregion
 
-    #region ViewPort & ViewPortCoordinates
-    private bool _isViewPortInitialized;
+	#region ViewPort & ViewPortCoordinates
     private bool _isAnimating;
 
     protected bool IsAnimating => _isAnimating;
@@ -429,24 +428,32 @@ public abstract partial class MapControlBase : Control
     private IDisposable SyncViewPortTo(ViewModelBase vm)
     {
         var component = (IDynamicMapComponent)vm;
-        //// Do not publish viewPort to VM until it provides it initial position
-        var aViewPortWasProvidedBySource = vm.GetProperty<MapViewPort>(nameof(component.ViewPort)).GetAndObserve()
-                .Do(_ => _isViewPortInitialized = true)
-                .Take(1);
 
-        // View to ViewModel
+        // Do not publish viewPort to VM until it provides it initial position.
+        var aViewPortWasProvidedBySource = vm.GetProperty<MapViewPort>(nameof(component.ViewPort)).GetAndObserve()
+            .Do(_ =>
+            {
+                _logger.LogDebug("MapControl: The initial view port {ViewPort} was provided by the source.", component.ViewPort);
+		    })
+            .Take(1);
+
+        // View to ViewModel.
         return GetViewPortChangedTriggers()
             .Merge()
-            .SkipWhile(_ => !GetInitializationStatus())
+			.SkipWhile(_ => !GetInitializationStatus())
             .SkipUntil(aViewPortWasProvidedBySource?.Do(_ => GoToReadyState()))
-            .MinDelaySample(component.ViewPortUpdateMinDelay, GetBackgroundScheduler()) // Limit the number of Refresh. When not throttle we try to update a dispose object
+            .MinDelaySample(component.ViewPortUpdateMinDelay, GetBackgroundScheduler()) // Reduce high-frequency native map viewport change events to: 
+                                                                                        // 1) Avoid flooding the ViewModel & logs
+                                                                                        // 2) Minimize work on soon-to-be-disposed / outdated animation state
+                                                                                        // 3) Keep interaction responsive with periodic "latest" snapshots during continuous gestures
+                                                                                        // MinDelaySample = custom hybrid (throttle + sample): enforces a minimum delay between emissions while still
+                                                                                        // emitting the most recent value at each interval (instead of waiting for total silence like Throttle).
             .ObserveOn(GetDispatcherScheduler())
             .Scan(
-                GetViewPort(),
-                (previous, _) =>
-                    GetEffectiveViewPort(previous, GetViewPort(), component.ViewPortUpdateFilter))
-            .Select(vp =>
-                (ViewPort: vp, Coordinates: GetViewPortCoordinates()))
+                seed: GetViewPort(),
+                accumulator: (previous, _) => GetEffectiveViewPort(previous, GetViewPort(), component.ViewPortUpdateFilter)
+            )
+            .Select(vp => (ViewPort: vp, Coordinates: GetViewPortCoordinates()))
             .ObserveOn(GetBackgroundScheduler())
             .Do(l =>
             {
@@ -515,9 +522,9 @@ public abstract partial class MapControlBase : Control
             _logger.LogError(ex, "Error due to the selection of many view ports. Disposed the previous one.");
         }
     }
-    #endregion
+	#endregion
 
-    #region Pushpins
+	#region Pushpins
     private IDisposable SyncPushpinsFrom(ViewModelBase vm)
     {
         return Observable
@@ -550,9 +557,9 @@ public abstract partial class MapControlBase : Control
             )
             .Subscribe(_ => { }, e => _logger.LogError("Items sync failed", e));
     }
-    #endregion
+	#endregion
 
-    #region SelectedPushpins
+	#region SelectedPushpins
     private readonly Subject<IGeoLocated[]> _selectedPushpins = new Subject<IGeoLocated[]>();
 
     private IDisposable SyncSelectedPushpinsTo(ViewModelBase vm)
@@ -592,9 +599,9 @@ public abstract partial class MapControlBase : Control
         return result.ToArray();
     }
 
-    #endregion
+	#endregion
 
-    #region IsUserDragging
+	#region IsUserDragging
     private readonly Subject<bool> _isUserDragging = new Subject<bool>();
 
     private IDisposable SyncIsUserDragging(ViewModelBase vm)
@@ -605,7 +612,7 @@ public abstract partial class MapControlBase : Control
             .ObserveOn(GetBackgroundScheduler())
             .Subscribe(isDragging => component.IsUserDragging = isDragging, e => _logger.LogError("SyncIsUserDragging", e));
     }
-    #endregion
+	#endregion
 
     protected virtual void SetAnimationDuration(double? animationDurationSeconds)
     {

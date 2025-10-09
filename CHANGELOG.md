@@ -70,3 +70,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - The Google Maps bounds calculation from points of interest with padding.
+
+## [0.6.3]
+
+### Fixed
+
+- Fixed the Google Maps initial view port race condition (View model vs Control initial value).

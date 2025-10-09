@@ -138,6 +138,7 @@ public class MapViewPort
 			&& Pitch.GetValueOrDefault(double.NaN).Equals(other.Pitch.GetValueOrDefault(double.NaN));
 	}
 
+	/// <inheritdoc/>
 	public override string ToString()
 	{
 		return "[MapViewPort] Center: {0}, Zoom: {1}, POIs: {2}".InvariantCultureFormat(
