@@ -36,4 +36,10 @@ public sealed class BasicGeoposition
     /// The altitude of the geographic position in meters.
     /// </summary>
     public double Altitude { get; set; }
+
+	/// <inheritdoc/>
+	public override string ToString()
+    {
+        return $"[BasicGeoposition] Lat: {Latitude}, Lon: {Longitude}, Alt: {Altitude}";
+	}
 }
