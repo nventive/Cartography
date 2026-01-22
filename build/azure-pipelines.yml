@@ -15,7 +15,7 @@ variables:
 - name: IsReleaseBranch # Should this branch name use the release stage
   value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 - name: windowsHostedAgentImage
-  value: 'windows-2022'
+  value: 'windows-2025'
 
 stages:
 - stage: Build

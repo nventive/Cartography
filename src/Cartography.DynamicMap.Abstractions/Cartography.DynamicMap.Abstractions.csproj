@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<LangVersion>13.0</LangVersion>
+		<LangVersion>14.0</LangVersion>
 
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder. -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
@@ -24,11 +24,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GeolocatorService.Abstractions" Version="2.0.0" />
+		<PackageReference Include="GeolocatorService.Abstractions" Version="3.0.3" />
 		<PackageReference Include="Uno.Core" Version="4.1.1" />
-		<PackageReference Include="Reactive.Annex" Version="2.0.0" />
+		<PackageReference Include="Reactive.Annex" Version="3.0.0" />
 
 		<!-- Needed for Source Link support. -->
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102" PrivateAssets="All" />
 	</ItemGroup>
 </Project>
