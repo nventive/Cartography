@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Reactive.Concurrency;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +6,6 @@ using Chinook.DynamicMvvm;
 using Chinook.SectionsNavigation;
 using Chinook.StackNavigation;
 using Microsoft.Extensions.DependencyInjection;
-using Uno;
 
 namespace Sample.Presentation;
 
@@ -18,11 +15,6 @@ namespace Sample.Presentation;
 public class ViewModel : ViewModelBase, INavigableViewModel
 {
 	// Add properties or commands you want to have on all your ViewModels
-
-	public ViewModel()
-	{
-		(this as IInjectable)?.Inject((t, n) => this.GetService(t));
-	}
 
 	public IDynamicCommand NavigateBack => this.GetCommandFromTask(async ct =>
 	{

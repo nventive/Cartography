@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Chinook.DynamicMvvm;
-using Chinook.DynamicMvvm.Deactivation;
-using Uno;
+﻿using Chinook.DynamicMvvm.Deactivation;
 
 namespace Sample.Presentation;
 
@@ -13,11 +8,6 @@ namespace Sample.Presentation;
 /// </summary>
 public abstract class TabViewModel : DeactivatableViewModelBase
 {
-	protected TabViewModel()
-	{
-		(this as IInjectable)?.Inject((t, n) => this.GetService(t));
-	}
-
 	/// <summary>
 	/// Gets the title of this Tab.
 	/// This is to be displayed in a TabBar.

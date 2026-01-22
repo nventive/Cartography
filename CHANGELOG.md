@@ -76,3 +76,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Fixed the Google Maps initial view port race condition (View model vs Control initial value).
+
+## [0.7.0]
+
+### Added
+
+- Support for .NET 10.
+- Support for Uno 6.
